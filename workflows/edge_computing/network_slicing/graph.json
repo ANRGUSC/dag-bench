@@ -1,0 +1,283 @@
+{
+  "name": "telecom.network_slicing",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "VNF_Deploy_2",
+        "cost": 8.0
+      },
+      {
+        "name": "Monitor_Setup",
+        "cost": 3.0
+      },
+      {
+        "name": "SFC_Chain",
+        "cost": 5.0
+      },
+      {
+        "name": "VNF_Deploy_1",
+        "cost": 8.0
+      },
+      {
+        "name": "SliceRequest",
+        "cost": 2.0
+      },
+      {
+        "name": "Admission",
+        "cost": 4.0
+      },
+      {
+        "name": "Activate",
+        "cost": 2.0
+      },
+      {
+        "name": "VNF_Deploy_3",
+        "cost": 8.0
+      },
+      {
+        "name": "QoS_Config",
+        "cost": 4.0
+      },
+      {
+        "name": "ResourceCheck",
+        "cost": 3.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "Monitor_Setup",
+        "target": "Activate",
+        "size": 1.0
+      },
+      {
+        "source": "VNF_Deploy_3",
+        "target": "SFC_Chain",
+        "size": 2.0
+      },
+      {
+        "source": "Admission",
+        "target": "VNF_Deploy_1",
+        "size": 2.0
+      },
+      {
+        "source": "VNF_Deploy_2",
+        "target": "SFC_Chain",
+        "size": 2.0
+      },
+      {
+        "source": "Admission",
+        "target": "VNF_Deploy_2",
+        "size": 2.0
+      },
+      {
+        "source": "QoS_Config",
+        "target": "Activate",
+        "size": 1.0
+      },
+      {
+        "source": "SliceRequest",
+        "target": "ResourceCheck",
+        "size": 1.0
+      },
+      {
+        "source": "SFC_Chain",
+        "target": "QoS_Config",
+        "size": 1.0
+      },
+      {
+        "source": "Admission",
+        "target": "VNF_Deploy_3",
+        "size": 2.0
+      },
+      {
+        "source": "SFC_Chain",
+        "target": "Monitor_Setup",
+        "size": 1.0
+      },
+      {
+        "source": "ResourceCheck",
+        "target": "Admission",
+        "size": 1.0
+      },
+      {
+        "source": "VNF_Deploy_1",
+        "target": "SFC_Chain",
+        "size": 2.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "E2",
+        "speed": 2.0
+      },
+      {
+        "name": "Hub",
+        "speed": 10.0
+      },
+      {
+        "name": "E5",
+        "speed": 2.0
+      },
+      {
+        "name": "E3",
+        "speed": 2.0
+      },
+      {
+        "name": "E0",
+        "speed": 2.0
+      },
+      {
+        "name": "E4",
+        "speed": 2.0
+      },
+      {
+        "name": "E1",
+        "speed": 2.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "E3",
+        "target": "E3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "E3",
+        "speed": 100.0
+      },
+      {
+        "source": "E3",
+        "target": "Hub",
+        "speed": 5000.0
+      },
+      {
+        "source": "E2",
+        "target": "Hub",
+        "speed": 5000.0
+      },
+      {
+        "source": "E0",
+        "target": "E5",
+        "speed": 100.0
+      },
+      {
+        "source": "E2",
+        "target": "E2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E5",
+        "target": "E5",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E0",
+        "target": "E3",
+        "speed": 100.0
+      },
+      {
+        "source": "E0",
+        "target": "Hub",
+        "speed": 5000.0
+      },
+      {
+        "source": "E5",
+        "target": "Hub",
+        "speed": 5000.0
+      },
+      {
+        "source": "E0",
+        "target": "E2",
+        "speed": 100.0
+      },
+      {
+        "source": "E1",
+        "target": "E5",
+        "speed": 100.0
+      },
+      {
+        "source": "E3",
+        "target": "E4",
+        "speed": 100.0
+      },
+      {
+        "source": "E1",
+        "target": "E3",
+        "speed": 100.0
+      },
+      {
+        "source": "E1",
+        "target": "Hub",
+        "speed": 5000.0
+      },
+      {
+        "source": "E2",
+        "target": "E4",
+        "speed": 100.0
+      },
+      {
+        "source": "E1",
+        "target": "E2",
+        "speed": 100.0
+      },
+      {
+        "source": "Hub",
+        "target": "Hub",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E0",
+        "target": "E1",
+        "speed": 100.0
+      },
+      {
+        "source": "E0",
+        "target": "E4",
+        "speed": 100.0
+      },
+      {
+        "source": "E4",
+        "target": "E5",
+        "speed": 100.0
+      },
+      {
+        "source": "E1",
+        "target": "E1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E1",
+        "target": "E4",
+        "speed": 100.0
+      },
+      {
+        "source": "E4",
+        "target": "Hub",
+        "speed": 5000.0
+      },
+      {
+        "source": "E0",
+        "target": "E0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "E5",
+        "speed": 100.0
+      },
+      {
+        "source": "E2",
+        "target": "E5",
+        "speed": 100.0
+      },
+      {
+        "source": "E4",
+        "target": "E4",
+        "speed": 1000000000.0
+      }
+    ]
+  }
+}

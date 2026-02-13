@@ -1,0 +1,42 @@
+id: classic.gauss_elim_10
+name: Gaussian Elimination (n=10)
+description: Gaussian elimination for a 10x10 matrix. Large classic benchmark for
+  heterogeneous scheduling.
+domains:
+- classic-benchmark
+provenance:
+  source: Classic scheduling benchmark
+  paper_title: Performance-effective and low-complexity task scheduling for heterogeneous
+    computing
+  authors:
+  - Haluk Topcuoglu
+  - Salim Hariri
+  - Min-You Wu
+  year: 2002
+  extraction_method: programmatic
+  extractor: dagbench-import-script
+  extraction_date: '2026-02-12'
+  paper_doi: 10.1109/71.993206
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+  notes: Classic benchmark structure; costs are representative
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 55
+  num_edges: 135
+  depth: 19
+  width: 9
+  ccr: 1.2587
+  parallelism: 2.8947
+campaign: campaign_002_classic_and_manual
+tags:
+- gaussian-elimination
+- linear-algebra
+- large

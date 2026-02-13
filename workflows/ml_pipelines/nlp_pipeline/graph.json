@@ -1,0 +1,172 @@
+{
+  "name": "ml.nlp_pipeline",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "NER",
+        "cost": 8.0
+      },
+      {
+        "name": "POS_Tag",
+        "cost": 5.0
+      },
+      {
+        "name": "SentenceSplit",
+        "cost": 2.0
+      },
+      {
+        "name": "Report",
+        "cost": 3.0
+      },
+      {
+        "name": "TextInput",
+        "cost": 1.0
+      },
+      {
+        "name": "Summary",
+        "cost": 15.0
+      },
+      {
+        "name": "Sentiment",
+        "cost": 10.0
+      },
+      {
+        "name": "Tokenize",
+        "cost": 3.0
+      },
+      {
+        "name": "EntityLink",
+        "cost": 6.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "TextInput",
+        "target": "Tokenize",
+        "size": 2.0
+      },
+      {
+        "source": "EntityLink",
+        "target": "Report",
+        "size": 1.0
+      },
+      {
+        "source": "Tokenize",
+        "target": "NER",
+        "size": 3.0
+      },
+      {
+        "source": "TextInput",
+        "target": "SentenceSplit",
+        "size": 2.0
+      },
+      {
+        "source": "Sentiment",
+        "target": "Report",
+        "size": 1.0
+      },
+      {
+        "source": "NER",
+        "target": "EntityLink",
+        "size": 2.0
+      },
+      {
+        "source": "Summary",
+        "target": "Report",
+        "size": 1.0
+      },
+      {
+        "source": "Tokenize",
+        "target": "Sentiment",
+        "size": 3.0
+      },
+      {
+        "source": "SentenceSplit",
+        "target": "Summary",
+        "size": 3.0
+      },
+      {
+        "source": "POS_Tag",
+        "target": "EntityLink",
+        "size": 2.0
+      },
+      {
+        "source": "Tokenize",
+        "target": "POS_Tag",
+        "size": 3.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N0",
+        "speed": 2.0
+      },
+      {
+        "name": "N3",
+        "speed": 2.0
+      },
+      {
+        "name": "N2",
+        "speed": 2.0
+      },
+      {
+        "name": "N1",
+        "speed": 2.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N3",
+        "target": "N3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N3",
+        "speed": 500.0
+      }
+    ]
+  }
+}

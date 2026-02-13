@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Grid Energy Management - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Smart Grid Energy Management</h1>
+    <div class="meta">
+        <strong>ID:</strong> iot.smart_grid &nbsp;|&nbsp;
+        <strong>Domains:</strong> iot, cyber-physical, edge-computing &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Smart grid energy optimization. 4 forecasts → optimize → (battery, dispatch, pricing → demand response) → monitor.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    PriceSignal["PriceSignal<br/>cost: 6.0"]
+    SolarForecast["SolarForecast<br/>cost: 10.0"]
+    DemandForecast["DemandForecast<br/>cost: 12.0"]
+    WindForecast["WindForecast<br/>cost: 10.0"]
+    EnergyOptimize["EnergyOptimize<br/>cost: 20.0"]
+    BatterySchedule["BatterySchedule<br/>cost: 8.0"]
+    DemandResponse["DemandResponse<br/>cost: 10.0"]
+    Monitor["Monitor<br/>cost: 3.0"]
+    GridState["GridState<br/>cost: 5.0"]
+    GridDispatch["GridDispatch<br/>cost: 8.0"]
+    WindForecast -->|"5"| EnergyOptimize
+    DemandForecast -->|"5"| EnergyOptimize
+    GridState -->|"5"| EnergyOptimize
+    EnergyOptimize -->|"3"| GridDispatch
+    EnergyOptimize -->|"3"| PriceSignal
+    SolarForecast -->|"5"| EnergyOptimize
+    EnergyOptimize -->|"3"| BatterySchedule
+    PriceSignal -->|"2"| DemandResponse
+    BatterySchedule -->|"1"| Monitor
+    GridDispatch -->|"1"| Monitor
+    DemandResponse -->|"1"| Monitor
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (10)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>PriceSignal</td><td>6.00</td><td>Processing step in iot pipeline</td></tr><tr><td>SolarForecast</td><td>10.00</td><td>Processing step in iot pipeline</td></tr><tr><td>DemandForecast</td><td>12.00</td><td>Processing step in iot pipeline</td></tr><tr><td>WindForecast</td><td>10.00</td><td>Processing step in iot pipeline</td></tr><tr><td>EnergyOptimize</td><td>20.00</td><td>Processing step in iot pipeline</td></tr><tr><td>BatterySchedule</td><td>8.00</td><td>Task scheduling / planning</td></tr><tr><td>DemandResponse</td><td>10.00</td><td>Processing step in iot pipeline</td></tr><tr><td>Monitor</td><td>3.00</td><td>Processing step in iot pipeline</td></tr><tr><td>GridState</td><td>5.00</td><td>Processing step in iot pipeline</td></tr><tr><td>GridDispatch</td><td>8.00</td><td>Processing step in iot pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>10</td></tr><tr><td>Edges</td><td>11</td></tr><tr><td>Depth</td><td>5</td></tr><tr><td>Width</td><td>4</td></tr><tr><td>CCR</td><td>0.3696</td></tr><tr><td>Parallelism</td><td>2.0000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, inspired by IoT sensor network workflow patterns<br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Structure was AI-generated to represent a typical IoT sensor network pattern. Not extracted from any specific source.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fog-three-tier<br>
+<strong>Nodes:</strong> 8
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">smart-grid</span><span class="badge">energy</span><span class="badge">optimization</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; iot.smart_grid
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

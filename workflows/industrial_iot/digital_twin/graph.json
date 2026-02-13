@@ -1,0 +1,349 @@
+{
+  "name": "iiot.digital_twin",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "EdgePreprocess",
+        "cost": 4.0
+      },
+      {
+        "name": "Sensor0",
+        "cost": 1.0
+      },
+      {
+        "name": "Sensor2",
+        "cost": 1.0
+      },
+      {
+        "name": "Sensor3",
+        "cost": 1.0
+      },
+      {
+        "name": "CloudSync",
+        "cost": 5.0
+      },
+      {
+        "name": "Sensor1",
+        "cost": 1.0
+      },
+      {
+        "name": "EdgeTwin",
+        "cost": 8.0
+      },
+      {
+        "name": "Dashboard",
+        "cost": 3.0
+      },
+      {
+        "name": "PredictMaint",
+        "cost": 7.0
+      },
+      {
+        "name": "SimulateWhat",
+        "cost": 6.0
+      },
+      {
+        "name": "Sensor4",
+        "cost": 1.0
+      },
+      {
+        "name": "CloudTwin",
+        "cost": 10.0
+      },
+      {
+        "name": "OptimizeProcess",
+        "cost": 8.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "Sensor2",
+        "target": "EdgePreprocess",
+        "size": 1.0
+      },
+      {
+        "source": "CloudTwin",
+        "target": "PredictMaint",
+        "size": 3.0
+      },
+      {
+        "source": "Sensor0",
+        "target": "EdgePreprocess",
+        "size": 1.0
+      },
+      {
+        "source": "CloudTwin",
+        "target": "SimulateWhat",
+        "size": 3.0
+      },
+      {
+        "source": "EdgePreprocess",
+        "target": "EdgeTwin",
+        "size": 3.0
+      },
+      {
+        "source": "Sensor3",
+        "target": "EdgePreprocess",
+        "size": 1.0
+      },
+      {
+        "source": "OptimizeProcess",
+        "target": "Dashboard",
+        "size": 2.0
+      },
+      {
+        "source": "Sensor4",
+        "target": "EdgePreprocess",
+        "size": 1.0
+      },
+      {
+        "source": "Sensor1",
+        "target": "EdgePreprocess",
+        "size": 1.0
+      },
+      {
+        "source": "CloudTwin",
+        "target": "OptimizeProcess",
+        "size": 3.0
+      },
+      {
+        "source": "PredictMaint",
+        "target": "Dashboard",
+        "size": 2.0
+      },
+      {
+        "source": "EdgeTwin",
+        "target": "CloudSync",
+        "size": 3.0
+      },
+      {
+        "source": "CloudSync",
+        "target": "CloudTwin",
+        "size": 3.0
+      },
+      {
+        "source": "SimulateWhat",
+        "target": "Dashboard",
+        "size": 2.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "E2",
+        "speed": 1.0
+      },
+      {
+        "name": "F0",
+        "speed": 8.0
+      },
+      {
+        "name": "C0",
+        "speed": 50.0
+      },
+      {
+        "name": "E3",
+        "speed": 1.0
+      },
+      {
+        "name": "E1",
+        "speed": 1.0
+      },
+      {
+        "name": "E0",
+        "speed": 1.0
+      },
+      {
+        "name": "E4",
+        "speed": 1.0
+      },
+      {
+        "name": "F1",
+        "speed": 8.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "C0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E0",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "C0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F0",
+        "speed": 12500.0
+      },
+      {
+        "source": "E1",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E3",
+        "target": "E3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "F1",
+        "target": "F1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E1",
+        "target": "E1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "F0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "E0",
+        "target": "E0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E4",
+        "target": "E4",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "F0",
+        "target": "F0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F1",
+        "speed": 12500.0
+      }
+    ]
+  }
+}

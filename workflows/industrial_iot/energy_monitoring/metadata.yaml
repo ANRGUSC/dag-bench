@@ -1,0 +1,39 @@
+id: iiot.energy_monitoring
+name: IIoT Factory Energy Monitoring
+description: Factory energy. 8 meters → collect → (baseline, peak detect, forecast)
+  → report.
+domains:
+- industrial-iot
+- iot
+provenance:
+  source: AI-generated, based on architecture described in O'Driscoll et al. 2013
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  paper_title: Industrial energy monitoring
+  year: 2013
+  notes: Paper/standard describes a industrial IoT system but contains no explicit
+    DAG figure. Task graph is an AI interpretation of the architecture described in
+    the text.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 13
+  num_edges: 14
+  depth: 4
+  width: 8
+  ccr: 0.4483
+  parallelism: 3.25
+campaign: campaign_004_networking
+tags:
+- energy
+- monitoring
+- factory

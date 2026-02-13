@@ -1,0 +1,39 @@
+id: classic.fft_8
+name: FFT Butterfly (8-point)
+description: 8-point Fast Fourier Transform butterfly DAG. 3 stages of butterfly operations
+  with input/output tasks.
+domains:
+- classic-benchmark
+provenance:
+  source: Classic scheduling benchmark
+  paper_title: 'The FFT: An Algorithm the Whole Family Can Use'
+  authors:
+  - Thomas H. Cormen
+  year: 1999
+  extraction_method: programmatic
+  extractor: dagbench-import-script
+  extraction_date: '2026-02-12'
+  figure_or_table: Standard butterfly structure
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+  notes: Classic benchmark structure; costs are representative
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 3
+  num_nodes_max: 3
+graph_stats:
+  num_tasks: 28
+  num_edges: 32
+  depth: 5
+  width: 8
+  ccr: 0.8
+  parallelism: 5.6
+campaign: campaign_002_classic_and_manual
+tags:
+- fft
+- signal-processing
+- butterfly

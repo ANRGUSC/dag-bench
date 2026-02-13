@@ -1,0 +1,40 @@
+id: v2x.collision_avoidance
+name: V2X Collision Avoidance System
+description: Collision avoidance. (Radar, V2X BSM) → process → fusion → threat → decision
+  → (brake, steer, alert).
+domains:
+- v2x
+- cyber-physical
+provenance:
+  source: AI-generated, based on architecture described in Seo et al. 2016
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  paper_title: V2X collision avoidance
+  year: 2016
+  notes: Paper/standard describes a vehicular (V2X) system but contains no explicit
+    DAG figure. Task graph is an AI interpretation of the architecture described in
+    the text.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: mec
+  num_nodes_min: 7
+  num_nodes_max: 7
+graph_stats:
+  num_tasks: 10
+  num_edges: 9
+  depth: 6
+  width: 3
+  ccr: 0.4848
+  parallelism: 1.6667
+campaign: campaign_004_networking
+tags:
+- collision-avoidance
+- safety
+- radar
+- bsm

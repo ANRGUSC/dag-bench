@@ -1,0 +1,330 @@
+{
+  "name": "fog.three_tier_offload",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "ModelUpdate",
+        "cost": 5.0
+      },
+      {
+        "name": "EdgeDeploy",
+        "cost": 3.0
+      },
+      {
+        "name": "FogDeploy",
+        "cost": 3.0
+      },
+      {
+        "name": "Monitor",
+        "cost": 3.0
+      },
+      {
+        "name": "EdgeAnalyze",
+        "cost": 5.0
+      },
+      {
+        "name": "FogML",
+        "cost": 8.0
+      },
+      {
+        "name": "FogAggregate",
+        "cost": 6.0
+      },
+      {
+        "name": "Feedback",
+        "cost": 2.0
+      },
+      {
+        "name": "CloudStore",
+        "cost": 4.0
+      },
+      {
+        "name": "SensorIngest",
+        "cost": 2.0
+      },
+      {
+        "name": "CloudTrain",
+        "cost": 12.0
+      },
+      {
+        "name": "EdgeFilter",
+        "cost": 3.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "EdgeAnalyze",
+        "target": "FogAggregate",
+        "size": 3.0
+      },
+      {
+        "source": "CloudStore",
+        "target": "CloudTrain",
+        "size": 4.0
+      },
+      {
+        "source": "CloudTrain",
+        "target": "ModelUpdate",
+        "size": 2.0
+      },
+      {
+        "source": "FogML",
+        "target": "CloudStore",
+        "size": 4.0
+      },
+      {
+        "source": "EdgeFilter",
+        "target": "EdgeAnalyze",
+        "size": 2.0
+      },
+      {
+        "source": "EdgeDeploy",
+        "target": "Monitor",
+        "size": 1.0
+      },
+      {
+        "source": "Monitor",
+        "target": "Feedback",
+        "size": 1.0
+      },
+      {
+        "source": "FogAggregate",
+        "target": "FogML",
+        "size": 3.0
+      },
+      {
+        "source": "FogDeploy",
+        "target": "EdgeDeploy",
+        "size": 2.0
+      },
+      {
+        "source": "SensorIngest",
+        "target": "EdgeFilter",
+        "size": 2.0
+      },
+      {
+        "source": "ModelUpdate",
+        "target": "FogDeploy",
+        "size": 2.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "E2",
+        "speed": 1.0
+      },
+      {
+        "name": "F0",
+        "speed": 8.0
+      },
+      {
+        "name": "C0",
+        "speed": 50.0
+      },
+      {
+        "name": "E3",
+        "speed": 1.0
+      },
+      {
+        "name": "E1",
+        "speed": 1.0
+      },
+      {
+        "name": "E0",
+        "speed": 1.0
+      },
+      {
+        "name": "E4",
+        "speed": 1.0
+      },
+      {
+        "name": "F1",
+        "speed": 8.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "C0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E0",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "C0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F0",
+        "speed": 12500.0
+      },
+      {
+        "source": "E1",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E3",
+        "target": "E3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "F1",
+        "target": "F1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E1",
+        "target": "E1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "F0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "E0",
+        "target": "E0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E4",
+        "target": "E4",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "F0",
+        "target": "F0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F1",
+        "speed": 12500.0
+      }
+    ]
+  }
+}

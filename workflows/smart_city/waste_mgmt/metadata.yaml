@@ -1,0 +1,39 @@
+id: smart_city.waste_mgmt
+name: IoT Waste Management
+description: Waste management. 8 bin sensors → collect → fill predict → route optimize
+  → assign trucks → schedule → notify.
+domains:
+- smart-city
+- iot
+provenance:
+  source: AI-generated, based on architecture described in Pardini et al. 2019
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  paper_title: IoT-based waste management
+  year: 2019
+  notes: Paper/standard describes a smart city system but contains no explicit DAG
+    figure. Task graph is an AI interpretation of the architecture described in the
+    text.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 14
+  num_edges: 13
+  depth: 7
+  width: 8
+  ccr: 0.3056
+  parallelism: 2.0
+campaign: campaign_004_networking
+tags:
+- waste
+- routing
+- iot-sensors

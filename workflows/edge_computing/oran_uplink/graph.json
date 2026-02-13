@@ -1,0 +1,277 @@
+{
+  "name": "telecom.oran_uplink",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "PDCP_Decipher",
+        "cost": 5.0
+      },
+      {
+        "name": "HighPHY_Descramble",
+        "cost": 3.0
+      },
+      {
+        "name": "RLC_Reassemble",
+        "cost": 3.0
+      },
+      {
+        "name": "SDAP_Map",
+        "cost": 2.0
+      },
+      {
+        "name": "LowPHY_Demod",
+        "cost": 4.0
+      },
+      {
+        "name": "CoreForward",
+        "cost": 1.0
+      },
+      {
+        "name": "MAC_Demux",
+        "cost": 4.0
+      },
+      {
+        "name": "HighPHY_Decode",
+        "cost": 8.0
+      },
+      {
+        "name": "LowPHY_FFT",
+        "cost": 5.0
+      },
+      {
+        "name": "RF_Receive",
+        "cost": 1.0
+      },
+      {
+        "name": "ADC",
+        "cost": 2.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "ADC",
+        "target": "LowPHY_FFT",
+        "size": 5.0
+      },
+      {
+        "source": "RF_Receive",
+        "target": "ADC",
+        "size": 5.0
+      },
+      {
+        "source": "SDAP_Map",
+        "target": "CoreForward",
+        "size": 5.0
+      },
+      {
+        "source": "HighPHY_Descramble",
+        "target": "MAC_Demux",
+        "size": 5.0
+      },
+      {
+        "source": "RLC_Reassemble",
+        "target": "PDCP_Decipher",
+        "size": 5.0
+      },
+      {
+        "source": "MAC_Demux",
+        "target": "RLC_Reassemble",
+        "size": 5.0
+      },
+      {
+        "source": "LowPHY_Demod",
+        "target": "HighPHY_Decode",
+        "size": 5.0
+      },
+      {
+        "source": "HighPHY_Decode",
+        "target": "HighPHY_Descramble",
+        "size": 5.0
+      },
+      {
+        "source": "PDCP_Decipher",
+        "target": "SDAP_Map",
+        "size": 5.0
+      },
+      {
+        "source": "LowPHY_FFT",
+        "target": "LowPHY_Demod",
+        "size": 5.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "E2",
+        "speed": 2.0
+      },
+      {
+        "name": "Hub",
+        "speed": 10.0
+      },
+      {
+        "name": "E5",
+        "speed": 2.0
+      },
+      {
+        "name": "E3",
+        "speed": 2.0
+      },
+      {
+        "name": "E0",
+        "speed": 2.0
+      },
+      {
+        "name": "E4",
+        "speed": 2.0
+      },
+      {
+        "name": "E1",
+        "speed": 2.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "E3",
+        "target": "E3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "E3",
+        "speed": 100.0
+      },
+      {
+        "source": "E3",
+        "target": "Hub",
+        "speed": 5000.0
+      },
+      {
+        "source": "E2",
+        "target": "Hub",
+        "speed": 5000.0
+      },
+      {
+        "source": "E0",
+        "target": "E5",
+        "speed": 100.0
+      },
+      {
+        "source": "E2",
+        "target": "E2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E5",
+        "target": "E5",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E0",
+        "target": "E3",
+        "speed": 100.0
+      },
+      {
+        "source": "E0",
+        "target": "Hub",
+        "speed": 5000.0
+      },
+      {
+        "source": "E5",
+        "target": "Hub",
+        "speed": 5000.0
+      },
+      {
+        "source": "E0",
+        "target": "E2",
+        "speed": 100.0
+      },
+      {
+        "source": "E1",
+        "target": "E5",
+        "speed": 100.0
+      },
+      {
+        "source": "E3",
+        "target": "E4",
+        "speed": 100.0
+      },
+      {
+        "source": "E1",
+        "target": "E3",
+        "speed": 100.0
+      },
+      {
+        "source": "E1",
+        "target": "Hub",
+        "speed": 5000.0
+      },
+      {
+        "source": "E2",
+        "target": "E4",
+        "speed": 100.0
+      },
+      {
+        "source": "E1",
+        "target": "E2",
+        "speed": 100.0
+      },
+      {
+        "source": "Hub",
+        "target": "Hub",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E0",
+        "target": "E1",
+        "speed": 100.0
+      },
+      {
+        "source": "E0",
+        "target": "E4",
+        "speed": 100.0
+      },
+      {
+        "source": "E4",
+        "target": "E5",
+        "speed": 100.0
+      },
+      {
+        "source": "E1",
+        "target": "E1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E1",
+        "target": "E4",
+        "speed": 100.0
+      },
+      {
+        "source": "E4",
+        "target": "Hub",
+        "speed": 5000.0
+      },
+      {
+        "source": "E0",
+        "target": "E0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "E5",
+        "speed": 100.0
+      },
+      {
+        "source": "E2",
+        "target": "E5",
+        "speed": 100.0
+      },
+      {
+        "source": "E4",
+        "target": "E4",
+        "speed": 1000000000.0
+      }
+    ]
+  }
+}

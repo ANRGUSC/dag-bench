@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O-RAN Uplink Processing Pipeline - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>O-RAN Uplink Processing Pipeline</h1>
+    <div class="meta">
+        <strong>ID:</strong> telecom.oran_uplink &nbsp;|&nbsp;
+        <strong>Domains:</strong> telecom, 5g &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>O-RAN uplink signal processing chain. RF → ADC → Low-PHY (FFT, demod) → High-PHY (decode, descramble) → MAC → RLC → PDCP → SDAP → Core. Split 7.2 architecture.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    PDCP_Decipher["PDCP_Decipher<br/>cost: 5.0"]
+    HighPHY_Descramble["HighPHY_Descramble<br/>cost: 3.0"]
+    RLC_Reassemble["RLC_Reassemble<br/>cost: 3.0"]
+    SDAP_Map["SDAP_Map<br/>cost: 2.0"]
+    LowPHY_Demod["LowPHY_Demod<br/>cost: 4.0"]
+    CoreForward["CoreForward<br/>cost: 1.0"]
+    MAC_Demux["MAC_Demux<br/>cost: 4.0"]
+    HighPHY_Decode["HighPHY_Decode<br/>cost: 8.0"]
+    LowPHY_FFT["LowPHY_FFT<br/>cost: 5.0"]
+    RF_Receive["RF_Receive<br/>cost: 1.0"]
+    ADC["ADC<br/>cost: 2.0"]
+    ADC -->|"5"| LowPHY_FFT
+    RF_Receive -->|"5"| ADC
+    SDAP_Map -->|"5"| CoreForward
+    HighPHY_Descramble -->|"5"| MAC_Demux
+    RLC_Reassemble -->|"5"| PDCP_Decipher
+    MAC_Demux -->|"5"| RLC_Reassemble
+    LowPHY_Demod -->|"5"| HighPHY_Decode
+    HighPHY_Decode -->|"5"| HighPHY_Descramble
+    PDCP_Decipher -->|"5"| SDAP_Map
+    LowPHY_FFT -->|"5"| LowPHY_Demod
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (11)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>PDCP_Decipher</td><td>5.00</td><td>Processing step in telecom pipeline</td></tr><tr><td>HighPHY_Descramble</td><td>3.00</td><td>Processing step in telecom pipeline</td></tr><tr><td>RLC_Reassemble</td><td>3.00</td><td>Processing step in telecom pipeline</td></tr><tr><td>SDAP_Map</td><td>2.00</td><td>Map operation</td></tr><tr><td>LowPHY_Demod</td><td>4.00</td><td>Processing step in telecom pipeline</td></tr><tr><td>CoreForward</td><td>1.00</td><td>Data routing / forwarding</td></tr><tr><td>MAC_Demux</td><td>4.00</td><td>Processing step in telecom pipeline</td></tr><tr><td>HighPHY_Decode</td><td>8.00</td><td>Data decompression / decoding</td></tr><tr><td>LowPHY_FFT</td><td>5.00</td><td>Processing step in telecom pipeline</td></tr><tr><td>RF_Receive</td><td>1.00</td><td>Processing step in telecom pipeline</td></tr><tr><td>ADC</td><td>2.00</td><td>Processing step in telecom pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>11</td></tr><tr><td>Edges</td><td>10</td></tr><tr><td>Depth</td><td>11</td></tr><tr><td>Width</td><td>1</td></tr><tr><td>CCR</td><td>1.3158</td></tr><tr><td>Parallelism</td><td>1.0000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, based on architecture described in O-RAN architecture<br>
+<strong>Paper:</strong> O-RAN Alliance Architecture Description<br>
+<strong>Authors:</strong> O-RAN Alliance<br>
+<strong>Year:</strong> 2023<br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Paper/standard describes a telecommunications/5G system but contains no explicit DAG figure. Task graph is an AI interpretation of the architecture described in the text.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> star<br>
+<strong>Nodes:</strong> 7
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">oran</span><span class="badge">5g</span><span class="badge">uplink</span><span class="badge">signal-processing</span><span class="badge">sequential</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; telecom.oran_uplink
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

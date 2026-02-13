@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Branching DAG (4 levels, factor 3) - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Branching DAG (4 levels, factor 3)</h1>
+    <div class="meta">
+        <strong>ID:</strong> synthetic.branching_4x3 &nbsp;|&nbsp;
+        <strong>Domains:</strong> synthetic &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Tree-like DAG with 4 levels and branching factor 3, plus sink. Large synthetic benchmark for parallel scheduling.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    17["17<br/>cost: 0.8"]
+    18["18<br/>cost: 0.2"]
+    14["14<br/>cost: 0.1"]
+    39["39<br/>cost: 0.3"]
+    22["22<br/>cost: 0.1"]
+    26["26<br/>cost: 0.9"]
+    7["7<br/>cost: 0.5"]
+    23["23<br/>cost: 0.8"]
+    6["6<br/>cost: 0.6"]
+    25["25<br/>cost: 1.0"]
+    9["9<br/>cost: 0.2"]
+    37["37<br/>cost: 0.9"]
+    13["13<br/>cost: 0.2"]
+    21["21<br/>cost: 0.3"]
+    5["5<br/>cost: 0.8"]
+    3["3<br/>cost: 0.5"]
+    40["40<br/>cost: 0.7"]
+    11["11<br/>cost: 0.6"]
+    16["16<br/>cost: 0.7"]
+    2["2<br/>cost: 0.3"]
+    1["1<br/>cost: 0.3"]
+    31["31<br/>cost: 0.4"]
+    12["12<br/>cost: 0.5"]
+    32["32<br/>cost: 0.3"]
+    29["29<br/>cost: 0.3"]
+    36["36<br/>cost: 0.5"]
+    20["20<br/>cost: 0.9"]
+    28["28<br/>cost: 0.4"]
+    30["30<br/>cost: 0.1"]
+    19["19<br/>cost: 0.8"]
+    24["24<br/>cost: 0.6"]
+    27["27<br/>cost: 0.6"]
+    34["34<br/>cost: 0.7"]
+    0["0<br/>cost: 0.7"]
+    8["8<br/>cost: 0.6"]
+    35["35<br/>cost: 0.9"]
+    33["33<br/>cost: 0.2"]
+    4["4<br/>cost: 0.2"]
+    10["10<br/>cost: 0.7"]
+    15["15<br/>cost: 0.2"]
+    38["38<br/>cost: 0.9"]
+    32 -->|"0"| 40
+    2 -->|"1"| 8
+    12 -->|"0"| 37
+    10 -->|"0"| 33
+    9 -->|"0"| 29
+    38 -->|"1"| 40
+    14 -->|"0"| 40
+    8 -->|"1"| 26
+    2 -->|"1"| 7
+    21 -->|"0"| 40
+    23 -->|"0"| 40
+    12 -->|"0"| 38
+    0 -->|"1"| 1
+    6 -->|"1"| 20
+    6 -->|"1"| 21
+    6 -->|"0"| 19
+    17 -->|"0"| 40
+    11 -->|"0"| 36
+    35 -->|"0"| 40
+    7 -->|"1"| 23
+    4 -->|"1"| 14
+    11 -->|"1"| 35
+    27 -->|"1"| 40
+    12 -->|"0"| 39
+    19 -->|"1"| 40
+    18 -->|"0"| 40
+    7 -->|"0"| 24
+    24 -->|"1"| 40
+    8 -->|"0"| 27
+    25 -->|"0"| 40
+    37 -->|"1"| 40
+    30 -->|"1"| 40
+    26 -->|"1"| 40
+    5 -->|"0"| 17
+    28 -->|"1"| 40
+    16 -->|"0"| 40
+    4 -->|"0"| 13
+    39 -->|"1"| 40
+    0 -->|"1"| 2
+    8 -->|"1"| 25
+    1 -->|"0"| 6
+    10 -->|"0"| 32
+    3 -->|"1"| 11
+    33 -->|"0"| 40
+    3 -->|"0"| 12
+    31 -->|"1"| 40
+    36 -->|"1"| 40
+    13 -->|"1"| 40
+    1 -->|"1"| 4
+    2 -->|"0"| 9
+    34 -->|"1"| 40
+    3 -->|"1"| 10
+    4 -->|"1"| 15
+    7 -->|"1"| 22
+    1 -->|"1"| 5
+    5 -->|"0"| 16
+    9 -->|"0"| 30
+    0 -->|"0"| 3
+    15 -->|"0"| 40
+    11 -->|"1"| 34
+    29 -->|"1"| 40
+    5 -->|"1"| 18
+    9 -->|"1"| 28
+    10 -->|"1"| 31
+    22 -->|"0"| 40
+    20 -->|"1"| 40
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (41)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>17</td><td>0.85</td><td>Processing step in synthetic pipeline</td></tr><tr><td>18</td><td>0.17</td><td>Processing step in synthetic pipeline</td></tr><tr><td>14</td><td>0.12</td><td>Processing step in synthetic pipeline</td></tr><tr><td>39</td><td>0.25</td><td>Processing step in synthetic pipeline</td></tr><tr><td>22</td><td>0.11</td><td>Processing step in synthetic pipeline</td></tr><tr><td>26</td><td>0.90</td><td>Processing step in synthetic pipeline</td></tr><tr><td>7</td><td>0.53</td><td>Processing step in synthetic pipeline</td></tr><tr><td>23</td><td>0.81</td><td>Processing step in synthetic pipeline</td></tr><tr><td>6</td><td>0.56</td><td>Processing step in synthetic pipeline</td></tr><tr><td>25</td><td>1.00</td><td>Processing step in synthetic pipeline</td></tr><tr><td>9</td><td>0.21</td><td>Processing step in synthetic pipeline</td></tr><tr><td>37</td><td>0.87</td><td>Processing step in synthetic pipeline</td></tr><tr><td>13</td><td>0.22</td><td>Processing step in synthetic pipeline</td></tr><tr><td>21</td><td>0.35</td><td>Processing step in synthetic pipeline</td></tr><tr><td>5</td><td>0.84</td><td>Processing step in synthetic pipeline</td></tr><tr><td>3</td><td>0.48</td><td>Processing step in synthetic pipeline</td></tr><tr><td>40</td><td>0.75</td><td>Processing step in synthetic pipeline</td></tr><tr><td>11</td><td>0.56</td><td>Processing step in synthetic pipeline</td></tr><tr><td>16</td><td>0.67</td><td>Processing step in synthetic pipeline</td></tr><tr><td>2</td><td>0.30</td><td>Processing step in synthetic pipeline</td></tr><tr><td>1</td><td>0.33</td><td>Processing step in synthetic pipeline</td></tr><tr><td>31</td><td>0.40</td><td>Processing step in synthetic pipeline</td></tr><tr><td>12</td><td>0.51</td><td>Processing step in synthetic pipeline</td></tr><tr><td>32</td><td>0.26</td><td>Processing step in synthetic pipeline</td></tr><tr><td>29</td><td>0.27</td><td>Processing step in synthetic pipeline</td></tr><tr><td>36</td><td>0.54</td><td>Processing step in synthetic pipeline</td></tr><tr><td>20</td><td>0.92</td><td>Processing step in synthetic pipeline</td></tr><tr><td>28</td><td>0.44</td><td>Processing step in synthetic pipeline</td></tr><tr><td>30</td><td>0.14</td><td>Processing step in synthetic pipeline</td></tr><tr><td>19</td><td>0.76</td><td>Processing step in synthetic pipeline</td></tr><tr><td>24</td><td>0.59</td><td>Processing step in synthetic pipeline</td></tr><tr><td>27</td><td>0.58</td><td>Processing step in synthetic pipeline</td></tr><tr><td>34</td><td>0.70</td><td>Processing step in synthetic pipeline</td></tr><tr><td>0</td><td>0.69</td><td>Processing step in synthetic pipeline</td></tr><tr><td>8</td><td>0.59</td><td>Processing step in synthetic pipeline</td></tr><tr><td>35</td><td>0.91</td><td>Processing step in synthetic pipeline</td></tr><tr><td>33</td><td>0.22</td><td>Processing step in synthetic pipeline</td></tr><tr><td>4</td><td>0.18</td><td>Processing step in synthetic pipeline</td></tr><tr><td>10</td><td>0.74</td><td>Processing step in synthetic pipeline</td></tr><tr><td>15</td><td>0.24</td><td>Processing step in synthetic pipeline</td></tr><tr><td>38</td><td>0.91</td><td>Processing step in synthetic pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>41</td></tr><tr><td>Edges</td><td>66</td></tr><tr><td>Depth</td><td>5</td></tr><tr><td>Width</td><td>27</td></tr><tr><td>CCR</td><td>1.6250</td></tr><tr><td>Parallelism</td><td>8.2000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">Programmatic (from source code/repo)</span>
+        <br><br>
+        <strong>Source:</strong> SAGA framework (anrg-saga)<br>
+<strong>Paper:</strong> PISA: A Comprehensive Benchmark for Scheduling Algorithms<br>
+<strong>Authors:</strong> Justin Boggs, Landon Sights, Bhaskar Krishnamachari<br>
+<strong>Year:</strong> 2024<br>
+<strong>arXiv:</strong> <a href="https://arxiv.org/abs/2403.07120" target="_blank">2403.07120</a><br>
+<strong>Repository:</strong> <a href="https://github.com/anrgusc/saga" target="_blank">https://github.com/anrgusc/saga</a><br>
+<strong>Extraction Method:</strong> Programmatic (from source code/repo)<br>
+<strong>Extractor:</strong> dagbench-import-script<br>
+<strong>Date:</strong> 2026-02-12
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fully-connected<br>
+<strong>Nodes:</strong> 4
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">branching</span><span class="badge">tree</span><span class="badge">parallel</span><span class="badge">large</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; synthetic.branching_4x3
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

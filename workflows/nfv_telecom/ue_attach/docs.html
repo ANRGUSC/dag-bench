@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5G UE Attach Procedure - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>5G UE Attach Procedure</h1>
+    <div class="meta">
+        <strong>ID:</strong> nfv.ue_attach &nbsp;|&nbsp;
+        <strong>Domains:</strong> nfv, telecom, 5g &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>5G attach. UE → AMF → (AUSF, UDM, NRF, NSSF) → AMF context → SMF → UPF → (QoS, gNB) → complete.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    AMF_Receive["AMF_Receive<br/>cost: 3.0"]
+    QoS_Setup["QoS_Setup<br/>cost: 3.0"]
+    UE_Request["UE_Request<br/>cost: 2.0"]
+    UPF_Tunnel["UPF_Tunnel<br/>cost: 4.0"]
+    gNB_Config["gNB_Config<br/>cost: 3.0"]
+    AUSF_Auth["AUSF_Auth<br/>cost: 5.0"]
+    UDM_Subscribe["UDM_Subscribe<br/>cost: 4.0"]
+    SMF_Session["SMF_Session<br/>cost: 5.0"]
+    AttachComplete["AttachComplete<br/>cost: 2.0"]
+    AMF_Context["AMF_Context<br/>cost: 4.0"]
+    NRF_Discover["NRF_Discover<br/>cost: 3.0"]
+    NSSF_Slice["NSSF_Slice<br/>cost: 4.0"]
+    UDM_Subscribe -->|"1"| AMF_Context
+    NRF_Discover -->|"1"| AMF_Context
+    NSSF_Slice -->|"1"| AMF_Context
+    AMF_Context -->|"2"| SMF_Session
+    AUSF_Auth -->|"1"| AMF_Context
+    SMF_Session -->|"2"| UPF_Tunnel
+    AMF_Receive -->|"1"| AUSF_Auth
+    AMF_Receive -->|"1"| NSSF_Slice
+    UPF_Tunnel -->|"1"| QoS_Setup
+    UPF_Tunnel -->|"1"| gNB_Config
+    gNB_Config -->|"1"| AttachComplete
+    QoS_Setup -->|"1"| AttachComplete
+    AMF_Receive -->|"1"| UDM_Subscribe
+    UE_Request -->|"1"| AMF_Receive
+    AMF_Receive -->|"1"| NRF_Discover
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (12)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>AMF_Receive</td><td>3.00</td><td>Processing step in nfv pipeline</td></tr><tr><td>QoS_Setup</td><td>3.00</td><td>Processing step in nfv pipeline</td></tr><tr><td>UE_Request</td><td>2.00</td><td>Processing step in nfv pipeline</td></tr><tr><td>UPF_Tunnel</td><td>4.00</td><td>Processing step in nfv pipeline</td></tr><tr><td>gNB_Config</td><td>3.00</td><td>Processing step in nfv pipeline</td></tr><tr><td>AUSF_Auth</td><td>5.00</td><td>Processing step in nfv pipeline</td></tr><tr><td>UDM_Subscribe</td><td>4.00</td><td>Processing step in nfv pipeline</td></tr><tr><td>SMF_Session</td><td>5.00</td><td>Processing step in nfv pipeline</td></tr><tr><td>AttachComplete</td><td>2.00</td><td>Processing step in nfv pipeline</td></tr><tr><td>AMF_Context</td><td>4.00</td><td>Processing step in nfv pipeline</td></tr><tr><td>NRF_Discover</td><td>3.00</td><td>Processing step in nfv pipeline</td></tr><tr><td>NSSF_Slice</td><td>4.00</td><td>Processing step in nfv pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>12</td></tr><tr><td>Edges</td><td>15</td></tr><tr><td>Depth</td><td>8</td></tr><tr><td>Width</td><td>4</td></tr><tr><td>CCR</td><td>0.4048</td></tr><tr><td>Parallelism</td><td>1.5000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, based on architecture described in 3GPP TS 23.501<br>
+<strong>Paper:</strong> 5G system architecture<br>
+<strong>Year:</strong> 2021<br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Paper/standard describes a NFV/telecom system but contains no explicit DAG figure. Task graph is an AI interpretation of the architecture described in the text.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fully-connected<br>
+<strong>Nodes:</strong> 4
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">5g</span><span class="badge">attach</span><span class="badge">core-network</span><span class="badge">sba</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; nfv.ue_attach
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

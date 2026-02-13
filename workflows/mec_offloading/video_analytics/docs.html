@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEC Video Analytics Pipeline - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>MEC Video Analytics Pipeline</h1>
+    <div class="meta">
+        <strong>ID:</strong> mec.video_analytics &nbsp;|&nbsp;
+        <strong>Domains:</strong> mec, edge-computing, image-processing &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Video analytics on MEC. Ingest → decode → sample → 3 parallel detectors → 3 trackers → fuse → behavior → (alert, dashboard).</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    FrameDecode["FrameDecode<br/>cost: 4.0"]
+    PersonTrack["PersonTrack<br/>cost: 8.0"]
+    ObjectDetect["ObjectDetect<br/>cost: 10.0"]
+    PersonDetect["PersonDetect<br/>cost: 10.0"]
+    Dashboard["Dashboard<br/>cost: 2.0"]
+    VehicleDetect["VehicleDetect<br/>cost: 10.0"]
+    VehicleTrack["VehicleTrack<br/>cost: 8.0"]
+    ObjectTrack["ObjectTrack<br/>cost: 8.0"]
+    TrackFuse["TrackFuse<br/>cost: 6.0"]
+    VideoIngest["VideoIngest<br/>cost: 3.0"]
+    FrameSample["FrameSample<br/>cost: 2.0"]
+    AlertGen["AlertGen<br/>cost: 3.0"]
+    BehaviorAnalysis["BehaviorAnalysis<br/>cost: 12.0"]
+    BehaviorAnalysis -->|"1"| Dashboard
+    VehicleDetect -->|"3"| VehicleTrack
+    FrameDecode -->|"6"| FrameSample
+    ObjectTrack -->|"2"| TrackFuse
+    TrackFuse -->|"3"| BehaviorAnalysis
+    VehicleTrack -->|"2"| TrackFuse
+    PersonTrack -->|"2"| TrackFuse
+    PersonDetect -->|"3"| PersonTrack
+    FrameSample -->|"4"| VehicleDetect
+    ObjectDetect -->|"3"| ObjectTrack
+    BehaviorAnalysis -->|"1"| AlertGen
+    VideoIngest -->|"6"| FrameDecode
+    FrameSample -->|"4"| ObjectDetect
+    FrameSample -->|"4"| PersonDetect
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (13)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>FrameDecode</td><td>4.00</td><td>Data decompression / decoding</td></tr><tr><td>PersonTrack</td><td>8.00</td><td>Processing step in mec pipeline</td></tr><tr><td>ObjectDetect</td><td>10.00</td><td>Detection / anomaly identification</td></tr><tr><td>PersonDetect</td><td>10.00</td><td>Detection / anomaly identification</td></tr><tr><td>Dashboard</td><td>2.00</td><td>Processing step in mec pipeline</td></tr><tr><td>VehicleDetect</td><td>10.00</td><td>Detection / anomaly identification</td></tr><tr><td>VehicleTrack</td><td>8.00</td><td>Processing step in mec pipeline</td></tr><tr><td>ObjectTrack</td><td>8.00</td><td>Processing step in mec pipeline</td></tr><tr><td>TrackFuse</td><td>6.00</td><td>Merge / fuse data streams</td></tr><tr><td>VideoIngest</td><td>3.00</td><td>Data ingestion / source input</td></tr><tr><td>FrameSample</td><td>2.00</td><td>Processing step in mec pipeline</td></tr><tr><td>AlertGen</td><td>3.00</td><td>Processing step in mec pipeline</td></tr><tr><td>BehaviorAnalysis</td><td>12.00</td><td>Processing step in mec pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>13</td></tr><tr><td>Edges</td><td>14</td></tr><tr><td>Depth</td><td>8</td></tr><tr><td>Width</td><td>3</td></tr><tr><td>CCR</td><td>0.5116</td></tr><tr><td>Parallelism</td><td>1.6250</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, based on architecture described in Ananthanarayanan et al. 2017<br>
+<strong>Paper:</strong> Real-Time Video Analytics: The Killer App for Edge Computing<br>
+<strong>Authors:</strong> Ganesh Ananthanarayanan, Paramvir Bahl, Peter Bodík, Krishna Chintalapudi, Matthai Philipose, Lenin Ravindranath, Sudipta Sinha<br>
+<strong>Year:</strong> 2017<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1109/MC.2017.3641638" target="_blank">10.1109/MC.2017.3641638</a><br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Paper describes video analytics as operations organized as a DAG (decoder, object detector, tracker, classifier). Figure 2 shows the video analytics stack architecture. However, it does not provide a specific extractable task graph with costs and edge weights. The original DOI (10.1109/MC.2017.185) was incorrect (resolved to an unrelated page); corrected to verified DOI. This video analytics pipeline is an AI interpretation of the DAG concept described in the paper.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> mec<br>
+<strong>Nodes:</strong> 7
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">video-analytics</span><span class="badge">tracking</span><span class="badge">detection</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; mec.video_analytics
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

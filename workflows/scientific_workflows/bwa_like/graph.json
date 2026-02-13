@@ -1,0 +1,208 @@
+{
+  "name": "scientific.bwa_like",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "BWA_Align_1",
+        "cost": 20.0
+      },
+      {
+        "name": "BWA_Align_0",
+        "cost": 20.0
+      },
+      {
+        "name": "SplitFastQ",
+        "cost": 3.0
+      },
+      {
+        "name": "FinalBAM",
+        "cost": 5.0
+      },
+      {
+        "name": "MergeBAM",
+        "cost": 10.0
+      },
+      {
+        "name": "BWA_Align_3",
+        "cost": 20.0
+      },
+      {
+        "name": "MarkDuplicates",
+        "cost": 12.0
+      },
+      {
+        "name": "BaseRecal",
+        "cost": 15.0
+      },
+      {
+        "name": "SAMSort_1",
+        "cost": 8.0
+      },
+      {
+        "name": "BWA_Align_2",
+        "cost": 20.0
+      },
+      {
+        "name": "SAMSort_2",
+        "cost": 8.0
+      },
+      {
+        "name": "SAMSort_0",
+        "cost": 8.0
+      },
+      {
+        "name": "SAMSort_3",
+        "cost": 8.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "SAMSort_3",
+        "target": "MergeBAM",
+        "size": 6.0
+      },
+      {
+        "source": "BaseRecal",
+        "target": "FinalBAM",
+        "size": 5.0
+      },
+      {
+        "source": "SAMSort_2",
+        "target": "MergeBAM",
+        "size": 6.0
+      },
+      {
+        "source": "SplitFastQ",
+        "target": "BWA_Align_1",
+        "size": 10.0
+      },
+      {
+        "source": "SAMSort_0",
+        "target": "MergeBAM",
+        "size": 6.0
+      },
+      {
+        "source": "SplitFastQ",
+        "target": "BWA_Align_2",
+        "size": 10.0
+      },
+      {
+        "source": "BWA_Align_2",
+        "target": "SAMSort_2",
+        "size": 8.0
+      },
+      {
+        "source": "SAMSort_1",
+        "target": "MergeBAM",
+        "size": 6.0
+      },
+      {
+        "source": "BWA_Align_3",
+        "target": "SAMSort_3",
+        "size": 8.0
+      },
+      {
+        "source": "BWA_Align_1",
+        "target": "SAMSort_1",
+        "size": 8.0
+      },
+      {
+        "source": "SplitFastQ",
+        "target": "BWA_Align_3",
+        "size": 10.0
+      },
+      {
+        "source": "MarkDuplicates",
+        "target": "BaseRecal",
+        "size": 5.0
+      },
+      {
+        "source": "SplitFastQ",
+        "target": "BWA_Align_0",
+        "size": 10.0
+      },
+      {
+        "source": "BWA_Align_0",
+        "target": "SAMSort_0",
+        "size": 8.0
+      },
+      {
+        "source": "MergeBAM",
+        "target": "MarkDuplicates",
+        "size": 5.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N0",
+        "speed": 2.0
+      },
+      {
+        "name": "N3",
+        "speed": 2.0
+      },
+      {
+        "name": "N2",
+        "speed": 2.0
+      },
+      {
+        "name": "N1",
+        "speed": 2.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N3",
+        "target": "N3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N3",
+        "speed": 500.0
+      }
+    ]
+  }
+}

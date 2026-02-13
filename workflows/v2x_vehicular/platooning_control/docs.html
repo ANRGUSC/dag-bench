@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V2X Truck Platooning Control - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>V2X Truck Platooning Control</h1>
+    <div class="meta">
+        <strong>ID:</strong> v2x.platooning_control &nbsp;|&nbsp;
+        <strong>Domains:</strong> v2x, cyber-physical &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Truck platooning. Leader sense → plan → broadcast → 3 followers (receive, adapt, control) → coordinate.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    LeaderBroadcast["LeaderBroadcast<br/>cost: 2.0"]
+    F2_Receive["F2_Receive<br/>cost: 1.0"]
+    F1_Receive["F1_Receive<br/>cost: 1.0"]
+    F1_Control["F1_Control<br/>cost: 4.0"]
+    F1_Adapt["F1_Adapt<br/>cost: 5.0"]
+    LeaderSense["LeaderSense<br/>cost: 3.0"]
+    F2_Adapt["F2_Adapt<br/>cost: 5.0"]
+    F0_Control["F0_Control<br/>cost: 4.0"]
+    LeaderPlan["LeaderPlan<br/>cost: 8.0"]
+    Coordinate["Coordinate<br/>cost: 4.0"]
+    F0_Receive["F0_Receive<br/>cost: 1.0"]
+    F2_Control["F2_Control<br/>cost: 4.0"]
+    F0_Adapt["F0_Adapt<br/>cost: 5.0"]
+    LeaderBroadcast -->|"1"| F0_Receive
+    LeaderSense -->|"2"| LeaderPlan
+    F0_Adapt -->|"1"| F0_Control
+    LeaderPlan -->|"2"| LeaderBroadcast
+    F0_Control -->|"1"| Coordinate
+    F2_Receive -->|"1"| F2_Adapt
+    F1_Receive -->|"1"| F1_Adapt
+    LeaderBroadcast -->|"1"| F1_Receive
+    F1_Adapt -->|"1"| F1_Control
+    LeaderBroadcast -->|"1"| F2_Receive
+    F1_Control -->|"1"| Coordinate
+    F2_Control -->|"1"| Coordinate
+    F0_Receive -->|"1"| F0_Adapt
+    F2_Adapt -->|"1"| F2_Control
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (13)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>LeaderBroadcast</td><td>2.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>F2_Receive</td><td>1.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>F1_Receive</td><td>1.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>F1_Control</td><td>4.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>F1_Adapt</td><td>5.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>LeaderSense</td><td>3.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>F2_Adapt</td><td>5.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>F0_Control</td><td>4.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>LeaderPlan</td><td>8.00</td><td>Task scheduling / planning</td></tr><tr><td>Coordinate</td><td>4.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>F0_Receive</td><td>1.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>F2_Control</td><td>4.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>F0_Adapt</td><td>5.00</td><td>Processing step in v2x pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>13</td></tr><tr><td>Edges</td><td>14</td></tr><tr><td>Depth</td><td>7</td></tr><tr><td>Width</td><td>3</td></tr><tr><td>CCR</td><td>0.3404</td></tr><tr><td>Parallelism</td><td>1.8571</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, inspired by V2X platooning control patterns<br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Original metadata cited &#x27;Campolo et al. 2020&#x27; with DOI 10.1109/TVT.2020.2975574, but that DOI does not exist (returns 404). Campolo&#x27;s V2X research focuses on radio resource allocation and sidelink protocols, not task scheduling DAGs. This platooning control pipeline is an AI-generated task graph inspired by V2X platooning concepts.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> mec<br>
+<strong>Nodes:</strong> 7
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">platooning</span><span class="badge">v2x</span><span class="badge">truck</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; v2x.platooning_control
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

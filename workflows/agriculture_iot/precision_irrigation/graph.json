@@ -1,0 +1,348 @@
+{
+  "name": "agri.precision_irrigation",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "Aggregate",
+        "cost": 4.0
+      },
+      {
+        "name": "ETCalc",
+        "cost": 5.0
+      },
+      {
+        "name": "Soil4",
+        "cost": 1.0
+      },
+      {
+        "name": "Soil3",
+        "cost": 1.0
+      },
+      {
+        "name": "WeatherFetch",
+        "cost": 3.0
+      },
+      {
+        "name": "ValveSchedule",
+        "cost": 4.0
+      },
+      {
+        "name": "Soil6",
+        "cost": 1.0
+      },
+      {
+        "name": "Soil7",
+        "cost": 1.0
+      },
+      {
+        "name": "Soil2",
+        "cost": 1.0
+      },
+      {
+        "name": "Soil0",
+        "cost": 1.0
+      },
+      {
+        "name": "PumpControl",
+        "cost": 3.0
+      },
+      {
+        "name": "Soil1",
+        "cost": 1.0
+      },
+      {
+        "name": "Soil5",
+        "cost": 1.0
+      },
+      {
+        "name": "ZoneCalc",
+        "cost": 6.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "Soil5",
+        "target": "Aggregate",
+        "size": 0.5
+      },
+      {
+        "source": "Soil4",
+        "target": "Aggregate",
+        "size": 0.5
+      },
+      {
+        "source": "Soil1",
+        "target": "Aggregate",
+        "size": 0.5
+      },
+      {
+        "source": "ZoneCalc",
+        "target": "ValveSchedule",
+        "size": 1.0
+      },
+      {
+        "source": "Soil2",
+        "target": "Aggregate",
+        "size": 0.5
+      },
+      {
+        "source": "ETCalc",
+        "target": "ZoneCalc",
+        "size": 2.0
+      },
+      {
+        "source": "Soil3",
+        "target": "Aggregate",
+        "size": 0.5
+      },
+      {
+        "source": "ZoneCalc",
+        "target": "PumpControl",
+        "size": 1.0
+      },
+      {
+        "source": "Soil6",
+        "target": "Aggregate",
+        "size": 0.5
+      },
+      {
+        "source": "Soil0",
+        "target": "Aggregate",
+        "size": 0.5
+      },
+      {
+        "source": "Soil7",
+        "target": "Aggregate",
+        "size": 0.5
+      },
+      {
+        "source": "WeatherFetch",
+        "target": "Aggregate",
+        "size": 1.0
+      },
+      {
+        "source": "Aggregate",
+        "target": "ETCalc",
+        "size": 2.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "E2",
+        "speed": 1.0
+      },
+      {
+        "name": "F0",
+        "speed": 8.0
+      },
+      {
+        "name": "C0",
+        "speed": 50.0
+      },
+      {
+        "name": "E3",
+        "speed": 1.0
+      },
+      {
+        "name": "E1",
+        "speed": 1.0
+      },
+      {
+        "name": "E0",
+        "speed": 1.0
+      },
+      {
+        "name": "E4",
+        "speed": 1.0
+      },
+      {
+        "name": "F1",
+        "speed": 8.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "C0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E0",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "C0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F0",
+        "speed": 12500.0
+      },
+      {
+        "source": "E1",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E3",
+        "target": "E3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "F1",
+        "target": "F1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E1",
+        "target": "E1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "F0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "E0",
+        "target": "E0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E4",
+        "target": "E4",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "F0",
+        "target": "F0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F1",
+        "speed": 12500.0
+      }
+    ]
+  }
+}

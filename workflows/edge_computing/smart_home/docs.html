@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Home IoT Pipeline - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Smart Home IoT Pipeline</h1>
+    <div class="meta">
+        <strong>ID:</strong> edge.smart_home &nbsp;|&nbsp;
+        <strong>Domains:</strong> iot, edge-computing, fog-computing &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Smart home automation pipeline. 4 sensors → aggregate → parallel anomaly/predict/rule branches → 3 actuators → dashboard. Typical fog computing use case.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    SecurityAlert["SecurityAlert<br/>cost: 3.0"]
+    Aggregate["Aggregate<br/>cost: 3.0"]
+    Dashboard["Dashboard<br/>cost: 2.0"]
+    RuleEngine["RuleEngine<br/>cost: 5.0"]
+    DoorSensor["DoorSensor<br/>cost: 1.0"]
+    Predict["Predict<br/>cost: 10.0"]
+    LightControl["LightControl<br/>cost: 2.0"]
+    Anomaly["Anomaly<br/>cost: 8.0"]
+    HumiditySensor["HumiditySensor<br/>cost: 1.0"]
+    HVACControl["HVACControl<br/>cost: 2.0"]
+    MotionSensor["MotionSensor<br/>cost: 1.0"]
+    TempSensor["TempSensor<br/>cost: 1.0"]
+    HVACControl -->|"1"| Dashboard
+    LightControl -->|"1"| Dashboard
+    Aggregate -->|"2"| Predict
+    MotionSensor -->|"1"| Aggregate
+    Anomaly -->|"1"| SecurityAlert
+    DoorSensor -->|"1"| Aggregate
+    Predict -->|"1"| HVACControl
+    RuleEngine -->|"1"| LightControl
+    Aggregate -->|"2"| RuleEngine
+    Aggregate -->|"2"| Anomaly
+    SecurityAlert -->|"1"| Dashboard
+    HumiditySensor -->|"1"| Aggregate
+    TempSensor -->|"1"| Aggregate
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (12)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>SecurityAlert</td><td>3.00</td><td>Processing step in iot pipeline</td></tr><tr><td>Aggregate</td><td>3.00</td><td>Aggregate / reduce data</td></tr><tr><td>Dashboard</td><td>2.00</td><td>Processing step in iot pipeline</td></tr><tr><td>RuleEngine</td><td>5.00</td><td>Processing step in iot pipeline</td></tr><tr><td>DoorSensor</td><td>1.00</td><td>Processing step in iot pipeline</td></tr><tr><td>Predict</td><td>10.00</td><td>Classification / prediction</td></tr><tr><td>LightControl</td><td>2.00</td><td>Processing step in iot pipeline</td></tr><tr><td>Anomaly</td><td>8.00</td><td>Processing step in iot pipeline</td></tr><tr><td>HumiditySensor</td><td>1.00</td><td>Processing step in iot pipeline</td></tr><tr><td>HVACControl</td><td>2.00</td><td>Processing step in iot pipeline</td></tr><tr><td>MotionSensor</td><td>1.00</td><td>Processing step in iot pipeline</td></tr><tr><td>TempSensor</td><td>1.00</td><td>Processing step in iot pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>12</td></tr><tr><td>Edges</td><td>13</td></tr><tr><td>Depth</td><td>5</td></tr><tr><td>Width</td><td>4</td></tr><tr><td>CCR</td><td>0.4103</td></tr><tr><td>Parallelism</td><td>2.4000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, inspired by edge computing workflow patterns<br>
+<strong>Paper:</strong> IoT Smart Home Automation<br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Structure was AI-generated to represent a typical edge computing pattern. Not extracted from any specific source.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fog-three-tier<br>
+<strong>Nodes:</strong> 8
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">smart-home</span><span class="badge">iot</span><span class="badge">automation</span><span class="badge">fog</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; edge.smart_home
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V2X Cooperative Perception - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>V2X Cooperative Perception</h1>
+    <div class="meta">
+        <strong>ID:</strong> v2x.cooperative_perception &nbsp;|&nbsp;
+        <strong>Domains:</strong> v2x, edge-computing &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>V2X cooperative perception. 3 vehicles (camera+lidar→fuse) → V2X exchange → global fuse → object list → threat → path plan → control.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    V2_Camera["V2_Camera<br/>cost: 2.0"]
+    V0_Fuse["V0_Fuse<br/>cost: 6.0"]
+    V1_Lidar["V1_Lidar<br/>cost: 3.0"]
+    ObjectList["ObjectList<br/>cost: 4.0"]
+    V2_Fuse["V2_Fuse<br/>cost: 6.0"]
+    GlobalFuse["GlobalFuse<br/>cost: 8.0"]
+    V2_Lidar["V2_Lidar<br/>cost: 3.0"]
+    PathPlan["PathPlan<br/>cost: 7.0"]
+    Control["Control<br/>cost: 3.0"]
+    V2X_Exchange["V2X_Exchange<br/>cost: 5.0"]
+    ThreatAssess["ThreatAssess<br/>cost: 6.0"]
+    V0_Lidar["V0_Lidar<br/>cost: 3.0"]
+    V1_Fuse["V1_Fuse<br/>cost: 6.0"]
+    V0_Camera["V0_Camera<br/>cost: 2.0"]
+    V1_Camera["V1_Camera<br/>cost: 2.0"]
+    V2_Fuse -->|"3"| V2X_Exchange
+    PathPlan -->|"2"| Control
+    V2X_Exchange -->|"3"| GlobalFuse
+    V1_Lidar -->|"4"| V1_Fuse
+    V0_Lidar -->|"4"| V0_Fuse
+    V1_Fuse -->|"3"| V2X_Exchange
+    V1_Camera -->|"4"| V1_Fuse
+    V2_Lidar -->|"4"| V2_Fuse
+    V0_Fuse -->|"3"| V2X_Exchange
+    ObjectList -->|"3"| ThreatAssess
+    GlobalFuse -->|"3"| ObjectList
+    V2_Camera -->|"4"| V2_Fuse
+    ThreatAssess -->|"2"| PathPlan
+    V0_Camera -->|"4"| V0_Fuse
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (15)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>V2_Camera</td><td>2.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>V0_Fuse</td><td>6.00</td><td>Merge / fuse data streams</td></tr><tr><td>V1_Lidar</td><td>3.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>ObjectList</td><td>4.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>V2_Fuse</td><td>6.00</td><td>Merge / fuse data streams</td></tr><tr><td>GlobalFuse</td><td>8.00</td><td>Merge / fuse data streams</td></tr><tr><td>V2_Lidar</td><td>3.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>PathPlan</td><td>7.00</td><td>Task scheduling / planning</td></tr><tr><td>Control</td><td>3.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>V2X_Exchange</td><td>5.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>ThreatAssess</td><td>6.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>V0_Lidar</td><td>3.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>V1_Fuse</td><td>6.00</td><td>Merge / fuse data streams</td></tr><tr><td>V0_Camera</td><td>2.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>V1_Camera</td><td>2.00</td><td>Processing step in v2x pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>15</td></tr><tr><td>Edges</td><td>14</td></tr><tr><td>Depth</td><td>8</td></tr><tr><td>Width</td><td>6</td></tr><tr><td>CCR</td><td>0.6970</td></tr><tr><td>Parallelism</td><td>1.8750</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, based on architecture described in Chen et al. 2019<br>
+<strong>Paper:</strong> Cooper: Cooperative Perception for Connected Autonomous Vehicles Based on 3D Point Clouds<br>
+<strong>Authors:</strong> Qi Chen, Sihai Tang, Qing Yang, Song Fu<br>
+<strong>Year:</strong> 2019<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1109/ICDCS.2019.00058" target="_blank">10.1109/ICDCS.2019.00058</a><br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Paper describes LiDAR-based cooperative perception where connected autonomous vehicles share 3D point cloud data to improve detection. It does not contain any DAG or task dependency graph. The original DOI (10.1109/TITS.2019.2963966) was fabricated (404); corrected to the real DOI at ICDCS 2019. This cooperative perception pipeline is an AI-generated task graph inspired by the architecture described in the paper.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> mec<br>
+<strong>Nodes:</strong> 7
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">v2x</span><span class="badge">cooperative</span><span class="badge">perception</span><span class="badge">lidar</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; v2x.cooperative_perception
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

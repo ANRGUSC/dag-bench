@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaussian Elimination (n=5) - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Gaussian Elimination (n=5)</h1>
+    <div class="meta">
+        <strong>ID:</strong> classic.gauss_elim_5 &nbsp;|&nbsp;
+        <strong>Domains:</strong> classic-benchmark &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Gaussian elimination for a 5x5 matrix. Classic benchmark from HEFT paper. Pivot and elimination tasks with column dependencies.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    elim_1_4["elim_1_4<br/>cost: 7.0"]
+    pivot_2["pivot_2<br/>cost: 5.0"]
+    elim_0_3["elim_0_3<br/>cost: 9.0"]
+    pivot_0["pivot_0<br/>cost: 9.0"]
+    elim_0_2["elim_0_2<br/>cost: 9.0"]
+    pivot_4["pivot_4<br/>cost: 1.0"]
+    pivot_1["pivot_1<br/>cost: 7.0"]
+    elim_1_3["elim_1_3<br/>cost: 7.0"]
+    elim_0_1["elim_0_1<br/>cost: 9.0"]
+    elim_3_4["elim_3_4<br/>cost: 3.0"]
+    elim_2_3["elim_2_3<br/>cost: 5.0"]
+    elim_2_4["elim_2_4<br/>cost: 5.0"]
+    pivot_3["pivot_3<br/>cost: 3.0"]
+    elim_1_2["elim_1_2<br/>cost: 7.0"]
+    elim_0_4["elim_0_4<br/>cost: 9.0"]
+    pivot_1 -->|"3"| pivot_2
+    elim_0_4 -->|"4"| pivot_1
+    elim_2_3 -->|"2"| pivot_3
+    pivot_0 -->|"5"| elim_0_2
+    pivot_2 -->|"3"| elim_2_3
+    pivot_1 -->|"4"| elim_1_4
+    pivot_3 -->|"2"| elim_3_4
+    elim_3_4 -->|"1"| pivot_4
+    elim_2_4 -->|"2"| pivot_3
+    elim_1_2 -->|"3"| pivot_2
+    pivot_3 -->|"1"| pivot_4
+    elim_1_3 -->|"3"| pivot_2
+    elim_0_3 -->|"4"| elim_1_3
+    elim_0_2 -->|"4"| pivot_1
+    pivot_0 -->|"4"| pivot_1
+    elim_0_4 -->|"4"| elim_1_4
+    elim_2_4 -->|"2"| elim_3_4
+    pivot_0 -->|"5"| elim_0_1
+    elim_0_2 -->|"4"| elim_1_2
+    elim_0_1 -->|"4"| pivot_1
+    pivot_1 -->|"4"| elim_1_2
+    elim_1_4 -->|"3"| pivot_2
+    elim_1_3 -->|"3"| elim_2_3
+    elim_1_4 -->|"3"| elim_2_4
+    pivot_0 -->|"5"| elim_0_4
+    pivot_2 -->|"3"| elim_2_4
+    pivot_2 -->|"2"| pivot_3
+    pivot_0 -->|"5"| elim_0_3
+    pivot_1 -->|"4"| elim_1_3
+    elim_0_3 -->|"4"| pivot_1
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (15)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>elim_1_4</td><td>7.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>pivot_2</td><td>5.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_0_3</td><td>9.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>pivot_0</td><td>9.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_0_2</td><td>9.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>pivot_4</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>pivot_1</td><td>7.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_1_3</td><td>7.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_0_1</td><td>9.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_3_4</td><td>3.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_2_3</td><td>5.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_2_4</td><td>5.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>pivot_3</td><td>3.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_1_2</td><td>7.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_0_4</td><td>9.00</td><td>Processing step in classic-benchmark pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>15</td></tr><tr><td>Edges</td><td>30</td></tr><tr><td>Depth</td><td>9</td></tr><tr><td>Width</td><td>4</td></tr><tr><td>CCR</td><td>1.0526</td></tr><tr><td>Parallelism</td><td>1.6667</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">Programmatic (from source code/repo)</span>
+        <br><br>
+        <strong>Source:</strong> Classic scheduling benchmark<br>
+<strong>Paper:</strong> Performance-effective and low-complexity task scheduling for heterogeneous computing<br>
+<strong>Authors:</strong> Haluk Topcuoglu, Salim Hariri, Min-You Wu<br>
+<strong>Year:</strong> 2002<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1109/71.993206" target="_blank">10.1109/71.993206</a><br>
+<strong>Extraction Method:</strong> Programmatic (from source code/repo)<br>
+<strong>Extractor:</strong> dagbench-import-script<br>
+<strong>Date:</strong> 2026-02-12
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fully-connected<br>
+<strong>Nodes:</strong> 3
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">gaussian-elimination</span><span class="badge">linear-algebra</span><span class="badge">heft</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; classic.gauss_elim_5
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

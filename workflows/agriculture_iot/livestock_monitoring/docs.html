@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Livestock Monitoring - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Livestock Monitoring</h1>
+    <div class="meta">
+        <strong>ID:</strong> agri.livestock_monitoring &nbsp;|&nbsp;
+        <strong>Domains:</strong> agriculture-iot, iot &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Livestock monitoring. 10 animal sensors → collect → (herd analytics, health alert, location track).</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    Animal7["Animal7<br/>cost: 1.0"]
+    Animal9["Animal9<br/>cost: 1.0"]
+    Animal6["Animal6<br/>cost: 1.0"]
+    LocationTrack["LocationTrack<br/>cost: 5.0"]
+    Collect["Collect<br/>cost: 3.0"]
+    HealthAlert["HealthAlert<br/>cost: 4.0"]
+    Animal4["Animal4<br/>cost: 1.0"]
+    Animal0["Animal0<br/>cost: 1.0"]
+    Animal8["Animal8<br/>cost: 1.0"]
+    Animal3["Animal3<br/>cost: 1.0"]
+    Animal1["Animal1<br/>cost: 1.0"]
+    Animal2["Animal2<br/>cost: 1.0"]
+    HerdAnalytics["HerdAnalytics<br/>cost: 8.0"]
+    Animal5["Animal5<br/>cost: 1.0"]
+    Animal4 -->|"0"| Collect
+    Animal7 -->|"0"| Collect
+    Animal8 -->|"0"| Collect
+    Animal1 -->|"0"| Collect
+    Animal5 -->|"0"| Collect
+    Collect -->|"2"| HealthAlert
+    Animal6 -->|"0"| Collect
+    Animal0 -->|"0"| Collect
+    Animal9 -->|"0"| Collect
+    Collect -->|"2"| HerdAnalytics
+    Collect -->|"2"| LocationTrack
+    Animal3 -->|"0"| Collect
+    Animal2 -->|"0"| Collect
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (14)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>Animal7</td><td>1.00</td><td>Processing step in agriculture-iot pipeline</td></tr><tr><td>Animal9</td><td>1.00</td><td>Processing step in agriculture-iot pipeline</td></tr><tr><td>Animal6</td><td>1.00</td><td>Processing step in agriculture-iot pipeline</td></tr><tr><td>LocationTrack</td><td>5.00</td><td>Processing step in agriculture-iot pipeline</td></tr><tr><td>Collect</td><td>3.00</td><td>Processing step in agriculture-iot pipeline</td></tr><tr><td>HealthAlert</td><td>4.00</td><td>Processing step in agriculture-iot pipeline</td></tr><tr><td>Animal4</td><td>1.00</td><td>Processing step in agriculture-iot pipeline</td></tr><tr><td>Animal0</td><td>1.00</td><td>Processing step in agriculture-iot pipeline</td></tr><tr><td>Animal8</td><td>1.00</td><td>Processing step in agriculture-iot pipeline</td></tr><tr><td>Animal3</td><td>1.00</td><td>Processing step in agriculture-iot pipeline</td></tr><tr><td>Animal1</td><td>1.00</td><td>Processing step in agriculture-iot pipeline</td></tr><tr><td>Animal2</td><td>1.00</td><td>Processing step in agriculture-iot pipeline</td></tr><tr><td>HerdAnalytics</td><td>8.00</td><td>Processing step in agriculture-iot pipeline</td></tr><tr><td>Animal5</td><td>1.00</td><td>Processing step in agriculture-iot pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>14</td></tr><tr><td>Edges</td><td>13</td></tr><tr><td>Depth</td><td>3</td></tr><tr><td>Width</td><td>10</td></tr><tr><td>CCR</td><td>0.3667</td></tr><tr><td>Parallelism</td><td>4.6667</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, based on architecture described in Neethirajan 2017<br>
+<strong>Paper:</strong> Recent advances in wearable sensors<br>
+<strong>Year:</strong> 2017<br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Paper/standard describes a agricultural IoT system but contains no explicit DAG figure. Task graph is an AI interpretation of the architecture described in the text.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fog-three-tier<br>
+<strong>Nodes:</strong> 8
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">livestock</span><span class="badge">animal-health</span><span class="badge">wearable</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; agri.livestock_monitoring
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

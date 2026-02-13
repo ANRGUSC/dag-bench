@@ -1,0 +1,39 @@
+id: v2x.platooning_control
+name: V2X Truck Platooning Control
+description: "Truck platooning. Leader sense \u2192 plan \u2192 broadcast \u2192 3\
+  \ followers (receive, adapt, control) \u2192 coordinate."
+domains:
+- v2x
+- cyber-physical
+provenance:
+  source: "AI-generated, inspired by V2X platooning control patterns"
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: "Original metadata cited 'Campolo et al. 2020' with DOI 10.1109/TVT.2020.2975574,
+    but that DOI does not exist (returns 404). Campolo's V2X research focuses on
+    radio resource allocation and sidelink protocols, not task scheduling DAGs. This
+    platooning control pipeline is an AI-generated task graph inspired by V2X platooning
+    concepts."
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: mec
+  num_nodes_min: 7
+  num_nodes_max: 7
+graph_stats:
+  num_tasks: 13
+  num_edges: 14
+  depth: 7
+  width: 3
+  ccr: 0.3404
+  parallelism: 1.8571
+campaign: campaign_004_networking
+tags:
+- platooning
+- v2x
+- truck

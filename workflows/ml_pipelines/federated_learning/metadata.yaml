@@ -1,0 +1,53 @@
+id: ml.federated_learning
+name: Federated Learning Round (5 clients)
+description: "One round of federated learning with 5 clients. Structure: init \u2192\
+  \ select \u2192 distribute[5] \u2192 local_train[5] \u2192 upload[5] \u2192 aggregate\
+  \ \u2192 update. Each client trains independently."
+domains:
+- ml-pipeline
+provenance:
+  source: "AI-generated, based on architecture described in Nalinipriya et al. 2024"
+  paper_doi: 10.1038/s41598-024-71995-y
+  paper_title: "Optimal directed acyclic graph federated learning model for
+    energy-efficient IoT communication networks"
+  authors:
+  - G. Nalinipriya
+  - E. Laxmi Lydia
+  - S. Rama Sree
+  - Denis Nikolenko
+  - Sirisha Potluri
+  - Janjhyam Venkata Naga Ramesh
+  - Sheela Jayachandran
+  year: 2024
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: "Paper in Scientific Reports presents a DAG-based federated learning model
+    for IoT networks. It contains DAG figures (Fig. 4) showing the communication
+    topology for managing device asynchrony, but these describe the DAG-FL
+    communication structure, not a traditional task scheduling DAG with computation
+    costs. This federated learning round pipeline is an AI-generated scatter-gather
+    task graph modeling one FL round, not directly extracted from any figure in the
+    paper."
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 19
+  num_edges: 22
+  depth: 7
+  width: 5
+  ccr: 1.0973
+  parallelism: 2.7143
+campaign: campaign_002_classic_and_manual
+tags:
+- federated-learning
+- distributed
+- privacy

@@ -1,0 +1,49 @@
+id: telecom.sfc_5g
+name: 5G Service Function Chain
+description: "5G network service function chain. Traffic \u2192 DPI \u2192 Firewall\
+  \ \u2192 NAT \u2192 LoadBalancer \u2192 (IDS, CDN) \u2192 Application. Typical NFV\
+  \ deployment."
+domains:
+- telecom
+- 5g
+- edge-computing
+provenance:
+  source: "AI-generated, based on architecture described in Adoga & Pezaros 2022"
+  paper_doi: 10.3390/fi14020059
+  paper_title: "Network Function Virtualization and Service Function Chaining Frameworks:
+    A Comprehensive Review of Requirements, Objectives, Implementations, and Open
+    Research Challenges"
+  authors:
+  - Henry Ijemaru Adoga
+  - Dimitrios P. Pezaros
+  year: 2022
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: "Paper is a comprehensive survey of NFV and SFC frameworks published in
+    Future Internet (MDPI). It contains taxonomy diagrams and architectural overviews
+    but no DAG or task dependency graph figures. This SFC pipeline is an AI-generated
+    task graph inspired by the NFV/SFC concepts described in the survey."
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: star
+  num_nodes_min: 7
+  num_nodes_max: 7
+graph_stats:
+  num_tasks: 8
+  num_edges: 8
+  depth: 7
+  width: 2
+  ccr: 0.566
+  parallelism: 1.1429
+campaign: campaign_002_classic_and_manual
+tags:
+- sfc
+- nfv
+- 5g
+- network-functions

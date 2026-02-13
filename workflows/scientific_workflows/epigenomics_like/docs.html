@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Epigenomics-like Genome Workflow - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Epigenomics-like Genome Workflow</h1>
+    <div class="meta">
+        <strong>ID:</strong> scientific.epigenomics_like &nbsp;|&nbsp;
+        <strong>Domains:</strong> scientific, genomics &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Genome processing workflow modeled after Epigenomics. QC → 4 parallel lanes (filter, convert, map, RC) → peak calling → annotation. Bioinformatics scatter-gather.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    FilterContam_2["FilterContam_2<br/>cost: 8.0"]
+    MapRC_0["MapRC_0<br/>cost: 6.0"]
+    Sol2Sanger_1["Sol2Sanger_1<br/>cost: 3.0"]
+    Annotate["Annotate<br/>cost: 10.0"]
+    MapMerge_2["MapMerge_2<br/>cost: 12.0"]
+    FilterContam_1["FilterContam_1<br/>cost: 8.0"]
+    Sol2Sanger_0["Sol2Sanger_0<br/>cost: 3.0"]
+    PeakCall["PeakCall<br/>cost: 15.0"]
+    MapMerge_0["MapMerge_0<br/>cost: 12.0"]
+    MapRC_3["MapRC_3<br/>cost: 6.0"]
+    MapRC_1["MapRC_1<br/>cost: 6.0"]
+    Sol2Sanger_2["Sol2Sanger_2<br/>cost: 3.0"]
+    MapMerge_1["MapMerge_1<br/>cost: 12.0"]
+    Sol2Sanger_3["Sol2Sanger_3<br/>cost: 3.0"]
+    FilterContam_3["FilterContam_3<br/>cost: 8.0"]
+    MapMerge_3["MapMerge_3<br/>cost: 12.0"]
+    FilterContam_0["FilterContam_0<br/>cost: 8.0"]
+    FastQC["FastQC<br/>cost: 5.0"]
+    MapRC_2["MapRC_2<br/>cost: 6.0"]
+    FastQC -->|"10"| FilterContam_1
+    MapRC_0 -->|"8"| PeakCall
+    MapMerge_0 -->|"5"| MapRC_0
+    PeakCall -->|"5"| Annotate
+    FilterContam_2 -->|"5"| Sol2Sanger_2
+    FilterContam_3 -->|"5"| Sol2Sanger_3
+    MapMerge_2 -->|"5"| MapRC_2
+    MapRC_2 -->|"8"| PeakCall
+    Sol2Sanger_1 -->|"5"| MapMerge_1
+    FilterContam_0 -->|"5"| Sol2Sanger_0
+    MapMerge_3 -->|"5"| MapRC_3
+    MapMerge_1 -->|"5"| MapRC_1
+    Sol2Sanger_0 -->|"5"| MapMerge_0
+    Sol2Sanger_2 -->|"5"| MapMerge_2
+    FastQC -->|"10"| FilterContam_3
+    FastQC -->|"10"| FilterContam_0
+    MapRC_3 -->|"8"| PeakCall
+    MapRC_1 -->|"8"| PeakCall
+    FastQC -->|"10"| FilterContam_2
+    FilterContam_1 -->|"5"| Sol2Sanger_1
+    Sol2Sanger_3 -->|"5"| MapMerge_3
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (19)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>FilterContam_2</td><td>8.00</td><td>Filter / validate data</td></tr><tr><td>MapRC_0</td><td>6.00</td><td>Map operation</td></tr><tr><td>Sol2Sanger_1</td><td>3.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>Annotate</td><td>10.00</td><td>Enrich data with metadata</td></tr><tr><td>MapMerge_2</td><td>12.00</td><td>Merge / fuse data streams</td></tr><tr><td>FilterContam_1</td><td>8.00</td><td>Filter / validate data</td></tr><tr><td>Sol2Sanger_0</td><td>3.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>PeakCall</td><td>15.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>MapMerge_0</td><td>12.00</td><td>Merge / fuse data streams</td></tr><tr><td>MapRC_3</td><td>6.00</td><td>Map operation</td></tr><tr><td>MapRC_1</td><td>6.00</td><td>Map operation</td></tr><tr><td>Sol2Sanger_2</td><td>3.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>MapMerge_1</td><td>12.00</td><td>Merge / fuse data streams</td></tr><tr><td>Sol2Sanger_3</td><td>3.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>FilterContam_3</td><td>8.00</td><td>Filter / validate data</td></tr><tr><td>MapMerge_3</td><td>12.00</td><td>Merge / fuse data streams</td></tr><tr><td>FilterContam_0</td><td>8.00</td><td>Filter / validate data</td></tr><tr><td>FastQC</td><td>5.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>MapRC_2</td><td>6.00</td><td>Map operation</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>19</td></tr><tr><td>Edges</td><td>21</td></tr><tr><td>Depth</td><td>7</td></tr><tr><td>Width</td><td>4</td></tr><tr><td>CCR</td><td>0.9384</td></tr><tr><td>Parallelism</td><td>2.7143</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, based on the Pegasus Epigenomics workflow described in Deelman et al. 2015<br>
+<strong>Paper:</strong> Pegasus, a workflow management system for science automation<br>
+<strong>Authors:</strong> Ewa Deelman, Karan Vahi, Gideon Juve, Mats Rynge, Scott Callaghan, Philip J. Maechling, Rajiv Mayani, Weiwei Chen, Rafael Ferreira da Silva, Miron Livny, R. Kent Wenger<br>
+<strong>Year:</strong> 2015<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1016/j.future.2014.10.008" target="_blank">10.1016/j.future.2014.10.008</a><br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> The Pegasus paper in Future Generation Computer Systems describes the workflow management system and discusses several scientific workflows including Epigenomics. The Epigenomics workflow DAG structure is well-documented in the Pegasus ecosystem (Workflow Gallery) and widely cited in scheduling literature. However, this specific workflow&#x27;s task names and structure are an AI-generated approximation of the Epigenomics pattern, not a faithful extraction from any specific figure in the paper or from the Pegasus DAX files.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fully-connected<br>
+<strong>Nodes:</strong> 4
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">epigenomics</span><span class="badge">genomics</span><span class="badge">bioinformatics</span><span class="badge">scatter-gather</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; scientific.epigenomics_like
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

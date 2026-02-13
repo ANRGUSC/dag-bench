@@ -1,0 +1,313 @@
+{
+  "name": "v2x.cooperative_perception",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "V2_Camera",
+        "cost": 2.0
+      },
+      {
+        "name": "V0_Fuse",
+        "cost": 6.0
+      },
+      {
+        "name": "V1_Lidar",
+        "cost": 3.0
+      },
+      {
+        "name": "ObjectList",
+        "cost": 4.0
+      },
+      {
+        "name": "V2_Fuse",
+        "cost": 6.0
+      },
+      {
+        "name": "GlobalFuse",
+        "cost": 8.0
+      },
+      {
+        "name": "V2_Lidar",
+        "cost": 3.0
+      },
+      {
+        "name": "PathPlan",
+        "cost": 7.0
+      },
+      {
+        "name": "Control",
+        "cost": 3.0
+      },
+      {
+        "name": "V2X_Exchange",
+        "cost": 5.0
+      },
+      {
+        "name": "ThreatAssess",
+        "cost": 6.0
+      },
+      {
+        "name": "V0_Lidar",
+        "cost": 3.0
+      },
+      {
+        "name": "V1_Fuse",
+        "cost": 6.0
+      },
+      {
+        "name": "V0_Camera",
+        "cost": 2.0
+      },
+      {
+        "name": "V1_Camera",
+        "cost": 2.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "V2_Fuse",
+        "target": "V2X_Exchange",
+        "size": 3.0
+      },
+      {
+        "source": "PathPlan",
+        "target": "Control",
+        "size": 2.0
+      },
+      {
+        "source": "V2X_Exchange",
+        "target": "GlobalFuse",
+        "size": 3.0
+      },
+      {
+        "source": "V1_Lidar",
+        "target": "V1_Fuse",
+        "size": 4.0
+      },
+      {
+        "source": "V0_Lidar",
+        "target": "V0_Fuse",
+        "size": 4.0
+      },
+      {
+        "source": "V1_Fuse",
+        "target": "V2X_Exchange",
+        "size": 3.0
+      },
+      {
+        "source": "V1_Camera",
+        "target": "V1_Fuse",
+        "size": 4.0
+      },
+      {
+        "source": "V2_Lidar",
+        "target": "V2_Fuse",
+        "size": 4.0
+      },
+      {
+        "source": "V0_Fuse",
+        "target": "V2X_Exchange",
+        "size": 3.0
+      },
+      {
+        "source": "ObjectList",
+        "target": "ThreatAssess",
+        "size": 3.0
+      },
+      {
+        "source": "GlobalFuse",
+        "target": "ObjectList",
+        "size": 3.0
+      },
+      {
+        "source": "V2_Camera",
+        "target": "V2_Fuse",
+        "size": 4.0
+      },
+      {
+        "source": "ThreatAssess",
+        "target": "PathPlan",
+        "size": 2.0
+      },
+      {
+        "source": "V0_Camera",
+        "target": "V0_Fuse",
+        "size": 4.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "MEC1",
+        "speed": 10.0
+      },
+      {
+        "name": "UE3",
+        "speed": 1.0
+      },
+      {
+        "name": "UE2",
+        "speed": 1.0
+      },
+      {
+        "name": "UE0",
+        "speed": 1.0
+      },
+      {
+        "name": "UE1",
+        "speed": 1.0
+      },
+      {
+        "name": "MEC0",
+        "speed": 10.0
+      },
+      {
+        "name": "Cloud",
+        "speed": 50.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "MEC0",
+        "target": "MEC1",
+        "speed": 10000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE0",
+        "speed": 5000.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE3",
+        "speed": 500.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE2",
+        "speed": 500.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE0",
+        "speed": 500.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE1",
+        "speed": 5000.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE1",
+        "speed": 200.0
+      },
+      {
+        "source": "MEC0",
+        "target": "MEC0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "MEC1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "UE1",
+        "target": "UE1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "Cloud",
+        "target": "MEC1",
+        "speed": 15000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE1",
+        "speed": 5000.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE3",
+        "speed": 5000.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE2",
+        "speed": 5000.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE0",
+        "speed": 5000.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE3",
+        "speed": 200.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE1",
+        "speed": 500.0
+      },
+      {
+        "source": "Cloud",
+        "target": "Cloud",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE2",
+        "speed": 200.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "UE1",
+        "target": "UE3",
+        "speed": 200.0
+      },
+      {
+        "source": "UE1",
+        "target": "UE2",
+        "speed": 200.0
+      },
+      {
+        "source": "Cloud",
+        "target": "MEC0",
+        "speed": 15000.0
+      },
+      {
+        "source": "UE2",
+        "target": "UE3",
+        "speed": 200.0
+      },
+      {
+        "source": "UE2",
+        "target": "UE2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE3",
+        "speed": 5000.0
+      },
+      {
+        "source": "UE3",
+        "target": "UE3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE2",
+        "speed": 5000.0
+      }
+    ]
+  }
+}

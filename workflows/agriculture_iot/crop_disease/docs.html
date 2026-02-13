@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crop Disease Detection - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Crop Disease Detection</h1>
+    <div class="meta">
+        <strong>ID:</strong> agri.crop_disease &nbsp;|&nbsp;
+        <strong>Domains:</strong> agriculture-iot, ml-pipeline, image-processing &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Crop disease. Capture → preprocess → 3 feature extractors → fuse → classify → severity → (treatment, alert, map).</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    TreatmentRec["TreatmentRec<br/>cost: 5.0"]
+    SeverityScore["SeverityScore<br/>cost: 4.0"]
+    ImageCapture["ImageCapture<br/>cost: 2.0"]
+    ShapeFeature["ShapeFeature<br/>cost: 5.0"]
+    ColorFeature["ColorFeature<br/>cost: 5.0"]
+    MapUpdate["MapUpdate<br/>cost: 3.0"]
+    Classify["Classify<br/>cost: 8.0"]
+    TextureFeature["TextureFeature<br/>cost: 5.0"]
+    Preprocess["Preprocess<br/>cost: 3.0"]
+    Alert["Alert<br/>cost: 2.0"]
+    FeatureFuse["FeatureFuse<br/>cost: 3.0"]
+    SeverityScore -->|"1"| TreatmentRec
+    ImageCapture -->|"3"| Preprocess
+    ShapeFeature -->|"2"| FeatureFuse
+    Preprocess -->|"2"| ColorFeature
+    Preprocess -->|"2"| ShapeFeature
+    Preprocess -->|"2"| TextureFeature
+    FeatureFuse -->|"2"| Classify
+    ColorFeature -->|"2"| FeatureFuse
+    Classify -->|"2"| SeverityScore
+    SeverityScore -->|"1"| Alert
+    TextureFeature -->|"2"| FeatureFuse
+    SeverityScore -->|"1"| MapUpdate
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (11)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>TreatmentRec</td><td>5.00</td><td>Processing step in agriculture-iot pipeline</td></tr><tr><td>SeverityScore</td><td>4.00</td><td>Processing step in agriculture-iot pipeline</td></tr><tr><td>ImageCapture</td><td>2.00</td><td>Processing step in agriculture-iot pipeline</td></tr><tr><td>ShapeFeature</td><td>5.00</td><td>Processing step in agriculture-iot pipeline</td></tr><tr><td>ColorFeature</td><td>5.00</td><td>Processing step in agriculture-iot pipeline</td></tr><tr><td>MapUpdate</td><td>3.00</td><td>Map operation</td></tr><tr><td>Classify</td><td>8.00</td><td>Classification / prediction</td></tr><tr><td>TextureFeature</td><td>5.00</td><td>Processing step in agriculture-iot pipeline</td></tr><tr><td>Preprocess</td><td>3.00</td><td>Data preprocessing</td></tr><tr><td>Alert</td><td>2.00</td><td>Processing step in agriculture-iot pipeline</td></tr><tr><td>FeatureFuse</td><td>3.00</td><td>Merge / fuse data streams</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>11</td></tr><tr><td>Edges</td><td>12</td></tr><tr><td>Depth</td><td>7</td></tr><tr><td>Width</td><td>3</td></tr><tr><td>CCR</td><td>0.4889</td></tr><tr><td>Parallelism</td><td>1.5714</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, based on architecture described in Mohanty et al. 2016<br>
+<strong>Paper:</strong> Using Deep Learning for Image-Based Plant Disease Detection<br>
+<strong>Authors:</strong> Sharada P. Mohanty, David P. Hughes, Marcel Salathe<br>
+<strong>Year:</strong> 2016<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.3389/fpls.2016.01419" target="_blank">10.3389/fpls.2016.01419</a><br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Paper trains deep CNNs (AlexNet, GoogLeNet) on 54,306 images of diseased/healthy plant leaves in Frontiers in Plant Science. It contains accuracy comparison figures and tables but no DAG, task dependency graph, or processing pipeline diagram. This crop disease detection pipeline is an AI-generated task graph inspired by the image classification concepts described in the paper.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fog-three-tier<br>
+<strong>Nodes:</strong> 8
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">crop-disease</span><span class="badge">plant-pathology</span><span class="badge">deep-learning</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; agri.crop_disease
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

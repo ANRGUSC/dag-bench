@@ -1,0 +1,43 @@
+id: synthetic.branching_4x3
+name: Branching DAG (4 levels, factor 3)
+description: Tree-like DAG with 4 levels and branching factor 3, plus sink. Large
+  synthetic benchmark for parallel scheduling.
+domains:
+- synthetic
+provenance:
+  source: SAGA framework (anrg-saga)
+  paper_arxiv: '2403.07120'
+  paper_title: 'PISA: A Comprehensive Benchmark for Scheduling Algorithms'
+  authors:
+  - Justin Boggs
+  - Landon Sights
+  - Bhaskar Krishnamachari
+  year: 2024
+  repo_url: https://github.com/anrgusc/saga
+  extraction_method: programmatic
+  extractor: dagbench-import-script
+  extraction_date: '2026-02-12'
+license:
+  source_license: Non-commercial (USC/ANRG)
+  dagbench_license: Apache-2.0
+  notes: Task graph structure extracted from SAGA; SAGA itself is non-commercial licensed
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 41
+  num_edges: 66
+  depth: 5
+  width: 27
+  ccr: 1.625
+  parallelism: 8.2
+campaign: campaign_001_initial_import
+tags:
+- branching
+- tree
+- parallel
+- large

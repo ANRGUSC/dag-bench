@@ -1,0 +1,348 @@
+{
+  "name": "agri.livestock_monitoring",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "Animal7",
+        "cost": 1.0
+      },
+      {
+        "name": "Animal9",
+        "cost": 1.0
+      },
+      {
+        "name": "Animal6",
+        "cost": 1.0
+      },
+      {
+        "name": "LocationTrack",
+        "cost": 5.0
+      },
+      {
+        "name": "Collect",
+        "cost": 3.0
+      },
+      {
+        "name": "HealthAlert",
+        "cost": 4.0
+      },
+      {
+        "name": "Animal4",
+        "cost": 1.0
+      },
+      {
+        "name": "Animal0",
+        "cost": 1.0
+      },
+      {
+        "name": "Animal8",
+        "cost": 1.0
+      },
+      {
+        "name": "Animal3",
+        "cost": 1.0
+      },
+      {
+        "name": "Animal1",
+        "cost": 1.0
+      },
+      {
+        "name": "Animal2",
+        "cost": 1.0
+      },
+      {
+        "name": "HerdAnalytics",
+        "cost": 8.0
+      },
+      {
+        "name": "Animal5",
+        "cost": 1.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "Animal4",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Animal7",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Animal8",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Animal1",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Animal5",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Collect",
+        "target": "HealthAlert",
+        "size": 2.0
+      },
+      {
+        "source": "Animal6",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Animal0",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Animal9",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Collect",
+        "target": "HerdAnalytics",
+        "size": 2.0
+      },
+      {
+        "source": "Collect",
+        "target": "LocationTrack",
+        "size": 2.0
+      },
+      {
+        "source": "Animal3",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Animal2",
+        "target": "Collect",
+        "size": 0.5
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "E2",
+        "speed": 1.0
+      },
+      {
+        "name": "F0",
+        "speed": 8.0
+      },
+      {
+        "name": "C0",
+        "speed": 50.0
+      },
+      {
+        "name": "E3",
+        "speed": 1.0
+      },
+      {
+        "name": "E1",
+        "speed": 1.0
+      },
+      {
+        "name": "E0",
+        "speed": 1.0
+      },
+      {
+        "name": "E4",
+        "speed": 1.0
+      },
+      {
+        "name": "F1",
+        "speed": 8.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "C0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E0",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "C0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F0",
+        "speed": 12500.0
+      },
+      {
+        "source": "E1",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E3",
+        "target": "E3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "F1",
+        "target": "F1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E1",
+        "target": "E1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "F0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "E0",
+        "target": "E0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E4",
+        "target": "E4",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "F0",
+        "target": "F0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F1",
+        "speed": 12500.0
+      }
+    ]
+  }
+}

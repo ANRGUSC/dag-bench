@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tactical COP Situational Awareness - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Tactical COP Situational Awareness</h1>
+    <div class="meta">
+        <strong>ID:</strong> tactical.situational_awareness &nbsp;|&nbsp;
+        <strong>Domains:</strong> tactical, manet &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Common Operating Picture. 4 teams (sense, report) → force track → (enemy, terrain, weather) → COP build → (distribute, archive).</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    Team2_Sense["Team2_Sense<br/>cost: 3.0"]
+    Team3_Report["Team3_Report<br/>cost: 2.0"]
+    Archive["Archive<br/>cost: 2.0"]
+    Team1_Report["Team1_Report<br/>cost: 2.0"]
+    Team2_Report["Team2_Report<br/>cost: 2.0"]
+    WeatherOverlay["WeatherOverlay<br/>cost: 3.0"]
+    Distribute["Distribute<br/>cost: 2.0"]
+    EnemyTrack["EnemyTrack<br/>cost: 6.0"]
+    COP_Build["COP_Build<br/>cost: 8.0"]
+    Team0_Report["Team0_Report<br/>cost: 2.0"]
+    Team0_Sense["Team0_Sense<br/>cost: 3.0"]
+    Team3_Sense["Team3_Sense<br/>cost: 3.0"]
+    ForceTrack["ForceTrack<br/>cost: 6.0"]
+    TerrainOverlay["TerrainOverlay<br/>cost: 4.0"]
+    Team1_Sense["Team1_Sense<br/>cost: 3.0"]
+    WeatherOverlay -->|"3"| COP_Build
+    Team3_Report -->|"2"| ForceTrack
+    COP_Build -->|"1"| Distribute
+    Team0_Report -->|"2"| ForceTrack
+    Team0_Sense -->|"1"| Team0_Report
+    ForceTrack -->|"2"| WeatherOverlay
+    Team1_Sense -->|"1"| Team1_Report
+    Team3_Sense -->|"1"| Team3_Report
+    COP_Build -->|"1"| Archive
+    TerrainOverlay -->|"3"| COP_Build
+    Team2_Sense -->|"1"| Team2_Report
+    ForceTrack -->|"2"| EnemyTrack
+    EnemyTrack -->|"3"| COP_Build
+    ForceTrack -->|"2"| TerrainOverlay
+    Team1_Report -->|"2"| ForceTrack
+    Team2_Report -->|"2"| ForceTrack
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (15)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>Team2_Sense</td><td>3.00</td><td>Processing step in tactical pipeline</td></tr><tr><td>Team3_Report</td><td>2.00</td><td>Processing step in tactical pipeline</td></tr><tr><td>Archive</td><td>2.00</td><td>Processing step in tactical pipeline</td></tr><tr><td>Team1_Report</td><td>2.00</td><td>Processing step in tactical pipeline</td></tr><tr><td>Team2_Report</td><td>2.00</td><td>Processing step in tactical pipeline</td></tr><tr><td>WeatherOverlay</td><td>3.00</td><td>Processing step in tactical pipeline</td></tr><tr><td>Distribute</td><td>2.00</td><td>Processing step in tactical pipeline</td></tr><tr><td>EnemyTrack</td><td>6.00</td><td>Processing step in tactical pipeline</td></tr><tr><td>COP_Build</td><td>8.00</td><td>Processing step in tactical pipeline</td></tr><tr><td>Team0_Report</td><td>2.00</td><td>Processing step in tactical pipeline</td></tr><tr><td>Team0_Sense</td><td>3.00</td><td>Processing step in tactical pipeline</td></tr><tr><td>Team3_Sense</td><td>3.00</td><td>Processing step in tactical pipeline</td></tr><tr><td>ForceTrack</td><td>6.00</td><td>Processing step in tactical pipeline</td></tr><tr><td>TerrainOverlay</td><td>4.00</td><td>Processing step in tactical pipeline</td></tr><tr><td>Team1_Sense</td><td>3.00</td><td>Processing step in tactical pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>15</td></tr><tr><td>Edges</td><td>16</td></tr><tr><td>Depth</td><td>6</td></tr><tr><td>Width</td><td>4</td></tr><tr><td>CCR</td><td>0.5686</td></tr><tr><td>Parallelism</td><td>2.5000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, inspired by tactical/military network workflow patterns<br>
+<strong>Paper:</strong> COP generation<br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Structure was AI-generated to represent a typical tactical/military network pattern. Not extracted from any specific source.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> manet<br>
+<strong>Nodes:</strong> 7
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">cop</span><span class="badge">situational-awareness</span><span class="badge">c2</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; tactical.situational_awareness
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

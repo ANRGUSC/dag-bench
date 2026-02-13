@@ -1,0 +1,33 @@
+id: classic.cholesky_6
+name: Cholesky Factorization (6x6 tiles)
+description: Tiled Cholesky factorization for a 6x6 tile grid. Large dense linear
+  algebra benchmark.
+domains:
+- classic-benchmark
+provenance:
+  source: Classic Cholesky benchmark
+  extraction_method: programmatic
+  extractor: dagbench-import-script
+  extraction_date: '2026-02-12'
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 56
+  num_edges: 85
+  depth: 16
+  width: 15
+  ccr: 0.4595
+  parallelism: 3.5
+campaign: campaign_003_expansion
+tags:
+- cholesky
+- linear-algebra
+- large

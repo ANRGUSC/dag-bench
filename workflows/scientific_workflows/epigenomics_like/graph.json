@@ -1,0 +1,262 @@
+{
+  "name": "scientific.epigenomics_like",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "FilterContam_2",
+        "cost": 8.0
+      },
+      {
+        "name": "MapRC_0",
+        "cost": 6.0
+      },
+      {
+        "name": "Sol2Sanger_1",
+        "cost": 3.0
+      },
+      {
+        "name": "Annotate",
+        "cost": 10.0
+      },
+      {
+        "name": "MapMerge_2",
+        "cost": 12.0
+      },
+      {
+        "name": "FilterContam_1",
+        "cost": 8.0
+      },
+      {
+        "name": "Sol2Sanger_0",
+        "cost": 3.0
+      },
+      {
+        "name": "PeakCall",
+        "cost": 15.0
+      },
+      {
+        "name": "MapMerge_0",
+        "cost": 12.0
+      },
+      {
+        "name": "MapRC_3",
+        "cost": 6.0
+      },
+      {
+        "name": "MapRC_1",
+        "cost": 6.0
+      },
+      {
+        "name": "Sol2Sanger_2",
+        "cost": 3.0
+      },
+      {
+        "name": "MapMerge_1",
+        "cost": 12.0
+      },
+      {
+        "name": "Sol2Sanger_3",
+        "cost": 3.0
+      },
+      {
+        "name": "FilterContam_3",
+        "cost": 8.0
+      },
+      {
+        "name": "MapMerge_3",
+        "cost": 12.0
+      },
+      {
+        "name": "FilterContam_0",
+        "cost": 8.0
+      },
+      {
+        "name": "FastQC",
+        "cost": 5.0
+      },
+      {
+        "name": "MapRC_2",
+        "cost": 6.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "FastQC",
+        "target": "FilterContam_1",
+        "size": 10.0
+      },
+      {
+        "source": "MapRC_0",
+        "target": "PeakCall",
+        "size": 8.0
+      },
+      {
+        "source": "MapMerge_0",
+        "target": "MapRC_0",
+        "size": 5.0
+      },
+      {
+        "source": "PeakCall",
+        "target": "Annotate",
+        "size": 5.0
+      },
+      {
+        "source": "FilterContam_2",
+        "target": "Sol2Sanger_2",
+        "size": 5.0
+      },
+      {
+        "source": "FilterContam_3",
+        "target": "Sol2Sanger_3",
+        "size": 5.0
+      },
+      {
+        "source": "MapMerge_2",
+        "target": "MapRC_2",
+        "size": 5.0
+      },
+      {
+        "source": "MapRC_2",
+        "target": "PeakCall",
+        "size": 8.0
+      },
+      {
+        "source": "Sol2Sanger_1",
+        "target": "MapMerge_1",
+        "size": 5.0
+      },
+      {
+        "source": "FilterContam_0",
+        "target": "Sol2Sanger_0",
+        "size": 5.0
+      },
+      {
+        "source": "MapMerge_3",
+        "target": "MapRC_3",
+        "size": 5.0
+      },
+      {
+        "source": "MapMerge_1",
+        "target": "MapRC_1",
+        "size": 5.0
+      },
+      {
+        "source": "Sol2Sanger_0",
+        "target": "MapMerge_0",
+        "size": 5.0
+      },
+      {
+        "source": "Sol2Sanger_2",
+        "target": "MapMerge_2",
+        "size": 5.0
+      },
+      {
+        "source": "FastQC",
+        "target": "FilterContam_3",
+        "size": 10.0
+      },
+      {
+        "source": "FastQC",
+        "target": "FilterContam_0",
+        "size": 10.0
+      },
+      {
+        "source": "MapRC_3",
+        "target": "PeakCall",
+        "size": 8.0
+      },
+      {
+        "source": "MapRC_1",
+        "target": "PeakCall",
+        "size": 8.0
+      },
+      {
+        "source": "FastQC",
+        "target": "FilterContam_2",
+        "size": 10.0
+      },
+      {
+        "source": "FilterContam_1",
+        "target": "Sol2Sanger_1",
+        "size": 5.0
+      },
+      {
+        "source": "Sol2Sanger_3",
+        "target": "MapMerge_3",
+        "size": 5.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N1",
+        "speed": 2.0
+      },
+      {
+        "name": "N2",
+        "speed": 2.0
+      },
+      {
+        "name": "N3",
+        "speed": 2.0
+      },
+      {
+        "name": "N0",
+        "speed": 2.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 1000.0
+      },
+      {
+        "source": "N0",
+        "target": "N3",
+        "speed": 1000.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N3",
+        "speed": 1000.0
+      },
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 1000.0
+      },
+      {
+        "source": "N2",
+        "target": "N3",
+        "speed": 1000.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 1000.0
+      },
+      {
+        "source": "N3",
+        "target": "N3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      }
+    ]
+  }
+}

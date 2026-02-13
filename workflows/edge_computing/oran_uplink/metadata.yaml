@@ -1,0 +1,44 @@
+id: telecom.oran_uplink
+name: O-RAN Uplink Processing Pipeline
+description: O-RAN uplink signal processing chain. RF → ADC → Low-PHY (FFT, demod)
+  → High-PHY (decode, descramble) → MAC → RLC → PDCP → SDAP → Core. Split 7.2 architecture.
+domains:
+- telecom
+- 5g
+provenance:
+  source: AI-generated, based on architecture described in O-RAN architecture
+  paper_title: O-RAN Alliance Architecture Description
+  authors:
+  - O-RAN Alliance
+  year: 2023
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: Paper/standard describes a telecommunications/5G system but contains no explicit
+    DAG figure. Task graph is an AI interpretation of the architecture described in
+    the text.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+  notes: Classic benchmark structure; costs are representative
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: star
+  num_nodes_min: 7
+  num_nodes_max: 7
+graph_stats:
+  num_tasks: 11
+  num_edges: 10
+  depth: 11
+  width: 1
+  ccr: 1.3158
+  parallelism: 1.0
+campaign: campaign_002_classic_and_manual
+tags:
+- oran
+- 5g
+- uplink
+- signal-processing
+- sequential

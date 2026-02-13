@@ -1,0 +1,40 @@
+id: tactical.mesh_routing
+name: MANET Mesh Routing Protocol
+description: OLSR-like mesh routing. Hello → neighbor discover → MPR select → topology
+  build → route calc → 4 forwarding tables → maintenance.
+domains:
+- manet
+- wireless
+provenance:
+  source: AI-generated, based on architecture described in RFC 3626 (OLSR)
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  paper_title: OLSR routing protocol
+  year: 2003
+  notes: Paper/standard describes a tactical/military network system but contains
+    no explicit DAG figure. Task graph is an AI interpretation of the architecture
+    described in the text.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: manet
+  num_nodes_min: 7
+  num_nodes_max: 7
+graph_stats:
+  num_tasks: 10
+  num_edges: 12
+  depth: 7
+  width: 4
+  ccr: 0.4516
+  parallelism: 1.4286
+campaign: campaign_004_networking
+tags:
+- olsr
+- mesh
+- routing
+- manet

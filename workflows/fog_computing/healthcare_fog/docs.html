@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fog Healthcare Monitoring - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Fog Healthcare Monitoring</h1>
+    <div class="meta">
+        <strong>ID:</strong> fog.healthcare_fog &nbsp;|&nbsp;
+        <strong>Domains:</strong> fog-computing, iot &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Healthcare fog. 9 sensors → 3 patient edges → fog (analyze, alert) → cloud (store, analytics) + doctor notify.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    Sensor6["Sensor6<br/>cost: 1.0"]
+    Sensor0["Sensor0<br/>cost: 1.0"]
+    PatientEdge0["PatientEdge0<br/>cost: 4.0"]
+    Sensor8["Sensor8<br/>cost: 1.0"]
+    FogAlert["FogAlert<br/>cost: 4.0"]
+    Sensor2["Sensor2<br/>cost: 1.0"]
+    Sensor5["Sensor5<br/>cost: 1.0"]
+    Sensor1["Sensor1<br/>cost: 1.0"]
+    Sensor4["Sensor4<br/>cost: 1.0"]
+    Sensor7["Sensor7<br/>cost: 1.0"]
+    CloudAnalytics["CloudAnalytics<br/>cost: 10.0"]
+    FogAnalyze["FogAnalyze<br/>cost: 8.0"]
+    PatientEdge2["PatientEdge2<br/>cost: 4.0"]
+    DoctorNotify["DoctorNotify<br/>cost: 2.0"]
+    CloudStore["CloudStore<br/>cost: 5.0"]
+    Sensor3["Sensor3<br/>cost: 1.0"]
+    PatientEdge1["PatientEdge1<br/>cost: 4.0"]
+    PatientEdge1 -->|"2"| FogAnalyze
+    Sensor3 -->|"1"| PatientEdge1
+    PatientEdge2 -->|"2"| FogAnalyze
+    CloudStore -->|"2"| CloudAnalytics
+    Sensor1 -->|"1"| PatientEdge0
+    Sensor7 -->|"1"| PatientEdge2
+    Sensor0 -->|"1"| PatientEdge0
+    PatientEdge0 -->|"2"| FogAnalyze
+    FogAnalyze -->|"1"| FogAlert
+    FogAnalyze -->|"3"| CloudStore
+    Sensor8 -->|"1"| PatientEdge2
+    FogAlert -->|"1"| DoctorNotify
+    Sensor2 -->|"1"| PatientEdge0
+    Sensor6 -->|"1"| PatientEdge2
+    Sensor5 -->|"1"| PatientEdge1
+    Sensor4 -->|"1"| PatientEdge1
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (17)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>Sensor6</td><td>1.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Sensor0</td><td>1.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>PatientEdge0</td><td>4.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Sensor8</td><td>1.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>FogAlert</td><td>4.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Sensor2</td><td>1.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Sensor5</td><td>1.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Sensor1</td><td>1.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Sensor4</td><td>1.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Sensor7</td><td>1.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>CloudAnalytics</td><td>10.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>FogAnalyze</td><td>8.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>PatientEdge2</td><td>4.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>DoctorNotify</td><td>2.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>CloudStore</td><td>5.00</td><td>Data storage / caching</td></tr><tr><td>Sensor3</td><td>1.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>PatientEdge1</td><td>4.00</td><td>Processing step in fog-computing pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>17</td></tr><tr><td>Edges</td><td>16</td></tr><tr><td>Depth</td><td>5</td></tr><tr><td>Width</td><td>9</td></tr><tr><td>CCR</td><td>0.4400</td></tr><tr><td>Parallelism</td><td>3.4000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, based on architecture described in Negash et al. 2018<br>
+<strong>Paper:</strong> Leveraging Fog Computing for Healthcare IoT<br>
+<strong>Authors:</strong> Behailu Negash, Tuan Nguyen Gia, Amir Rahmani, Pasi Liljeberg, Hannu Tenhunen<br>
+<strong>Year:</strong> 2018<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1007/978-3-319-57639-8_8" target="_blank">10.1007/978-3-319-57639-8_8</a><br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Paper describes a fog-based smart e-Health gateway architecture for IoT healthcare. It does not contain any DAG or task dependency graph. The original DOI (10.1016/j.future.2018.04.036) resolved to a completely different paper (Kumar et al. on disease prediction using fuzzy neural classifiers); corrected to the real Springer chapter DOI. This healthcare fog pipeline is an AI-generated task graph inspired by the fog architecture described in the paper.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fog-three-tier<br>
+<strong>Nodes:</strong> 8
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">healthcare</span><span class="badge">fog</span><span class="badge">patient-monitoring</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; fog.healthcare_fog
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

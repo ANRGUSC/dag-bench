@@ -1,0 +1,331 @@
+{
+  "name": "iiot.cnc_monitoring",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "FeedRateAdj",
+        "cost": 3.0
+      },
+      {
+        "name": "Vibration",
+        "cost": 1.0
+      },
+      {
+        "name": "Collect",
+        "cost": 2.0
+      },
+      {
+        "name": "AdaptiveControl",
+        "cost": 8.0
+      },
+      {
+        "name": "ChatterDetect",
+        "cost": 5.0
+      },
+      {
+        "name": "SpindleTemp",
+        "cost": 1.0
+      },
+      {
+        "name": "CutForce",
+        "cost": 1.0
+      },
+      {
+        "name": "ThermalDrift",
+        "cost": 4.0
+      },
+      {
+        "name": "PowerDraw",
+        "cost": 1.0
+      },
+      {
+        "name": "Alert",
+        "cost": 2.0
+      },
+      {
+        "name": "ToolWear",
+        "cost": 6.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "SpindleTemp",
+        "target": "Collect",
+        "size": 1.0
+      },
+      {
+        "source": "ToolWear",
+        "target": "AdaptiveControl",
+        "size": 2.0
+      },
+      {
+        "source": "AdaptiveControl",
+        "target": "FeedRateAdj",
+        "size": 1.0
+      },
+      {
+        "source": "ThermalDrift",
+        "target": "AdaptiveControl",
+        "size": 2.0
+      },
+      {
+        "source": "Vibration",
+        "target": "Collect",
+        "size": 1.0
+      },
+      {
+        "source": "Collect",
+        "target": "ToolWear",
+        "size": 2.0
+      },
+      {
+        "source": "Collect",
+        "target": "ThermalDrift",
+        "size": 2.0
+      },
+      {
+        "source": "ChatterDetect",
+        "target": "AdaptiveControl",
+        "size": 2.0
+      },
+      {
+        "source": "AdaptiveControl",
+        "target": "Alert",
+        "size": 1.0
+      },
+      {
+        "source": "PowerDraw",
+        "target": "Collect",
+        "size": 1.0
+      },
+      {
+        "source": "Collect",
+        "target": "ChatterDetect",
+        "size": 2.0
+      },
+      {
+        "source": "CutForce",
+        "target": "Collect",
+        "size": 1.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "E2",
+        "speed": 1.0
+      },
+      {
+        "name": "F0",
+        "speed": 8.0
+      },
+      {
+        "name": "C0",
+        "speed": 50.0
+      },
+      {
+        "name": "E3",
+        "speed": 1.0
+      },
+      {
+        "name": "E1",
+        "speed": 1.0
+      },
+      {
+        "name": "E0",
+        "speed": 1.0
+      },
+      {
+        "name": "E4",
+        "speed": 1.0
+      },
+      {
+        "name": "F1",
+        "speed": 8.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "C0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E0",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "C0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F0",
+        "speed": 12500.0
+      },
+      {
+        "source": "E1",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E3",
+        "target": "E3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "F1",
+        "target": "F1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E1",
+        "target": "E1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "F0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "E0",
+        "target": "E0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E4",
+        "target": "E4",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "F0",
+        "target": "F0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F1",
+        "speed": 12500.0
+      }
+    ]
+  }
+}

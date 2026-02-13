@@ -1,0 +1,322 @@
+{
+  "name": "iot.smart_grid",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "PriceSignal",
+        "cost": 6.0
+      },
+      {
+        "name": "SolarForecast",
+        "cost": 10.0
+      },
+      {
+        "name": "DemandForecast",
+        "cost": 12.0
+      },
+      {
+        "name": "WindForecast",
+        "cost": 10.0
+      },
+      {
+        "name": "EnergyOptimize",
+        "cost": 20.0
+      },
+      {
+        "name": "BatterySchedule",
+        "cost": 8.0
+      },
+      {
+        "name": "DemandResponse",
+        "cost": 10.0
+      },
+      {
+        "name": "Monitor",
+        "cost": 3.0
+      },
+      {
+        "name": "GridState",
+        "cost": 5.0
+      },
+      {
+        "name": "GridDispatch",
+        "cost": 8.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "WindForecast",
+        "target": "EnergyOptimize",
+        "size": 5.0
+      },
+      {
+        "source": "DemandForecast",
+        "target": "EnergyOptimize",
+        "size": 5.0
+      },
+      {
+        "source": "GridState",
+        "target": "EnergyOptimize",
+        "size": 5.0
+      },
+      {
+        "source": "EnergyOptimize",
+        "target": "GridDispatch",
+        "size": 3.0
+      },
+      {
+        "source": "EnergyOptimize",
+        "target": "PriceSignal",
+        "size": 3.0
+      },
+      {
+        "source": "SolarForecast",
+        "target": "EnergyOptimize",
+        "size": 5.0
+      },
+      {
+        "source": "EnergyOptimize",
+        "target": "BatterySchedule",
+        "size": 3.0
+      },
+      {
+        "source": "PriceSignal",
+        "target": "DemandResponse",
+        "size": 2.0
+      },
+      {
+        "source": "BatterySchedule",
+        "target": "Monitor",
+        "size": 1.0
+      },
+      {
+        "source": "GridDispatch",
+        "target": "Monitor",
+        "size": 1.0
+      },
+      {
+        "source": "DemandResponse",
+        "target": "Monitor",
+        "size": 1.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "E3",
+        "speed": 1.0
+      },
+      {
+        "name": "E2",
+        "speed": 1.0
+      },
+      {
+        "name": "C0",
+        "speed": 50.0
+      },
+      {
+        "name": "E4",
+        "speed": 1.0
+      },
+      {
+        "name": "E0",
+        "speed": 1.0
+      },
+      {
+        "name": "F1",
+        "speed": 8.0
+      },
+      {
+        "name": "F0",
+        "speed": 8.0
+      },
+      {
+        "name": "E1",
+        "speed": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "E1",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "E0",
+        "target": "E0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E0",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "F0",
+        "target": "F0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "F0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "E0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "E2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "E3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "F1",
+        "target": "F1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E1",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "C0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "E1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E4",
+        "target": "E4",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "E0",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "F0",
+        "speed": 12500.0
+      },
+      {
+        "source": "E2",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "F1",
+        "speed": 7500.0
+      }
+    ]
+  }
+}

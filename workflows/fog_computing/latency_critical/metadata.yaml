@@ -1,0 +1,53 @@
+id: fog.latency_critical
+name: Fog Latency-Critical Processing
+description: "Latency-critical fog pipeline. Sense \u2192 edge preproc \u2192 edge\
+  \ infer \u2192 fog validate \u2192 fog enrich \u2192 decide \u2192 (actuate, log)."
+domains:
+- fog-computing
+- edge-computing
+provenance:
+  source: "AI-generated, based on architecture described in Yousefpour et al. 2019"
+  paper_doi: 10.1016/j.sysarc.2019.02.009
+  paper_title: "All One Needs to Know about Fog Computing and Related Edge Computing Paradigms: A Complete Survey"
+  authors:
+  - Ashkan Yousefpour
+  - Caleb Fung
+  - Tam Nguyen
+  - Krishna Kadiyala
+  - Fatemeh Jalali
+  - Amirreza Niakanlahiji
+  - Jian Kong
+  - Jason P. Jue
+  year: 2019
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: "Paper is a comprehensive 42-page survey of fog computing architectures,
+    taxonomy, and related paradigms. It discusses task scheduling in fog but does not
+    contain any DAG or task dependency graph figures. The original DOI
+    (10.1109/JIOT.2019.2892556) was fabricated (404); the paper was actually published
+    in Journal of Systems Architecture, not IEEE IoT Journal. This latency-critical
+    pipeline is an AI-generated task graph inspired by fog computing patterns
+    described in the survey."
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 8
+  num_edges: 7
+  depth: 7
+  width: 2
+  ccr: 0.45
+  parallelism: 1.1429
+campaign: campaign_004_networking
+tags:
+- latency-critical
+- real-time
+- fog

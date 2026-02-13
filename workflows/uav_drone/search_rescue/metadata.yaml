@@ -1,0 +1,49 @@
+id: uav.search_rescue
+name: UAV Search and Rescue Coordination
+description: "Search and rescue with 3 drones. Command \u2192 3 parallel drone chains\
+  \ (launch, search, detect, classify, report) \u2192 fuse \u2192 rank \u2192 plan\
+  \ \u2192 dispatch."
+domains:
+- uav
+- edge-computing
+provenance:
+  source: "AI-generated, based on architecture described in Hayat et al. 2016"
+  paper_doi: 10.1109/COMST.2016.2560343
+  paper_title: "Survey on Unmanned Aerial Vehicle Networks for Civil Applications: A Communications Viewpoint"
+  authors:
+  - Samira Hayat
+  - Evsen Yanmaz
+  - Raheeb Muzaffar
+  year: 2016
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: "Paper is a comprehensive survey of UAV networks for civil applications
+    from a communications perspective (covering 2000-2015). It discusses routing
+    protocols, QoS, and civil applications but does not contain any DAG or task
+    dependency graph. The original DOI (10.1109/COMST.2016.2554569) was incorrect
+    (404); corrected to verified DOI. The year was also wrong (claimed 2020, actual
+    2016). This search-and-rescue pipeline is an AI-generated task graph inspired
+    by UAV coordination concepts from the survey."
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: mec
+  num_nodes_min: 7
+  num_nodes_max: 7
+graph_stats:
+  num_tasks: 20
+  num_edges: 21
+  depth: 10
+  width: 3
+  ccr: 0.4382
+  parallelism: 2.0
+campaign: campaign_004_networking
+tags:
+- search-rescue
+- multi-drone
+- coordination

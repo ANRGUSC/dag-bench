@@ -1,0 +1,345 @@
+{
+  "name": "agri.greenhouse_control",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "HumiditySensor",
+        "cost": 1.0
+      },
+      {
+        "name": "HVAC_Control",
+        "cost": 4.0
+      },
+      {
+        "name": "LightControl",
+        "cost": 3.0
+      },
+      {
+        "name": "ClimateModel",
+        "cost": 8.0
+      },
+      {
+        "name": "Log",
+        "cost": 2.0
+      },
+      {
+        "name": "SoilMoisture",
+        "cost": 1.0
+      },
+      {
+        "name": "LightSensor",
+        "cost": 1.0
+      },
+      {
+        "name": "CO2Sensor",
+        "cost": 1.0
+      },
+      {
+        "name": "Irrigation",
+        "cost": 3.0
+      },
+      {
+        "name": "Optimize",
+        "cost": 6.0
+      },
+      {
+        "name": "TempSensor",
+        "cost": 1.0
+      },
+      {
+        "name": "CO2_Inject",
+        "cost": 3.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "HumiditySensor",
+        "target": "ClimateModel",
+        "size": 1.0
+      },
+      {
+        "source": "TempSensor",
+        "target": "ClimateModel",
+        "size": 1.0
+      },
+      {
+        "source": "LightSensor",
+        "target": "ClimateModel",
+        "size": 1.0
+      },
+      {
+        "source": "SoilMoisture",
+        "target": "ClimateModel",
+        "size": 1.0
+      },
+      {
+        "source": "Optimize",
+        "target": "HVAC_Control",
+        "size": 1.0
+      },
+      {
+        "source": "Optimize",
+        "target": "LightControl",
+        "size": 1.0
+      },
+      {
+        "source": "HVAC_Control",
+        "target": "Log",
+        "size": 1.0
+      },
+      {
+        "source": "CO2_Inject",
+        "target": "Log",
+        "size": 1.0
+      },
+      {
+        "source": "Optimize",
+        "target": "CO2_Inject",
+        "size": 1.0
+      },
+      {
+        "source": "ClimateModel",
+        "target": "Optimize",
+        "size": 2.0
+      },
+      {
+        "source": "CO2Sensor",
+        "target": "ClimateModel",
+        "size": 1.0
+      },
+      {
+        "source": "Irrigation",
+        "target": "Log",
+        "size": 1.0
+      },
+      {
+        "source": "LightControl",
+        "target": "Log",
+        "size": 1.0
+      },
+      {
+        "source": "Optimize",
+        "target": "Irrigation",
+        "size": 1.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "E2",
+        "speed": 1.0
+      },
+      {
+        "name": "F0",
+        "speed": 8.0
+      },
+      {
+        "name": "C0",
+        "speed": 50.0
+      },
+      {
+        "name": "E3",
+        "speed": 1.0
+      },
+      {
+        "name": "E1",
+        "speed": 1.0
+      },
+      {
+        "name": "E0",
+        "speed": 1.0
+      },
+      {
+        "name": "E4",
+        "speed": 1.0
+      },
+      {
+        "name": "F1",
+        "speed": 8.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "C0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E0",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "C0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F0",
+        "speed": 12500.0
+      },
+      {
+        "source": "E1",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E3",
+        "target": "E3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "F1",
+        "target": "F1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E1",
+        "target": "E1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "F0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "E0",
+        "target": "E0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E4",
+        "target": "E4",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "F0",
+        "target": "F0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F1",
+        "speed": 12500.0
+      }
+    ]
+  }
+}

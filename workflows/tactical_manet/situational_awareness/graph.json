@@ -1,0 +1,323 @@
+{
+  "name": "tactical.situational_awareness",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "Team2_Sense",
+        "cost": 3.0
+      },
+      {
+        "name": "Team3_Report",
+        "cost": 2.0
+      },
+      {
+        "name": "Archive",
+        "cost": 2.0
+      },
+      {
+        "name": "Team1_Report",
+        "cost": 2.0
+      },
+      {
+        "name": "Team2_Report",
+        "cost": 2.0
+      },
+      {
+        "name": "WeatherOverlay",
+        "cost": 3.0
+      },
+      {
+        "name": "Distribute",
+        "cost": 2.0
+      },
+      {
+        "name": "EnemyTrack",
+        "cost": 6.0
+      },
+      {
+        "name": "COP_Build",
+        "cost": 8.0
+      },
+      {
+        "name": "Team0_Report",
+        "cost": 2.0
+      },
+      {
+        "name": "Team0_Sense",
+        "cost": 3.0
+      },
+      {
+        "name": "Team3_Sense",
+        "cost": 3.0
+      },
+      {
+        "name": "ForceTrack",
+        "cost": 6.0
+      },
+      {
+        "name": "TerrainOverlay",
+        "cost": 4.0
+      },
+      {
+        "name": "Team1_Sense",
+        "cost": 3.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "WeatherOverlay",
+        "target": "COP_Build",
+        "size": 3.0
+      },
+      {
+        "source": "Team3_Report",
+        "target": "ForceTrack",
+        "size": 2.0
+      },
+      {
+        "source": "COP_Build",
+        "target": "Distribute",
+        "size": 1.0
+      },
+      {
+        "source": "Team0_Report",
+        "target": "ForceTrack",
+        "size": 2.0
+      },
+      {
+        "source": "Team0_Sense",
+        "target": "Team0_Report",
+        "size": 1.0
+      },
+      {
+        "source": "ForceTrack",
+        "target": "WeatherOverlay",
+        "size": 2.0
+      },
+      {
+        "source": "Team1_Sense",
+        "target": "Team1_Report",
+        "size": 1.0
+      },
+      {
+        "source": "Team3_Sense",
+        "target": "Team3_Report",
+        "size": 1.0
+      },
+      {
+        "source": "COP_Build",
+        "target": "Archive",
+        "size": 1.0
+      },
+      {
+        "source": "TerrainOverlay",
+        "target": "COP_Build",
+        "size": 3.0
+      },
+      {
+        "source": "Team2_Sense",
+        "target": "Team2_Report",
+        "size": 1.0
+      },
+      {
+        "source": "ForceTrack",
+        "target": "EnemyTrack",
+        "size": 2.0
+      },
+      {
+        "source": "EnemyTrack",
+        "target": "COP_Build",
+        "size": 3.0
+      },
+      {
+        "source": "ForceTrack",
+        "target": "TerrainOverlay",
+        "size": 2.0
+      },
+      {
+        "source": "Team1_Report",
+        "target": "ForceTrack",
+        "size": 2.0
+      },
+      {
+        "source": "Team2_Report",
+        "target": "ForceTrack",
+        "size": 2.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N5",
+        "speed": 1.0
+      },
+      {
+        "name": "N0",
+        "speed": 1.0
+      },
+      {
+        "name": "N2",
+        "speed": 1.0
+      },
+      {
+        "name": "N1",
+        "speed": 1.0
+      },
+      {
+        "name": "CMD",
+        "speed": 5.0
+      },
+      {
+        "name": "N4",
+        "speed": 1.0
+      },
+      {
+        "name": "N3",
+        "speed": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N5",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N3",
+        "target": "N3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N2",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "CMD",
+        "target": "N2",
+        "speed": 5000.0
+      },
+      {
+        "source": "N0",
+        "target": "N5",
+        "speed": 500.0
+      },
+      {
+        "source": "N5",
+        "target": "N5",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N4",
+        "target": "N5",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N4",
+        "speed": 500.0
+      },
+      {
+        "source": "N2",
+        "target": "N4",
+        "speed": 500.0
+      },
+      {
+        "source": "N3",
+        "target": "N4",
+        "speed": 500.0
+      },
+      {
+        "source": "CMD",
+        "target": "CMD",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "CMD",
+        "target": "N0",
+        "speed": 5000.0
+      },
+      {
+        "source": "CMD",
+        "target": "N5",
+        "speed": 5000.0
+      },
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N4",
+        "speed": 500.0
+      },
+      {
+        "source": "CMD",
+        "target": "N3",
+        "speed": 5000.0
+      },
+      {
+        "source": "CMD",
+        "target": "N1",
+        "speed": 5000.0
+      },
+      {
+        "source": "N4",
+        "target": "N4",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N5",
+        "speed": 500.0
+      },
+      {
+        "source": "CMD",
+        "target": "N4",
+        "speed": 5000.0
+      },
+      {
+        "source": "N3",
+        "target": "N5",
+        "speed": 500.0
+      }
+    ]
+  }
+}

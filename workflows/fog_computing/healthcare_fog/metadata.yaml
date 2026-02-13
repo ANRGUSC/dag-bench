@@ -1,0 +1,49 @@
+id: fog.healthcare_fog
+name: Fog Healthcare Monitoring
+description: "Healthcare fog. 9 sensors \u2192 3 patient edges \u2192 fog (analyze,\
+  \ alert) \u2192 cloud (store, analytics) + doctor notify."
+domains:
+- fog-computing
+- iot
+provenance:
+  source: "AI-generated, based on architecture described in Negash et al. 2018"
+  paper_doi: 10.1007/978-3-319-57639-8_8
+  paper_title: "Leveraging Fog Computing for Healthcare IoT"
+  authors:
+  - Behailu Negash
+  - Tuan Nguyen Gia
+  - Amir Rahmani
+  - Pasi Liljeberg
+  - Hannu Tenhunen
+  year: 2018
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: "Paper describes a fog-based smart e-Health gateway architecture for IoT
+    healthcare. It does not contain any DAG or task dependency graph. The original
+    DOI (10.1016/j.future.2018.04.036) resolved to a completely different paper
+    (Kumar et al. on disease prediction using fuzzy neural classifiers); corrected
+    to the real Springer chapter DOI. This healthcare fog pipeline is an AI-generated
+    task graph inspired by the fog architecture described in the paper."
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 17
+  num_edges: 16
+  depth: 5
+  width: 9
+  ccr: 0.44
+  parallelism: 3.4
+campaign: campaign_004_networking
+tags:
+- healthcare
+- fog
+- patient-monitoring

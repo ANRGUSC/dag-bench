@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fog Content Distribution - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Fog Content Distribution</h1>
+    <div class="meta">
+        <strong>ID:</strong> fog.content_distribution &nbsp;|&nbsp;
+        <strong>Domains:</strong> fog-computing, edge-computing &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Content distribution. Ingest → 3 parallel transcodes → DRM → 4 regional caches → manifest.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    Cache_Region0["Cache_Region0<br/>cost: 3.0"]
+    Ingest["Ingest<br/>cost: 3.0"]
+    Manifest["Manifest<br/>cost: 2.0"]
+    Transcode720["Transcode720<br/>cost: 6.0"]
+    Cache_Region1["Cache_Region1<br/>cost: 3.0"]
+    Transcode1080["Transcode1080<br/>cost: 8.0"]
+    Cache_Region2["Cache_Region2<br/>cost: 3.0"]
+    DRM_Encrypt["DRM_Encrypt<br/>cost: 5.0"]
+    Transcode4K["Transcode4K<br/>cost: 12.0"]
+    Cache_Region3["Cache_Region3<br/>cost: 3.0"]
+    DRM_Encrypt -->|"4"| Cache_Region2
+    Cache_Region3 -->|"1"| Manifest
+    DRM_Encrypt -->|"4"| Cache_Region3
+    Transcode720 -->|"3"| DRM_Encrypt
+    Cache_Region0 -->|"1"| Manifest
+    Transcode1080 -->|"3"| DRM_Encrypt
+    Cache_Region2 -->|"1"| Manifest
+    Ingest -->|"5"| Transcode1080
+    Transcode4K -->|"3"| DRM_Encrypt
+    Ingest -->|"5"| Transcode4K
+    Ingest -->|"5"| Transcode720
+    DRM_Encrypt -->|"4"| Cache_Region1
+    DRM_Encrypt -->|"4"| Cache_Region0
+    Cache_Region1 -->|"1"| Manifest
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (10)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>Cache_Region0</td><td>3.00</td><td>Data storage / caching</td></tr><tr><td>Ingest</td><td>3.00</td><td>Data ingestion / source input</td></tr><tr><td>Manifest</td><td>2.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Transcode720</td><td>6.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Cache_Region1</td><td>3.00</td><td>Data storage / caching</td></tr><tr><td>Transcode1080</td><td>8.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Cache_Region2</td><td>3.00</td><td>Data storage / caching</td></tr><tr><td>DRM_Encrypt</td><td>5.00</td><td>Encryption / decryption</td></tr><tr><td>Transcode4K</td><td>12.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Cache_Region3</td><td>3.00</td><td>Data storage / caching</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>10</td></tr><tr><td>Edges</td><td>14</td></tr><tr><td>Depth</td><td>5</td></tr><tr><td>Width</td><td>4</td></tr><tr><td>CCR</td><td>0.9167</td></tr><tr><td>Parallelism</td><td>2.0000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, based on architecture described in Aazam et al. 2016<br>
+<strong>Paper:</strong> Fog computing for content distribution<br>
+<strong>Year:</strong> 2016<br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Paper/standard describes a fog computing system but contains no explicit DAG figure. Task graph is an AI interpretation of the architecture described in the text.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fog-three-tier<br>
+<strong>Nodes:</strong> 8
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">content</span><span class="badge">cdn</span><span class="badge">transcoding</span><span class="badge">drm</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; fog.content_distribution
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

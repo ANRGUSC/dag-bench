@@ -1,0 +1,789 @@
+{
+  "name": "iot.riotbench_predict",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "BlobRead",
+        "cost": 30.81756485573326
+      },
+      {
+        "name": "DecisionTree",
+        "cost": 10.0
+      },
+      {
+        "name": "VirtualSource",
+        "cost": 1e-09
+      },
+      {
+        "name": "Source",
+        "cost": 18.660477676293596
+      },
+      {
+        "name": "MQTTSubscribe",
+        "cost": 50.0
+      },
+      {
+        "name": "MQTTPublish",
+        "cost": 23.331231743425228
+      },
+      {
+        "name": "ErrorEstimate",
+        "cost": 30.143924581400604
+      },
+      {
+        "name": "Sink",
+        "cost": 50.0
+      },
+      {
+        "name": "Average",
+        "cost": 10.0
+      },
+      {
+        "name": "MultiVarLinearReg",
+        "cost": 38.215294668448536
+      },
+      {
+        "name": "SenMLParse",
+        "cost": 32.44794511151125
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "SenMLParse",
+        "target": "DecisionTree",
+        "size": 1084.3412398803107
+      },
+      {
+        "source": "SenMLParse",
+        "target": "MultiVarLinearReg",
+        "size": 1084.3412398803107
+      },
+      {
+        "source": "VirtualSource",
+        "target": "MQTTSubscribe",
+        "size": 1e-09
+      },
+      {
+        "source": "MQTTSubscribe",
+        "target": "BlobRead",
+        "size": 1084.3412398803107
+      },
+      {
+        "source": "BlobRead",
+        "target": "DecisionTree",
+        "size": 1084.3412398803107
+      },
+      {
+        "source": "MultiVarLinearReg",
+        "target": "ErrorEstimate",
+        "size": 2168.6824797606214
+      },
+      {
+        "source": "BlobRead",
+        "target": "MultiVarLinearReg",
+        "size": 1084.3412398803107
+      },
+      {
+        "source": "Source",
+        "target": "SenMLParse",
+        "size": 1084.3412398803107
+      },
+      {
+        "source": "VirtualSource",
+        "target": "Source",
+        "size": 1e-09
+      },
+      {
+        "source": "MQTTPublish",
+        "target": "Sink",
+        "size": 2168.6824797606214
+      },
+      {
+        "source": "DecisionTree",
+        "target": "MQTTPublish",
+        "size": 2168.6824797606214
+      },
+      {
+        "source": "SenMLParse",
+        "target": "Average",
+        "size": 10843.412398803106
+      },
+      {
+        "source": "Average",
+        "target": "ErrorEstimate",
+        "size": 2168.6824797606214
+      },
+      {
+        "source": "ErrorEstimate",
+        "target": "MQTTPublish",
+        "size": 2168.6824797606214
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "F2",
+        "speed": 8.0
+      },
+      {
+        "name": "E8",
+        "speed": 1.0
+      },
+      {
+        "name": "E7",
+        "speed": 1.0
+      },
+      {
+        "name": "E5",
+        "speed": 1.0
+      },
+      {
+        "name": "F1",
+        "speed": 8.0
+      },
+      {
+        "name": "E6",
+        "speed": 1.0
+      },
+      {
+        "name": "E0",
+        "speed": 1.0
+      },
+      {
+        "name": "E9",
+        "speed": 1.0
+      },
+      {
+        "name": "F0",
+        "speed": 8.0
+      },
+      {
+        "name": "E1",
+        "speed": 1.0
+      },
+      {
+        "name": "C1",
+        "speed": 50.0
+      },
+      {
+        "name": "C0",
+        "speed": 50.0
+      },
+      {
+        "name": "E2",
+        "speed": 1.0
+      },
+      {
+        "name": "E3",
+        "speed": 1.0
+      },
+      {
+        "name": "E4",
+        "speed": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "F2",
+        "target": "F2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E4",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E5",
+        "target": "F2",
+        "speed": 7500.0
+      },
+      {
+        "source": "E5",
+        "target": "E6",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E4",
+        "target": "E7",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E2",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "E6",
+        "speed": 7500.0
+      },
+      {
+        "source": "F1",
+        "target": "F2",
+        "speed": 12500.0
+      },
+      {
+        "source": "C0",
+        "target": "F2",
+        "speed": 12500.0
+      },
+      {
+        "source": "E3",
+        "target": "F2",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E6",
+        "speed": 7500.0
+      },
+      {
+        "source": "E3",
+        "target": "E6",
+        "speed": 7500.0
+      },
+      {
+        "source": "C1",
+        "target": "E0",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E3",
+        "speed": 7500.0
+      },
+      {
+        "source": "E3",
+        "target": "E3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E6",
+        "target": "F2",
+        "speed": 7500.0
+      },
+      {
+        "source": "E6",
+        "target": "E6",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "E4",
+        "speed": 7500.0
+      },
+      {
+        "source": "E3",
+        "target": "E4",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E2",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F2",
+        "speed": 7500.0
+      },
+      {
+        "source": "E5",
+        "target": "E9",
+        "speed": 7500.0
+      },
+      {
+        "source": "E5",
+        "target": "E5",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E0",
+        "target": "E3",
+        "speed": 7500.0
+      },
+      {
+        "source": "C1",
+        "target": "E2",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E9",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "E5",
+        "speed": 7500.0
+      },
+      {
+        "source": "C1",
+        "target": "F2",
+        "speed": 12500.0
+      },
+      {
+        "source": "C1",
+        "target": "E6",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E5",
+        "speed": 7500.0
+      },
+      {
+        "source": "E3",
+        "target": "E5",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E4",
+        "speed": 7500.0
+      },
+      {
+        "source": "E3",
+        "target": "E9",
+        "speed": 7500.0
+      },
+      {
+        "source": "C1",
+        "target": "E3",
+        "speed": 7500.0
+      },
+      {
+        "source": "E6",
+        "target": "E9",
+        "speed": 7500.0
+      },
+      {
+        "source": "E8",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "E2",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "F2",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "E6",
+        "speed": 7500.0
+      },
+      {
+        "source": "C1",
+        "target": "E4",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "E3",
+        "speed": 7500.0
+      },
+      {
+        "source": "E8",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E9",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E7",
+        "target": "E8",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "E4",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E1",
+        "speed": 7500.0
+      },
+      {
+        "source": "C1",
+        "target": "E9",
+        "speed": 7500.0
+      },
+      {
+        "source": "E7",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "C1",
+        "target": "C1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E1",
+        "target": "E9",
+        "speed": 7500.0
+      },
+      {
+        "source": "E7",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "F0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "E7",
+        "target": "E7",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E9",
+        "target": "E9",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E0",
+        "target": "E6",
+        "speed": 7500.0
+      },
+      {
+        "source": "E5",
+        "target": "E8",
+        "speed": 7500.0
+      },
+      {
+        "source": "E8",
+        "target": "E8",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "E8",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E8",
+        "speed": 7500.0
+      },
+      {
+        "source": "E5",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "F0",
+        "speed": 12500.0
+      },
+      {
+        "source": "E3",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E5",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E5",
+        "target": "E7",
+        "speed": 7500.0
+      },
+      {
+        "source": "E9",
+        "target": "F2",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E5",
+        "speed": 7500.0
+      },
+      {
+        "source": "F1",
+        "target": "F1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E4",
+        "target": "F2",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "E3",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E4",
+        "target": "E6",
+        "speed": 7500.0
+      },
+      {
+        "source": "E6",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "E7",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E7",
+        "speed": 7500.0
+      },
+      {
+        "source": "E3",
+        "target": "E7",
+        "speed": 7500.0
+      },
+      {
+        "source": "F0",
+        "target": "F0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C1",
+        "target": "E5",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "C0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E4",
+        "target": "E4",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E6",
+        "target": "E7",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "E5",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E4",
+        "target": "E9",
+        "speed": 7500.0
+      },
+      {
+        "source": "C1",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "E4",
+        "target": "E5",
+        "speed": 7500.0
+      },
+      {
+        "source": "C1",
+        "target": "E1",
+        "speed": 7500.0
+      },
+      {
+        "source": "C1",
+        "target": "E7",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "E1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "E8",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "E7",
+        "speed": 7500.0
+      },
+      {
+        "source": "E7",
+        "target": "E9",
+        "speed": 7500.0
+      },
+      {
+        "source": "E6",
+        "target": "E8",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "E2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E6",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E8",
+        "target": "F2",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E8",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F2",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "E3",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "C1",
+        "target": "E8",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "E4",
+        "speed": 7500.0
+      },
+      {
+        "source": "C1",
+        "target": "F0",
+        "speed": 12500.0
+      },
+      {
+        "source": "E1",
+        "target": "E8",
+        "speed": 7500.0
+      },
+      {
+        "source": "E7",
+        "target": "F2",
+        "speed": 7500.0
+      },
+      {
+        "source": "F0",
+        "target": "F2",
+        "speed": 12500.0
+      },
+      {
+        "source": "E8",
+        "target": "E9",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E7",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "E9",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "C1",
+        "speed": 125000000000.0
+      },
+      {
+        "source": "E4",
+        "target": "E8",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E9",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E4",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E9",
+        "target": "F1",
+        "speed": 7500.0
+      }
+    ]
+  }
+}

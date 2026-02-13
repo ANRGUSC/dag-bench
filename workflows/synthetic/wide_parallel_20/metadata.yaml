@@ -1,0 +1,34 @@
+id: synthetic.wide_parallel_20
+name: Wide Parallel DAG (20 workers)
+description: "Embarrassingly parallel pattern: source \u2192 20 independent workers\
+  \ \u2192 sink. Maximum parallelism, no inter-task communication."
+domains:
+- synthetic
+provenance:
+  source: DAGBench synthetic generators
+  extraction_method: generated
+  extractor: dagbench-import-script
+  extraction_date: '2026-02-12'
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+  notes: Classic benchmark structure; costs are representative
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 22
+  num_edges: 40
+  depth: 3
+  width: 20
+  ccr: 0.198
+  parallelism: 7.3333
+campaign: campaign_002_classic_and_manual
+tags:
+- embarrassingly-parallel
+- wide
+- benchmark

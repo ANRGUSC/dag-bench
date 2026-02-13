@@ -1,0 +1,48 @@
+id: edge.face_recognition
+name: Face Recognition Pipeline
+description: "Mobile edge computing face recognition pipeline. Tasks: capture, preprocess,
+  detect, feature extraction, matching, age/gender estimation. Typical MEC task offloading
+  application."
+domains:
+- edge-computing
+- image-processing
+provenance:
+  source: "AI-generated, based on architecture described in Guo et al. 2025"
+  paper_doi: 10.3390/electronics14163184
+  paper_title: "Dependent Task Offloading Model for Mobile Edge Computing"
+  authors:
+  - Kaiwen Guo
+  - Haifeng Wang
+  - Gongyu Chen
+  year: 2025
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: "Paper presents a dependent task offloading model with face recognition as
+    a case study. It contains DAG figures showing task decomposition for face
+    recognition, but this workflow's 7-task structure with specific task names was
+    AI-generated and does not faithfully reproduce any figure from the paper. The
+    paper was published in Electronics (MDPI) in 2025, not 2023 as originally
+    claimed."
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 7
+  num_edges: 7
+  depth: 6
+  width: 2
+  ccr: 0.0492
+  parallelism: 1.1667
+campaign: campaign_002_classic_and_manual
+tags:
+- face-recognition
+- mec
+- offloading

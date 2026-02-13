@@ -1,0 +1,321 @@
+{
+  "name": "edge.autonomous_driving",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "LiDAR",
+        "cost": 3.0
+      },
+      {
+        "name": "PathPlan",
+        "cost": 15.0
+      },
+      {
+        "name": "ObjectDetect",
+        "cost": 20.0
+      },
+      {
+        "name": "Radar",
+        "cost": 2.0
+      },
+      {
+        "name": "Camera",
+        "cost": 2.0
+      },
+      {
+        "name": "ImageProc",
+        "cost": 12.0
+      },
+      {
+        "name": "SensorFusion",
+        "cost": 10.0
+      },
+      {
+        "name": "LiDARProc",
+        "cost": 15.0
+      },
+      {
+        "name": "Actuate",
+        "cost": 2.0
+      },
+      {
+        "name": "RadarProc",
+        "cost": 8.0
+      },
+      {
+        "name": "Decision",
+        "cost": 5.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "Radar",
+        "target": "RadarProc",
+        "size": 4.0
+      },
+      {
+        "source": "PathPlan",
+        "target": "Decision",
+        "size": 0.0
+      },
+      {
+        "source": "LiDAR",
+        "target": "LiDARProc",
+        "size": 10.0
+      },
+      {
+        "source": "ImageProc",
+        "target": "SensorFusion",
+        "size": 5.0
+      },
+      {
+        "source": "Camera",
+        "target": "ImageProc",
+        "size": 8.0
+      },
+      {
+        "source": "ObjectDetect",
+        "target": "PathPlan",
+        "size": 0.0
+      },
+      {
+        "source": "SensorFusion",
+        "target": "ObjectDetect",
+        "size": 0.0
+      },
+      {
+        "source": "LiDARProc",
+        "target": "SensorFusion",
+        "size": 5.0
+      },
+      {
+        "source": "RadarProc",
+        "target": "SensorFusion",
+        "size": 5.0
+      },
+      {
+        "source": "Decision",
+        "target": "Actuate",
+        "size": 0.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "E2",
+        "speed": 1.0
+      },
+      {
+        "name": "F0",
+        "speed": 8.0
+      },
+      {
+        "name": "F1",
+        "speed": 8.0
+      },
+      {
+        "name": "E3",
+        "speed": 1.0
+      },
+      {
+        "name": "E0",
+        "speed": 1.0
+      },
+      {
+        "name": "E4",
+        "speed": 1.0
+      },
+      {
+        "name": "E1",
+        "speed": 1.0
+      },
+      {
+        "name": "C0",
+        "speed": 50.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "E3",
+        "target": "E3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "F0",
+        "speed": 12500.0
+      },
+      {
+        "source": "E2",
+        "target": "E2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E4",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E0",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "F0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "E1",
+        "target": "E1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E1",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E4",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "C0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "F0",
+        "target": "F0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "F1",
+        "target": "F1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "C0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "E4",
+        "speed": 1000000000.0
+      }
+    ]
+  }
+}

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLAST-like Sequence Search Workflow - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>BLAST-like Sequence Search Workflow</h1>
+    <div class="meta">
+        <strong>ID:</strong> scientific.blast_like &nbsp;|&nbsp;
+        <strong>Domains:</strong> scientific, genomics &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Bioinformatics sequence search workflow modeled after BLAST. Split → 5 parallel (format, search, filter) lanes → merge → annotate → report.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    FormatDB_2["FormatDB_2<br/>cost: 3.0"]
+    MergeResults["MergeResults<br/>cost: 8.0"]
+    FilterHits_3["FilterHits_3<br/>cost: 5.0"]
+    Annotate["Annotate<br/>cost: 10.0"]
+    FilterHits_0["FilterHits_0<br/>cost: 5.0"]
+    Report["Report<br/>cost: 3.0"]
+    BLAST_1["BLAST_1<br/>cost: 20.0"]
+    FormatDB_4["FormatDB_4<br/>cost: 3.0"]
+    FilterHits_2["FilterHits_2<br/>cost: 5.0"]
+    BLAST_4["BLAST_4<br/>cost: 20.0"]
+    FilterHits_1["FilterHits_1<br/>cost: 5.0"]
+    FilterHits_4["FilterHits_4<br/>cost: 5.0"]
+    BLAST_0["BLAST_0<br/>cost: 20.0"]
+    SplitDB["SplitDB<br/>cost: 5.0"]
+    BLAST_3["BLAST_3<br/>cost: 20.0"]
+    FormatDB_0["FormatDB_0<br/>cost: 3.0"]
+    FormatDB_3["FormatDB_3<br/>cost: 3.0"]
+    BLAST_2["BLAST_2<br/>cost: 20.0"]
+    FormatDB_1["FormatDB_1<br/>cost: 3.0"]
+    SplitDB -->|"10"| FormatDB_3
+    BLAST_0 -->|"8"| FilterHits_0
+    FormatDB_2 -->|"8"| BLAST_2
+    SplitDB -->|"10"| FormatDB_1
+    FormatDB_4 -->|"8"| BLAST_4
+    FilterHits_2 -->|"5"| MergeResults
+    BLAST_2 -->|"8"| FilterHits_2
+    FilterHits_0 -->|"5"| MergeResults
+    FilterHits_4 -->|"5"| MergeResults
+    BLAST_1 -->|"8"| FilterHits_1
+    SplitDB -->|"10"| FormatDB_4
+    FilterHits_1 -->|"5"| MergeResults
+    FilterHits_3 -->|"5"| MergeResults
+    BLAST_3 -->|"8"| FilterHits_3
+    SplitDB -->|"10"| FormatDB_2
+    Annotate -->|"3"| Report
+    FormatDB_3 -->|"8"| BLAST_3
+    BLAST_4 -->|"8"| FilterHits_4
+    MergeResults -->|"3"| Annotate
+    FormatDB_0 -->|"8"| BLAST_0
+    SplitDB -->|"10"| FormatDB_0
+    FormatDB_1 -->|"8"| BLAST_1
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (19)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>FormatDB_2</td><td>3.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>MergeResults</td><td>8.00</td><td>Merge / fuse data streams</td></tr><tr><td>FilterHits_3</td><td>5.00</td><td>Filter / validate data</td></tr><tr><td>Annotate</td><td>10.00</td><td>Enrich data with metadata</td></tr><tr><td>FilterHits_0</td><td>5.00</td><td>Filter / validate data</td></tr><tr><td>Report</td><td>3.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>BLAST_1</td><td>20.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>FormatDB_4</td><td>3.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>FilterHits_2</td><td>5.00</td><td>Filter / validate data</td></tr><tr><td>BLAST_4</td><td>20.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>FilterHits_1</td><td>5.00</td><td>Filter / validate data</td></tr><tr><td>FilterHits_4</td><td>5.00</td><td>Filter / validate data</td></tr><tr><td>BLAST_0</td><td>20.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>SplitDB</td><td>5.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>BLAST_3</td><td>20.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>FormatDB_0</td><td>3.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>FormatDB_3</td><td>3.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>BLAST_2</td><td>20.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>FormatDB_1</td><td>3.00</td><td>Processing step in scientific pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>19</td></tr><tr><td>Edges</td><td>22</td></tr><tr><td>Depth</td><td>7</td></tr><tr><td>Width</td><td>5</td></tr><tr><td>CCR</td><td>0.9699</td></tr><tr><td>Parallelism</td><td>2.7143</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, based on the BLAST algorithm described in Altschul et al. 1990<br>
+<strong>Paper:</strong> Basic local alignment search tool<br>
+<strong>Authors:</strong> Stephen F. Altschul, Warren Gish, Webb Miller, Eugene W. Myers, David J. Lipman<br>
+<strong>Year:</strong> 1990<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1016/S0022-2836(05)80360-2" target="_blank">10.1016/S0022-2836(05)80360-2</a><br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> The original BLAST paper in Journal of Molecular Biology describes the maximal segment pair scoring algorithm for sequence alignment. It is an algorithm paper containing mathematical formulas and statistical tables but no DAG or workflow pipeline figure. This BLAST-like workflow is an AI-generated task graph modeling a scatter-gather BLAST pipeline pattern (split, parallel search lanes, merge, annotate), inspired by how BLAST pipelines work in practice but not extracted from any specific figure.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fully-connected<br>
+<strong>Nodes:</strong> 4
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">blast</span><span class="badge">bioinformatics</span><span class="badge">sequence-search</span><span class="badge">scatter-gather</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; scientific.blast_like
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

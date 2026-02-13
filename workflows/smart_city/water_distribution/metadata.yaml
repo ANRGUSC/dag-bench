@@ -1,0 +1,40 @@
+id: smart_city.water_distribution
+name: Water Distribution Network
+description: Water distribution. 6 sensor pairs (read, validate) → SCADA collect →
+  (leak detect, pressure optimize, quality check).
+domains:
+- smart-city
+- iot
+- cyber-physical
+provenance:
+  source: AI-generated, based on architecture described in Loureiro et al. 2016
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  paper_title: Water distribution systems
+  year: 2016
+  notes: Paper/standard describes a smart city system but contains no explicit DAG
+    figure. Task graph is an AI interpretation of the architecture described in the
+    text.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 16
+  num_edges: 15
+  depth: 4
+  width: 6
+  ccr: 0.3488
+  parallelism: 4.0
+campaign: campaign_004_networking
+tags:
+- water
+- scada
+- leak-detection

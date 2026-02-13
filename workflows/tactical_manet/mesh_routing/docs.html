@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MANET Mesh Routing Protocol - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>MANET Mesh Routing Protocol</h1>
+    <div class="meta">
+        <strong>ID:</strong> tactical.mesh_routing &nbsp;|&nbsp;
+        <strong>Domains:</strong> manet, wireless &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>OLSR-like mesh routing. Hello → neighbor discover → MPR select → topology build → route calc → 4 forwarding tables → maintenance.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    RouteMaintain["RouteMaintain<br/>cost: 3.0"]
+    FwdTable2["FwdTable2<br/>cost: 2.0"]
+    NeighborDiscover["NeighborDiscover<br/>cost: 3.0"]
+    TopologyBuild["TopologyBuild<br/>cost: 5.0"]
+    FwdTable0["FwdTable0<br/>cost: 2.0"]
+    FwdTable3["FwdTable3<br/>cost: 2.0"]
+    FwdTable1["FwdTable1<br/>cost: 2.0"]
+    RouteCalc["RouteCalc<br/>cost: 6.0"]
+    HelloExchange["HelloExchange<br/>cost: 2.0"]
+    MPR_Select["MPR_Select<br/>cost: 4.0"]
+    RouteCalc -->|"1"| FwdTable0
+    FwdTable1 -->|"1"| RouteMaintain
+    HelloExchange -->|"1"| NeighborDiscover
+    RouteCalc -->|"1"| FwdTable2
+    RouteCalc -->|"1"| FwdTable3
+    TopologyBuild -->|"2"| RouteCalc
+    FwdTable2 -->|"1"| RouteMaintain
+    FwdTable3 -->|"1"| RouteMaintain
+    RouteCalc -->|"1"| FwdTable1
+    FwdTable0 -->|"1"| RouteMaintain
+    NeighborDiscover -->|"1"| MPR_Select
+    MPR_Select -->|"2"| TopologyBuild
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (10)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>RouteMaintain</td><td>3.00</td><td>Data routing / forwarding</td></tr><tr><td>FwdTable2</td><td>2.00</td><td>Processing step in manet pipeline</td></tr><tr><td>NeighborDiscover</td><td>3.00</td><td>Processing step in manet pipeline</td></tr><tr><td>TopologyBuild</td><td>5.00</td><td>Processing step in manet pipeline</td></tr><tr><td>FwdTable0</td><td>2.00</td><td>Processing step in manet pipeline</td></tr><tr><td>FwdTable3</td><td>2.00</td><td>Processing step in manet pipeline</td></tr><tr><td>FwdTable1</td><td>2.00</td><td>Processing step in manet pipeline</td></tr><tr><td>RouteCalc</td><td>6.00</td><td>Data routing / forwarding</td></tr><tr><td>HelloExchange</td><td>2.00</td><td>Processing step in manet pipeline</td></tr><tr><td>MPR_Select</td><td>4.00</td><td>Processing step in manet pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>10</td></tr><tr><td>Edges</td><td>12</td></tr><tr><td>Depth</td><td>7</td></tr><tr><td>Width</td><td>4</td></tr><tr><td>CCR</td><td>0.4516</td></tr><tr><td>Parallelism</td><td>1.4286</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, based on architecture described in RFC 3626 (OLSR)<br>
+<strong>Paper:</strong> OLSR routing protocol<br>
+<strong>Year:</strong> 2003<br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Paper/standard describes a tactical/military network system but contains no explicit DAG figure. Task graph is an AI interpretation of the architecture described in the text.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> manet<br>
+<strong>Nodes:</strong> 7
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">olsr</span><span class="badge">mesh</span><span class="badge">routing</span><span class="badge">manet</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; tactical.mesh_routing
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

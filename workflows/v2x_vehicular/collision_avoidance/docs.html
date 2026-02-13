@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V2X Collision Avoidance System - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>V2X Collision Avoidance System</h1>
+    <div class="meta">
+        <strong>ID:</strong> v2x.collision_avoidance &nbsp;|&nbsp;
+        <strong>Domains:</strong> v2x, cyber-physical &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Collision avoidance. (Radar, V2X BSM) → process → fusion → threat → decision → (brake, steer, alert).</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    Decision["Decision<br/>cost: 4.0"]
+    BSM_Parse["BSM_Parse<br/>cost: 3.0"]
+    SensorFusion["SensorFusion<br/>cost: 6.0"]
+    ThreatAssess["ThreatAssess<br/>cost: 5.0"]
+    V2X_BSM_Receive["V2X_BSM_Receive<br/>cost: 2.0"]
+    RadarSense["RadarSense<br/>cost: 3.0"]
+    Alert["Alert<br/>cost: 1.0"]
+    SteerCmd["SteerCmd<br/>cost: 2.0"]
+    BrakeCmd["BrakeCmd<br/>cost: 2.0"]
+    RadarProcess["RadarProcess<br/>cost: 5.0"]
+    ThreatAssess -->|"2"| Decision
+    BSM_Parse -->|"2"| SensorFusion
+    Decision -->|"1"| Alert
+    SensorFusion -->|"2"| ThreatAssess
+    Decision -->|"1"| SteerCmd
+    Decision -->|"1"| BrakeCmd
+    RadarProcess -->|"2"| SensorFusion
+    RadarSense -->|"3"| RadarProcess
+    V2X_BSM_Receive -->|"2"| BSM_Parse
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (10)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>Decision</td><td>4.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>BSM_Parse</td><td>3.00</td><td>Parse incoming data</td></tr><tr><td>SensorFusion</td><td>6.00</td><td>Merge / fuse data streams</td></tr><tr><td>ThreatAssess</td><td>5.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>V2X_BSM_Receive</td><td>2.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>RadarSense</td><td>3.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>Alert</td><td>1.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>SteerCmd</td><td>2.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>BrakeCmd</td><td>2.00</td><td>Processing step in v2x pipeline</td></tr><tr><td>RadarProcess</td><td>5.00</td><td>Processing step in v2x pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>10</td></tr><tr><td>Edges</td><td>9</td></tr><tr><td>Depth</td><td>6</td></tr><tr><td>Width</td><td>3</td></tr><tr><td>CCR</td><td>0.4848</td></tr><tr><td>Parallelism</td><td>1.6667</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, based on architecture described in Seo et al. 2016<br>
+<strong>Paper:</strong> V2X collision avoidance<br>
+<strong>Year:</strong> 2016<br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Paper/standard describes a vehicular (V2X) system but contains no explicit DAG figure. Task graph is an AI interpretation of the architecture described in the text.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> mec<br>
+<strong>Nodes:</strong> 7
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">collision-avoidance</span><span class="badge">safety</span><span class="badge">radar</span><span class="badge">bsm</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; v2x.collision_avoidance
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

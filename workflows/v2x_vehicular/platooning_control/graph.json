@@ -1,0 +1,305 @@
+{
+  "name": "v2x.platooning_control",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "LeaderBroadcast",
+        "cost": 2.0
+      },
+      {
+        "name": "F2_Receive",
+        "cost": 1.0
+      },
+      {
+        "name": "F1_Receive",
+        "cost": 1.0
+      },
+      {
+        "name": "F1_Control",
+        "cost": 4.0
+      },
+      {
+        "name": "F1_Adapt",
+        "cost": 5.0
+      },
+      {
+        "name": "LeaderSense",
+        "cost": 3.0
+      },
+      {
+        "name": "F2_Adapt",
+        "cost": 5.0
+      },
+      {
+        "name": "F0_Control",
+        "cost": 4.0
+      },
+      {
+        "name": "LeaderPlan",
+        "cost": 8.0
+      },
+      {
+        "name": "Coordinate",
+        "cost": 4.0
+      },
+      {
+        "name": "F0_Receive",
+        "cost": 1.0
+      },
+      {
+        "name": "F2_Control",
+        "cost": 4.0
+      },
+      {
+        "name": "F0_Adapt",
+        "cost": 5.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "LeaderBroadcast",
+        "target": "F0_Receive",
+        "size": 1.0
+      },
+      {
+        "source": "LeaderSense",
+        "target": "LeaderPlan",
+        "size": 2.0
+      },
+      {
+        "source": "F0_Adapt",
+        "target": "F0_Control",
+        "size": 1.0
+      },
+      {
+        "source": "LeaderPlan",
+        "target": "LeaderBroadcast",
+        "size": 2.0
+      },
+      {
+        "source": "F0_Control",
+        "target": "Coordinate",
+        "size": 1.0
+      },
+      {
+        "source": "F2_Receive",
+        "target": "F2_Adapt",
+        "size": 1.0
+      },
+      {
+        "source": "F1_Receive",
+        "target": "F1_Adapt",
+        "size": 1.0
+      },
+      {
+        "source": "LeaderBroadcast",
+        "target": "F1_Receive",
+        "size": 1.0
+      },
+      {
+        "source": "F1_Adapt",
+        "target": "F1_Control",
+        "size": 1.0
+      },
+      {
+        "source": "LeaderBroadcast",
+        "target": "F2_Receive",
+        "size": 1.0
+      },
+      {
+        "source": "F1_Control",
+        "target": "Coordinate",
+        "size": 1.0
+      },
+      {
+        "source": "F2_Control",
+        "target": "Coordinate",
+        "size": 1.0
+      },
+      {
+        "source": "F0_Receive",
+        "target": "F0_Adapt",
+        "size": 1.0
+      },
+      {
+        "source": "F2_Adapt",
+        "target": "F2_Control",
+        "size": 1.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "MEC1",
+        "speed": 10.0
+      },
+      {
+        "name": "UE3",
+        "speed": 1.0
+      },
+      {
+        "name": "UE2",
+        "speed": 1.0
+      },
+      {
+        "name": "UE0",
+        "speed": 1.0
+      },
+      {
+        "name": "UE1",
+        "speed": 1.0
+      },
+      {
+        "name": "MEC0",
+        "speed": 10.0
+      },
+      {
+        "name": "Cloud",
+        "speed": 50.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "MEC0",
+        "target": "MEC1",
+        "speed": 10000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE0",
+        "speed": 5000.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE3",
+        "speed": 500.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE2",
+        "speed": 500.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE0",
+        "speed": 500.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE1",
+        "speed": 5000.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE1",
+        "speed": 200.0
+      },
+      {
+        "source": "MEC0",
+        "target": "MEC0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "MEC1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "UE1",
+        "target": "UE1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "Cloud",
+        "target": "MEC1",
+        "speed": 15000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE1",
+        "speed": 5000.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE3",
+        "speed": 5000.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE2",
+        "speed": 5000.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE0",
+        "speed": 5000.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE3",
+        "speed": 200.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE1",
+        "speed": 500.0
+      },
+      {
+        "source": "Cloud",
+        "target": "Cloud",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE2",
+        "speed": 200.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "UE1",
+        "target": "UE3",
+        "speed": 200.0
+      },
+      {
+        "source": "UE1",
+        "target": "UE2",
+        "speed": 200.0
+      },
+      {
+        "source": "Cloud",
+        "target": "MEC0",
+        "speed": 15000.0
+      },
+      {
+        "source": "UE2",
+        "target": "UE3",
+        "speed": 200.0
+      },
+      {
+        "source": "UE2",
+        "target": "UE2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE3",
+        "speed": 5000.0
+      },
+      {
+        "source": "UE3",
+        "target": "UE3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE2",
+        "speed": 5000.0
+      }
+    ]
+  }
+}

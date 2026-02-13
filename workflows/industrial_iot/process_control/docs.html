@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IIoT Chemical Process Control - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>IIoT Chemical Process Control</h1>
+    <div class="meta">
+        <strong>ID:</strong> iiot.process_control &nbsp;|&nbsp;
+        <strong>Domains:</strong> industrial-iot, cyber-physical &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Chemical process. 5 sensors → process model → 3 PID controllers → cascade control → (valve, safety interlock).</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    PressureSensor["PressureSensor<br/>cost: 1.0"]
+    ProcessModel["ProcessModel<br/>cost: 6.0"]
+    CascadeControl["CascadeControl<br/>cost: 8.0"]
+    pHSensor["pHSensor<br/>cost: 1.0"]
+    FlowPID["FlowPID<br/>cost: 5.0"]
+    ValveActuate["ValveActuate<br/>cost: 3.0"]
+    FlowSensor["FlowSensor<br/>cost: 1.0"]
+    TempSensor["TempSensor<br/>cost: 1.0"]
+    SafetyInterlock["SafetyInterlock<br/>cost: 4.0"]
+    TempPID["TempPID<br/>cost: 5.0"]
+    LevelSensor["LevelSensor<br/>cost: 1.0"]
+    PressurePID["PressurePID<br/>cost: 5.0"]
+    TempSensor -->|"1"| ProcessModel
+    TempPID -->|"2"| CascadeControl
+    ProcessModel -->|"2"| TempPID
+    PressurePID -->|"2"| CascadeControl
+    FlowPID -->|"2"| CascadeControl
+    PressureSensor -->|"1"| ProcessModel
+    FlowSensor -->|"1"| ProcessModel
+    LevelSensor -->|"1"| ProcessModel
+    pHSensor -->|"1"| ProcessModel
+    CascadeControl -->|"1"| ValveActuate
+    ProcessModel -->|"2"| FlowPID
+    ProcessModel -->|"2"| PressurePID
+    CascadeControl -->|"1"| SafetyInterlock
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (12)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>PressureSensor</td><td>1.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>ProcessModel</td><td>6.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>CascadeControl</td><td>8.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>pHSensor</td><td>1.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>FlowPID</td><td>5.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>ValveActuate</td><td>3.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>FlowSensor</td><td>1.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>TempSensor</td><td>1.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>SafetyInterlock</td><td>4.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>TempPID</td><td>5.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>LevelSensor</td><td>1.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>PressurePID</td><td>5.00</td><td>Processing step in industrial-iot pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>12</td></tr><tr><td>Edges</td><td>13</td></tr><tr><td>Depth</td><td>5</td></tr><tr><td>Width</td><td>5</td></tr><tr><td>CCR</td><td>0.4634</td></tr><tr><td>Parallelism</td><td>2.4000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, based on architecture described in Xu et al. 2014<br>
+<strong>Paper:</strong> Internet of Things in Industries: A Survey<br>
+<strong>Authors:</strong> Li Da Xu, Wu He, Shancang Li<br>
+<strong>Year:</strong> 2014<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1109/TII.2014.2300753" target="_blank">10.1109/TII.2014.2300753</a><br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Paper is a broad IoT survey in IEEE Transactions on Industrial Informatics reviewing RFID, WSN, and industrial IoT applications. It does not contain any DAG, task dependency graph, or chemical process control pipeline figure. This process control pipeline is an AI-generated task graph inspired by industrial IoT concepts described in the survey.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fog-three-tier<br>
+<strong>Nodes:</strong> 8
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">process-control</span><span class="badge">pid</span><span class="badge">chemical</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; iiot.process_control
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

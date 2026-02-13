@@ -1,0 +1,449 @@
+{
+  "name": "fog.federated_fog",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "Fog1_Upload",
+        "cost": 2.0
+      },
+      {
+        "name": "Fog4_Upload",
+        "cost": 2.0
+      },
+      {
+        "name": "Fog2_DataPrep",
+        "cost": 2.0
+      },
+      {
+        "name": "Fog1_DataPrep",
+        "cost": 2.0
+      },
+      {
+        "name": "Fog4_Train",
+        "cost": 8.0
+      },
+      {
+        "name": "Fog3_DataPrep",
+        "cost": 2.0
+      },
+      {
+        "name": "Fog0_DataPrep",
+        "cost": 2.0
+      },
+      {
+        "name": "Fog3_Upload",
+        "cost": 2.0
+      },
+      {
+        "name": "Fog2_Train",
+        "cost": 8.0
+      },
+      {
+        "name": "Fog3_Eval",
+        "cost": 3.0
+      },
+      {
+        "name": "Fog3_Train",
+        "cost": 8.0
+      },
+      {
+        "name": "Fog2_Eval",
+        "cost": 3.0
+      },
+      {
+        "name": "Fog4_DataPrep",
+        "cost": 2.0
+      },
+      {
+        "name": "Fog2_Upload",
+        "cost": 2.0
+      },
+      {
+        "name": "GlobalInit",
+        "cost": 3.0
+      },
+      {
+        "name": "Aggregate",
+        "cost": 6.0
+      },
+      {
+        "name": "Fog1_Train",
+        "cost": 8.0
+      },
+      {
+        "name": "Fog0_Train",
+        "cost": 8.0
+      },
+      {
+        "name": "Fog4_Eval",
+        "cost": 3.0
+      },
+      {
+        "name": "Fog1_Eval",
+        "cost": 3.0
+      },
+      {
+        "name": "Fog0_Upload",
+        "cost": 2.0
+      },
+      {
+        "name": "Fog0_Eval",
+        "cost": 3.0
+      },
+      {
+        "name": "GlobalUpdate",
+        "cost": 4.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "Fog0_DataPrep",
+        "target": "Fog0_Train",
+        "size": 2.0
+      },
+      {
+        "source": "Fog3_Train",
+        "target": "Fog3_Eval",
+        "size": 2.0
+      },
+      {
+        "source": "GlobalInit",
+        "target": "Fog1_DataPrep",
+        "size": 1.0
+      },
+      {
+        "source": "Fog0_Eval",
+        "target": "Fog0_Upload",
+        "size": 2.0
+      },
+      {
+        "source": "Fog2_Upload",
+        "target": "Aggregate",
+        "size": 3.0
+      },
+      {
+        "source": "Fog4_Eval",
+        "target": "Fog4_Upload",
+        "size": 2.0
+      },
+      {
+        "source": "GlobalInit",
+        "target": "Fog2_DataPrep",
+        "size": 1.0
+      },
+      {
+        "source": "Fog0_Train",
+        "target": "Fog0_Eval",
+        "size": 2.0
+      },
+      {
+        "source": "GlobalInit",
+        "target": "Fog4_DataPrep",
+        "size": 1.0
+      },
+      {
+        "source": "Fog1_Eval",
+        "target": "Fog1_Upload",
+        "size": 2.0
+      },
+      {
+        "source": "Fog4_Train",
+        "target": "Fog4_Eval",
+        "size": 2.0
+      },
+      {
+        "source": "Fog3_Upload",
+        "target": "Aggregate",
+        "size": 3.0
+      },
+      {
+        "source": "Aggregate",
+        "target": "GlobalUpdate",
+        "size": 2.0
+      },
+      {
+        "source": "Fog1_Train",
+        "target": "Fog1_Eval",
+        "size": 2.0
+      },
+      {
+        "source": "Fog2_DataPrep",
+        "target": "Fog2_Train",
+        "size": 2.0
+      },
+      {
+        "source": "Fog1_Upload",
+        "target": "Aggregate",
+        "size": 3.0
+      },
+      {
+        "source": "GlobalInit",
+        "target": "Fog0_DataPrep",
+        "size": 1.0
+      },
+      {
+        "source": "Fog4_DataPrep",
+        "target": "Fog4_Train",
+        "size": 2.0
+      },
+      {
+        "source": "Fog2_Eval",
+        "target": "Fog2_Upload",
+        "size": 2.0
+      },
+      {
+        "source": "Fog3_DataPrep",
+        "target": "Fog3_Train",
+        "size": 2.0
+      },
+      {
+        "source": "Fog2_Train",
+        "target": "Fog2_Eval",
+        "size": 2.0
+      },
+      {
+        "source": "Fog4_Upload",
+        "target": "Aggregate",
+        "size": 3.0
+      },
+      {
+        "source": "Fog3_Eval",
+        "target": "Fog3_Upload",
+        "size": 2.0
+      },
+      {
+        "source": "GlobalInit",
+        "target": "Fog3_DataPrep",
+        "size": 1.0
+      },
+      {
+        "source": "Fog1_DataPrep",
+        "target": "Fog1_Train",
+        "size": 2.0
+      },
+      {
+        "source": "Fog0_Upload",
+        "target": "Aggregate",
+        "size": 3.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "E2",
+        "speed": 1.0
+      },
+      {
+        "name": "F0",
+        "speed": 8.0
+      },
+      {
+        "name": "C0",
+        "speed": 50.0
+      },
+      {
+        "name": "E3",
+        "speed": 1.0
+      },
+      {
+        "name": "E1",
+        "speed": 1.0
+      },
+      {
+        "name": "E0",
+        "speed": 1.0
+      },
+      {
+        "name": "E4",
+        "speed": 1.0
+      },
+      {
+        "name": "F1",
+        "speed": 8.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "C0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E0",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "C0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F0",
+        "speed": 12500.0
+      },
+      {
+        "source": "E1",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E3",
+        "target": "E3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "F1",
+        "target": "F1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E1",
+        "target": "E1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "F0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "E0",
+        "target": "E0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E4",
+        "target": "E4",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "F0",
+        "target": "F0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F1",
+        "speed": 12500.0
+      }
+    ]
+  }
+}

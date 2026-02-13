@@ -1,0 +1,49 @@
+id: smart_city.traffic_mgmt
+name: Smart City Traffic Management
+description: "Traffic management. 6 camera feeds \u2192 count \u2192 fuse \u2192 predict\
+  \ \u2192 optimize signals \u2192 (deploy, dashboard)."
+domains:
+- smart-city
+- edge-computing
+provenance:
+  source: "AI-generated, based on architecture described in Djahel et al. 2015"
+  paper_doi: 10.1109/COMST.2014.2339817
+  paper_title: "A Communications-Oriented Perspective on Traffic Management Systems
+    for Smart Cities: Challenges and Innovative Approaches"
+  authors:
+  - Soufiene Djahel
+  - Ronan Doolan
+  - Gabriel-Miro Muntean
+  - John Murphy
+  year: 2015
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: "Paper is a survey/tutorial in IEEE Communications Surveys & Tutorials
+    about traffic management systems for smart cities. The original DOI
+    (10.1109/JIOT.2014.2375731) was fabricated (404, wrong journal code JIOT instead
+    of COMST); corrected to the real DOI. The paper does not contain any DAG or
+    task dependency graph. This traffic management pipeline is an AI-generated task
+    graph inspired by smart city traffic concepts described in the survey."
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 17
+  num_edges: 16
+  depth: 6
+  width: 6
+  ccr: 0.5634
+  parallelism: 2.8333
+campaign: campaign_004_networking
+tags:
+- traffic
+- signal-optimization
+- cameras

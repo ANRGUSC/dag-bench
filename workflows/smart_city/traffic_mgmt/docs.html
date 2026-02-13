@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart City Traffic Management - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Smart City Traffic Management</h1>
+    <div class="meta">
+        <strong>ID:</strong> smart_city.traffic_mgmt &nbsp;|&nbsp;
+        <strong>Domains:</strong> smart-city, edge-computing &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Traffic management. 6 camera feeds → count → fuse → predict → optimize signals → (deploy, dashboard).</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    Cam5_Feed["Cam5_Feed<br/>cost: 2.0"]
+    TrafficFuse["TrafficFuse<br/>cost: 6.0"]
+    Cam1_Count["Cam1_Count<br/>cost: 5.0"]
+    Cam1_Feed["Cam1_Feed<br/>cost: 2.0"]
+    Cam2_Count["Cam2_Count<br/>cost: 5.0"]
+    Cam3_Count["Cam3_Count<br/>cost: 5.0"]
+    Cam0_Feed["Cam0_Feed<br/>cost: 2.0"]
+    Cam4_Count["Cam4_Count<br/>cost: 5.0"]
+    SignalDeploy["SignalDeploy<br/>cost: 3.0"]
+    Dashboard["Dashboard<br/>cost: 2.0"]
+    OptimizeSignals["OptimizeSignals<br/>cost: 10.0"]
+    Cam0_Count["Cam0_Count<br/>cost: 5.0"]
+    Cam3_Feed["Cam3_Feed<br/>cost: 2.0"]
+    Cam4_Feed["Cam4_Feed<br/>cost: 2.0"]
+    Cam2_Feed["Cam2_Feed<br/>cost: 2.0"]
+    PredictFlow["PredictFlow<br/>cost: 8.0"]
+    Cam5_Count["Cam5_Count<br/>cost: 5.0"]
+    Cam4_Count -->|"2"| TrafficFuse
+    OptimizeSignals -->|"2"| Dashboard
+    OptimizeSignals -->|"2"| SignalDeploy
+    Cam0_Feed -->|"3"| Cam0_Count
+    Cam0_Count -->|"2"| TrafficFuse
+    PredictFlow -->|"3"| OptimizeSignals
+    Cam4_Feed -->|"3"| Cam4_Count
+    Cam1_Feed -->|"3"| Cam1_Count
+    Cam1_Count -->|"2"| TrafficFuse
+    Cam5_Feed -->|"3"| Cam5_Count
+    Cam5_Count -->|"2"| TrafficFuse
+    Cam3_Count -->|"2"| TrafficFuse
+    TrafficFuse -->|"3"| PredictFlow
+    Cam2_Feed -->|"3"| Cam2_Count
+    Cam2_Count -->|"2"| TrafficFuse
+    Cam3_Feed -->|"3"| Cam3_Count
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (17)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>Cam5_Feed</td><td>2.00</td><td>Processing step in smart-city pipeline</td></tr><tr><td>TrafficFuse</td><td>6.00</td><td>Merge / fuse data streams</td></tr><tr><td>Cam1_Count</td><td>5.00</td><td>Processing step in smart-city pipeline</td></tr><tr><td>Cam1_Feed</td><td>2.00</td><td>Processing step in smart-city pipeline</td></tr><tr><td>Cam2_Count</td><td>5.00</td><td>Processing step in smart-city pipeline</td></tr><tr><td>Cam3_Count</td><td>5.00</td><td>Processing step in smart-city pipeline</td></tr><tr><td>Cam0_Feed</td><td>2.00</td><td>Processing step in smart-city pipeline</td></tr><tr><td>Cam4_Count</td><td>5.00</td><td>Processing step in smart-city pipeline</td></tr><tr><td>SignalDeploy</td><td>3.00</td><td>Processing step in smart-city pipeline</td></tr><tr><td>Dashboard</td><td>2.00</td><td>Processing step in smart-city pipeline</td></tr><tr><td>OptimizeSignals</td><td>10.00</td><td>Processing step in smart-city pipeline</td></tr><tr><td>Cam0_Count</td><td>5.00</td><td>Processing step in smart-city pipeline</td></tr><tr><td>Cam3_Feed</td><td>2.00</td><td>Processing step in smart-city pipeline</td></tr><tr><td>Cam4_Feed</td><td>2.00</td><td>Processing step in smart-city pipeline</td></tr><tr><td>Cam2_Feed</td><td>2.00</td><td>Processing step in smart-city pipeline</td></tr><tr><td>PredictFlow</td><td>8.00</td><td>Classification / prediction</td></tr><tr><td>Cam5_Count</td><td>5.00</td><td>Processing step in smart-city pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>17</td></tr><tr><td>Edges</td><td>16</td></tr><tr><td>Depth</td><td>6</td></tr><tr><td>Width</td><td>6</td></tr><tr><td>CCR</td><td>0.5634</td></tr><tr><td>Parallelism</td><td>2.8333</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, based on architecture described in Djahel et al. 2015<br>
+<strong>Paper:</strong> A Communications-Oriented Perspective on Traffic Management Systems for Smart Cities: Challenges and Innovative Approaches<br>
+<strong>Authors:</strong> Soufiene Djahel, Ronan Doolan, Gabriel-Miro Muntean, John Murphy<br>
+<strong>Year:</strong> 2015<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1109/COMST.2014.2339817" target="_blank">10.1109/COMST.2014.2339817</a><br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Paper is a survey/tutorial in IEEE Communications Surveys &amp; Tutorials about traffic management systems for smart cities. The original DOI (10.1109/JIOT.2014.2375731) was fabricated (404, wrong journal code JIOT instead of COMST); corrected to the real DOI. The paper does not contain any DAG or task dependency graph. This traffic management pipeline is an AI-generated task graph inspired by smart city traffic concepts described in the survey.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fog-three-tier<br>
+<strong>Nodes:</strong> 8
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">traffic</span><span class="badge">signal-optimization</span><span class="badge">cameras</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; smart_city.traffic_mgmt
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

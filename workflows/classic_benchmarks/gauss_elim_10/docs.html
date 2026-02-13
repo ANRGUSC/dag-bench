@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaussian Elimination (n=10) - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Gaussian Elimination (n=10)</h1>
+    <div class="meta">
+        <strong>ID:</strong> classic.gauss_elim_10 &nbsp;|&nbsp;
+        <strong>Domains:</strong> classic-benchmark &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Gaussian elimination for a 10x10 matrix. Large classic benchmark for heterogeneous scheduling.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    elim_4_7["elim_4_7<br/>cost: 11.0"]
+    pivot_5["pivot_5<br/>cost: 9.0"]
+    pivot_7["pivot_7<br/>cost: 5.0"]
+    elim_3_7["elim_3_7<br/>cost: 13.0"]
+    elim_0_5["elim_0_5<br/>cost: 19.0"]
+    elim_3_9["elim_3_9<br/>cost: 13.0"]
+    elim_8_9["elim_8_9<br/>cost: 3.0"]
+    elim_4_9["elim_4_9<br/>cost: 11.0"]
+    elim_7_8["elim_7_8<br/>cost: 5.0"]
+    elim_0_8["elim_0_8<br/>cost: 19.0"]
+    elim_2_8["elim_2_8<br/>cost: 15.0"]
+    pivot_2["pivot_2<br/>cost: 15.0"]
+    pivot_0["pivot_0<br/>cost: 19.0"]
+    elim_0_2["elim_0_2<br/>cost: 19.0"]
+    pivot_4["pivot_4<br/>cost: 11.0"]
+    elim_6_7["elim_6_7<br/>cost: 7.0"]
+    elim_5_9["elim_5_9<br/>cost: 9.0"]
+    elim_4_6["elim_4_6<br/>cost: 11.0"]
+    elim_4_5["elim_4_5<br/>cost: 11.0"]
+    elim_5_7["elim_5_7<br/>cost: 9.0"]
+    elim_1_3["elim_1_3<br/>cost: 17.0"]
+    elim_0_1["elim_0_1<br/>cost: 19.0"]
+    elim_0_6["elim_0_6<br/>cost: 19.0"]
+    pivot_3["pivot_3<br/>cost: 13.0"]
+    elim_6_9["elim_6_9<br/>cost: 7.0"]
+    pivot_9["pivot_9<br/>cost: 1.0"]
+    elim_0_4["elim_0_4<br/>cost: 19.0"]
+    elim_4_8["elim_4_8<br/>cost: 11.0"]
+    elim_1_4["elim_1_4<br/>cost: 17.0"]
+    elim_2_7["elim_2_7<br/>cost: 15.0"]
+    elim_0_3["elim_0_3<br/>cost: 19.0"]
+    elim_2_6["elim_2_6<br/>cost: 15.0"]
+    elim_5_6["elim_5_6<br/>cost: 9.0"]
+    elim_1_8["elim_1_8<br/>cost: 17.0"]
+    elim_3_5["elim_3_5<br/>cost: 13.0"]
+    elim_0_7["elim_0_7<br/>cost: 19.0"]
+    elim_1_7["elim_1_7<br/>cost: 17.0"]
+    elim_6_8["elim_6_8<br/>cost: 7.0"]
+    elim_7_9["elim_7_9<br/>cost: 5.0"]
+    elim_1_5["elim_1_5<br/>cost: 17.0"]
+    elim_3_4["elim_3_4<br/>cost: 13.0"]
+    elim_2_4["elim_2_4<br/>cost: 15.0"]
+    elim_1_2["elim_1_2<br/>cost: 17.0"]
+    pivot_6["pivot_6<br/>cost: 7.0"]
+    pivot_8["pivot_8<br/>cost: 3.0"]
+    elim_2_5["elim_2_5<br/>cost: 15.0"]
+    elim_2_9["elim_2_9<br/>cost: 15.0"]
+    elim_1_6["elim_1_6<br/>cost: 17.0"]
+    elim_1_9["elim_1_9<br/>cost: 17.0"]
+    pivot_1["pivot_1<br/>cost: 17.0"]
+    elim_3_6["elim_3_6<br/>cost: 13.0"]
+    elim_0_9["elim_0_9<br/>cost: 19.0"]
+    elim_2_3["elim_2_3<br/>cost: 15.0"]
+    elim_5_8["elim_5_8<br/>cost: 9.0"]
+    elim_3_8["elim_3_8<br/>cost: 13.0"]
+    elim_7_9 -->|"2"| pivot_8
+    pivot_6 -->|"4"| elim_6_7
+    elim_0_4 -->|"9"| pivot_1
+    pivot_0 -->|"10"| elim_0_2
+    elim_1_8 -->|"8"| elim_2_8
+    elim_0_9 -->|"9"| elim_1_9
+    elim_5_9 -->|"4"| pivot_6
+    pivot_7 -->|"3"| elim_7_9
+    elim_4_5 -->|"5"| pivot_5
+    elim_5_6 -->|"4"| pivot_6
+    elim_7_9 -->|"2"| elim_8_9
+    pivot_4 -->|"6"| elim_4_9
+    elim_3_4 -->|"6"| pivot_4
+    pivot_3 -->|"7"| elim_3_4
+    pivot_4 -->|"6"| elim_4_5
+    pivot_0 -->|"10"| elim_0_8
+    elim_2_4 -->|"7"| pivot_3
+    elim_2_8 -->|"7"| pivot_3
+    elim_2_6 -->|"7"| pivot_3
+    pivot_4 -->|"5"| pivot_5
+    elim_0_4 -->|"9"| elim_1_4
+    elim_0_7 -->|"9"| elim_1_7
+    elim_3_9 -->|"6"| pivot_4
+    elim_5_8 -->|"4"| elim_6_8
+    elim_3_6 -->|"6"| elim_4_6
+    elim_6_7 -->|"3"| pivot_7
+    pivot_0 -->|"10"| elim_0_1
+    elim_0_1 -->|"9"| pivot_1
+    pivot_1 -->|"9"| elim_1_6
+    elim_0_5 -->|"9"| elim_1_5
+    pivot_0 -->|"10"| elim_0_3
+    elim_6_9 -->|"3"| pivot_7
+    elim_3_9 -->|"6"| elim_4_9
+    elim_5_8 -->|"4"| pivot_6
+    elim_6_9 -->|"3"| elim_7_9
+    elim_4_9 -->|"5"| elim_5_9
+    elim_0_6 -->|"9"| pivot_1
+    pivot_5 -->|"5"| elim_5_8
+    elim_1_5 -->|"8"| pivot_2
+    pivot_2 -->|"8"| elim_2_3
+    pivot_8 -->|"1"| pivot_9
+    pivot_2 -->|"8"| elim_2_9
+    elim_0_6 -->|"9"| elim_1_6
+    pivot_6 -->|"4"| elim_6_9
+    elim_4_6 -->|"5"| elim_5_6
+    pivot_6 -->|"4"| elim_6_8
+    pivot_0 -->|"10"| elim_0_7
+    elim_5_7 -->|"4"| elim_6_7
+    elim_1_8 -->|"8"| pivot_2
+    pivot_3 -->|"6"| pivot_4
+    elim_1_3 -->|"8"| pivot_2
+    pivot_2 -->|"8"| elim_2_5
+    elim_2_6 -->|"7"| elim_3_6
+    elim_0_2 -->|"9"| pivot_1
+    pivot_0 -->|"10"| elim_0_9
+    pivot_2 -->|"8"| elim_2_7
+    elim_3_8 -->|"6"| elim_4_8
+    elim_1_6 -->|"8"| pivot_2
+    elim_4_7 -->|"5"| elim_5_7
+    elim_2_7 -->|"7"| pivot_3
+    elim_0_2 -->|"9"| elim_1_2
+    elim_4_8 -->|"5"| elim_5_8
+    pivot_1 -->|"9"| elim_1_2
+    elim_1_4 -->|"8"| pivot_2
+    pivot_2 -->|"8"| elim_2_6
+    elim_3_6 -->|"6"| pivot_4
+    pivot_0 -->|"10"| elim_0_6
+    pivot_2 -->|"8"| elim_2_4
+    pivot_2 -->|"7"| pivot_3
+    elim_3_7 -->|"6"| elim_4_7
+    pivot_3 -->|"7"| elim_3_5
+    pivot_1 -->|"9"| elim_1_8
+    pivot_1 -->|"9"| elim_1_4
+    elim_0_3 -->|"9"| pivot_1
+    pivot_4 -->|"6"| elim_4_7
+    elim_8_9 -->|"1"| pivot_9
+    pivot_3 -->|"7"| elim_3_9
+    pivot_8 -->|"2"| elim_8_9
+    elim_1_7 -->|"8"| pivot_2
+    elim_2_8 -->|"7"| elim_3_8
+    elim_1_2 -->|"8"| pivot_2
+    pivot_5 -->|"5"| elim_5_7
+    pivot_4 -->|"6"| elim_4_8
+    elim_4_9 -->|"5"| pivot_5
+    pivot_6 -->|"3"| pivot_7
+    elim_2_4 -->|"7"| elim_3_4
+    elim_0_9 -->|"9"| pivot_1
+    pivot_4 -->|"6"| elim_4_6
+    pivot_5 -->|"5"| elim_5_6
+    elim_3_7 -->|"6"| pivot_4
+    elim_0_7 -->|"9"| pivot_1
+    elim_6_8 -->|"3"| pivot_7
+    pivot_5 -->|"5"| elim_5_9
+    pivot_7 -->|"2"| pivot_8
+    elim_4_6 -->|"5"| pivot_5
+    pivot_5 -->|"4"| pivot_6
+    elim_1_3 -->|"8"| elim_2_3
+    elim_1_4 -->|"8"| elim_2_4
+    elim_1_5 -->|"8"| elim_2_5
+    pivot_0 -->|"10"| elim_0_4
+    elim_1_7 -->|"8"| elim_2_7
+    elim_5_7 -->|"4"| pivot_6
+    elim_3_8 -->|"6"| pivot_4
+    pivot_1 -->|"9"| elim_1_3
+    elim_3_5 -->|"6"| pivot_4
+    pivot_3 -->|"7"| elim_3_6
+    elim_6_8 -->|"3"| elim_7_8
+    pivot_1 -->|"8"| pivot_2
+    elim_2_9 -->|"7"| pivot_3
+    elim_2_3 -->|"7"| pivot_3
+    elim_2_5 -->|"7"| elim_3_5
+    pivot_1 -->|"9"| elim_1_5
+    elim_2_9 -->|"7"| elim_3_9
+    elim_2_5 -->|"7"| pivot_3
+    elim_2_7 -->|"7"| elim_3_7
+    pivot_0 -->|"10"| elim_0_5
+    elim_0_5 -->|"9"| pivot_1
+    pivot_1 -->|"9"| elim_1_9
+    elim_4_7 -->|"5"| pivot_5
+    pivot_7 -->|"3"| elim_7_8
+    elim_0_3 -->|"9"| elim_1_3
+    pivot_1 -->|"9"| elim_1_7
+    pivot_0 -->|"9"| pivot_1
+    elim_3_5 -->|"6"| elim_4_5
+    elim_1_6 -->|"8"| elim_2_6
+    elim_1_9 -->|"8"| pivot_2
+    elim_0_8 -->|"9"| pivot_1
+    elim_4_8 -->|"5"| pivot_5
+    pivot_3 -->|"7"| elim_3_7
+    pivot_2 -->|"8"| elim_2_8
+    elim_5_9 -->|"4"| elim_6_9
+    elim_7_8 -->|"2"| pivot_8
+    pivot_3 -->|"7"| elim_3_8
+    elim_1_9 -->|"8"| elim_2_9
+    elim_0_8 -->|"9"| elim_1_8
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (55)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>elim_4_7</td><td>11.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>pivot_5</td><td>9.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>pivot_7</td><td>5.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_3_7</td><td>13.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_0_5</td><td>19.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_3_9</td><td>13.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_8_9</td><td>3.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_4_9</td><td>11.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_7_8</td><td>5.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_0_8</td><td>19.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_2_8</td><td>15.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>pivot_2</td><td>15.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>pivot_0</td><td>19.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_0_2</td><td>19.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>pivot_4</td><td>11.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_6_7</td><td>7.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_5_9</td><td>9.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_4_6</td><td>11.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_4_5</td><td>11.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_5_7</td><td>9.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_1_3</td><td>17.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_0_1</td><td>19.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_0_6</td><td>19.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>pivot_3</td><td>13.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_6_9</td><td>7.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>pivot_9</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_0_4</td><td>19.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_4_8</td><td>11.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_1_4</td><td>17.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_2_7</td><td>15.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_0_3</td><td>19.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_2_6</td><td>15.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_5_6</td><td>9.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_1_8</td><td>17.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_3_5</td><td>13.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_0_7</td><td>19.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_1_7</td><td>17.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_6_8</td><td>7.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_7_9</td><td>5.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_1_5</td><td>17.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_3_4</td><td>13.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_2_4</td><td>15.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_1_2</td><td>17.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>pivot_6</td><td>7.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>pivot_8</td><td>3.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_2_5</td><td>15.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_2_9</td><td>15.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_1_6</td><td>17.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_1_9</td><td>17.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>pivot_1</td><td>17.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_3_6</td><td>13.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_0_9</td><td>19.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_2_3</td><td>15.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_5_8</td><td>9.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>elim_3_8</td><td>13.00</td><td>Processing step in classic-benchmark pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>55</td></tr><tr><td>Edges</td><td>135</td></tr><tr><td>Depth</td><td>19</td></tr><tr><td>Width</td><td>9</td></tr><tr><td>CCR</td><td>1.2587</td></tr><tr><td>Parallelism</td><td>2.8947</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">Programmatic (from source code/repo)</span>
+        <br><br>
+        <strong>Source:</strong> Classic scheduling benchmark<br>
+<strong>Paper:</strong> Performance-effective and low-complexity task scheduling for heterogeneous computing<br>
+<strong>Authors:</strong> Haluk Topcuoglu, Salim Hariri, Min-You Wu<br>
+<strong>Year:</strong> 2002<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1109/71.993206" target="_blank">10.1109/71.993206</a><br>
+<strong>Extraction Method:</strong> Programmatic (from source code/repo)<br>
+<strong>Extractor:</strong> dagbench-import-script<br>
+<strong>Date:</strong> 2026-02-12
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fully-connected<br>
+<strong>Nodes:</strong> 4
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">gaussian-elimination</span><span class="badge">linear-algebra</span><span class="badge">large</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; classic.gauss_elim_10
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

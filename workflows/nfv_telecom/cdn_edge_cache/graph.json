@@ -1,0 +1,171 @@
+{
+  "name": "nfv.cdn_edge_cache",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "UserRequest",
+        "cost": 1.0
+      },
+      {
+        "name": "Transcode",
+        "cost": 8.0
+      },
+      {
+        "name": "CacheHit_Serve",
+        "cost": 3.0
+      },
+      {
+        "name": "Analytics",
+        "cost": 2.0
+      },
+      {
+        "name": "CacheLookup",
+        "cost": 2.0
+      },
+      {
+        "name": "CacheMiss_Fetch",
+        "cost": 6.0
+      },
+      {
+        "name": "ABR_Adapt",
+        "cost": 3.0
+      },
+      {
+        "name": "Deliver",
+        "cost": 2.0
+      },
+      {
+        "name": "StreamMux",
+        "cost": 4.0
+      },
+      {
+        "name": "CacheStore",
+        "cost": 3.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "ABR_Adapt",
+        "target": "Deliver",
+        "size": 2.0
+      },
+      {
+        "source": "Deliver",
+        "target": "Analytics",
+        "size": 1.0
+      },
+      {
+        "source": "StreamMux",
+        "target": "ABR_Adapt",
+        "size": 2.0
+      },
+      {
+        "source": "CacheMiss_Fetch",
+        "target": "Transcode",
+        "size": 3.0
+      },
+      {
+        "source": "UserRequest",
+        "target": "CacheLookup",
+        "size": 1.0
+      },
+      {
+        "source": "CacheLookup",
+        "target": "CacheHit_Serve",
+        "size": 2.0
+      },
+      {
+        "source": "CacheStore",
+        "target": "StreamMux",
+        "size": 2.0
+      },
+      {
+        "source": "CacheLookup",
+        "target": "CacheMiss_Fetch",
+        "size": 2.0
+      },
+      {
+        "source": "Transcode",
+        "target": "CacheStore",
+        "size": 2.0
+      },
+      {
+        "source": "CacheHit_Serve",
+        "target": "StreamMux",
+        "size": 2.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N0",
+        "speed": 2.0
+      },
+      {
+        "name": "N1",
+        "speed": 2.0
+      },
+      {
+        "name": "N2",
+        "speed": 2.0
+      },
+      {
+        "name": "N3",
+        "speed": 2.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N3",
+        "target": "N3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N3",
+        "speed": 500.0
+      }
+    ]
+  }
+}

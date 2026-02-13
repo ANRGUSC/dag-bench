@@ -1,0 +1,40 @@
+id: nfv.cdn_edge_cache
+name: NFV CDN Edge Caching
+description: CDN caching. Request → lookup → (cache hit/miss paths) → transcode →
+  store → mux → ABR → deliver → analytics.
+domains:
+- nfv
+- edge-computing
+provenance:
+  source: AI-generated, based on architecture described in Bilal et al. 2018
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  paper_title: Edge caching for CDN
+  year: 2018
+  notes: Paper/standard describes a NFV/telecom system but contains no explicit DAG
+    figure. Task graph is an AI interpretation of the architecture described in the
+    text.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 10
+  num_edges: 10
+  depth: 9
+  width: 2
+  ccr: 0.5588
+  parallelism: 1.1111
+campaign: campaign_004_networking
+tags:
+- cdn
+- caching
+- streaming
+- abr

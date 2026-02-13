@@ -1,0 +1,52 @@
+id: iiot.robotic_assembly
+name: IIoT Robotic Assembly Coordination
+description: "Robotic assembly. Order \u2192 3 robots (fetch, position, check) \u2192\
+  \ 3 sequential assembly steps \u2192 inspect \u2192 package \u2192 log."
+domains:
+- industrial-iot
+- cyber-physical
+provenance:
+  source: "AI-generated, based on architecture described in Wan et al. 2018"
+  paper_doi: 10.1109/TII.2018.2843811
+  paper_title: "Reconfigurable Smart Factory for Drug Packing in Healthcare Industry
+    4.0"
+  authors:
+  - Jiafu Wan
+  - Shenglong Tang
+  - Di Li
+  - Muhammad Imran
+  - Chunhua Zhang
+  - Chengliang Liu
+  - Zhibo Pang
+  year: 2018
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: "The original DOI (10.1109/TII.2019.2938890) resolved to a completely
+    different paper (Yuan et al. on soft sensor deep learning). Corrected to the
+    real Wan et al. paper about reconfigurable smart factories. The paper describes
+    drug packing in Industry 4.0, not robotic assembly per se, and does not contain
+    an extractable task dependency DAG. This robotic assembly pipeline is an
+    AI-generated task graph inspired by smart factory concepts."
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 16
+  num_edges: 17
+  depth: 10
+  width: 3
+  ccr: 0.3167
+  parallelism: 1.6
+campaign: campaign_004_networking
+tags:
+- robotics
+- assembly
+- manufacturing

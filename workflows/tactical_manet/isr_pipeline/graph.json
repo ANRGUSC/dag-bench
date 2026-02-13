@@ -1,0 +1,300 @@
+{
+  "name": "tactical.isr_pipeline",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "MultiFuse",
+        "cost": 10.0
+      },
+      {
+        "name": "SIGINT_Process",
+        "cost": 8.0
+      },
+      {
+        "name": "Disseminate",
+        "cost": 2.0
+      },
+      {
+        "name": "HUMINT_Collect",
+        "cost": 3.0
+      },
+      {
+        "name": "BDA",
+        "cost": 4.0
+      },
+      {
+        "name": "IMINT_Process",
+        "cost": 10.0
+      },
+      {
+        "name": "TargetIdentify",
+        "cost": 7.0
+      },
+      {
+        "name": "ThreatAssess",
+        "cost": 6.0
+      },
+      {
+        "name": "CommandApprove",
+        "cost": 3.0
+      },
+      {
+        "name": "TargetNominate",
+        "cost": 5.0
+      },
+      {
+        "name": "IMINT_Collect",
+        "cost": 5.0
+      },
+      {
+        "name": "HUMINT_Process",
+        "cost": 6.0
+      },
+      {
+        "name": "SIGINT_Collect",
+        "cost": 4.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "Disseminate",
+        "target": "BDA",
+        "size": 1.0
+      },
+      {
+        "source": "ThreatAssess",
+        "target": "TargetNominate",
+        "size": 2.0
+      },
+      {
+        "source": "SIGINT_Collect",
+        "target": "SIGINT_Process",
+        "size": 3.0
+      },
+      {
+        "source": "HUMINT_Process",
+        "target": "MultiFuse",
+        "size": 3.0
+      },
+      {
+        "source": "TargetNominate",
+        "target": "CommandApprove",
+        "size": 1.0
+      },
+      {
+        "source": "CommandApprove",
+        "target": "Disseminate",
+        "size": 1.0
+      },
+      {
+        "source": "SIGINT_Process",
+        "target": "MultiFuse",
+        "size": 3.0
+      },
+      {
+        "source": "IMINT_Process",
+        "target": "MultiFuse",
+        "size": 3.0
+      },
+      {
+        "source": "TargetIdentify",
+        "target": "TargetNominate",
+        "size": 2.0
+      },
+      {
+        "source": "IMINT_Collect",
+        "target": "IMINT_Process",
+        "size": 4.0
+      },
+      {
+        "source": "MultiFuse",
+        "target": "TargetIdentify",
+        "size": 3.0
+      },
+      {
+        "source": "HUMINT_Collect",
+        "target": "HUMINT_Process",
+        "size": 2.0
+      },
+      {
+        "source": "MultiFuse",
+        "target": "ThreatAssess",
+        "size": 3.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N5",
+        "speed": 1.0
+      },
+      {
+        "name": "N0",
+        "speed": 1.0
+      },
+      {
+        "name": "N2",
+        "speed": 1.0
+      },
+      {
+        "name": "N1",
+        "speed": 1.0
+      },
+      {
+        "name": "CMD",
+        "speed": 5.0
+      },
+      {
+        "name": "N4",
+        "speed": 1.0
+      },
+      {
+        "name": "N3",
+        "speed": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N5",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N3",
+        "target": "N3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N2",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "CMD",
+        "target": "N2",
+        "speed": 5000.0
+      },
+      {
+        "source": "N0",
+        "target": "N5",
+        "speed": 500.0
+      },
+      {
+        "source": "N5",
+        "target": "N5",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N4",
+        "target": "N5",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N4",
+        "speed": 500.0
+      },
+      {
+        "source": "N2",
+        "target": "N4",
+        "speed": 500.0
+      },
+      {
+        "source": "N3",
+        "target": "N4",
+        "speed": 500.0
+      },
+      {
+        "source": "CMD",
+        "target": "CMD",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "CMD",
+        "target": "N0",
+        "speed": 5000.0
+      },
+      {
+        "source": "CMD",
+        "target": "N5",
+        "speed": 5000.0
+      },
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N4",
+        "speed": 500.0
+      },
+      {
+        "source": "CMD",
+        "target": "N3",
+        "speed": 5000.0
+      },
+      {
+        "source": "CMD",
+        "target": "N1",
+        "speed": 5000.0
+      },
+      {
+        "source": "N4",
+        "target": "N4",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N5",
+        "speed": 500.0
+      },
+      {
+        "source": "CMD",
+        "target": "N4",
+        "speed": 5000.0
+      },
+      {
+        "source": "N3",
+        "target": "N5",
+        "speed": 500.0
+      }
+    ]
+  }
+}

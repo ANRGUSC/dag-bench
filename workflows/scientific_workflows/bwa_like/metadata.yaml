@@ -1,0 +1,38 @@
+id: scientific.bwa_like
+name: BWA-like Alignment Workflow
+description: DNA sequence alignment workflow. Split → 4 parallel (BWA align, sort)
+  → merge BAM → mark duplicates → base recalibration → final BAM.
+domains:
+- scientific
+- genomics
+provenance:
+  source: AI-generated, inspired by BWA alignment pipeline
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  year: 2018
+  notes: Structure was AI-generated based on concepts from BWA alignment pipeline.
+    Not directly extracted from any figure or table.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 13
+  num_edges: 15
+  depth: 7
+  width: 4
+  ccr: 0.707
+  parallelism: 1.8571
+campaign: campaign_003_expansion
+tags:
+- bwa
+- alignment
+- genomics
+- scatter-gather

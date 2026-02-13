@@ -1,0 +1,37 @@
+id: iot.smart_grid
+name: Smart Grid Energy Management
+description: Smart grid energy optimization. 4 forecasts → optimize → (battery, dispatch,
+  pricing → demand response) → monitor.
+domains:
+- iot
+- cyber-physical
+- edge-computing
+provenance:
+  source: AI-generated, inspired by IoT sensor network workflow patterns
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: Structure was AI-generated to represent a typical IoT sensor network pattern.
+    Not extracted from any specific source.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 10
+  num_edges: 11
+  depth: 5
+  width: 4
+  ccr: 0.3696
+  parallelism: 2.0
+campaign: campaign_003_expansion
+tags:
+- smart-grid
+- energy
+- optimization

@@ -1,0 +1,42 @@
+id: classic.lu_decomp_4
+name: LU Decomposition (4x4 tiles)
+description: 'Tiled LU decomposition for a 4x4 tile grid. Tasks: GETRF (factor), TRSM_L/U
+  (triangular solve), GEMM (update).'
+domains:
+- classic-benchmark
+provenance:
+  source: Classic scheduling benchmark
+  paper_title: Scheduling of QR factorization algorithms on SMP and multi-core architectures
+  authors:
+  - Alfredo Buttari
+  - Julien Langou
+  - Jakub Kurzak
+  - Jack Dongarra
+  year: 2009
+  extraction_method: programmatic
+  extractor: dagbench-import-script
+  extraction_date: '2026-02-12'
+  paper_doi: 10.1016/j.parco.2008.12.008
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+  notes: Classic benchmark structure; costs are representative
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 3
+  num_nodes_max: 3
+graph_stats:
+  num_tasks: 30
+  num_edges: 49
+  depth: 10
+  width: 9
+  ccr: 0.4375
+  parallelism: 3.0
+campaign: campaign_002_classic_and_manual
+tags:
+- lu-decomposition
+- linear-algebra
+- tiled

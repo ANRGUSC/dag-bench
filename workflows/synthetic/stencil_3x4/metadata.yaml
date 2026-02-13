@@ -1,0 +1,34 @@
+id: synthetic.stencil_3x4
+name: Stencil Computation (3x4 grid)
+description: 2D stencil computation pattern on a 3x4 grid. Each cell depends on its
+  left and upper neighbors. Typical in PDE solvers and image processing.
+domains:
+- synthetic
+provenance:
+  source: DAGBench synthetic generators
+  extraction_method: generated
+  extractor: dagbench-import-script
+  extraction_date: '2026-02-12'
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+  notes: Classic benchmark structure; costs are representative
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 12
+  num_edges: 17
+  depth: 6
+  width: 3
+  ccr: 0.5667
+  parallelism: 2.0
+campaign: campaign_002_classic_and_manual
+tags:
+- stencil
+- grid
+- wavefront

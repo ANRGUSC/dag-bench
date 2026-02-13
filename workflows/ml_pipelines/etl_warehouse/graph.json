@@ -1,0 +1,189 @@
+{
+  "name": "ml.etl_warehouse",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "QA_Check",
+        "cost": 5.0
+      },
+      {
+        "name": "Web_Extract",
+        "cost": 8.0
+      },
+      {
+        "name": "Transform",
+        "cost": 12.0
+      },
+      {
+        "name": "Load_Dims",
+        "cost": 10.0
+      },
+      {
+        "name": "Load_Facts",
+        "cost": 15.0
+      },
+      {
+        "name": "Social_Extract",
+        "cost": 8.0
+      },
+      {
+        "name": "Deduplicate",
+        "cost": 10.0
+      },
+      {
+        "name": "CRM_Extract",
+        "cost": 8.0
+      },
+      {
+        "name": "Index_Build",
+        "cost": 8.0
+      },
+      {
+        "name": "ERP_Extract",
+        "cost": 8.0
+      },
+      {
+        "name": "Schema_Validate",
+        "cost": 5.0
+      },
+      {
+        "name": "Notify",
+        "cost": 1.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "Transform",
+        "target": "Load_Facts",
+        "size": 10.0
+      },
+      {
+        "source": "Web_Extract",
+        "target": "Schema_Validate",
+        "size": 5.0
+      },
+      {
+        "source": "CRM_Extract",
+        "target": "Schema_Validate",
+        "size": 5.0
+      },
+      {
+        "source": "QA_Check",
+        "target": "Notify",
+        "size": 1.0
+      },
+      {
+        "source": "ERP_Extract",
+        "target": "Schema_Validate",
+        "size": 5.0
+      },
+      {
+        "source": "Transform",
+        "target": "Load_Dims",
+        "size": 10.0
+      },
+      {
+        "source": "Schema_Validate",
+        "target": "Deduplicate",
+        "size": 8.0
+      },
+      {
+        "source": "Load_Dims",
+        "target": "Index_Build",
+        "size": 3.0
+      },
+      {
+        "source": "Index_Build",
+        "target": "QA_Check",
+        "size": 1.0
+      },
+      {
+        "source": "Social_Extract",
+        "target": "Schema_Validate",
+        "size": 5.0
+      },
+      {
+        "source": "Load_Facts",
+        "target": "Index_Build",
+        "size": 3.0
+      },
+      {
+        "source": "Deduplicate",
+        "target": "Transform",
+        "size": 8.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N0",
+        "speed": 2.0
+      },
+      {
+        "name": "N3",
+        "speed": 2.0
+      },
+      {
+        "name": "N2",
+        "speed": 2.0
+      },
+      {
+        "name": "N1",
+        "speed": 2.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N3",
+        "target": "N3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N3",
+        "speed": 500.0
+      }
+    ]
+  }
+}

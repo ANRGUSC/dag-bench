@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RIoTBench ETL Pipeline - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>RIoTBench ETL Pipeline</h1>
+    <div class="meta">
+        <strong>ID:</strong> iot.riotbench_etl &nbsp;|&nbsp;
+        <strong>Domains:</strong> iot, data-analytics &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Extract-Transform-Load pipeline for IoT sensor data. Tasks: source, parse, filter, interpolate, join, annotate, publish.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    SenMLParse["SenMLParse<br/>cost: 38.2"]
+    RangeFilter["RangeFilter<br/>cost: 50.0"]
+    AzureTableInsert["AzureTableInsert<br/>cost: 50.0"]
+    Interpolation["Interpolation<br/>cost: 37.9"]
+    BloomFilter["BloomFilter<br/>cost: 27.2"]
+    Source["Source<br/>cost: 35.9"]
+    CsvToSenML["CsvToSenML<br/>cost: 29.9"]
+    MQTTPublish["MQTTPublish<br/>cost: 46.1"]
+    Sink["Sink<br/>cost: 35.3"]
+    Annotate["Annotate<br/>cost: 34.2"]
+    Join["Join<br/>cost: 24.3"]
+    SenMLParse -->|"15000"| RangeFilter
+    CsvToSenML -->|"1500"| MQTTPublish
+    AzureTableInsert -->|"15000"| Sink
+    BloomFilter -->|"15000"| Interpolation
+    Annotate -->|"15000"| AzureTableInsert
+    Source -->|"1500"| SenMLParse
+    RangeFilter -->|"15000"| BloomFilter
+    Join -->|"1500"| Annotate
+    MQTTPublish -->|"1500"| Sink
+    Interpolation -->|"15000"| Join
+    Annotate -->|"1500"| CsvToSenML
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (11)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>SenMLParse</td><td>38.23</td><td>Parse incoming data</td></tr><tr><td>RangeFilter</td><td>50.00</td><td>Filter / validate data</td></tr><tr><td>AzureTableInsert</td><td>50.00</td><td>Processing step in iot pipeline</td></tr><tr><td>Interpolation</td><td>37.93</td><td>Interpolate missing values</td></tr><tr><td>BloomFilter</td><td>27.24</td><td>Filter / validate data</td></tr><tr><td>Source</td><td>35.89</td><td>Data ingestion / source input</td></tr><tr><td>CsvToSenML</td><td>29.89</td><td>Processing step in iot pipeline</td></tr><tr><td>MQTTPublish</td><td>46.07</td><td>Final output / data sink</td></tr><tr><td>Sink</td><td>35.35</td><td>Final output / data sink</td></tr><tr><td>Annotate</td><td>34.16</td><td>Enrich data with metadata</td></tr><tr><td>Join</td><td>24.32</td><td>Merge / fuse data streams</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>11</td></tr><tr><td>Edges</td><td>11</td></tr><tr><td>Depth</td><td>10</td></tr><tr><td>Width</td><td>2</td></tr><tr><td>CCR</td><td>238.3378</td></tr><tr><td>Parallelism</td><td>1.1000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">Programmatic (from source code/repo)</span>
+        <br><br>
+        <strong>Source:</strong> SAGA framework (anrg-saga)<br>
+<strong>Paper:</strong> RIoTBench: An IoT Benchmark for Distributed Stream Processing Systems<br>
+<strong>Authors:</strong> Anshu Shukla, Shilpa Chaturvedi, Yogesh Simmhan<br>
+<strong>Year:</strong> 2017<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1109/SC2.2017.42" target="_blank">10.1109/SC2.2017.42</a><br>
+<strong>arXiv:</strong> <a href="https://arxiv.org/abs/2403.07120" target="_blank">2403.07120</a><br>
+<strong>Figure/Table:</strong> Fig. 2-5<br>
+<strong>Repository:</strong> <a href="https://github.com/anrgusc/saga" target="_blank">https://github.com/anrgusc/saga</a><br>
+<strong>Extraction Method:</strong> Programmatic (from source code/repo)<br>
+<strong>Extractor:</strong> dagbench-import-script<br>
+<strong>Date:</strong> 2026-02-12
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fog-three-tier<br>
+<strong>Nodes:</strong> 15
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">riotbench</span><span class="badge">iot</span><span class="badge">streaming</span><span class="badge">etl</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; iot.riotbench_etl
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

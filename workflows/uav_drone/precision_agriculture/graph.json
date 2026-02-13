@@ -1,0 +1,315 @@
+{
+  "name": "uav.precision_agriculture",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "StressMap",
+        "cost": 7.0
+      },
+      {
+        "name": "Strip3_Fly",
+        "cost": 3.0
+      },
+      {
+        "name": "Strip2_Fly",
+        "cost": 3.0
+      },
+      {
+        "name": "Strip2_Capture",
+        "cost": 2.0
+      },
+      {
+        "name": "Strip1_Capture",
+        "cost": 2.0
+      },
+      {
+        "name": "FlightPlan",
+        "cost": 4.0
+      },
+      {
+        "name": "Strip0_Fly",
+        "cost": 3.0
+      },
+      {
+        "name": "Strip3_Capture",
+        "cost": 2.0
+      },
+      {
+        "name": "PrescriptionMap",
+        "cost": 5.0
+      },
+      {
+        "name": "NDVI",
+        "cost": 6.0
+      },
+      {
+        "name": "Mosaic",
+        "cost": 8.0
+      },
+      {
+        "name": "Strip0_Capture",
+        "cost": 2.0
+      },
+      {
+        "name": "Strip1_Fly",
+        "cost": 3.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "Strip3_Capture",
+        "target": "Mosaic",
+        "size": 3.0
+      },
+      {
+        "source": "Strip2_Capture",
+        "target": "Mosaic",
+        "size": 3.0
+      },
+      {
+        "source": "StressMap",
+        "target": "PrescriptionMap",
+        "size": 2.0
+      },
+      {
+        "source": "Strip3_Fly",
+        "target": "Strip3_Capture",
+        "size": 2.0
+      },
+      {
+        "source": "Strip2_Fly",
+        "target": "Strip2_Capture",
+        "size": 2.0
+      },
+      {
+        "source": "Strip2_Capture",
+        "target": "Strip3_Fly",
+        "size": 1.0
+      },
+      {
+        "source": "FlightPlan",
+        "target": "Strip0_Fly",
+        "size": 1.0
+      },
+      {
+        "source": "Strip0_Capture",
+        "target": "Strip1_Fly",
+        "size": 1.0
+      },
+      {
+        "source": "Strip0_Fly",
+        "target": "Strip0_Capture",
+        "size": 2.0
+      },
+      {
+        "source": "Strip1_Fly",
+        "target": "Strip1_Capture",
+        "size": 2.0
+      },
+      {
+        "source": "Strip1_Capture",
+        "target": "Strip2_Fly",
+        "size": 1.0
+      },
+      {
+        "source": "Strip0_Capture",
+        "target": "Mosaic",
+        "size": 3.0
+      },
+      {
+        "source": "Mosaic",
+        "target": "StressMap",
+        "size": 4.0
+      },
+      {
+        "source": "Strip1_Capture",
+        "target": "Mosaic",
+        "size": 3.0
+      },
+      {
+        "source": "Mosaic",
+        "target": "NDVI",
+        "size": 4.0
+      },
+      {
+        "source": "NDVI",
+        "target": "PrescriptionMap",
+        "size": 2.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "MEC1",
+        "speed": 10.0
+      },
+      {
+        "name": "UE3",
+        "speed": 1.0
+      },
+      {
+        "name": "UE2",
+        "speed": 1.0
+      },
+      {
+        "name": "UE0",
+        "speed": 1.0
+      },
+      {
+        "name": "UE1",
+        "speed": 1.0
+      },
+      {
+        "name": "MEC0",
+        "speed": 10.0
+      },
+      {
+        "name": "Cloud",
+        "speed": 50.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "MEC0",
+        "target": "MEC1",
+        "speed": 10000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE0",
+        "speed": 5000.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE3",
+        "speed": 500.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE2",
+        "speed": 500.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE0",
+        "speed": 500.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE1",
+        "speed": 5000.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE1",
+        "speed": 200.0
+      },
+      {
+        "source": "MEC0",
+        "target": "MEC0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "MEC1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "UE1",
+        "target": "UE1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "Cloud",
+        "target": "MEC1",
+        "speed": 15000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE1",
+        "speed": 5000.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE3",
+        "speed": 5000.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE2",
+        "speed": 5000.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE0",
+        "speed": 5000.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE3",
+        "speed": 200.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE1",
+        "speed": 500.0
+      },
+      {
+        "source": "Cloud",
+        "target": "Cloud",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE2",
+        "speed": 200.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "UE1",
+        "target": "UE3",
+        "speed": 200.0
+      },
+      {
+        "source": "UE1",
+        "target": "UE2",
+        "speed": 200.0
+      },
+      {
+        "source": "Cloud",
+        "target": "MEC0",
+        "speed": 15000.0
+      },
+      {
+        "source": "UE2",
+        "target": "UE3",
+        "speed": 200.0
+      },
+      {
+        "source": "UE2",
+        "target": "UE2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE3",
+        "speed": 5000.0
+      },
+      {
+        "source": "UE3",
+        "target": "UE3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE2",
+        "speed": 5000.0
+      }
+    ]
+  }
+}

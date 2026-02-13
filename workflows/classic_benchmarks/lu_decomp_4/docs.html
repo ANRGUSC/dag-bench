@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LU Decomposition (4x4 tiles) - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>LU Decomposition (4x4 tiles)</h1>
+    <div class="meta">
+        <strong>ID:</strong> classic.lu_decomp_4 &nbsp;|&nbsp;
+        <strong>Domains:</strong> classic-benchmark &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Tiled LU decomposition for a 4x4 tile grid. Tasks: GETRF (factor), TRSM_L/U (triangular solve), GEMM (update).</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    GEMM_0_3_2["GEMM_0_3_2<br/>cost: 8.0"]
+    TRSM_L_2_3["TRSM_L_2_3<br/>cost: 6.0"]
+    GEMM_0_1_3["GEMM_0_1_3<br/>cost: 8.0"]
+    TRSM_L_0_2["TRSM_L_0_2<br/>cost: 6.0"]
+    GETRF_3["GETRF_3<br/>cost: 10.0"]
+    TRSM_L_0_3["TRSM_L_0_3<br/>cost: 6.0"]
+    TRSM_L_0_1["TRSM_L_0_1<br/>cost: 6.0"]
+    GEMM_0_2_1["GEMM_0_2_1<br/>cost: 8.0"]
+    TRSM_U_1_2["TRSM_U_1_2<br/>cost: 6.0"]
+    GETRF_0["GETRF_0<br/>cost: 10.0"]
+    GEMM_0_2_3["GEMM_0_2_3<br/>cost: 8.0"]
+    GEMM_0_1_2["GEMM_0_1_2<br/>cost: 8.0"]
+    TRSM_U_2_3["TRSM_U_2_3<br/>cost: 6.0"]
+    GEMM_0_2_2["GEMM_0_2_2<br/>cost: 8.0"]
+    GEMM_1_3_3["GEMM_1_3_3<br/>cost: 8.0"]
+    TRSM_U_1_3["TRSM_U_1_3<br/>cost: 6.0"]
+    GEMM_0_3_3["GEMM_0_3_3<br/>cost: 8.0"]
+    TRSM_U_0_3["TRSM_U_0_3<br/>cost: 6.0"]
+    GETRF_2["GETRF_2<br/>cost: 10.0"]
+    TRSM_U_0_2["TRSM_U_0_2<br/>cost: 6.0"]
+    GEMM_1_2_2["GEMM_1_2_2<br/>cost: 8.0"]
+    GEMM_1_2_3["GEMM_1_2_3<br/>cost: 8.0"]
+    TRSM_L_1_3["TRSM_L_1_3<br/>cost: 6.0"]
+    GEMM_0_1_1["GEMM_0_1_1<br/>cost: 8.0"]
+    GEMM_2_3_3["GEMM_2_3_3<br/>cost: 8.0"]
+    TRSM_L_1_2["TRSM_L_1_2<br/>cost: 6.0"]
+    GETRF_1["GETRF_1<br/>cost: 10.0"]
+    TRSM_U_0_1["TRSM_U_0_1<br/>cost: 6.0"]
+    GEMM_1_3_2["GEMM_1_3_2<br/>cost: 8.0"]
+    GEMM_0_3_1["GEMM_0_3_1<br/>cost: 8.0"]
+    TRSM_U_1_2 -->|"2"| GEMM_1_2_2
+    TRSM_L_1_3 -->|"2"| GEMM_1_3_3
+    GEMM_0_2_1 -->|"2"| TRSM_U_1_2
+    GEMM_1_2_2 -->|"2"| GETRF_2
+    TRSM_L_0_1 -->|"2"| GEMM_0_2_1
+    TRSM_U_0_2 -->|"2"| GEMM_0_2_2
+    TRSM_U_0_3 -->|"2"| GEMM_0_3_2
+    TRSM_L_0_2 -->|"2"| GEMM_0_2_2
+    GEMM_0_1_3 -->|"2"| TRSM_L_1_3
+    GETRF_1 -->|"2"| TRSM_L_1_2
+    GETRF_0 -->|"2"| TRSM_L_0_2
+    TRSM_L_0_2 -->|"2"| GEMM_0_1_2
+    TRSM_U_0_3 -->|"2"| GEMM_0_3_3
+    TRSM_L_2_3 -->|"2"| GEMM_2_3_3
+    TRSM_U_1_3 -->|"2"| GEMM_1_3_3
+    TRSM_U_2_3 -->|"2"| GEMM_2_3_3
+    GEMM_0_1_2 -->|"2"| TRSM_L_1_2
+    TRSM_U_0_1 -->|"2"| GEMM_0_1_3
+    TRSM_L_0_3 -->|"2"| GEMM_0_2_3
+    GEMM_0_1_1 -->|"2"| GETRF_1
+    GEMM_0_3_1 -->|"2"| TRSM_U_1_3
+    GETRF_2 -->|"2"| TRSM_U_2_3
+    GETRF_0 -->|"2"| TRSM_U_0_2
+    GETRF_0 -->|"2"| TRSM_L_0_1
+    TRSM_U_0_2 -->|"2"| GEMM_0_2_3
+    TRSM_L_1_2 -->|"2"| GEMM_1_3_2
+    GETRF_1 -->|"2"| TRSM_U_1_3
+    TRSM_U_0_3 -->|"2"| GEMM_0_3_1
+    GETRF_2 -->|"2"| TRSM_L_2_3
+    TRSM_U_0_2 -->|"2"| GEMM_0_2_1
+    TRSM_L_0_3 -->|"2"| GEMM_0_3_3
+    GEMM_1_3_2 -->|"2"| TRSM_U_2_3
+    GEMM_2_3_3 -->|"2"| GETRF_3
+    TRSM_U_0_1 -->|"2"| GEMM_0_1_2
+    TRSM_L_1_2 -->|"2"| GEMM_1_2_2
+    TRSM_L_1_3 -->|"2"| GEMM_1_2_3
+    TRSM_L_0_1 -->|"2"| GEMM_0_1_1
+    TRSM_L_0_3 -->|"2"| GEMM_0_1_3
+    GETRF_0 -->|"2"| TRSM_L_0_3
+    TRSM_U_1_3 -->|"2"| GEMM_1_3_2
+    GETRF_0 -->|"2"| TRSM_U_0_3
+    TRSM_U_0_1 -->|"2"| GEMM_0_1_1
+    TRSM_L_0_1 -->|"2"| GEMM_0_3_1
+    GETRF_1 -->|"2"| TRSM_L_1_3
+    GETRF_1 -->|"2"| TRSM_U_1_2
+    GETRF_0 -->|"2"| TRSM_U_0_1
+    GEMM_1_2_3 -->|"2"| TRSM_L_2_3
+    TRSM_L_0_2 -->|"2"| GEMM_0_3_2
+    TRSM_U_1_2 -->|"2"| GEMM_1_2_3
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (30)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>GEMM_0_3_2</td><td>8.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>TRSM_L_2_3</td><td>6.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>GEMM_0_1_3</td><td>8.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>TRSM_L_0_2</td><td>6.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>GETRF_3</td><td>10.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>TRSM_L_0_3</td><td>6.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>TRSM_L_0_1</td><td>6.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>GEMM_0_2_1</td><td>8.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>TRSM_U_1_2</td><td>6.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>GETRF_0</td><td>10.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>GEMM_0_2_3</td><td>8.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>GEMM_0_1_2</td><td>8.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>TRSM_U_2_3</td><td>6.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>GEMM_0_2_2</td><td>8.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>GEMM_1_3_3</td><td>8.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>TRSM_U_1_3</td><td>6.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>GEMM_0_3_3</td><td>8.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>TRSM_U_0_3</td><td>6.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>GETRF_2</td><td>10.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>TRSM_U_0_2</td><td>6.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>GEMM_1_2_2</td><td>8.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>GEMM_1_2_3</td><td>8.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>TRSM_L_1_3</td><td>6.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>GEMM_0_1_1</td><td>8.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>GEMM_2_3_3</td><td>8.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>TRSM_L_1_2</td><td>6.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>GETRF_1</td><td>10.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>TRSM_U_0_1</td><td>6.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>GEMM_1_3_2</td><td>8.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>GEMM_0_3_1</td><td>8.00</td><td>Processing step in classic-benchmark pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>30</td></tr><tr><td>Edges</td><td>49</td></tr><tr><td>Depth</td><td>10</td></tr><tr><td>Width</td><td>9</td></tr><tr><td>CCR</td><td>0.4375</td></tr><tr><td>Parallelism</td><td>3.0000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">Programmatic (from source code/repo)</span>
+        <br><br>
+        <strong>Source:</strong> Classic scheduling benchmark<br>
+<strong>Paper:</strong> Scheduling of QR factorization algorithms on SMP and multi-core architectures<br>
+<strong>Authors:</strong> Alfredo Buttari, Julien Langou, Jakub Kurzak, Jack Dongarra<br>
+<strong>Year:</strong> 2009<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1016/j.parco.2008.12.008" target="_blank">10.1016/j.parco.2008.12.008</a><br>
+<strong>Extraction Method:</strong> Programmatic (from source code/repo)<br>
+<strong>Extractor:</strong> dagbench-import-script<br>
+<strong>Date:</strong> 2026-02-12
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fully-connected<br>
+<strong>Nodes:</strong> 3
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">lu-decomposition</span><span class="badge">linear-algebra</span><span class="badge">tiled</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; classic.lu_decomp_4
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

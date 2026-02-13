@@ -1,0 +1,41 @@
+id: classic.mapreduce_8m_4r
+name: MapReduce (8 mappers, 4 reducers)
+description: 'MapReduce pattern with 8 map tasks and 4 reduce tasks. Structure: Split
+  -> Map[8] -> Shuffle -> Reduce[4] -> Merge.'
+domains:
+- classic-benchmark
+- data-analytics
+provenance:
+  source: Classic scheduling benchmark
+  paper_title: 'MapReduce: Simplified Data Processing on Large Clusters'
+  authors:
+  - Jeffrey Dean
+  - Sanjay Ghemawat
+  year: 2004
+  extraction_method: programmatic
+  extractor: dagbench-import-script
+  extraction_date: '2026-02-12'
+  paper_doi: 10.1145/1327452.1327492
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+  notes: Classic benchmark structure; costs are representative
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 15
+  num_edges: 24
+  depth: 5
+  width: 8
+  ccr: 0.213
+  parallelism: 3.0
+campaign: campaign_002_classic_and_manual
+tags:
+- mapreduce
+- data-parallel
+- scatter-gather

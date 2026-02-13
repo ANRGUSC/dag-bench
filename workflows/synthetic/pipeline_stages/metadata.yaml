@@ -1,0 +1,35 @@
+id: synthetic.pipeline_stages
+name: Multi-Stage Pipeline DAG
+description: "Pipeline with varying widths per stage: source \u2192 2 \u2192 3 \u2192\
+  \ 2 \u2192 1 \u2192 sink. Tests scheduling across stages with different parallelism\
+  \ levels."
+domains:
+- synthetic
+provenance:
+  source: DAGBench synthetic generators
+  extraction_method: generated
+  extractor: dagbench-import-script
+  extraction_date: '2026-02-12'
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+  notes: Classic benchmark structure; costs are representative
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 10
+  num_edges: 17
+  depth: 6
+  width: 3
+  ccr: 0.3712
+  parallelism: 1.6667
+campaign: campaign_002_classic_and_manual
+tags:
+- pipeline
+- staged
+- varying-width

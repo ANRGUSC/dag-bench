@@ -1,0 +1,48 @@
+id: iiot.digital_twin
+name: IIoT Digital Twin Synchronization
+description: "Digital twin. 5 sensors \u2192 edge preprocess \u2192 edge twin \u2192\
+  \ cloud sync \u2192 cloud twin \u2192 (predict, optimize, simulate) \u2192 dashboard."
+domains:
+- industrial-iot
+- edge-computing
+provenance:
+  source: "AI-generated, based on architecture described in Tao et al. 2019"
+  paper_doi: 10.1109/TII.2018.2873186
+  paper_title: "Digital Twin in Industry: State-of-the-Art"
+  authors:
+  - Fei Tao
+  - He Zhang
+  - Ang Liu
+  - Andrew Y.C. Nee
+  year: 2019
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: "Paper is a review of digital twin technology in IEEE Transactions on Industrial
+    Informatics. It does not contain any DAG or task dependency graph. The original
+    DOI (10.1007/s12206-019-0823-4) was fabricated (404, pointed to Journal of
+    Mechanical Science and Technology); corrected to the real IEEE TII DOI. This
+    digital twin pipeline is an AI-generated task graph inspired by the digital twin
+    concepts described in the paper."
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 13
+  num_edges: 14
+  depth: 7
+  width: 5
+  ccr: 0.5179
+  parallelism: 1.8571
+campaign: campaign_004_networking
+tags:
+- digital-twin
+- simulation
+- cloud-edge

@@ -1,0 +1,39 @@
+id: scientific.soykb_like
+name: SoyKB-like Genome Pipeline
+description: Soybean genome processing pipeline. Index → 3 parallel lanes (align,
+  sort, dedup, realign, call) → merge VCF → filter → annotate.
+domains:
+- scientific
+- genomics
+provenance:
+  source: AI-generated, based on architecture described in SoyKB workflow
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  paper_title: 'SoyKB: The Soybean Knowledge Base'
+  year: 2017
+  notes: Paper/standard describes a scientific computing system but contains no explicit
+    DAG figure. Task graph is an AI interpretation of the architecture described in
+    the text.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 19
+  num_edges: 20
+  depth: 9
+  width: 3
+  ccr: 0.6934
+  parallelism: 2.1111
+campaign: campaign_003_expansion
+tags:
+- soykb
+- genomics
+- variant-calling

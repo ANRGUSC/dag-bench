@@ -1,0 +1,283 @@
+{
+  "name": "tactical.mesh_routing",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "RouteMaintain",
+        "cost": 3.0
+      },
+      {
+        "name": "FwdTable2",
+        "cost": 2.0
+      },
+      {
+        "name": "NeighborDiscover",
+        "cost": 3.0
+      },
+      {
+        "name": "TopologyBuild",
+        "cost": 5.0
+      },
+      {
+        "name": "FwdTable0",
+        "cost": 2.0
+      },
+      {
+        "name": "FwdTable3",
+        "cost": 2.0
+      },
+      {
+        "name": "FwdTable1",
+        "cost": 2.0
+      },
+      {
+        "name": "RouteCalc",
+        "cost": 6.0
+      },
+      {
+        "name": "HelloExchange",
+        "cost": 2.0
+      },
+      {
+        "name": "MPR_Select",
+        "cost": 4.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "RouteCalc",
+        "target": "FwdTable0",
+        "size": 1.0
+      },
+      {
+        "source": "FwdTable1",
+        "target": "RouteMaintain",
+        "size": 1.0
+      },
+      {
+        "source": "HelloExchange",
+        "target": "NeighborDiscover",
+        "size": 1.0
+      },
+      {
+        "source": "RouteCalc",
+        "target": "FwdTable2",
+        "size": 1.0
+      },
+      {
+        "source": "RouteCalc",
+        "target": "FwdTable3",
+        "size": 1.0
+      },
+      {
+        "source": "TopologyBuild",
+        "target": "RouteCalc",
+        "size": 2.0
+      },
+      {
+        "source": "FwdTable2",
+        "target": "RouteMaintain",
+        "size": 1.0
+      },
+      {
+        "source": "FwdTable3",
+        "target": "RouteMaintain",
+        "size": 1.0
+      },
+      {
+        "source": "RouteCalc",
+        "target": "FwdTable1",
+        "size": 1.0
+      },
+      {
+        "source": "FwdTable0",
+        "target": "RouteMaintain",
+        "size": 1.0
+      },
+      {
+        "source": "NeighborDiscover",
+        "target": "MPR_Select",
+        "size": 1.0
+      },
+      {
+        "source": "MPR_Select",
+        "target": "TopologyBuild",
+        "size": 2.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N5",
+        "speed": 1.0
+      },
+      {
+        "name": "N0",
+        "speed": 1.0
+      },
+      {
+        "name": "N2",
+        "speed": 1.0
+      },
+      {
+        "name": "N1",
+        "speed": 1.0
+      },
+      {
+        "name": "CMD",
+        "speed": 5.0
+      },
+      {
+        "name": "N4",
+        "speed": 1.0
+      },
+      {
+        "name": "N3",
+        "speed": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N5",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N3",
+        "target": "N3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N2",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "CMD",
+        "target": "N2",
+        "speed": 5000.0
+      },
+      {
+        "source": "N0",
+        "target": "N5",
+        "speed": 500.0
+      },
+      {
+        "source": "N5",
+        "target": "N5",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N4",
+        "target": "N5",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N4",
+        "speed": 500.0
+      },
+      {
+        "source": "N2",
+        "target": "N4",
+        "speed": 500.0
+      },
+      {
+        "source": "N3",
+        "target": "N4",
+        "speed": 500.0
+      },
+      {
+        "source": "CMD",
+        "target": "CMD",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "CMD",
+        "target": "N0",
+        "speed": 5000.0
+      },
+      {
+        "source": "CMD",
+        "target": "N5",
+        "speed": 5000.0
+      },
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N4",
+        "speed": 500.0
+      },
+      {
+        "source": "CMD",
+        "target": "N3",
+        "speed": 5000.0
+      },
+      {
+        "source": "CMD",
+        "target": "N1",
+        "speed": 5000.0
+      },
+      {
+        "source": "N4",
+        "target": "N4",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N5",
+        "speed": 500.0
+      },
+      {
+        "source": "CMD",
+        "target": "N4",
+        "speed": 5000.0
+      },
+      {
+        "source": "N3",
+        "target": "N5",
+        "speed": 500.0
+      }
+    ]
+  }
+}

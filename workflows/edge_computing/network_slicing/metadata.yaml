@@ -1,0 +1,40 @@
+id: telecom.network_slicing
+name: 5G Network Slicing Orchestration
+description: Network slice provisioning workflow. Request → check → admit → deploy
+  VNFs[3] → chain → (QoS, monitor) → activate. Orchestration of 5G network slice lifecycle.
+domains:
+- telecom
+- 5g
+- edge-computing
+provenance:
+  source: AI-generated, inspired by telecommunications/5G workflow patterns
+  paper_title: 5G Network Slicing Orchestration
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: Structure was AI-generated to represent a typical telecommunications/5G pattern.
+    Not extracted from any specific source.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+  notes: Classic benchmark structure; costs are representative
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: star
+  num_nodes_min: 7
+  num_nodes_max: 7
+graph_stats:
+  num_tasks: 10
+  num_edges: 12
+  depth: 7
+  width: 3
+  ccr: 0.383
+  parallelism: 1.4286
+campaign: campaign_002_classic_and_manual
+tags:
+- network-slicing
+- orchestration
+- vnf
+- 5g

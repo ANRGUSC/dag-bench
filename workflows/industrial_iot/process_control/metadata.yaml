@@ -1,0 +1,46 @@
+id: iiot.process_control
+name: IIoT Chemical Process Control
+description: "Chemical process. 5 sensors \u2192 process model \u2192 3 PID controllers\
+  \ \u2192 cascade control \u2192 (valve, safety interlock)."
+domains:
+- industrial-iot
+- cyber-physical
+provenance:
+  source: "AI-generated, based on architecture described in Xu et al. 2014"
+  paper_doi: 10.1109/TII.2014.2300753
+  paper_title: "Internet of Things in Industries: A Survey"
+  authors:
+  - Li Da Xu
+  - Wu He
+  - Shancang Li
+  year: 2014
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: "Paper is a broad IoT survey in IEEE Transactions on Industrial Informatics
+    reviewing RFID, WSN, and industrial IoT applications. It does not contain any
+    DAG, task dependency graph, or chemical process control pipeline figure. This
+    process control pipeline is an AI-generated task graph inspired by industrial
+    IoT concepts described in the survey."
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 12
+  num_edges: 13
+  depth: 5
+  width: 5
+  ccr: 0.4634
+  parallelism: 2.4
+campaign: campaign_004_networking
+tags:
+- process-control
+- pid
+- chemical

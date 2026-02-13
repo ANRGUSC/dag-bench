@@ -1,0 +1,40 @@
+id: edge.ar_pipeline
+name: AR Object Detection Pipeline
+description: Augmented reality processing pipeline for mobile edge computing. Parallel
+  object detection and depth estimation branches merge at rendering. Latency-critical
+  application.
+domains:
+- edge-computing
+- image-processing
+provenance:
+  source: AI-generated, inspired by edge computing workflow patterns
+  paper_title: DAG-based Task Orchestration for Edge Computing
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: Structure was AI-generated to represent a typical edge computing pattern.
+    Not extracted from any specific source.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+  notes: Classic benchmark structure; costs are representative
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 8
+  num_edges: 8
+  depth: 6
+  width: 2
+  ccr: 0.2299
+  parallelism: 1.3333
+campaign: campaign_002_classic_and_manual
+tags:
+- ar
+- augmented-reality
+- latency-critical
+- mec

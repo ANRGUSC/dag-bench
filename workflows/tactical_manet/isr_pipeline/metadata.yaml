@@ -1,0 +1,39 @@
+id: tactical.isr_pipeline
+name: Tactical ISR Processing
+description: ISR pipeline. 3 collection channels (SIGINT, IMINT, HUMINT) → process
+  → multi-fuse → (target ID, threat) → nominate → approve → disseminate → BDA.
+domains:
+- tactical
+- manet
+provenance:
+  source: AI-generated, based on architecture described in DoD ISR architecture
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  paper_title: ISR processing patterns
+  year: 2020
+  notes: Paper/standard describes a tactical/military network system but contains
+    no explicit DAG figure. Task graph is an AI interpretation of the architecture
+    described in the text.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: manet
+  num_nodes_min: 7
+  num_nodes_max: 7
+graph_stats:
+  num_tasks: 13
+  num_edges: 13
+  depth: 8
+  width: 3
+  ccr: 0.4247
+  parallelism: 1.625
+campaign: campaign_004_networking
+tags:
+- isr
+- intelligence
+- targeting

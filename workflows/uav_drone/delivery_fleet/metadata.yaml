@@ -1,0 +1,39 @@
+id: uav.delivery_fleet
+name: UAV Fleet Delivery Orchestration
+description: Fleet delivery. Order batch → optimize → 5 parallel drones (assign, load,
+  fly, deliver) → fleet monitor → report.
+domains:
+- uav
+- edge-computing
+provenance:
+  source: AI-generated, based on architecture described in Murray and Chu 2015
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  paper_title: Flying sidekick TSP
+  year: 2015
+  notes: Paper/standard describes a UAV/drone system but contains no explicit DAG
+    figure. Task graph is an AI interpretation of the architecture described in the
+    text.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: mec
+  num_nodes_min: 7
+  num_nodes_max: 7
+graph_stats:
+  num_tasks: 24
+  num_edges: 27
+  depth: 8
+  width: 5
+  ccr: 0.3256
+  parallelism: 3.0
+campaign: campaign_004_networking
+tags:
+- delivery
+- fleet
+- multi-drone

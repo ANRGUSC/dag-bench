@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wide Parallel DAG (20 workers) - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Wide Parallel DAG (20 workers)</h1>
+    <div class="meta">
+        <strong>ID:</strong> synthetic.wide_parallel_20 &nbsp;|&nbsp;
+        <strong>Domains:</strong> synthetic &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Embarrassingly parallel pattern: source → 20 independent workers → sink. Maximum parallelism, no inter-task communication.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    Worker_8["Worker_8<br/>cost: 10.0"]
+    Worker_12["Worker_12<br/>cost: 10.0"]
+    Worker_19["Worker_19<br/>cost: 10.0"]
+    Worker_4["Worker_4<br/>cost: 10.0"]
+    Worker_18["Worker_18<br/>cost: 10.0"]
+    Worker_0["Worker_0<br/>cost: 10.0"]
+    Worker_9["Worker_9<br/>cost: 10.0"]
+    Worker_17["Worker_17<br/>cost: 10.0"]
+    Worker_6["Worker_6<br/>cost: 10.0"]
+    Worker_2["Worker_2<br/>cost: 10.0"]
+    Worker_13["Worker_13<br/>cost: 10.0"]
+    Worker_16["Worker_16<br/>cost: 10.0"]
+    Source["Source<br/>cost: 1.0"]
+    Worker_15["Worker_15<br/>cost: 10.0"]
+    Worker_7["Worker_7<br/>cost: 10.0"]
+    Worker_5["Worker_5<br/>cost: 10.0"]
+    Worker_14["Worker_14<br/>cost: 10.0"]
+    Worker_11["Worker_11<br/>cost: 10.0"]
+    Worker_3["Worker_3<br/>cost: 10.0"]
+    Sink["Sink<br/>cost: 1.0"]
+    Worker_1["Worker_1<br/>cost: 10.0"]
+    Worker_10["Worker_10<br/>cost: 10.0"]
+    Source -->|"1"| Worker_11
+    Source -->|"1"| Worker_3
+    Source -->|"1"| Worker_18
+    Worker_9 -->|"1"| Sink
+    Source -->|"1"| Worker_8
+    Worker_8 -->|"1"| Sink
+    Worker_6 -->|"1"| Sink
+    Source -->|"1"| Worker_15
+    Worker_11 -->|"1"| Sink
+    Source -->|"1"| Worker_16
+    Worker_2 -->|"1"| Sink
+    Source -->|"1"| Worker_5
+    Source -->|"1"| Worker_7
+    Source -->|"1"| Worker_9
+    Source -->|"1"| Worker_0
+    Source -->|"1"| Worker_12
+    Worker_1 -->|"1"| Sink
+    Worker_15 -->|"1"| Sink
+    Worker_5 -->|"1"| Sink
+    Source -->|"1"| Worker_10
+    Worker_13 -->|"1"| Sink
+    Worker_18 -->|"1"| Sink
+    Source -->|"1"| Worker_2
+    Source -->|"1"| Worker_14
+    Worker_16 -->|"1"| Sink
+    Worker_14 -->|"1"| Sink
+    Worker_3 -->|"1"| Sink
+    Source -->|"1"| Worker_1
+    Worker_10 -->|"1"| Sink
+    Source -->|"1"| Worker_13
+    Worker_17 -->|"1"| Sink
+    Source -->|"1"| Worker_4
+    Worker_4 -->|"1"| Sink
+    Worker_0 -->|"1"| Sink
+    Worker_19 -->|"1"| Sink
+    Worker_7 -->|"1"| Sink
+    Source -->|"1"| Worker_17
+    Source -->|"1"| Worker_6
+    Source -->|"1"| Worker_19
+    Worker_12 -->|"1"| Sink
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (22)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>Worker_8</td><td>10.00</td><td>Processing step in synthetic pipeline</td></tr><tr><td>Worker_12</td><td>10.00</td><td>Processing step in synthetic pipeline</td></tr><tr><td>Worker_19</td><td>10.00</td><td>Processing step in synthetic pipeline</td></tr><tr><td>Worker_4</td><td>10.00</td><td>Processing step in synthetic pipeline</td></tr><tr><td>Worker_18</td><td>10.00</td><td>Processing step in synthetic pipeline</td></tr><tr><td>Worker_0</td><td>10.00</td><td>Processing step in synthetic pipeline</td></tr><tr><td>Worker_9</td><td>10.00</td><td>Processing step in synthetic pipeline</td></tr><tr><td>Worker_17</td><td>10.00</td><td>Processing step in synthetic pipeline</td></tr><tr><td>Worker_6</td><td>10.00</td><td>Processing step in synthetic pipeline</td></tr><tr><td>Worker_2</td><td>10.00</td><td>Processing step in synthetic pipeline</td></tr><tr><td>Worker_13</td><td>10.00</td><td>Processing step in synthetic pipeline</td></tr><tr><td>Worker_16</td><td>10.00</td><td>Processing step in synthetic pipeline</td></tr><tr><td>Source</td><td>1.00</td><td>Data ingestion / source input</td></tr><tr><td>Worker_15</td><td>10.00</td><td>Processing step in synthetic pipeline</td></tr><tr><td>Worker_7</td><td>10.00</td><td>Processing step in synthetic pipeline</td></tr><tr><td>Worker_5</td><td>10.00</td><td>Processing step in synthetic pipeline</td></tr><tr><td>Worker_14</td><td>10.00</td><td>Processing step in synthetic pipeline</td></tr><tr><td>Worker_11</td><td>10.00</td><td>Processing step in synthetic pipeline</td></tr><tr><td>Worker_3</td><td>10.00</td><td>Processing step in synthetic pipeline</td></tr><tr><td>Sink</td><td>1.00</td><td>Final output / data sink</td></tr><tr><td>Worker_1</td><td>10.00</td><td>Processing step in synthetic pipeline</td></tr><tr><td>Worker_10</td><td>10.00</td><td>Processing step in synthetic pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>22</td></tr><tr><td>Edges</td><td>40</td></tr><tr><td>Depth</td><td>3</td></tr><tr><td>Width</td><td>20</td></tr><tr><td>CCR</td><td>0.1980</td></tr><tr><td>Parallelism</td><td>7.3333</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">Algorithmically generated</span>
+        <br><br>
+        <strong>Source:</strong> DAGBench synthetic generators<br>
+<strong>Extraction Method:</strong> Algorithmically generated<br>
+<strong>Extractor:</strong> dagbench-import-script<br>
+<strong>Date:</strong> 2026-02-12
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fully-connected<br>
+<strong>Nodes:</strong> 4
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">embarrassingly-parallel</span><span class="badge">wide</span><span class="badge">benchmark</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; synthetic.wide_parallel_20
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

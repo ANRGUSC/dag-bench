@@ -1,0 +1,375 @@
+{
+  "name": "smart_city.traffic_mgmt",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "Cam5_Feed",
+        "cost": 2.0
+      },
+      {
+        "name": "TrafficFuse",
+        "cost": 6.0
+      },
+      {
+        "name": "Cam1_Count",
+        "cost": 5.0
+      },
+      {
+        "name": "Cam1_Feed",
+        "cost": 2.0
+      },
+      {
+        "name": "Cam2_Count",
+        "cost": 5.0
+      },
+      {
+        "name": "Cam3_Count",
+        "cost": 5.0
+      },
+      {
+        "name": "Cam0_Feed",
+        "cost": 2.0
+      },
+      {
+        "name": "Cam4_Count",
+        "cost": 5.0
+      },
+      {
+        "name": "SignalDeploy",
+        "cost": 3.0
+      },
+      {
+        "name": "Dashboard",
+        "cost": 2.0
+      },
+      {
+        "name": "OptimizeSignals",
+        "cost": 10.0
+      },
+      {
+        "name": "Cam0_Count",
+        "cost": 5.0
+      },
+      {
+        "name": "Cam3_Feed",
+        "cost": 2.0
+      },
+      {
+        "name": "Cam4_Feed",
+        "cost": 2.0
+      },
+      {
+        "name": "Cam2_Feed",
+        "cost": 2.0
+      },
+      {
+        "name": "PredictFlow",
+        "cost": 8.0
+      },
+      {
+        "name": "Cam5_Count",
+        "cost": 5.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "Cam4_Count",
+        "target": "TrafficFuse",
+        "size": 2.0
+      },
+      {
+        "source": "OptimizeSignals",
+        "target": "Dashboard",
+        "size": 2.0
+      },
+      {
+        "source": "OptimizeSignals",
+        "target": "SignalDeploy",
+        "size": 2.0
+      },
+      {
+        "source": "Cam0_Feed",
+        "target": "Cam0_Count",
+        "size": 3.0
+      },
+      {
+        "source": "Cam0_Count",
+        "target": "TrafficFuse",
+        "size": 2.0
+      },
+      {
+        "source": "PredictFlow",
+        "target": "OptimizeSignals",
+        "size": 3.0
+      },
+      {
+        "source": "Cam4_Feed",
+        "target": "Cam4_Count",
+        "size": 3.0
+      },
+      {
+        "source": "Cam1_Feed",
+        "target": "Cam1_Count",
+        "size": 3.0
+      },
+      {
+        "source": "Cam1_Count",
+        "target": "TrafficFuse",
+        "size": 2.0
+      },
+      {
+        "source": "Cam5_Feed",
+        "target": "Cam5_Count",
+        "size": 3.0
+      },
+      {
+        "source": "Cam5_Count",
+        "target": "TrafficFuse",
+        "size": 2.0
+      },
+      {
+        "source": "Cam3_Count",
+        "target": "TrafficFuse",
+        "size": 2.0
+      },
+      {
+        "source": "TrafficFuse",
+        "target": "PredictFlow",
+        "size": 3.0
+      },
+      {
+        "source": "Cam2_Feed",
+        "target": "Cam2_Count",
+        "size": 3.0
+      },
+      {
+        "source": "Cam2_Count",
+        "target": "TrafficFuse",
+        "size": 2.0
+      },
+      {
+        "source": "Cam3_Feed",
+        "target": "Cam3_Count",
+        "size": 3.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "E2",
+        "speed": 1.0
+      },
+      {
+        "name": "F0",
+        "speed": 8.0
+      },
+      {
+        "name": "C0",
+        "speed": 50.0
+      },
+      {
+        "name": "E3",
+        "speed": 1.0
+      },
+      {
+        "name": "E1",
+        "speed": 1.0
+      },
+      {
+        "name": "E0",
+        "speed": 1.0
+      },
+      {
+        "name": "E4",
+        "speed": 1.0
+      },
+      {
+        "name": "F1",
+        "speed": 8.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "C0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E0",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "C0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F0",
+        "speed": 12500.0
+      },
+      {
+        "source": "E1",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E3",
+        "target": "E3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "F1",
+        "target": "F1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E1",
+        "target": "E1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "F0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "E0",
+        "target": "E0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E4",
+        "target": "E4",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "F0",
+        "target": "F0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F1",
+        "speed": 12500.0
+      }
+    ]
+  }
+}

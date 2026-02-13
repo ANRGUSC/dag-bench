@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5G Service Function Chain - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>5G Service Function Chain</h1>
+    <div class="meta">
+        <strong>ID:</strong> telecom.sfc_5g &nbsp;|&nbsp;
+        <strong>Domains:</strong> telecom, 5g, edge-computing &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>5G network service function chain. Traffic → DPI → Firewall → NAT → LoadBalancer → (IDS, CDN) → Application. Typical NFV deployment.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    CDN["CDN<br/>cost: 6.0"]
+    LoadBalancer["LoadBalancer<br/>cost: 4.0"]
+    DPI["DPI<br/>cost: 8.0"]
+    NAT["NAT<br/>cost: 3.0"]
+    Traffic["Traffic<br/>cost: 2.0"]
+    Firewall["Firewall<br/>cost: 5.0"]
+    Application["Application<br/>cost: 15.0"]
+    IDS["IDS<br/>cost: 10.0"]
+    LoadBalancer -->|"3"| IDS
+    Firewall -->|"5"| NAT
+    CDN -->|"2"| Application
+    DPI -->|"5"| Firewall
+    NAT -->|"5"| LoadBalancer
+    IDS -->|"2"| Application
+    Traffic -->|"5"| DPI
+    LoadBalancer -->|"3"| CDN
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (8)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>CDN</td><td>6.00</td><td>Processing step in telecom pipeline</td></tr><tr><td>LoadBalancer</td><td>4.00</td><td>Data loading / fetching</td></tr><tr><td>DPI</td><td>8.00</td><td>Processing step in telecom pipeline</td></tr><tr><td>NAT</td><td>3.00</td><td>Processing step in telecom pipeline</td></tr><tr><td>Traffic</td><td>2.00</td><td>Processing step in telecom pipeline</td></tr><tr><td>Firewall</td><td>5.00</td><td>Processing step in telecom pipeline</td></tr><tr><td>Application</td><td>15.00</td><td>Processing step in telecom pipeline</td></tr><tr><td>IDS</td><td>10.00</td><td>Processing step in telecom pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>8</td></tr><tr><td>Edges</td><td>8</td></tr><tr><td>Depth</td><td>7</td></tr><tr><td>Width</td><td>2</td></tr><tr><td>CCR</td><td>0.5660</td></tr><tr><td>Parallelism</td><td>1.1429</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, based on architecture described in Adoga &amp; Pezaros 2022<br>
+<strong>Paper:</strong> Network Function Virtualization and Service Function Chaining Frameworks: A Comprehensive Review of Requirements, Objectives, Implementations, and Open Research Challenges<br>
+<strong>Authors:</strong> Henry Ijemaru Adoga, Dimitrios P. Pezaros<br>
+<strong>Year:</strong> 2022<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.3390/fi14020059" target="_blank">10.3390/fi14020059</a><br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Paper is a comprehensive survey of NFV and SFC frameworks published in Future Internet (MDPI). It contains taxonomy diagrams and architectural overviews but no DAG or task dependency graph figures. This SFC pipeline is an AI-generated task graph inspired by the NFV/SFC concepts described in the survey.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> star<br>
+<strong>Nodes:</strong> 7
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">sfc</span><span class="badge">nfv</span><span class="badge">5g</span><span class="badge">network-functions</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; telecom.sfc_5g
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

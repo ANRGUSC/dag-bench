@@ -1,0 +1,257 @@
+{
+  "name": "scientific.soykb_like",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "MergeVCF",
+        "cost": 10.0
+      },
+      {
+        "name": "Align_0",
+        "cost": 15.0
+      },
+      {
+        "name": "Sort_2",
+        "cost": 8.0
+      },
+      {
+        "name": "HaplotypeCaller_1",
+        "cost": 20.0
+      },
+      {
+        "name": "Sort_1",
+        "cost": 8.0
+      },
+      {
+        "name": "Dedup_2",
+        "cost": 6.0
+      },
+      {
+        "name": "Align_1",
+        "cost": 15.0
+      },
+      {
+        "name": "Dedup_0",
+        "cost": 6.0
+      },
+      {
+        "name": "Index",
+        "cost": 5.0
+      },
+      {
+        "name": "Realign_1",
+        "cost": 10.0
+      },
+      {
+        "name": "HaplotypeCaller_0",
+        "cost": 20.0
+      },
+      {
+        "name": "Realign_0",
+        "cost": 10.0
+      },
+      {
+        "name": "Align_2",
+        "cost": 15.0
+      },
+      {
+        "name": "Dedup_1",
+        "cost": 6.0
+      },
+      {
+        "name": "HaplotypeCaller_2",
+        "cost": 20.0
+      },
+      {
+        "name": "Annotate",
+        "cost": 12.0
+      },
+      {
+        "name": "Filter",
+        "cost": 8.0
+      },
+      {
+        "name": "Sort_0",
+        "cost": 8.0
+      },
+      {
+        "name": "Realign_2",
+        "cost": 10.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "Align_1",
+        "target": "Sort_1",
+        "size": 8.0
+      },
+      {
+        "source": "Dedup_0",
+        "target": "Realign_0",
+        "size": 8.0
+      },
+      {
+        "source": "HaplotypeCaller_1",
+        "target": "MergeVCF",
+        "size": 5.0
+      },
+      {
+        "source": "Index",
+        "target": "Align_0",
+        "size": 10.0
+      },
+      {
+        "source": "Align_2",
+        "target": "Sort_2",
+        "size": 8.0
+      },
+      {
+        "source": "Index",
+        "target": "Align_2",
+        "size": 10.0
+      },
+      {
+        "source": "Sort_2",
+        "target": "Dedup_2",
+        "size": 8.0
+      },
+      {
+        "source": "HaplotypeCaller_0",
+        "target": "MergeVCF",
+        "size": 5.0
+      },
+      {
+        "source": "Dedup_1",
+        "target": "Realign_1",
+        "size": 8.0
+      },
+      {
+        "source": "Dedup_2",
+        "target": "Realign_2",
+        "size": 8.0
+      },
+      {
+        "source": "Realign_1",
+        "target": "HaplotypeCaller_1",
+        "size": 8.0
+      },
+      {
+        "source": "Align_0",
+        "target": "Sort_0",
+        "size": 8.0
+      },
+      {
+        "source": "HaplotypeCaller_2",
+        "target": "MergeVCF",
+        "size": 5.0
+      },
+      {
+        "source": "Realign_0",
+        "target": "HaplotypeCaller_0",
+        "size": 8.0
+      },
+      {
+        "source": "Sort_0",
+        "target": "Dedup_0",
+        "size": 8.0
+      },
+      {
+        "source": "Filter",
+        "target": "Annotate",
+        "size": 3.0
+      },
+      {
+        "source": "MergeVCF",
+        "target": "Filter",
+        "size": 3.0
+      },
+      {
+        "source": "Index",
+        "target": "Align_1",
+        "size": 10.0
+      },
+      {
+        "source": "Sort_1",
+        "target": "Dedup_1",
+        "size": 8.0
+      },
+      {
+        "source": "Realign_2",
+        "target": "HaplotypeCaller_2",
+        "size": 8.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N0",
+        "speed": 2.0
+      },
+      {
+        "name": "N3",
+        "speed": 2.0
+      },
+      {
+        "name": "N2",
+        "speed": 2.0
+      },
+      {
+        "name": "N1",
+        "speed": 2.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N3",
+        "target": "N3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N3",
+        "speed": 500.0
+      }
+    ]
+  }
+}

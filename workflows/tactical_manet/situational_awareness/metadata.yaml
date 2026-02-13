@@ -1,0 +1,37 @@
+id: tactical.situational_awareness
+name: Tactical COP Situational Awareness
+description: Common Operating Picture. 4 teams (sense, report) → force track → (enemy,
+  terrain, weather) → COP build → (distribute, archive).
+domains:
+- tactical
+- manet
+provenance:
+  source: AI-generated, inspired by tactical/military network workflow patterns
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  paper_title: COP generation
+  notes: Structure was AI-generated to represent a typical tactical/military network
+    pattern. Not extracted from any specific source.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: manet
+  num_nodes_min: 7
+  num_nodes_max: 7
+graph_stats:
+  num_tasks: 15
+  num_edges: 16
+  depth: 6
+  width: 4
+  ccr: 0.5686
+  parallelism: 2.5
+campaign: campaign_004_networking
+tags:
+- cop
+- situational-awareness
+- c2

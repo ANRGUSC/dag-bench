@@ -1,0 +1,206 @@
+{
+  "name": "synthetic.pipeline_stages",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "S0_W0",
+        "cost": 10.0
+      },
+      {
+        "name": "S3_W0",
+        "cost": 25.0
+      },
+      {
+        "name": "Source",
+        "cost": 1.0
+      },
+      {
+        "name": "S1_W0",
+        "cost": 15.0
+      },
+      {
+        "name": "S1_W1",
+        "cost": 15.0
+      },
+      {
+        "name": "S1_W2",
+        "cost": 15.0
+      },
+      {
+        "name": "Sink",
+        "cost": 1.0
+      },
+      {
+        "name": "S0_W1",
+        "cost": 10.0
+      },
+      {
+        "name": "S2_W0",
+        "cost": 20.0
+      },
+      {
+        "name": "S2_W1",
+        "cost": 20.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "S1_W2",
+        "target": "S2_W0",
+        "size": 3.0
+      },
+      {
+        "source": "S0_W1",
+        "target": "S1_W0",
+        "size": 3.0
+      },
+      {
+        "source": "S1_W0",
+        "target": "S2_W0",
+        "size": 3.0
+      },
+      {
+        "source": "S2_W0",
+        "target": "S3_W0",
+        "size": 3.0
+      },
+      {
+        "source": "S0_W0",
+        "target": "S1_W1",
+        "size": 3.0
+      },
+      {
+        "source": "Source",
+        "target": "S0_W1",
+        "size": 3.0
+      },
+      {
+        "source": "S2_W1",
+        "target": "S3_W0",
+        "size": 3.0
+      },
+      {
+        "source": "S1_W2",
+        "target": "S2_W1",
+        "size": 3.0
+      },
+      {
+        "source": "Source",
+        "target": "S0_W0",
+        "size": 3.0
+      },
+      {
+        "source": "S0_W0",
+        "target": "S1_W2",
+        "size": 3.0
+      },
+      {
+        "source": "S0_W1",
+        "target": "S1_W1",
+        "size": 3.0
+      },
+      {
+        "source": "S1_W1",
+        "target": "S2_W1",
+        "size": 3.0
+      },
+      {
+        "source": "S3_W0",
+        "target": "Sink",
+        "size": 1.0
+      },
+      {
+        "source": "S0_W1",
+        "target": "S1_W2",
+        "size": 3.0
+      },
+      {
+        "source": "S1_W0",
+        "target": "S2_W1",
+        "size": 3.0
+      },
+      {
+        "source": "S0_W0",
+        "target": "S1_W0",
+        "size": 3.0
+      },
+      {
+        "source": "S1_W1",
+        "target": "S2_W0",
+        "size": 3.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N1",
+        "speed": 1.0
+      },
+      {
+        "name": "N2",
+        "speed": 1.0
+      },
+      {
+        "name": "N3",
+        "speed": 1.0
+      },
+      {
+        "name": "N0",
+        "speed": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 100.0
+      },
+      {
+        "source": "N0",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 100.0
+      },
+      {
+        "source": "N2",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 100.0
+      },
+      {
+        "source": "N3",
+        "target": "N3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      }
+    ]
+  }
+}

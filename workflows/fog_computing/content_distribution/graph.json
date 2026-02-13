@@ -1,0 +1,337 @@
+{
+  "name": "fog.content_distribution",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "Cache_Region0",
+        "cost": 3.0
+      },
+      {
+        "name": "Ingest",
+        "cost": 3.0
+      },
+      {
+        "name": "Manifest",
+        "cost": 2.0
+      },
+      {
+        "name": "Transcode720",
+        "cost": 6.0
+      },
+      {
+        "name": "Cache_Region1",
+        "cost": 3.0
+      },
+      {
+        "name": "Transcode1080",
+        "cost": 8.0
+      },
+      {
+        "name": "Cache_Region2",
+        "cost": 3.0
+      },
+      {
+        "name": "DRM_Encrypt",
+        "cost": 5.0
+      },
+      {
+        "name": "Transcode4K",
+        "cost": 12.0
+      },
+      {
+        "name": "Cache_Region3",
+        "cost": 3.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "DRM_Encrypt",
+        "target": "Cache_Region2",
+        "size": 4.0
+      },
+      {
+        "source": "Cache_Region3",
+        "target": "Manifest",
+        "size": 1.0
+      },
+      {
+        "source": "DRM_Encrypt",
+        "target": "Cache_Region3",
+        "size": 4.0
+      },
+      {
+        "source": "Transcode720",
+        "target": "DRM_Encrypt",
+        "size": 3.0
+      },
+      {
+        "source": "Cache_Region0",
+        "target": "Manifest",
+        "size": 1.0
+      },
+      {
+        "source": "Transcode1080",
+        "target": "DRM_Encrypt",
+        "size": 3.0
+      },
+      {
+        "source": "Cache_Region2",
+        "target": "Manifest",
+        "size": 1.0
+      },
+      {
+        "source": "Ingest",
+        "target": "Transcode1080",
+        "size": 5.0
+      },
+      {
+        "source": "Transcode4K",
+        "target": "DRM_Encrypt",
+        "size": 3.0
+      },
+      {
+        "source": "Ingest",
+        "target": "Transcode4K",
+        "size": 5.0
+      },
+      {
+        "source": "Ingest",
+        "target": "Transcode720",
+        "size": 5.0
+      },
+      {
+        "source": "DRM_Encrypt",
+        "target": "Cache_Region1",
+        "size": 4.0
+      },
+      {
+        "source": "DRM_Encrypt",
+        "target": "Cache_Region0",
+        "size": 4.0
+      },
+      {
+        "source": "Cache_Region1",
+        "target": "Manifest",
+        "size": 1.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "E2",
+        "speed": 1.0
+      },
+      {
+        "name": "F0",
+        "speed": 8.0
+      },
+      {
+        "name": "C0",
+        "speed": 50.0
+      },
+      {
+        "name": "E3",
+        "speed": 1.0
+      },
+      {
+        "name": "E1",
+        "speed": 1.0
+      },
+      {
+        "name": "E0",
+        "speed": 1.0
+      },
+      {
+        "name": "E4",
+        "speed": 1.0
+      },
+      {
+        "name": "F1",
+        "speed": 8.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "C0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E0",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "C0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F0",
+        "speed": 12500.0
+      },
+      {
+        "source": "E1",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E3",
+        "target": "E3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "F1",
+        "target": "F1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E1",
+        "target": "E1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "F0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "E0",
+        "target": "E0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E4",
+        "target": "E4",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "F0",
+        "target": "F0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F1",
+        "speed": 12500.0
+      }
+    ]
+  }
+}

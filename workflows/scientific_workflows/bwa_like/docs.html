@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BWA-like Alignment Workflow - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>BWA-like Alignment Workflow</h1>
+    <div class="meta">
+        <strong>ID:</strong> scientific.bwa_like &nbsp;|&nbsp;
+        <strong>Domains:</strong> scientific, genomics &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>DNA sequence alignment workflow. Split → 4 parallel (BWA align, sort) → merge BAM → mark duplicates → base recalibration → final BAM.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    BWA_Align_1["BWA_Align_1<br/>cost: 20.0"]
+    BWA_Align_0["BWA_Align_0<br/>cost: 20.0"]
+    SplitFastQ["SplitFastQ<br/>cost: 3.0"]
+    FinalBAM["FinalBAM<br/>cost: 5.0"]
+    MergeBAM["MergeBAM<br/>cost: 10.0"]
+    BWA_Align_3["BWA_Align_3<br/>cost: 20.0"]
+    MarkDuplicates["MarkDuplicates<br/>cost: 12.0"]
+    BaseRecal["BaseRecal<br/>cost: 15.0"]
+    SAMSort_1["SAMSort_1<br/>cost: 8.0"]
+    BWA_Align_2["BWA_Align_2<br/>cost: 20.0"]
+    SAMSort_2["SAMSort_2<br/>cost: 8.0"]
+    SAMSort_0["SAMSort_0<br/>cost: 8.0"]
+    SAMSort_3["SAMSort_3<br/>cost: 8.0"]
+    SAMSort_3 -->|"6"| MergeBAM
+    BaseRecal -->|"5"| FinalBAM
+    SAMSort_2 -->|"6"| MergeBAM
+    SplitFastQ -->|"10"| BWA_Align_1
+    SAMSort_0 -->|"6"| MergeBAM
+    SplitFastQ -->|"10"| BWA_Align_2
+    BWA_Align_2 -->|"8"| SAMSort_2
+    SAMSort_1 -->|"6"| MergeBAM
+    BWA_Align_3 -->|"8"| SAMSort_3
+    BWA_Align_1 -->|"8"| SAMSort_1
+    SplitFastQ -->|"10"| BWA_Align_3
+    MarkDuplicates -->|"5"| BaseRecal
+    SplitFastQ -->|"10"| BWA_Align_0
+    BWA_Align_0 -->|"8"| SAMSort_0
+    MergeBAM -->|"5"| MarkDuplicates
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (13)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>BWA_Align_1</td><td>20.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>BWA_Align_0</td><td>20.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>SplitFastQ</td><td>3.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>FinalBAM</td><td>5.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>MergeBAM</td><td>10.00</td><td>Merge / fuse data streams</td></tr><tr><td>BWA_Align_3</td><td>20.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>MarkDuplicates</td><td>12.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>BaseRecal</td><td>15.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>SAMSort_1</td><td>8.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>BWA_Align_2</td><td>20.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>SAMSort_2</td><td>8.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>SAMSort_0</td><td>8.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>SAMSort_3</td><td>8.00</td><td>Processing step in scientific pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>13</td></tr><tr><td>Edges</td><td>15</td></tr><tr><td>Depth</td><td>7</td></tr><tr><td>Width</td><td>4</td></tr><tr><td>CCR</td><td>0.7070</td></tr><tr><td>Parallelism</td><td>1.8571</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, inspired by BWA alignment pipeline<br>
+<strong>Year:</strong> 2018<br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Structure was AI-generated based on concepts from BWA alignment pipeline. Not directly extracted from any figure or table.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fully-connected<br>
+<strong>Nodes:</strong> 4
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">bwa</span><span class="badge">alignment</span><span class="badge">genomics</span><span class="badge">scatter-gather</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; scientific.bwa_like
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

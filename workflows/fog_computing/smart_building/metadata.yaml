@@ -1,0 +1,40 @@
+id: fog.smart_building
+name: Fog Smart Building Management
+description: Smart building. 12 sensors → 4 floor edges → building fog → (energy,
+  comfort, security optimize) → actuate.
+domains:
+- fog-computing
+- smart-city
+- iot
+provenance:
+  source: AI-generated, based on architecture described in Alrawais et al. 2020
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  paper_title: Fog-based smart building
+  year: 2020
+  notes: Paper/standard describes a fog computing system but contains no explicit
+    DAG figure. Task graph is an AI interpretation of the architecture described in
+    the text.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 21
+  num_edges: 22
+  depth: 5
+  width: 12
+  ccr: 0.4182
+  parallelism: 4.2
+campaign: campaign_004_networking
+tags:
+- smart-building
+- hvac
+- bms

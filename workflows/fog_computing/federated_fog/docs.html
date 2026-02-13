@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Federated Fog Learning - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Federated Fog Learning</h1>
+    <div class="meta">
+        <strong>ID:</strong> fog.federated_fog &nbsp;|&nbsp;
+        <strong>Domains:</strong> fog-computing, ml-pipeline &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Federated learning on fog. Global init → 5 fog nodes (data prep, train, eval, upload) → aggregate → global update.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    Fog1_Upload["Fog1_Upload<br/>cost: 2.0"]
+    Fog4_Upload["Fog4_Upload<br/>cost: 2.0"]
+    Fog2_DataPrep["Fog2_DataPrep<br/>cost: 2.0"]
+    Fog1_DataPrep["Fog1_DataPrep<br/>cost: 2.0"]
+    Fog4_Train["Fog4_Train<br/>cost: 8.0"]
+    Fog3_DataPrep["Fog3_DataPrep<br/>cost: 2.0"]
+    Fog0_DataPrep["Fog0_DataPrep<br/>cost: 2.0"]
+    Fog3_Upload["Fog3_Upload<br/>cost: 2.0"]
+    Fog2_Train["Fog2_Train<br/>cost: 8.0"]
+    Fog3_Eval["Fog3_Eval<br/>cost: 3.0"]
+    Fog3_Train["Fog3_Train<br/>cost: 8.0"]
+    Fog2_Eval["Fog2_Eval<br/>cost: 3.0"]
+    Fog4_DataPrep["Fog4_DataPrep<br/>cost: 2.0"]
+    Fog2_Upload["Fog2_Upload<br/>cost: 2.0"]
+    GlobalInit["GlobalInit<br/>cost: 3.0"]
+    Aggregate["Aggregate<br/>cost: 6.0"]
+    Fog1_Train["Fog1_Train<br/>cost: 8.0"]
+    Fog0_Train["Fog0_Train<br/>cost: 8.0"]
+    Fog4_Eval["Fog4_Eval<br/>cost: 3.0"]
+    Fog1_Eval["Fog1_Eval<br/>cost: 3.0"]
+    Fog0_Upload["Fog0_Upload<br/>cost: 2.0"]
+    Fog0_Eval["Fog0_Eval<br/>cost: 3.0"]
+    GlobalUpdate["GlobalUpdate<br/>cost: 4.0"]
+    Fog0_DataPrep -->|"2"| Fog0_Train
+    Fog3_Train -->|"2"| Fog3_Eval
+    GlobalInit -->|"1"| Fog1_DataPrep
+    Fog0_Eval -->|"2"| Fog0_Upload
+    Fog2_Upload -->|"3"| Aggregate
+    Fog4_Eval -->|"2"| Fog4_Upload
+    GlobalInit -->|"1"| Fog2_DataPrep
+    Fog0_Train -->|"2"| Fog0_Eval
+    GlobalInit -->|"1"| Fog4_DataPrep
+    Fog1_Eval -->|"2"| Fog1_Upload
+    Fog4_Train -->|"2"| Fog4_Eval
+    Fog3_Upload -->|"3"| Aggregate
+    Aggregate -->|"2"| GlobalUpdate
+    Fog1_Train -->|"2"| Fog1_Eval
+    Fog2_DataPrep -->|"2"| Fog2_Train
+    Fog1_Upload -->|"3"| Aggregate
+    GlobalInit -->|"1"| Fog0_DataPrep
+    Fog4_DataPrep -->|"2"| Fog4_Train
+    Fog2_Eval -->|"2"| Fog2_Upload
+    Fog3_DataPrep -->|"2"| Fog3_Train
+    Fog2_Train -->|"2"| Fog2_Eval
+    Fog4_Upload -->|"3"| Aggregate
+    Fog3_Eval -->|"2"| Fog3_Upload
+    GlobalInit -->|"1"| Fog3_DataPrep
+    Fog1_DataPrep -->|"2"| Fog1_Train
+    Fog0_Upload -->|"3"| Aggregate
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (23)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>Fog1_Upload</td><td>2.00</td><td>Data loading / fetching</td></tr><tr><td>Fog4_Upload</td><td>2.00</td><td>Data loading / fetching</td></tr><tr><td>Fog2_DataPrep</td><td>2.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Fog1_DataPrep</td><td>2.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Fog4_Train</td><td>8.00</td><td>Model training</td></tr><tr><td>Fog3_DataPrep</td><td>2.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Fog0_DataPrep</td><td>2.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Fog3_Upload</td><td>2.00</td><td>Data loading / fetching</td></tr><tr><td>Fog2_Train</td><td>8.00</td><td>Model training</td></tr><tr><td>Fog3_Eval</td><td>3.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Fog3_Train</td><td>8.00</td><td>Model training</td></tr><tr><td>Fog2_Eval</td><td>3.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Fog4_DataPrep</td><td>2.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Fog2_Upload</td><td>2.00</td><td>Data loading / fetching</td></tr><tr><td>GlobalInit</td><td>3.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Aggregate</td><td>6.00</td><td>Aggregate / reduce data</td></tr><tr><td>Fog1_Train</td><td>8.00</td><td>Model training</td></tr><tr><td>Fog0_Train</td><td>8.00</td><td>Model training</td></tr><tr><td>Fog4_Eval</td><td>3.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Fog1_Eval</td><td>3.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Fog0_Upload</td><td>2.00</td><td>Data loading / fetching</td></tr><tr><td>Fog0_Eval</td><td>3.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>GlobalUpdate</td><td>4.00</td><td>Processing step in fog-computing pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>23</td></tr><tr><td>Edges</td><td>26</td></tr><tr><td>Depth</td><td>7</td></tr><tr><td>Width</td><td>5</td></tr><tr><td>CCR</td><td>0.5909</td></tr><tr><td>Parallelism</td><td>3.2857</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, based on architecture described in Wang et al. 2020<br>
+<strong>Paper:</strong> Federated learning for fog computing<br>
+<strong>Year:</strong> 2020<br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Paper/standard describes a fog computing system but contains no explicit DAG figure. Task graph is an AI interpretation of the architecture described in the text.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fog-three-tier<br>
+<strong>Nodes:</strong> 8
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">federated-learning</span><span class="badge">fog</span><span class="badge">distributed-ml</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; fog.federated_fog
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

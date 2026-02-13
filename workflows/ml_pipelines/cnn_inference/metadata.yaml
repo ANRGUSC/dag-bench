@@ -1,0 +1,39 @@
+id: ml.cnn_inference
+name: CNN Inference Pipeline
+description: 'Convolutional neural network inference pipeline. Sequential layers:
+  preprocessing → conv/pool stages → fully connected → softmax. Represents deep learning
+  inference workload.'
+domains:
+- ml-pipeline
+provenance:
+  source: AI-generated, inspired by machine learning pipeline workflow patterns
+  paper_title: Deep Learning Inference Optimization
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: Structure was AI-generated to represent a typical machine learning pipeline
+    pattern. Not extracted from any specific source.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+  notes: Classic benchmark structure; costs are representative
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 13
+  num_edges: 12
+  depth: 13
+  width: 1
+  ccr: 0.6742
+  parallelism: 1.0
+campaign: campaign_002_classic_and_manual
+tags:
+- cnn
+- inference
+- deep-learning
+- sequential

@@ -1,0 +1,47 @@
+id: mec.face_detection_offload
+name: MEC Face Detection Offloading
+description: "Face detection pipeline offloaded to MEC. Camera \u2192 preprocess \u2192\
+  \ detect \u2192 (landmark, feature) \u2192 (align, encode) \u2192 match \u2192 result."
+domains:
+- mec
+- edge-computing
+- image-processing
+provenance:
+  source: "AI-generated, based on architecture described in Chen et al. 2016"
+  paper_doi: 10.1109/TNET.2015.2487344
+  paper_title: "Efficient Multi-User Computation Offloading for Mobile-Edge Cloud Computing"
+  authors:
+  - Xu Chen
+  - Lei Jiao
+  - Wenzhong Li
+  - Xiaoming Fu
+  year: 2016
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: "Paper studies binary offloading decisions (each user has a single indivisible
+    task) using game theory. It does not contain any DAG or task dependency graph.
+    This face detection pipeline is an AI-generated task graph inspired by MEC offloading
+    concepts, not extracted from the paper."
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: mec
+  num_nodes_min: 7
+  num_nodes_max: 7
+graph_stats:
+  num_tasks: 9
+  num_edges: 9
+  depth: 7
+  width: 2
+  ccr: 0.587
+  parallelism: 1.2857
+campaign: campaign_004_networking
+tags:
+- face-detection
+- offloading
+- mec

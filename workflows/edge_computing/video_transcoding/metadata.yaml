@@ -1,0 +1,39 @@
+id: edge.video_transcoding
+name: Video Transcoding Pipeline
+description: 'Video transcoding with 4 parallel GOP (Group of Pictures) processing
+  lanes. Each GOP: decode → resize → encode. Classic data-parallel edge workload.'
+domains:
+- edge-computing
+- data-analytics
+provenance:
+  source: AI-generated, inspired by edge computing workflow patterns
+  paper_title: Performance Analysis of Video Transcoding in Cloud and Edge
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: Structure was AI-generated to represent a typical edge computing pattern.
+    Not extracted from any specific source.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+  notes: Classic benchmark structure; costs are representative
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 14
+  num_edges: 16
+  depth: 5
+  width: 4
+  ccr: 1.5942
+  parallelism: 2.8
+campaign: campaign_002_classic_and_manual
+tags:
+- video
+- transcoding
+- data-parallel
+- gop

@@ -1,0 +1,264 @@
+{
+  "name": "mec.face_detection_offload",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "FaceAlign",
+        "cost": 4.0
+      },
+      {
+        "name": "FaceEncode",
+        "cost": 5.0
+      },
+      {
+        "name": "LandmarkLocate",
+        "cost": 6.0
+      },
+      {
+        "name": "CameraCapture",
+        "cost": 2.0
+      },
+      {
+        "name": "FaceDetect",
+        "cost": 8.0
+      },
+      {
+        "name": "FaceMatch",
+        "cost": 10.0
+      },
+      {
+        "name": "Preprocess",
+        "cost": 3.0
+      },
+      {
+        "name": "FeatureExtract",
+        "cost": 7.0
+      },
+      {
+        "name": "Result",
+        "cost": 1.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "FaceEncode",
+        "target": "FaceMatch",
+        "size": 3.0
+      },
+      {
+        "source": "FaceMatch",
+        "target": "Result",
+        "size": 1.0
+      },
+      {
+        "source": "FeatureExtract",
+        "target": "FaceEncode",
+        "size": 2.0
+      },
+      {
+        "source": "LandmarkLocate",
+        "target": "FaceAlign",
+        "size": 2.0
+      },
+      {
+        "source": "CameraCapture",
+        "target": "Preprocess",
+        "size": 5.0
+      },
+      {
+        "source": "FaceDetect",
+        "target": "LandmarkLocate",
+        "size": 3.0
+      },
+      {
+        "source": "FaceAlign",
+        "target": "FaceMatch",
+        "size": 3.0
+      },
+      {
+        "source": "FaceDetect",
+        "target": "FeatureExtract",
+        "size": 3.0
+      },
+      {
+        "source": "Preprocess",
+        "target": "FaceDetect",
+        "size": 5.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "MEC1",
+        "speed": 10.0
+      },
+      {
+        "name": "UE3",
+        "speed": 1.0
+      },
+      {
+        "name": "UE2",
+        "speed": 1.0
+      },
+      {
+        "name": "UE0",
+        "speed": 1.0
+      },
+      {
+        "name": "UE1",
+        "speed": 1.0
+      },
+      {
+        "name": "MEC0",
+        "speed": 10.0
+      },
+      {
+        "name": "Cloud",
+        "speed": 50.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "MEC0",
+        "target": "MEC1",
+        "speed": 10000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE0",
+        "speed": 5000.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE3",
+        "speed": 500.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE2",
+        "speed": 500.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE0",
+        "speed": 500.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE1",
+        "speed": 5000.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE1",
+        "speed": 200.0
+      },
+      {
+        "source": "MEC0",
+        "target": "MEC0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "MEC1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "UE1",
+        "target": "UE1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "Cloud",
+        "target": "MEC1",
+        "speed": 15000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE1",
+        "speed": 5000.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE3",
+        "speed": 5000.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE2",
+        "speed": 5000.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE0",
+        "speed": 5000.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE3",
+        "speed": 200.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE1",
+        "speed": 500.0
+      },
+      {
+        "source": "Cloud",
+        "target": "Cloud",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE2",
+        "speed": 200.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "UE1",
+        "target": "UE3",
+        "speed": 200.0
+      },
+      {
+        "source": "UE1",
+        "target": "UE2",
+        "speed": 200.0
+      },
+      {
+        "source": "Cloud",
+        "target": "MEC0",
+        "speed": 15000.0
+      },
+      {
+        "source": "UE2",
+        "target": "UE3",
+        "speed": 200.0
+      },
+      {
+        "source": "UE2",
+        "target": "UE2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE3",
+        "speed": 5000.0
+      },
+      {
+        "source": "UE3",
+        "target": "UE3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE2",
+        "speed": 5000.0
+      }
+    ]
+  }
+}

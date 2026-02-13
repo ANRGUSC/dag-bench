@@ -1,0 +1,340 @@
+{
+  "name": "edge.smart_home",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "SecurityAlert",
+        "cost": 3.0
+      },
+      {
+        "name": "Aggregate",
+        "cost": 3.0
+      },
+      {
+        "name": "Dashboard",
+        "cost": 2.0
+      },
+      {
+        "name": "RuleEngine",
+        "cost": 5.0
+      },
+      {
+        "name": "DoorSensor",
+        "cost": 1.0
+      },
+      {
+        "name": "Predict",
+        "cost": 10.0
+      },
+      {
+        "name": "LightControl",
+        "cost": 2.0
+      },
+      {
+        "name": "Anomaly",
+        "cost": 8.0
+      },
+      {
+        "name": "HumiditySensor",
+        "cost": 1.0
+      },
+      {
+        "name": "HVACControl",
+        "cost": 2.0
+      },
+      {
+        "name": "MotionSensor",
+        "cost": 1.0
+      },
+      {
+        "name": "TempSensor",
+        "cost": 1.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "HVACControl",
+        "target": "Dashboard",
+        "size": 1.0
+      },
+      {
+        "source": "LightControl",
+        "target": "Dashboard",
+        "size": 1.0
+      },
+      {
+        "source": "Aggregate",
+        "target": "Predict",
+        "size": 2.0
+      },
+      {
+        "source": "MotionSensor",
+        "target": "Aggregate",
+        "size": 1.0
+      },
+      {
+        "source": "Anomaly",
+        "target": "SecurityAlert",
+        "size": 1.0
+      },
+      {
+        "source": "DoorSensor",
+        "target": "Aggregate",
+        "size": 1.0
+      },
+      {
+        "source": "Predict",
+        "target": "HVACControl",
+        "size": 1.0
+      },
+      {
+        "source": "RuleEngine",
+        "target": "LightControl",
+        "size": 1.0
+      },
+      {
+        "source": "Aggregate",
+        "target": "RuleEngine",
+        "size": 2.0
+      },
+      {
+        "source": "Aggregate",
+        "target": "Anomaly",
+        "size": 2.0
+      },
+      {
+        "source": "SecurityAlert",
+        "target": "Dashboard",
+        "size": 1.0
+      },
+      {
+        "source": "HumiditySensor",
+        "target": "Aggregate",
+        "size": 1.0
+      },
+      {
+        "source": "TempSensor",
+        "target": "Aggregate",
+        "size": 1.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "E2",
+        "speed": 1.0
+      },
+      {
+        "name": "F0",
+        "speed": 8.0
+      },
+      {
+        "name": "F1",
+        "speed": 8.0
+      },
+      {
+        "name": "E3",
+        "speed": 1.0
+      },
+      {
+        "name": "E0",
+        "speed": 1.0
+      },
+      {
+        "name": "E4",
+        "speed": 1.0
+      },
+      {
+        "name": "E1",
+        "speed": 1.0
+      },
+      {
+        "name": "C0",
+        "speed": 50.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "E3",
+        "target": "E3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "F0",
+        "speed": 12500.0
+      },
+      {
+        "source": "E2",
+        "target": "E2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E4",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E0",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "F0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "E1",
+        "target": "E1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E1",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E4",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "C0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "F0",
+        "target": "F0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "F1",
+        "target": "F1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "C0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "E4",
+        "speed": 1000000000.0
+      }
+    ]
+  }
+}

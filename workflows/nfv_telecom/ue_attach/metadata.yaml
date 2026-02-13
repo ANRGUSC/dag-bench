@@ -1,0 +1,41 @@
+id: nfv.ue_attach
+name: 5G UE Attach Procedure
+description: 5G attach. UE → AMF → (AUSF, UDM, NRF, NSSF) → AMF context → SMF → UPF
+  → (QoS, gNB) → complete.
+domains:
+- nfv
+- telecom
+- 5g
+provenance:
+  source: AI-generated, based on architecture described in 3GPP TS 23.501
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  paper_title: 5G system architecture
+  year: 2021
+  notes: Paper/standard describes a NFV/telecom system but contains no explicit DAG
+    figure. Task graph is an AI interpretation of the architecture described in the
+    text.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 12
+  num_edges: 15
+  depth: 8
+  width: 4
+  ccr: 0.4048
+  parallelism: 1.5
+campaign: campaign_004_networking
+tags:
+- 5g
+- attach
+- core-network
+- sba

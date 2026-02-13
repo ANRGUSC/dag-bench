@@ -1,0 +1,255 @@
+{
+  "name": "telecom.sfc_5g",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "CDN",
+        "cost": 6.0
+      },
+      {
+        "name": "LoadBalancer",
+        "cost": 4.0
+      },
+      {
+        "name": "DPI",
+        "cost": 8.0
+      },
+      {
+        "name": "NAT",
+        "cost": 3.0
+      },
+      {
+        "name": "Traffic",
+        "cost": 2.0
+      },
+      {
+        "name": "Firewall",
+        "cost": 5.0
+      },
+      {
+        "name": "Application",
+        "cost": 15.0
+      },
+      {
+        "name": "IDS",
+        "cost": 10.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "LoadBalancer",
+        "target": "IDS",
+        "size": 3.0
+      },
+      {
+        "source": "Firewall",
+        "target": "NAT",
+        "size": 5.0
+      },
+      {
+        "source": "CDN",
+        "target": "Application",
+        "size": 2.0
+      },
+      {
+        "source": "DPI",
+        "target": "Firewall",
+        "size": 5.0
+      },
+      {
+        "source": "NAT",
+        "target": "LoadBalancer",
+        "size": 5.0
+      },
+      {
+        "source": "IDS",
+        "target": "Application",
+        "size": 2.0
+      },
+      {
+        "source": "Traffic",
+        "target": "DPI",
+        "size": 5.0
+      },
+      {
+        "source": "LoadBalancer",
+        "target": "CDN",
+        "size": 3.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "E2",
+        "speed": 2.0
+      },
+      {
+        "name": "Hub",
+        "speed": 10.0
+      },
+      {
+        "name": "E5",
+        "speed": 2.0
+      },
+      {
+        "name": "E3",
+        "speed": 2.0
+      },
+      {
+        "name": "E0",
+        "speed": 2.0
+      },
+      {
+        "name": "E4",
+        "speed": 2.0
+      },
+      {
+        "name": "E1",
+        "speed": 2.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "E3",
+        "target": "E3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "E3",
+        "speed": 100.0
+      },
+      {
+        "source": "E3",
+        "target": "Hub",
+        "speed": 5000.0
+      },
+      {
+        "source": "E2",
+        "target": "Hub",
+        "speed": 5000.0
+      },
+      {
+        "source": "E0",
+        "target": "E5",
+        "speed": 100.0
+      },
+      {
+        "source": "E2",
+        "target": "E2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E5",
+        "target": "E5",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E0",
+        "target": "E3",
+        "speed": 100.0
+      },
+      {
+        "source": "E0",
+        "target": "Hub",
+        "speed": 5000.0
+      },
+      {
+        "source": "E5",
+        "target": "Hub",
+        "speed": 5000.0
+      },
+      {
+        "source": "E0",
+        "target": "E2",
+        "speed": 100.0
+      },
+      {
+        "source": "E1",
+        "target": "E5",
+        "speed": 100.0
+      },
+      {
+        "source": "E3",
+        "target": "E4",
+        "speed": 100.0
+      },
+      {
+        "source": "E1",
+        "target": "E3",
+        "speed": 100.0
+      },
+      {
+        "source": "E1",
+        "target": "Hub",
+        "speed": 5000.0
+      },
+      {
+        "source": "E2",
+        "target": "E4",
+        "speed": 100.0
+      },
+      {
+        "source": "E1",
+        "target": "E2",
+        "speed": 100.0
+      },
+      {
+        "source": "Hub",
+        "target": "Hub",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E0",
+        "target": "E1",
+        "speed": 100.0
+      },
+      {
+        "source": "E0",
+        "target": "E4",
+        "speed": 100.0
+      },
+      {
+        "source": "E4",
+        "target": "E5",
+        "speed": 100.0
+      },
+      {
+        "source": "E1",
+        "target": "E1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E1",
+        "target": "E4",
+        "speed": 100.0
+      },
+      {
+        "source": "E4",
+        "target": "Hub",
+        "speed": 5000.0
+      },
+      {
+        "source": "E0",
+        "target": "E0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "E5",
+        "speed": 100.0
+      },
+      {
+        "source": "E2",
+        "target": "E5",
+        "speed": 100.0
+      },
+      {
+        "source": "E4",
+        "target": "E4",
+        "speed": 1000000000.0
+      }
+    ]
+  }
+}

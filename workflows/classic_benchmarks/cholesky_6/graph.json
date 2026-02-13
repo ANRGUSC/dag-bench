@@ -1,0 +1,730 @@
+{
+  "name": "classic.cholesky_6",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "GEMM_1_2_3",
+        "cost": 8.0
+      },
+      {
+        "name": "SYRK_3_5",
+        "cost": 4.0
+      },
+      {
+        "name": "TRSM_0_2",
+        "cost": 6.0
+      },
+      {
+        "name": "SYRK_2_3",
+        "cost": 4.0
+      },
+      {
+        "name": "TRSM_1_3",
+        "cost": 6.0
+      },
+      {
+        "name": "SYRK_2_5",
+        "cost": 4.0
+      },
+      {
+        "name": "GEMM_2_3_5",
+        "cost": 8.0
+      },
+      {
+        "name": "GEMM_1_3_5",
+        "cost": 8.0
+      },
+      {
+        "name": "GEMM_0_1_5",
+        "cost": 8.0
+      },
+      {
+        "name": "POTRF_4",
+        "cost": 10.0
+      },
+      {
+        "name": "GEMM_0_1_2",
+        "cost": 8.0
+      },
+      {
+        "name": "GEMM_0_2_3",
+        "cost": 8.0
+      },
+      {
+        "name": "TRSM_2_5",
+        "cost": 6.0
+      },
+      {
+        "name": "SYRK_1_2",
+        "cost": 4.0
+      },
+      {
+        "name": "GEMM_3_4_5",
+        "cost": 8.0
+      },
+      {
+        "name": "GEMM_0_2_4",
+        "cost": 8.0
+      },
+      {
+        "name": "TRSM_1_4",
+        "cost": 6.0
+      },
+      {
+        "name": "SYRK_1_5",
+        "cost": 4.0
+      },
+      {
+        "name": "GEMM_0_1_4",
+        "cost": 8.0
+      },
+      {
+        "name": "SYRK_0_5",
+        "cost": 4.0
+      },
+      {
+        "name": "GEMM_2_3_4",
+        "cost": 8.0
+      },
+      {
+        "name": "GEMM_0_1_3",
+        "cost": 8.0
+      },
+      {
+        "name": "SYRK_0_4",
+        "cost": 4.0
+      },
+      {
+        "name": "POTRF_0",
+        "cost": 10.0
+      },
+      {
+        "name": "SYRK_0_1",
+        "cost": 4.0
+      },
+      {
+        "name": "POTRF_3",
+        "cost": 10.0
+      },
+      {
+        "name": "SYRK_4_5",
+        "cost": 4.0
+      },
+      {
+        "name": "SYRK_0_2",
+        "cost": 4.0
+      },
+      {
+        "name": "GEMM_1_2_4",
+        "cost": 8.0
+      },
+      {
+        "name": "TRSM_2_3",
+        "cost": 6.0
+      },
+      {
+        "name": "TRSM_0_4",
+        "cost": 6.0
+      },
+      {
+        "name": "SYRK_1_4",
+        "cost": 4.0
+      },
+      {
+        "name": "POTRF_5",
+        "cost": 10.0
+      },
+      {
+        "name": "TRSM_1_2",
+        "cost": 6.0
+      },
+      {
+        "name": "GEMM_0_3_4",
+        "cost": 8.0
+      },
+      {
+        "name": "SYRK_2_4",
+        "cost": 4.0
+      },
+      {
+        "name": "TRSM_0_1",
+        "cost": 6.0
+      },
+      {
+        "name": "GEMM_0_3_5",
+        "cost": 8.0
+      },
+      {
+        "name": "SYRK_0_3",
+        "cost": 4.0
+      },
+      {
+        "name": "TRSM_0_5",
+        "cost": 6.0
+      },
+      {
+        "name": "TRSM_1_5",
+        "cost": 6.0
+      },
+      {
+        "name": "GEMM_1_2_5",
+        "cost": 8.0
+      },
+      {
+        "name": "TRSM_2_4",
+        "cost": 6.0
+      },
+      {
+        "name": "TRSM_3_4",
+        "cost": 6.0
+      },
+      {
+        "name": "SYRK_1_3",
+        "cost": 4.0
+      },
+      {
+        "name": "GEMM_2_4_5",
+        "cost": 8.0
+      },
+      {
+        "name": "GEMM_0_4_5",
+        "cost": 8.0
+      },
+      {
+        "name": "POTRF_2",
+        "cost": 10.0
+      },
+      {
+        "name": "GEMM_1_3_4",
+        "cost": 8.0
+      },
+      {
+        "name": "TRSM_0_3",
+        "cost": 6.0
+      },
+      {
+        "name": "POTRF_1",
+        "cost": 10.0
+      },
+      {
+        "name": "GEMM_1_4_5",
+        "cost": 8.0
+      },
+      {
+        "name": "SYRK_3_4",
+        "cost": 4.0
+      },
+      {
+        "name": "TRSM_3_5",
+        "cost": 6.0
+      },
+      {
+        "name": "GEMM_0_2_5",
+        "cost": 8.0
+      },
+      {
+        "name": "TRSM_4_5",
+        "cost": 6.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "GEMM_1_2_5",
+        "target": "TRSM_2_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_4",
+        "target": "GEMM_0_4_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_3",
+        "target": "GEMM_0_1_3",
+        "size": 2.0
+      },
+      {
+        "source": "GEMM_0_1_5",
+        "target": "TRSM_1_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_1",
+        "target": "GEMM_0_1_2",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_2_4",
+        "target": "GEMM_2_4_5",
+        "size": 2.0
+      },
+      {
+        "source": "GEMM_3_4_5",
+        "target": "TRSM_4_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_4_5",
+        "target": "SYRK_4_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_3",
+        "target": "SYRK_0_3",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_2_5",
+        "target": "GEMM_2_3_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_5",
+        "target": "SYRK_0_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_1_4",
+        "target": "SYRK_1_4",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_1_2",
+        "target": "GEMM_1_2_5",
+        "size": 2.0
+      },
+      {
+        "source": "POTRF_1",
+        "target": "TRSM_1_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_1_5",
+        "target": "SYRK_1_5",
+        "size": 2.0
+      },
+      {
+        "source": "SYRK_4_5",
+        "target": "POTRF_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_4",
+        "target": "SYRK_0_4",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_5",
+        "target": "GEMM_0_1_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_5",
+        "target": "GEMM_0_2_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_2",
+        "target": "GEMM_0_1_2",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_4",
+        "target": "GEMM_0_3_4",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_2_4",
+        "target": "GEMM_2_3_4",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_2",
+        "target": "GEMM_0_2_4",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_2_3",
+        "target": "GEMM_2_3_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_2",
+        "target": "SYRK_0_2",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_1",
+        "target": "GEMM_0_1_4",
+        "size": 2.0
+      },
+      {
+        "source": "SYRK_1_2",
+        "target": "POTRF_2",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_1_3",
+        "target": "GEMM_1_2_3",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_1_4",
+        "target": "GEMM_1_2_4",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_1",
+        "target": "SYRK_0_1",
+        "size": 2.0
+      },
+      {
+        "source": "SYRK_2_3",
+        "target": "POTRF_3",
+        "size": 2.0
+      },
+      {
+        "source": "POTRF_2",
+        "target": "TRSM_2_4",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_1_3",
+        "target": "GEMM_1_3_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_2_3",
+        "target": "GEMM_2_3_4",
+        "size": 2.0
+      },
+      {
+        "source": "POTRF_1",
+        "target": "TRSM_1_4",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_3_5",
+        "target": "SYRK_3_5",
+        "size": 2.0
+      },
+      {
+        "source": "POTRF_1",
+        "target": "TRSM_1_2",
+        "size": 2.0
+      },
+      {
+        "source": "POTRF_4",
+        "target": "TRSM_4_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_3",
+        "target": "GEMM_0_2_3",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_2",
+        "target": "GEMM_0_2_3",
+        "size": 2.0
+      },
+      {
+        "source": "POTRF_2",
+        "target": "TRSM_2_5",
+        "size": 2.0
+      },
+      {
+        "source": "GEMM_0_1_3",
+        "target": "TRSM_1_3",
+        "size": 2.0
+      },
+      {
+        "source": "GEMM_1_2_4",
+        "target": "TRSM_2_4",
+        "size": 2.0
+      },
+      {
+        "source": "GEMM_2_3_4",
+        "target": "TRSM_3_4",
+        "size": 2.0
+      },
+      {
+        "source": "POTRF_0",
+        "target": "TRSM_0_1",
+        "size": 2.0
+      },
+      {
+        "source": "POTRF_1",
+        "target": "TRSM_1_3",
+        "size": 2.0
+      },
+      {
+        "source": "GEMM_1_2_3",
+        "target": "TRSM_2_3",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_5",
+        "target": "GEMM_0_3_5",
+        "size": 2.0
+      },
+      {
+        "source": "POTRF_0",
+        "target": "TRSM_0_4",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_1_3",
+        "target": "SYRK_1_3",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_1_4",
+        "target": "GEMM_1_3_4",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_3",
+        "target": "GEMM_0_3_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_5",
+        "target": "GEMM_0_4_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_1_5",
+        "target": "GEMM_1_2_5",
+        "size": 2.0
+      },
+      {
+        "source": "POTRF_0",
+        "target": "TRSM_0_2",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_1_2",
+        "target": "SYRK_1_2",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_4",
+        "target": "GEMM_0_2_4",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_3_4",
+        "target": "SYRK_3_4",
+        "size": 2.0
+      },
+      {
+        "source": "POTRF_3",
+        "target": "TRSM_3_5",
+        "size": 2.0
+      },
+      {
+        "source": "SYRK_0_1",
+        "target": "POTRF_1",
+        "size": 2.0
+      },
+      {
+        "source": "POTRF_0",
+        "target": "TRSM_0_3",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_1_2",
+        "target": "GEMM_1_2_3",
+        "size": 2.0
+      },
+      {
+        "source": "GEMM_2_3_5",
+        "target": "TRSM_3_5",
+        "size": 2.0
+      },
+      {
+        "source": "POTRF_3",
+        "target": "TRSM_3_4",
+        "size": 2.0
+      },
+      {
+        "source": "SYRK_3_4",
+        "target": "POTRF_4",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_3",
+        "target": "GEMM_0_3_4",
+        "size": 2.0
+      },
+      {
+        "source": "POTRF_2",
+        "target": "TRSM_2_3",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_3_5",
+        "target": "GEMM_3_4_5",
+        "size": 2.0
+      },
+      {
+        "source": "GEMM_0_1_4",
+        "target": "TRSM_1_4",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_2_3",
+        "target": "SYRK_2_3",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_1",
+        "target": "GEMM_0_1_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_1_3",
+        "target": "GEMM_1_3_4",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_2_5",
+        "target": "GEMM_2_4_5",
+        "size": 2.0
+      },
+      {
+        "source": "GEMM_0_1_2",
+        "target": "TRSM_1_2",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_2_5",
+        "target": "SYRK_2_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_1_5",
+        "target": "GEMM_1_4_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_2",
+        "target": "GEMM_0_2_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_1_5",
+        "target": "GEMM_1_3_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_1_4",
+        "target": "GEMM_1_4_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_3_4",
+        "target": "GEMM_3_4_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_1",
+        "target": "GEMM_0_1_3",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_2_4",
+        "target": "SYRK_2_4",
+        "size": 2.0
+      },
+      {
+        "source": "POTRF_0",
+        "target": "TRSM_0_5",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_0_4",
+        "target": "GEMM_0_1_4",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_1_2",
+        "target": "GEMM_1_2_4",
+        "size": 2.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N0",
+        "speed": 2.0
+      },
+      {
+        "name": "N3",
+        "speed": 2.0
+      },
+      {
+        "name": "N2",
+        "speed": 2.0
+      },
+      {
+        "name": "N1",
+        "speed": 2.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N3",
+        "target": "N3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N3",
+        "speed": 500.0
+      }
+    ]
+  }
+}

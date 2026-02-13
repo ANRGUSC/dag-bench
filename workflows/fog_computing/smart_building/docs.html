@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fog Smart Building Management - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Fog Smart Building Management</h1>
+    <div class="meta">
+        <strong>ID:</strong> fog.smart_building &nbsp;|&nbsp;
+        <strong>Domains:</strong> fog-computing, smart-city, iot &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Smart building. 12 sensors → 4 floor edges → building fog → (energy, comfort, security optimize) → actuate.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    FloorEdge2["FloorEdge2<br/>cost: 4.0"]
+    Sensor8["Sensor8<br/>cost: 1.0"]
+    Sensor5["Sensor5<br/>cost: 1.0"]
+    FloorEdge1["FloorEdge1<br/>cost: 4.0"]
+    Sensor1["Sensor1<br/>cost: 1.0"]
+    Sensor10["Sensor10<br/>cost: 1.0"]
+    FloorEdge3["FloorEdge3<br/>cost: 4.0"]
+    ComfortOpt["ComfortOpt<br/>cost: 5.0"]
+    Actuate["Actuate<br/>cost: 3.0"]
+    Sensor4["Sensor4<br/>cost: 1.0"]
+    FloorEdge0["FloorEdge0<br/>cost: 4.0"]
+    Sensor6["Sensor6<br/>cost: 1.0"]
+    Sensor0["Sensor0<br/>cost: 1.0"]
+    Sensor9["Sensor9<br/>cost: 1.0"]
+    BuildingFog["BuildingFog<br/>cost: 8.0"]
+    Sensor11["Sensor11<br/>cost: 1.0"]
+    SecurityOpt["SecurityOpt<br/>cost: 5.0"]
+    Sensor2["Sensor2<br/>cost: 1.0"]
+    EnergyOpt["EnergyOpt<br/>cost: 6.0"]
+    Sensor7["Sensor7<br/>cost: 1.0"]
+    Sensor3["Sensor3<br/>cost: 1.0"]
+    Sensor10 -->|"0"| FloorEdge3
+    Sensor3 -->|"0"| FloorEdge1
+    Sensor2 -->|"0"| FloorEdge0
+    SecurityOpt -->|"1"| Actuate
+    FloorEdge3 -->|"2"| BuildingFog
+    Sensor8 -->|"0"| FloorEdge2
+    BuildingFog -->|"2"| ComfortOpt
+    Sensor4 -->|"0"| FloorEdge1
+    FloorEdge2 -->|"2"| BuildingFog
+    BuildingFog -->|"2"| SecurityOpt
+    Sensor7 -->|"0"| FloorEdge2
+    ComfortOpt -->|"1"| Actuate
+    Sensor6 -->|"0"| FloorEdge2
+    Sensor1 -->|"0"| FloorEdge0
+    Sensor5 -->|"0"| FloorEdge1
+    Sensor0 -->|"0"| FloorEdge0
+    FloorEdge0 -->|"2"| BuildingFog
+    Sensor9 -->|"0"| FloorEdge3
+    FloorEdge1 -->|"2"| BuildingFog
+    Sensor11 -->|"0"| FloorEdge3
+    EnergyOpt -->|"1"| Actuate
+    BuildingFog -->|"2"| EnergyOpt
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (21)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>FloorEdge2</td><td>4.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Sensor8</td><td>1.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Sensor5</td><td>1.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>FloorEdge1</td><td>4.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Sensor1</td><td>1.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Sensor10</td><td>1.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>FloorEdge3</td><td>4.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>ComfortOpt</td><td>5.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Actuate</td><td>3.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Sensor4</td><td>1.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>FloorEdge0</td><td>4.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Sensor6</td><td>1.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Sensor0</td><td>1.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Sensor9</td><td>1.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>BuildingFog</td><td>8.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Sensor11</td><td>1.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>SecurityOpt</td><td>5.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Sensor2</td><td>1.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>EnergyOpt</td><td>6.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Sensor7</td><td>1.00</td><td>Processing step in fog-computing pipeline</td></tr><tr><td>Sensor3</td><td>1.00</td><td>Processing step in fog-computing pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>21</td></tr><tr><td>Edges</td><td>22</td></tr><tr><td>Depth</td><td>5</td></tr><tr><td>Width</td><td>12</td></tr><tr><td>CCR</td><td>0.4182</td></tr><tr><td>Parallelism</td><td>4.2000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, based on architecture described in Alrawais et al. 2020<br>
+<strong>Paper:</strong> Fog-based smart building<br>
+<strong>Year:</strong> 2020<br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Paper/standard describes a fog computing system but contains no explicit DAG figure. Task graph is an AI interpretation of the architecture described in the text.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fog-three-tier<br>
+<strong>Nodes:</strong> 8
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">smart-building</span><span class="badge">hvac</span><span class="badge">bms</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; fog.smart_building
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

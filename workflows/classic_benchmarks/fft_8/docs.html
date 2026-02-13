@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FFT Butterfly (8-point) - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>FFT Butterfly (8-point)</h1>
+    <div class="meta">
+        <strong>ID:</strong> classic.fft_8 &nbsp;|&nbsp;
+        <strong>Domains:</strong> classic-benchmark &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>8-point Fast Fourier Transform butterfly DAG. 3 stages of butterfly operations with input/output tasks.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    out_3["out_3<br/>cost: 1.0"]
+    bf_s1_b0_i0["bf_s1_b0_i0<br/>cost: 2.0"]
+    bf_s0_b2_i0["bf_s0_b2_i0<br/>cost: 2.0"]
+    out_1["out_1<br/>cost: 1.0"]
+    out_5["out_5<br/>cost: 1.0"]
+    out_7["out_7<br/>cost: 1.0"]
+    bf_s1_b0_i1["bf_s1_b0_i1<br/>cost: 2.0"]
+    bf_s0_b4_i0["bf_s0_b4_i0<br/>cost: 2.0"]
+    bf_s1_b4_i1["bf_s1_b4_i1<br/>cost: 2.0"]
+    in_2["in_2<br/>cost: 1.0"]
+    out_0["out_0<br/>cost: 1.0"]
+    bf_s2_b0_i2["bf_s2_b0_i2<br/>cost: 2.0"]
+    out_6["out_6<br/>cost: 1.0"]
+    in_4["in_4<br/>cost: 1.0"]
+    in_5["in_5<br/>cost: 1.0"]
+    in_7["in_7<br/>cost: 1.0"]
+    in_1["in_1<br/>cost: 1.0"]
+    bf_s1_b4_i0["bf_s1_b4_i0<br/>cost: 2.0"]
+    in_0["in_0<br/>cost: 1.0"]
+    bf_s2_b0_i1["bf_s2_b0_i1<br/>cost: 2.0"]
+    out_2["out_2<br/>cost: 1.0"]
+    out_4["out_4<br/>cost: 1.0"]
+    bf_s0_b6_i0["bf_s0_b6_i0<br/>cost: 2.0"]
+    bf_s0_b0_i0["bf_s0_b0_i0<br/>cost: 2.0"]
+    bf_s2_b0_i3["bf_s2_b0_i3<br/>cost: 2.0"]
+    in_6["in_6<br/>cost: 1.0"]
+    bf_s2_b0_i0["bf_s2_b0_i0<br/>cost: 2.0"]
+    in_3["in_3<br/>cost: 1.0"]
+    bf_s2_b0_i3 -->|"1"| out_7
+    bf_s0_b4_i0 -->|"1"| bf_s1_b4_i1
+    bf_s2_b0_i2 -->|"1"| out_2
+    in_6 -->|"1"| bf_s0_b6_i0
+    bf_s0_b0_i0 -->|"1"| bf_s1_b0_i0
+    in_1 -->|"1"| bf_s0_b0_i0
+    in_7 -->|"1"| bf_s0_b6_i0
+    bf_s1_b0_i0 -->|"1"| bf_s2_b0_i0
+    bf_s1_b0_i0 -->|"1"| bf_s2_b0_i2
+    bf_s2_b0_i3 -->|"1"| out_3
+    in_2 -->|"1"| bf_s0_b2_i0
+    in_3 -->|"1"| bf_s0_b2_i0
+    bf_s2_b0_i1 -->|"1"| out_5
+    bf_s0_b2_i0 -->|"1"| bf_s1_b0_i1
+    bf_s0_b6_i0 -->|"1"| bf_s1_b4_i0
+    in_5 -->|"1"| bf_s0_b4_i0
+    in_0 -->|"1"| bf_s0_b0_i0
+    bf_s0_b4_i0 -->|"1"| bf_s1_b4_i0
+    bf_s2_b0_i0 -->|"1"| out_4
+    bf_s0_b0_i0 -->|"1"| bf_s1_b0_i1
+    bf_s2_b0_i0 -->|"1"| out_0
+    in_4 -->|"1"| bf_s0_b4_i0
+    bf_s1_b4_i0 -->|"1"| bf_s2_b0_i0
+    bf_s1_b0_i1 -->|"1"| bf_s2_b0_i1
+    bf_s1_b4_i1 -->|"1"| bf_s2_b0_i1
+    bf_s1_b4_i0 -->|"1"| bf_s2_b0_i2
+    bf_s2_b0_i1 -->|"1"| out_1
+    bf_s1_b0_i1 -->|"1"| bf_s2_b0_i3
+    bf_s2_b0_i2 -->|"1"| out_6
+    bf_s0_b6_i0 -->|"1"| bf_s1_b4_i1
+    bf_s1_b4_i1 -->|"1"| bf_s2_b0_i3
+    bf_s0_b2_i0 -->|"1"| bf_s1_b0_i0
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (28)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>out_3</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s1_b0_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s0_b2_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_1</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_5</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_7</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s1_b0_i1</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s0_b4_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s1_b4_i1</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_2</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_0</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s2_b0_i2</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_6</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_4</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_5</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_7</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_1</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s1_b4_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_0</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s2_b0_i1</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_2</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_4</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s0_b6_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s0_b0_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s2_b0_i3</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_6</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s2_b0_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_3</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>28</td></tr><tr><td>Edges</td><td>32</td></tr><tr><td>Depth</td><td>5</td></tr><tr><td>Width</td><td>8</td></tr><tr><td>CCR</td><td>0.8000</td></tr><tr><td>Parallelism</td><td>5.6000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">Programmatic (from source code/repo)</span>
+        <br><br>
+        <strong>Source:</strong> Classic scheduling benchmark<br>
+<strong>Paper:</strong> The FFT: An Algorithm the Whole Family Can Use<br>
+<strong>Authors:</strong> Thomas H. Cormen<br>
+<strong>Year:</strong> 1999<br>
+<strong>Figure/Table:</strong> Standard butterfly structure<br>
+<strong>Extraction Method:</strong> Programmatic (from source code/repo)<br>
+<strong>Extractor:</strong> dagbench-import-script<br>
+<strong>Date:</strong> 2026-02-12
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fully-connected<br>
+<strong>Nodes:</strong> 3
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">fft</span><span class="badge">signal-processing</span><span class="badge">butterfly</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; classic.fft_8
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

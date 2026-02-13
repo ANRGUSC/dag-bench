@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEC Face Detection Offloading - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>MEC Face Detection Offloading</h1>
+    <div class="meta">
+        <strong>ID:</strong> mec.face_detection_offload &nbsp;|&nbsp;
+        <strong>Domains:</strong> mec, edge-computing, image-processing &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Face detection pipeline offloaded to MEC. Camera → preprocess → detect → (landmark, feature) → (align, encode) → match → result.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    FaceAlign["FaceAlign<br/>cost: 4.0"]
+    FaceEncode["FaceEncode<br/>cost: 5.0"]
+    LandmarkLocate["LandmarkLocate<br/>cost: 6.0"]
+    CameraCapture["CameraCapture<br/>cost: 2.0"]
+    FaceDetect["FaceDetect<br/>cost: 8.0"]
+    FaceMatch["FaceMatch<br/>cost: 10.0"]
+    Preprocess["Preprocess<br/>cost: 3.0"]
+    FeatureExtract["FeatureExtract<br/>cost: 7.0"]
+    Result["Result<br/>cost: 1.0"]
+    FaceEncode -->|"3"| FaceMatch
+    FaceMatch -->|"1"| Result
+    FeatureExtract -->|"2"| FaceEncode
+    LandmarkLocate -->|"2"| FaceAlign
+    CameraCapture -->|"5"| Preprocess
+    FaceDetect -->|"3"| LandmarkLocate
+    FaceAlign -->|"3"| FaceMatch
+    FaceDetect -->|"3"| FeatureExtract
+    Preprocess -->|"5"| FaceDetect
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (9)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>FaceAlign</td><td>4.00</td><td>Processing step in mec pipeline</td></tr><tr><td>FaceEncode</td><td>5.00</td><td>Data compression / encoding</td></tr><tr><td>LandmarkLocate</td><td>6.00</td><td>Processing step in mec pipeline</td></tr><tr><td>CameraCapture</td><td>2.00</td><td>Processing step in mec pipeline</td></tr><tr><td>FaceDetect</td><td>8.00</td><td>Detection / anomaly identification</td></tr><tr><td>FaceMatch</td><td>10.00</td><td>Processing step in mec pipeline</td></tr><tr><td>Preprocess</td><td>3.00</td><td>Data preprocessing</td></tr><tr><td>FeatureExtract</td><td>7.00</td><td>Processing step in mec pipeline</td></tr><tr><td>Result</td><td>1.00</td><td>Processing step in mec pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>9</td></tr><tr><td>Edges</td><td>9</td></tr><tr><td>Depth</td><td>7</td></tr><tr><td>Width</td><td>2</td></tr><tr><td>CCR</td><td>0.5870</td></tr><tr><td>Parallelism</td><td>1.2857</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, based on architecture described in Chen et al. 2016<br>
+<strong>Paper:</strong> Efficient Multi-User Computation Offloading for Mobile-Edge Cloud Computing<br>
+<strong>Authors:</strong> Xu Chen, Lei Jiao, Wenzhong Li, Xiaoming Fu<br>
+<strong>Year:</strong> 2016<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1109/TNET.2015.2487344" target="_blank">10.1109/TNET.2015.2487344</a><br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Paper studies binary offloading decisions (each user has a single indivisible task) using game theory. It does not contain any DAG or task dependency graph. This face detection pipeline is an AI-generated task graph inspired by MEC offloading concepts, not extracted from the paper.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> mec<br>
+<strong>Nodes:</strong> 7
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">face-detection</span><span class="badge">offloading</span><span class="badge">mec</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; mec.face_detection_offload
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+id: edge.smart_home
+name: Smart Home IoT Pipeline
+description: Smart home automation pipeline. 4 sensors → aggregate → parallel anomaly/predict/rule
+  branches → 3 actuators → dashboard. Typical fog computing use case.
+domains:
+- iot
+- edge-computing
+- fog-computing
+provenance:
+  source: AI-generated, inspired by edge computing workflow patterns
+  paper_title: IoT Smart Home Automation
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: Structure was AI-generated to represent a typical edge computing pattern.
+    Not extracted from any specific source.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+  notes: Classic benchmark structure; costs are representative
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 12
+  num_edges: 13
+  depth: 5
+  width: 4
+  ccr: 0.4103
+  parallelism: 2.4
+campaign: campaign_002_classic_and_manual
+tags:
+- smart-home
+- iot
+- automation
+- fog

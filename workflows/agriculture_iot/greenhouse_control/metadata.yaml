@@ -1,0 +1,40 @@
+id: agri.greenhouse_control
+name: Greenhouse Climate Control
+description: Greenhouse control. 5 sensors → climate model → optimize → 4 parallel
+  actuators (HVAC, irrigation, light, CO2) → log.
+domains:
+- agriculture-iot
+- iot
+- cyber-physical
+provenance:
+  source: AI-generated, based on architecture described in Shamshiri et al. 2018
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  paper_title: Greenhouse automation
+  year: 2018
+  notes: Paper/standard describes a agricultural IoT system but contains no explicit
+    DAG figure. Task graph is an AI interpretation of the architecture described in
+    the text.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 12
+  num_edges: 14
+  depth: 5
+  width: 5
+  ccr: 0.4412
+  parallelism: 2.4
+campaign: campaign_004_networking
+tags:
+- greenhouse
+- climate-control
+- actuator

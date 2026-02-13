@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Transcoding Pipeline - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Video Transcoding Pipeline</h1>
+    <div class="meta">
+        <strong>ID:</strong> edge.video_transcoding &nbsp;|&nbsp;
+        <strong>Domains:</strong> edge-computing, data-analytics &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Video transcoding with 4 parallel GOP (Group of Pictures) processing lanes. Each GOP: decode → resize → encode. Classic data-parallel edge workload.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    Encode_GOP0["Encode_GOP0<br/>cost: 15.0"]
+    Encode_GOP2["Encode_GOP2<br/>cost: 15.0"]
+    Decode_GOP1["Decode_GOP1<br/>cost: 10.0"]
+    Decode_GOP0["Decode_GOP0<br/>cost: 10.0"]
+    Resize_GOP3["Resize_GOP3<br/>cost: 8.0"]
+    Resize_GOP2["Resize_GOP2<br/>cost: 8.0"]
+    Resize_GOP1["Resize_GOP1<br/>cost: 8.0"]
+    Mux["Mux<br/>cost: 3.0"]
+    Decode_GOP3["Decode_GOP3<br/>cost: 10.0"]
+    Demux["Demux<br/>cost: 3.0"]
+    Resize_GOP0["Resize_GOP0<br/>cost: 8.0"]
+    Encode_GOP1["Encode_GOP1<br/>cost: 15.0"]
+    Decode_GOP2["Decode_GOP2<br/>cost: 10.0"]
+    Encode_GOP3["Encode_GOP3<br/>cost: 15.0"]
+    Resize_GOP1 -->|"10"| Encode_GOP1
+    Demux -->|"20"| Decode_GOP1
+    Encode_GOP2 -->|"15"| Mux
+    Encode_GOP0 -->|"15"| Mux
+    Encode_GOP1 -->|"15"| Mux
+    Decode_GOP3 -->|"10"| Resize_GOP3
+    Resize_GOP0 -->|"10"| Encode_GOP0
+    Demux -->|"20"| Decode_GOP0
+    Demux -->|"20"| Decode_GOP3
+    Resize_GOP2 -->|"10"| Encode_GOP2
+    Decode_GOP2 -->|"10"| Resize_GOP2
+    Resize_GOP3 -->|"10"| Encode_GOP3
+    Encode_GOP3 -->|"15"| Mux
+    Demux -->|"20"| Decode_GOP2
+    Decode_GOP1 -->|"10"| Resize_GOP1
+    Decode_GOP0 -->|"10"| Resize_GOP0
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (14)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>Encode_GOP0</td><td>15.00</td><td>Data compression / encoding</td></tr><tr><td>Encode_GOP2</td><td>15.00</td><td>Data compression / encoding</td></tr><tr><td>Decode_GOP1</td><td>10.00</td><td>Data decompression / decoding</td></tr><tr><td>Decode_GOP0</td><td>10.00</td><td>Data decompression / decoding</td></tr><tr><td>Resize_GOP3</td><td>8.00</td><td>Processing step in edge-computing pipeline</td></tr><tr><td>Resize_GOP2</td><td>8.00</td><td>Processing step in edge-computing pipeline</td></tr><tr><td>Resize_GOP1</td><td>8.00</td><td>Processing step in edge-computing pipeline</td></tr><tr><td>Mux</td><td>3.00</td><td>Processing step in edge-computing pipeline</td></tr><tr><td>Decode_GOP3</td><td>10.00</td><td>Data decompression / decoding</td></tr><tr><td>Demux</td><td>3.00</td><td>Processing step in edge-computing pipeline</td></tr><tr><td>Resize_GOP0</td><td>8.00</td><td>Processing step in edge-computing pipeline</td></tr><tr><td>Encode_GOP1</td><td>15.00</td><td>Data compression / encoding</td></tr><tr><td>Decode_GOP2</td><td>10.00</td><td>Data decompression / decoding</td></tr><tr><td>Encode_GOP3</td><td>15.00</td><td>Data compression / encoding</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>14</td></tr><tr><td>Edges</td><td>16</td></tr><tr><td>Depth</td><td>5</td></tr><tr><td>Width</td><td>4</td></tr><tr><td>CCR</td><td>1.5942</td></tr><tr><td>Parallelism</td><td>2.8000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, inspired by edge computing workflow patterns<br>
+<strong>Paper:</strong> Performance Analysis of Video Transcoding in Cloud and Edge<br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Structure was AI-generated to represent a typical edge computing pattern. Not extracted from any specific source.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fog-three-tier<br>
+<strong>Nodes:</strong> 8
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">video</span><span class="badge">transcoding</span><span class="badge">data-parallel</span><span class="badge">gop</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; edge.video_transcoding
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+id: iot.riotbench_predict
+name: RIoTBench ML Prediction Pipeline
+description: 'Machine learning inference pipeline for IoT data. Tasks: subscribe,
+  read model, predict, publish results.'
+domains:
+- iot
+- data-analytics
+provenance:
+  source: SAGA framework (anrg-saga)
+  paper_arxiv: '2403.07120'
+  paper_title: 'RIoTBench: An IoT Benchmark for Distributed Stream Processing Systems'
+  authors:
+  - Anshu Shukla
+  - Shilpa Chaturvedi
+  - Yogesh Simmhan
+  year: 2017
+  repo_url: https://github.com/anrgusc/saga
+  extraction_method: programmatic
+  extractor: dagbench-import-script
+  extraction_date: '2026-02-12'
+  paper_doi: 10.1109/SC2.2017.42
+  figure_or_table: Fig. 2-5
+license:
+  source_license: Non-commercial (USC/ANRG)
+  dagbench_license: Apache-2.0
+  notes: Task graph structure extracted from SAGA; SAGA itself is non-commercial licensed
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 15
+  num_nodes_max: 15
+graph_stats:
+  num_tasks: 11
+  num_edges: 14
+  depth: 7
+  width: 3
+  ccr: 96.0194
+  parallelism: 1.5714
+campaign: campaign_001_initial_import
+tags:
+- riotbench
+- iot
+- streaming
+- predict
