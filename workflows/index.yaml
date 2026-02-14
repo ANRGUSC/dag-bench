@@ -1,5 +1,5 @@
 version: 0.1.0
-total_workflows: 82
+total_workflows: 107
 workflows:
 - id: agri.crop_disease
   name: Crop Disease Detection
@@ -10,6 +10,14 @@ workflows:
   num_tasks: 11
   num_edges: 12
   completeness: full
+- id: agri.flockfocus_feeder
+  name: FlockFocus Feeder Monitoring Pipeline
+  domains:
+  - agriculture-iot
+  - ml-pipeline
+  num_tasks: 5
+  num_edges: 4
+  completeness: structure-and-costs
 - id: agri.greenhouse_control
   name: Greenhouse Climate Control
   domains:
@@ -145,6 +153,15 @@ workflows:
   num_tasks: 11
   num_edges: 10
   completeness: full
+- id: edge.face_analysis_pipeline
+  name: Pipeline-Parallel Face Analysis System
+  domains:
+  - edge-computing
+  - ml-pipeline
+  - image-processing
+  num_tasks: 6
+  num_edges: 7
+  completeness: structure-and-costs
 - id: edge.face_recognition
   name: Face Recognition Pipeline
   domains:
@@ -153,6 +170,50 @@ workflows:
   num_tasks: 7
   num_edges: 7
   completeness: full
+- id: edge.loki_traffic_pipeline
+  name: Loki Traffic Analysis Pipeline
+  domains:
+  - edge-computing
+  - ml-pipeline
+  num_tasks: 3
+  num_edges: 2
+  completeness: structure-and-costs
+- id: edge.ml_surveillance_pipeline
+  name: Multi-Model ML Surveillance Pipeline
+  domains:
+  - edge-computing
+  - ml-pipeline
+  - mec
+  num_tasks: 7
+  num_edges: 6
+  completeness: structure-and-costs
+- id: edge.mtec_lightgbm
+  name: M-TEC LightGBM Training Pipeline
+  domains:
+  - edge-computing
+  - ml-pipeline
+  - data-analytics
+  num_tasks: 6
+  num_edges: 8
+  completeness: structure-and-costs
+- id: edge.mtec_matrix_ops
+  name: M-TEC Matrix Operations Pipeline
+  domains:
+  - edge-computing
+  - scientific
+  - data-analytics
+  num_tasks: 6
+  num_edges: 7
+  completeness: structure-and-costs
+- id: edge.mtec_video_analytics
+  name: M-TEC Video Analytics Pipeline
+  domains:
+  - edge-computing
+  - ml-pipeline
+  - data-analytics
+  num_tasks: 7
+  num_edges: 8
+  completeness: structure-and-costs
 - id: edge.smart_home
   name: Smart Home IoT Pipeline
   domains:
@@ -162,6 +223,14 @@ workflows:
   num_tasks: 12
   num_edges: 13
   completeness: full
+- id: edge.splitstream_pipeline
+  name: SplitStream Video Query Pipeline
+  domains:
+  - edge-computing
+  - ml-pipeline
+  num_tasks: 6
+  num_edges: 6
+  completeness: structure-and-costs
 - id: edge.video_transcoding
   name: Video Transcoding Pipeline
   domains:
@@ -318,6 +387,47 @@ workflows:
   num_tasks: 9
   num_edges: 9
   completeness: full
+- id: mec.sleipnir_antivirus
+  name: SLEIPNIR Antivirus App
+  domains:
+  - mec
+  - edge-computing
+  num_tasks: 5
+  num_edges: 5
+  completeness: structure-and-costs
+- id: mec.sleipnir_chess
+  name: SLEIPNIR Chess App (5 Moves)
+  domains:
+  - mec
+  - edge-computing
+  num_tasks: 20
+  num_edges: 19
+  completeness: structure-and-costs
+- id: mec.sleipnir_facebook
+  name: SLEIPNIR Facebook App
+  domains:
+  - mec
+  - edge-computing
+  num_tasks: 7
+  num_edges: 7
+  completeness: structure-and-costs
+- id: mec.sleipnir_facerecognizer
+  name: SLEIPNIR Face Recognizer App
+  domains:
+  - mec
+  - edge-computing
+  - image-processing
+  num_tasks: 5
+  num_edges: 5
+  completeness: structure-and-costs
+- id: mec.sleipnir_navigator
+  name: SLEIPNIR Navigator App
+  domains:
+  - mec
+  - edge-computing
+  num_tasks: 9
+  num_edges: 13
+  completeness: structure-and-costs
 - id: mec.video_analytics
   name: MEC Video Analytics Pipeline
   domains:
@@ -477,6 +587,13 @@ workflows:
   num_tasks: 41
   num_edges: 66
   completeness: full
+- id: synthetic.chain_2
+  name: Chain DAG (2 nodes)
+  domains:
+  - synthetic
+  num_tasks: 2
+  num_edges: 1
+  completeness: full
 - id: synthetic.chain_4
   name: Chain DAG (4 nodes)
   domains:
@@ -512,12 +629,89 @@ workflows:
   num_tasks: 14
   num_edges: 19
   completeness: full
+- id: synthetic.one_task
+  name: Single Task DAG
+  domains:
+  - synthetic
+  num_tasks: 1
+  num_edges: 0
+  completeness: full
 - id: synthetic.pipeline_stages
   name: Multi-Stage Pipeline DAG
   domains:
   - synthetic
   num_tasks: 10
   num_edges: 17
+  completeness: full
+- id: synthetic.random_large_balanced
+  name: Random Large Balanced DAG
+  domains:
+  - synthetic
+  num_tasks: 87
+  num_edges: 546
+  completeness: full
+- id: synthetic.random_large_dense
+  name: Random Large Dense DAG
+  domains:
+  - synthetic
+  num_tasks: 57
+  num_edges: 514
+  completeness: full
+- id: synthetic.random_medium_balanced
+  name: Random Medium Balanced DAG
+  domains:
+  - synthetic
+  num_tasks: 30
+  num_edges: 153
+  completeness: full
+- id: synthetic.random_medium_comm
+  name: Random Medium Comm-Heavy DAG
+  domains:
+  - synthetic
+  num_tasks: 32
+  num_edges: 165
+  completeness: full
+- id: synthetic.random_medium_compute
+  name: Random Medium Compute-Heavy DAG
+  domains:
+  - synthetic
+  num_tasks: 25
+  num_edges: 118
+  completeness: full
+- id: synthetic.random_medium_deep
+  name: Random Medium Deep DAG
+  domains:
+  - synthetic
+  num_tasks: 33
+  num_edges: 147
+  completeness: full
+- id: synthetic.random_small_narrow
+  name: Random Small Narrow DAG
+  domains:
+  - synthetic
+  num_tasks: 10
+  num_edges: 21
+  completeness: full
+- id: synthetic.random_small_wide
+  name: Random Small Wide DAG
+  domains:
+  - synthetic
+  num_tasks: 12
+  num_edges: 39
+  completeness: full
+- id: synthetic.random_xlarge
+  name: Random Extra-Large DAG
+  domains:
+  - synthetic
+  num_tasks: 157
+  num_edges: 1070
+  completeness: full
+- id: synthetic.random_xxlarge
+  name: Random XXL DAG
+  domains:
+  - synthetic
+  num_tasks: 1118
+  num_edges: 8450
   completeness: full
 - id: synthetic.reduction_tree
   name: Binary Reduction Tree (8 leaves)

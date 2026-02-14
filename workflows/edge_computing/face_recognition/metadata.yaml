@@ -7,13 +7,16 @@ domains:
 - edge-computing
 - image-processing
 provenance:
-  source: "AI-generated, based on architecture described in Guo et al. 2025"
+  source: "AI-generated, based on architecture described in R. Guo et al. 2025"
   paper_doi: 10.3390/electronics14163184
-  paper_title: "Dependent Task Offloading Model for Mobile Edge Computing"
+  paper_title: "Dependent Task Graph Offloading Model Based on Deep Reinforcement
+    Learning in Mobile Edge Computing"
   authors:
-  - Kaiwen Guo
-  - Haifeng Wang
-  - Gongyu Chen
+  - Ruxin Guo
+  - Lunyu Zhou
+  - Linzhi Li
+  - Yuhui Song
+  - Xiaolan Xie
   year: 2025
   extraction_method: ai-generated
   extractor: claude-opus-4

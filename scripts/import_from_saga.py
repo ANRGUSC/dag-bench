@@ -57,8 +57,8 @@ TODAY = date.today().isoformat()
 SAGA_PROVENANCE_BASE = {
     "source": "SAGA framework (anrg-saga)",
     "paper_arxiv": "2403.07120",
-    "paper_title": "PISA: A Comprehensive Benchmark for Scheduling Algorithms",
-    "authors": ["Justin Boggs", "Landon Sights", "Bhaskar Krishnamachari"],
+    "paper_title": "PISA: An Adversarial Approach To Comparing Task Graph Scheduling Algorithms",
+    "authors": ["Jared Coleman", "Bhaskar Krishnamachari"],
     "year": 2024,
     "repo_url": "https://github.com/anrgusc/saga",
     "extraction_method": "programmatic",
@@ -169,7 +169,7 @@ def import_riotbench():
     ]
 
     riotbench_paper = {
-        "paper_doi": "10.1109/SC2.2017.42",
+        "paper_doi": "10.1002/cpe.4257",
         "paper_title": "RIoTBench: An IoT Benchmark for Distributed Stream Processing Systems",
         "authors": ["Anshu Shukla", "Shilpa Chaturvedi", "Yogesh Simmhan"],
         "year": 2017,

@@ -14,7 +14,11 @@ domains:
 provenance:
   source: "Faithfully extracted from Figures 4-5 of a Computers (MDPI) 2025 paper on face analysis"
   paper_doi: 10.3390/computers14010029
-  paper_title: "Pipeline-Parallel Face Analysis System for Edge Computing"
+  paper_title: "Multitask Learning-Based Pipeline-Parallel Computation Offloading
+    Architecture for Deep Face Analysis"
+  authors:
+  - Faris S. Alghareb
+  - Balqees Talal Hasan
   year: 2025
   figure_or_table: "Figures 4, 5"
   extraction_method: manual-figure

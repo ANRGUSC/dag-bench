@@ -34,11 +34,11 @@ All DOIs below have been verified. Papers marked with "(no DAG)" do not contain 
 ### Scheduling Algorithms
 
 - **HEFT**: Topcuoglu, H., Hariri, S., Wu, M.-Y. (2002). "Performance-effective and low-complexity task scheduling for heterogeneous computing." *IEEE TPDS*, 13(3). DOI: [10.1109/71.993206](https://doi.org/10.1109/71.993206)
-- **PISA/SAGA**: Boggs, J., Sights, L., Krishnamachari, B. (2024). "PISA: A Comprehensive Benchmark for Scheduling Algorithms." arXiv: [2403.07120](https://arxiv.org/abs/2403.07120)
+- **PISA/SAGA**: Coleman, J., Krishnamachari, B. (2024). "PISA: An Adversarial Approach To Comparing Task Graph Scheduling Algorithms." arXiv: [2403.07120](https://arxiv.org/abs/2403.07120)
 
 ### IoT / Sensor Networks
 
-- **RIoTBench**: Shukla, A., Chaturvedi, S., Simmhan, Y. (2017). "RIoTBench: An IoT Benchmark for Distributed Stream Processing Systems." DOI: [10.1109/SC2.2017.42](https://doi.org/10.1109/SC2.2017.42)
+- **RIoTBench**: Shukla, A., Chaturvedi, S., Simmhan, Y. (2017). "RIoTBench: An IoT Benchmark for Distributed Stream Processing Systems." *Concurrency and Computation: Practice and Experience*, 29(21). DOI: [10.1002/cpe.4257](https://doi.org/10.1002/cpe.4257)
 
 ### Edge Computing — Paper-Extracted DAGs (manual-figure)
 
@@ -46,8 +46,8 @@ These papers contain explicit DAG figures from which workflows were faithfully e
 
 - **Wu et al. 2024** (Figure 1 → `edge.ml_surveillance_pipeline`): Wu, L., Hanafy, W.A., Souza, A., Abdelzaher, T., Verma, G., Shenoy, P. (2024). "Enhancing Resilience in Distributed ML Inference Pipelines for Edge Computing." *IEEE MILCOM*. DOI: [10.1109/MILCOM61039.2024.10773652](https://doi.org/10.1109/MILCOM61039.2024.10773652)
 - **Liang et al. 2024** (Figure 1, Table 1 → `edge.splitstream_pipeline`): Liang, Y., Zhang, S., Wu, J. (2024). "SplitStream: Distributed and workload-adaptive video analytics at the edge." *J. Network and Computer Applications*. DOI: [10.1016/j.jnca.2024.103866](https://doi.org/10.1016/j.jnca.2024.103866)
-- **Alghareb & Hasan 2025** (Figures 4-5 → `edge.face_analysis_pipeline`): "Pipeline-Parallel Face Analysis System for Edge Computing." *Computers (MDPI)*. DOI: [10.3390/computers14010029](https://doi.org/10.3390/computers14010029)
-- **Romero et al. 2024** (Figure 2(a) → `edge.loki_traffic_pipeline`): Romero, K.K.W. et al. (2024). "Loki: A System for Serving ML Inference Pipelines with Hardware-Aware Scheduling." *HPDC*. DOI: [10.1145/3625549.3658688](https://doi.org/10.1145/3625549.3658688)
+- **Alghareb & Hasan 2025** (Figures 4-5 → `edge.face_analysis_pipeline`): Alghareb, F.S., Hasan, B.T. (2025). "Multitask Learning-Based Pipeline-Parallel Computation Offloading Architecture for Deep Face Analysis." *Computers (MDPI)*, 14(1), 29. DOI: [10.3390/computers14010029](https://doi.org/10.3390/computers14010029)
+- **Ahmad et al. 2024** (Figure 2(a) → `edge.loki_traffic_pipeline`): Ahmad, S., Guan, H., Sitaraman, R.K. (2024). "Loki: A System for Serving ML Inference Pipelines with Hardware and Accuracy Scaling." *HPDC*. DOI: [10.1145/3625549.3658688](https://doi.org/10.1145/3625549.3658688)
 - **Li et al. 2024** (Figure 5 → `edge.mtec_lightgbm`, `edge.mtec_video_analytics`, `edge.mtec_matrix_ops`): Li, X., Abdallah, M., Lou, Y.-Y., Chiang, M., Kim, K.T., Bagchi, S. (2024). "Dynamic DAG-Application Scheduling for Multi-Tier Edge Computing in Heterogeneous Networks." arXiv: [2409.10839](https://arxiv.org/abs/2409.10839)
 
 ### MEC / Mobile Offloading — Code-Extracted DAGs (manual-figure)

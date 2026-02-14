@@ -1,8 +1,8 @@
 # DAGBench
 
-**A curated task graph benchmark for scheduling research — 95 DAGs across 26 application domains with honest provenance.**
+**A curated task graph benchmark for scheduling research — 107 DAGs across 26 application domains with honest provenance.**
 
-DAGBench provides 95 diverse, well-characterized task graphs (DAGs) from 26 application domains, all in a uniform SAGA-compatible format with full provenance tracking. Every workflow has verified provenance — either genuinely sourced from code repositories, algorithmically generated, faithfully extracted from published paper figures, or clearly labeled as AI-generated with honest attribution. Load any workflow in one line and schedule it with any of SAGA's 17 algorithms.
+DAGBench provides 107 diverse, well-characterized task graphs (DAGs) from 26 application domains, all in a uniform SAGA-compatible format with full provenance tracking. Every workflow has verified provenance — either genuinely sourced from code repositories, algorithmically generated, faithfully extracted from published paper figures, or clearly labeled as AI-generated with honest attribution. Load any workflow in one line and schedule it with any of SAGA's 17 algorithms.
 
 ## Installation
 
@@ -69,7 +69,7 @@ Every workflow in DAGBench has honest, verified provenance. We use four extracti
 |--------|-------|-------------|
 | `manual-figure` | 13 | Faithfully extracted from published paper figures or open-source simulator code with per-task costs from the source |
 | `programmatic` | 23 | Genuinely sourced from code repositories (RIoTBench from SAGA) or algorithmically generated (classic benchmarks) |
-| `generated` | 5 | Algorithmically generated synthetic patterns (fork-join, stencil, etc.) |
+| `generated` | 17 | Algorithmically generated synthetic patterns (fork-join, stencil, random layered, etc.) |
 | `ai-generated` | 54 | AI-generated task graphs inspired by domain literature. Each cites its inspiration source with honest notes explaining the relationship |
 
 The 13 `manual-figure` workflows are faithfully extracted from specific figures in published papers or open-source simulator code, with task costs derived from the source's own measurements or proportional estimates. Each workflow's `metadata.yaml` documents exactly which figure/code was extracted and what assumptions were made.
@@ -80,7 +80,7 @@ Each workflow also includes an HTML documentation page (`docs.html`) with a Merm
 
 ### Relationship to SAGA
 
-**10 of 95 workflows** are direct snapshots from SAGA's built-in generators, exported verbatim via `scripts/import_from_saga.py`:
+**10 of 107 workflows** are direct snapshots from SAGA's built-in generators, exported verbatim via `scripts/import_from_saga.py`:
 
 | Workflow ID | SAGA Source |
 |-------------|-------------|
@@ -101,13 +101,13 @@ The 6 `scientific.*_like` workflows (e.g. `scientific.montage_like`, `scientific
 
 ## Workflow Catalog
 
-### By Domain (95 workflows)
+### By Domain (107 workflows)
 
 | Domain | Count | Examples |
 |--------|-------|---------|
+| Synthetic Patterns | 23 | Diamond, chain, fork-join, branching, stencil, reduction tree, wide parallel, random layered (small to XXL), one-task, chain-2 |
+| Edge Computing | 12 | SplitStream pipeline, face analysis, Loki traffic, M-TEC (LightGBM, video analytics, matrix ops), ML surveillance, AR pipeline |
 | Classic Benchmarks | 13 | Gaussian elimination, FFT butterfly, LU decomposition, Cholesky, MapReduce |
-| Edge Computing | 13 | SplitStream pipeline, face analysis, Loki traffic, M-TEC (LightGBM, video analytics, matrix ops), ML surveillance, AR pipeline |
-| Synthetic Patterns | 11 | Diamond, chain, fork-join, branching, stencil, reduction tree, wide parallel |
 | IoT / Sensor Networks | 6 | RIoTBench (ETL, stats, train, predict), smart grid, predictive maintenance |
 | Scientific Workflows | 6 | Montage, Epigenomics, Seismology, BLAST, SoyKB, BWA alignment |
 | Fog Computing | 6 | Three-tier offload, latency-critical, federated fog, healthcare, content distribution, smart building |
@@ -127,12 +127,13 @@ The 6 `scientific.*_like` workflows (e.g. `scientific.montage_like`, `scientific
 
 | Range | Count | Examples |
 |-------|-------|---------|
-| 1-10 tasks | 30 | Loki traffic (3), diamond (4), chain (4-8), SLEIPNIR antivirus (5), SplitStream (6), M-TEC LightGBM (6), matrix ops (6), video analytics (7), SLEIPNIR navigator (9) |
-| 11-15 tasks | 38 | CNC monitoring (11), crop disease (11), smart grid (10), etc. |
-| 16-20 tasks | 14 | Robotic assembly (16), BLAST-like (19), search rescue (20), SLEIPNIR chess (20) |
-| 21-40 tasks | 9 | MapReduce (27), Cholesky-5 (35), delivery fleet (24) |
-| 41-64 tasks | 3 | Branching-4x3 (41), Gauss-10 (55), Cholesky-6 (56) |
-| 65+ tasks | 1 | FFT-32 (144) |
+| 1-10 tasks | 36 | One-task (1), chain-2 (2), Loki traffic (3), diamond (4), chain (4-8), SLEIPNIR antivirus (5), SplitStream (6), SLEIPNIR navigator (9), random-small (6-10) |
+| 11-15 tasks | 36 | CNC monitoring (11), crop disease (11), smart grid (10), random-medium (12-36) |
+| 16-20 tasks | 12 | Robotic assembly (16), BLAST-like (19), search rescue (20), SLEIPNIR chess (20) |
+| 21-50 tasks | 15 | MapReduce-16m (27), Cholesky-5 (35), branching-4x3 (41), delivery fleet (24) |
+| 51-100 tasks | 5 | Gauss-10 (55), Cholesky-6 (56), random-large-dense (57), FFT-16 (64), random-large-balanced (87) |
+| 101-200 tasks | 2 | FFT-32 (144), random-xlarge (157) |
+| 1000+ tasks | 1 | Random-XXL (1118) |
 
 ### Complete Workflow List
 
@@ -210,13 +211,25 @@ The 6 `scientific.*_like` workflows (e.g. `scientific.montage_like`, `scientific
 | smart_city.waste_mgmt | 14 | 13 | 7 | 8 | IoT Waste Management |
 | smart_city.water_distribution | 16 | 15 | 4 | 6 | Water Distribution Network |
 | synthetic.branching_3x2 | 8 | 10 | 4 | 4 | Branching DAG (3 levels, factor 2) |
+| synthetic.chain_2 | 2 | 1 | 2 | 1 | Chain DAG (2 nodes) |
 | synthetic.branching_4x3 | 41 | 66 | 5 | 27 | Branching DAG (4 levels, factor 3) |
 | synthetic.chain_4 | 4 | 3 | 4 | 1 | Chain DAG (4 nodes) |
 | synthetic.chain_8 | 8 | 7 | 8 | 1 | Chain DAG (8 nodes) |
 | synthetic.diamond | 4 | 4 | 3 | 2 | Diamond DAG |
 | synthetic.fork | 6 | 6 | 4 | 2 | Fork-Join DAG |
 | synthetic.multi_fork_join | 14 | 19 | 8 | 4 | Multi-Level Fork-Join DAG |
+| synthetic.one_task | 1 | 0 | 1 | 1 | Single Task DAG |
 | synthetic.pipeline_stages | 10 | 17 | 6 | 3 | Multi-Stage Pipeline DAG |
+| synthetic.random_large_balanced | 87 | 546 | 12 | 12 | Random Large Balanced DAG |
+| synthetic.random_large_dense | 57 | 514 | 10 | 9 | Random Large Dense DAG |
+| synthetic.random_medium_balanced | 30 | 153 | 8 | 6 | Random Medium Balanced DAG |
+| synthetic.random_medium_comm | 32 | 165 | 8 | 6 | Random Medium Comm-Heavy DAG |
+| synthetic.random_medium_compute | 25 | 118 | 8 | 6 | Random Medium Compute-Heavy DAG |
+| synthetic.random_medium_deep | 33 | 147 | 14 | 3 | Random Medium Deep DAG |
+| synthetic.random_small_narrow | 10 | 21 | 6 | 3 | Random Small Narrow DAG |
+| synthetic.random_small_wide | 12 | 39 | 4 | 6 | Random Small Wide DAG |
+| synthetic.random_xlarge | 157 | 1070 | 17 | 14 | Random Extra-Large DAG |
+| synthetic.random_xxlarge | 1118 | 8450 | 22 | 70 | Random XXL DAG |
 | synthetic.reduction_tree | 15 | 14 | 4 | 8 | Binary Reduction Tree (8 leaves) |
 | synthetic.stencil_3x4 | 12 | 17 | 6 | 3 | Stencil Computation (3x4 grid) |
 | synthetic.wide_parallel_20 | 22 | 40 | 3 | 20 | Wide Parallel DAG (20 workers) |
@@ -345,9 +358,9 @@ If you use DAGBench in your research, please cite:
 
 See also the SAGA/PISA paper that motivated this work:
 ```bibtex
-@article{boggs2024pisa,
-  title={PISA: A Comprehensive Benchmark for Scheduling Algorithms},
-  author={Boggs, Justin and Sights, Landon and Krishnamachari, Bhaskar},
+@article{coleman2024pisa,
+  title={PISA: An Adversarial Approach To Comparing Task Graph Scheduling Algorithms},
+  author={Coleman, Jared and Krishnamachari, Bhaskar},
   journal={arXiv preprint arXiv:2403.07120},
   year={2024}
 }

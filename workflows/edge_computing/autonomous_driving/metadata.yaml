@@ -7,15 +7,17 @@ domains:
 - edge-computing
 - cyber-physical
 provenance:
-  source: "AI-generated, based on architecture described in Liu et al. 2022"
+  source: "AI-generated, based on architecture described in G. Liu et al. 2022"
   paper_doi: 10.1186/s13677-022-00340-3
-  paper_title: "Collaborative Computation and Dependency-Aware Task Offloading for
-    Vehicular Edge Computing"
+  paper_title: "A collaborative computation and dependency-aware task offloading method
+    for vehicular edge computing: a reinforcement learning approach"
   authors:
-  - Bingxin Liu
-  - Yingjie Wang
-  - Guanghui Wang
-  - Zhipeng Cai
+  - Guozhi Liu
+  - Fei Dai
+  - Bi Huang
+  - Zhenping Qiang
+  - Shuai Wang
+  - Lecheng Li
   year: 2022
   extraction_method: ai-generated
   extractor: claude-opus-4
