@@ -1,0 +1,324 @@
+{
+  "name": "synthetic.random_small_wide",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "T1",
+        "cost": 12.183723547136715
+      },
+      {
+        "name": "T6",
+        "cost": 11.517080424518745
+      },
+      {
+        "name": "T11",
+        "cost": 13.34535283356624
+      },
+      {
+        "name": "T9",
+        "cost": 11.671408785964141
+      },
+      {
+        "name": "T5",
+        "cost": 10.368252451505374
+      },
+      {
+        "name": "T2",
+        "cost": 10.489176115185142
+      },
+      {
+        "name": "T0",
+        "cost": 12.787792672163759
+      },
+      {
+        "name": "T4",
+        "cost": 13.423933339611564
+      },
+      {
+        "name": "T8",
+        "cost": 11.812887196992872
+      },
+      {
+        "name": "T7",
+        "cost": 6.863971954818398
+      },
+      {
+        "name": "T3",
+        "cost": 9.084348338505665
+      },
+      {
+        "name": "T10",
+        "cost": 9.810917839574397
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "T3",
+        "target": "T9",
+        "size": 5.123769079124722
+      },
+      {
+        "source": "T0",
+        "target": "T6",
+        "size": 4.561311502898061
+      },
+      {
+        "source": "T3",
+        "target": "T11",
+        "size": 5.203162128734577
+      },
+      {
+        "source": "T4",
+        "target": "T5",
+        "size": 4.934310149782903
+      },
+      {
+        "source": "T2",
+        "target": "T8",
+        "size": 5.7778134803391294
+      },
+      {
+        "source": "T2",
+        "target": "T10",
+        "size": 5.165716242838031
+      },
+      {
+        "source": "T3",
+        "target": "T5",
+        "size": 5.429302684586863
+      },
+      {
+        "source": "T2",
+        "target": "T7",
+        "size": 4.388826009157868
+      },
+      {
+        "source": "T7",
+        "target": "T11",
+        "size": 5.40322024854076
+      },
+      {
+        "source": "T6",
+        "target": "T11",
+        "size": 6.098037578929467
+      },
+      {
+        "source": "T0",
+        "target": "T5",
+        "size": 4.448227089350482
+      },
+      {
+        "source": "T0",
+        "target": "T1",
+        "size": 5.382828754923462
+      },
+      {
+        "source": "T2",
+        "target": "T6",
+        "size": 4.2459837295996445
+      },
+      {
+        "source": "T10",
+        "target": "T11",
+        "size": 5.4871796616856265
+      },
+      {
+        "source": "T9",
+        "target": "T11",
+        "size": 4.869281431008853
+      },
+      {
+        "source": "T4",
+        "target": "T10",
+        "size": 5.097618939375862
+      },
+      {
+        "source": "T2",
+        "target": "T9",
+        "size": 4.149917759201745
+      },
+      {
+        "source": "T4",
+        "target": "T8",
+        "size": 4.795444744055556
+      },
+      {
+        "source": "T4",
+        "target": "T7",
+        "size": 5.311815489572341
+      },
+      {
+        "source": "T1",
+        "target": "T8",
+        "size": 5.756188886085434
+      },
+      {
+        "source": "T2",
+        "target": "T5",
+        "size": 5.345942148142177
+      },
+      {
+        "source": "T8",
+        "target": "T11",
+        "size": 5.115046531354533
+      },
+      {
+        "source": "T4",
+        "target": "T6",
+        "size": 4.857996555038672
+      },
+      {
+        "source": "T0",
+        "target": "T2",
+        "size": 5.43783610741005
+      },
+      {
+        "source": "T3",
+        "target": "T10",
+        "size": 5.232812471762129
+      },
+      {
+        "source": "T1",
+        "target": "T6",
+        "size": 3.619792981016673
+      },
+      {
+        "source": "T3",
+        "target": "T7",
+        "size": 5.219060010920486
+      },
+      {
+        "source": "T0",
+        "target": "T4",
+        "size": 4.5545055519973925
+      },
+      {
+        "source": "T4",
+        "target": "T9",
+        "size": 5.547526250062745
+      },
+      {
+        "source": "T5",
+        "target": "T11",
+        "size": 5.219540895166695
+      },
+      {
+        "source": "T4",
+        "target": "T11",
+        "size": 5.090274806963199
+      },
+      {
+        "source": "T0",
+        "target": "T10",
+        "size": 5.062173259394263
+      },
+      {
+        "source": "T1",
+        "target": "T9",
+        "size": 5.621750926267573
+      },
+      {
+        "source": "T1",
+        "target": "T11",
+        "size": 4.257272167679433
+      },
+      {
+        "source": "T0",
+        "target": "T8",
+        "size": 5.451168329645285
+      },
+      {
+        "source": "T0",
+        "target": "T7",
+        "size": 4.616993754016563
+      },
+      {
+        "source": "T3",
+        "target": "T6",
+        "size": 4.756976047254417
+      },
+      {
+        "source": "T0",
+        "target": "T3",
+        "size": 4.9916128337718995
+      },
+      {
+        "source": "T1",
+        "target": "T5",
+        "size": 4.801066110993927
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N0",
+        "speed": 1.0
+      },
+      {
+        "name": "N2",
+        "speed": 1.0
+      },
+      {
+        "name": "N1",
+        "speed": 1.0
+      },
+      {
+        "name": "N3",
+        "speed": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N0",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N2",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N3",
+        "target": "N3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 100.0
+      },
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 100.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 100.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      }
+    ]
+  }
+}

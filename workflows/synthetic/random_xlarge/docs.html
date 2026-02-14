@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Extra-Large DAG - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Random Extra-Large DAG</h1>
+    <div class="meta">
+        <strong>ID:</strong> synthetic.random_xlarge &nbsp;|&nbsp;
+        <strong>Domains:</strong> synthetic &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Extra-large random layered DAG (depth=15, width 6-15). Largest random benchmark for scalability testing.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    T29["T29<br/>cost: 12.2"]
+    T92["T92<br/>cost: 8.1"]
+    T54["T54<br/>cost: 11.4"]
+    T23["T23<br/>cost: 10.3"]
+    T9["T9<br/>cost: 13.4"]
+    T101["T101<br/>cost: 10.4"]
+    T15["T15<br/>cost: 8.4"]
+    T25["T25<br/>cost: 7.7"]
+    T4["T4<br/>cost: 11.6"]
+    T135["T135<br/>cost: 8.2"]
+    T33["T33<br/>cost: 10.7"]
+    T124["T124<br/>cost: 11.1"]
+    T72["T72<br/>cost: 10.5"]
+    T55["T55<br/>cost: 8.8"]
+    T27["T27<br/>cost: 8.6"]
+    T118["T118<br/>cost: 10.7"]
+    T20["T20<br/>cost: 10.0"]
+    T138["T138<br/>cost: 10.1"]
+    T13["T13<br/>cost: 8.2"]
+    T144["T144<br/>cost: 11.6"]
+    T45["T45<br/>cost: 6.5"]
+    T116["T116<br/>cost: 10.9"]
+    T98["T98<br/>cost: 12.7"]
+    T126["T126<br/>cost: 14.1"]
+    T6["T6<br/>cost: 9.2"]
+    T97["T97<br/>cost: 8.3"]
+    T48["T48<br/>cost: 7.8"]
+    T75["T75<br/>cost: 11.9"]
+    T17["T17<br/>cost: 12.6"]
+    T64["T64<br/>cost: 10.7"]
+    T109["T109<br/>cost: 9.1"]
+    T151["T151<br/>cost: 11.5"]
+    T115["T115<br/>cost: 6.5"]
+    T150["T150<br/>cost: 11.5"]
+    T65["T65<br/>cost: 6.9"]
+    T16["T16<br/>cost: 10.8"]
+    T49["T49<br/>cost: 10.2"]
+    T57["T57<br/>cost: 7.7"]
+    T123["T123<br/>cost: 8.7"]
+    T0["T0<br/>cost: 8.2"]
+    T83["T83<br/>cost: 6.5"]
+    T127["T127<br/>cost: 10.1"]
+    T93["T93<br/>cost: 9.5"]
+    T147["T147<br/>cost: 8.6"]
+    T100["T100<br/>cost: 5.9"]
+    T78["T78<br/>cost: 12.6"]
+    T141["T141<br/>cost: 9.7"]
+    T133["T133<br/>cost: 8.8"]
+    T120["T120<br/>cost: 11.5"]
+    T122["T122<br/>cost: 9.9"]
+    T140["T140<br/>cost: 9.6"]
+    T53["T53<br/>cost: 10.6"]
+    T113["T113<br/>cost: 7.3"]
+    T117["T117<br/>cost: 11.7"]
+    T149["T149<br/>cost: 8.8"]
+    T131["T131<br/>cost: 11.2"]
+    T80["T80<br/>cost: 10.6"]
+    T87["T87<br/>cost: 5.0"]
+    T43["T43<br/>cost: 11.8"]
+    T24["T24<br/>cost: 9.7"]
+    T85["T85<br/>cost: 8.3"]
+    T41["T41<br/>cost: 10.9"]
+    T44["T44<br/>cost: 9.5"]
+    T68["T68<br/>cost: 11.7"]
+    T146["T146<br/>cost: 6.3"]
+    T110["T110<br/>cost: 12.7"]
+    T121["T121<br/>cost: 6.8"]
+    T28["T28<br/>cost: 9.6"]
+    T128["T128<br/>cost: 10.5"]
+    T136["T136<br/>cost: 6.0"]
+    T142["T142<br/>cost: 13.0"]
+    T74["T74<br/>cost: 8.9"]
+    T76["T76<br/>cost: 9.9"]
+    T81["T81<br/>cost: 11.6"]
+    T69["T69<br/>cost: 8.3"]
+    T14["T14<br/>cost: 11.8"]
+    T88["T88<br/>cost: 11.7"]
+    T86["T86<br/>cost: 9.5"]
+    T112["T112<br/>cost: 10.0"]
+    T82["T82<br/>cost: 4.6"]
+    T71["T71<br/>cost: 7.5"]
+    T96["T96<br/>cost: 9.3"]
+    T73["T73<br/>cost: 10.5"]
+    T47["T47<br/>cost: 12.0"]
+    T58["T58<br/>cost: 7.1"]
+    T125["T125<br/>cost: 11.4"]
+    T77["T77<br/>cost: 9.7"]
+    T104["T104<br/>cost: 10.6"]
+    T132["T132<br/>cost: 9.1"]
+    T3["T3<br/>cost: 11.4"]
+    T106["T106<br/>cost: 9.7"]
+    T11["T11<br/>cost: 9.2"]
+    T38["T38<br/>cost: 12.1"]
+    T22["T22<br/>cost: 7.6"]
+    T26["T26<br/>cost: 8.0"]
+    T60["T60<br/>cost: 9.5"]
+    T70["T70<br/>cost: 10.6"]
+    T63["T63<br/>cost: 7.6"]
+    T119["T119<br/>cost: 9.6"]
+    T5["T5<br/>cost: 10.4"]
+    T2["T2<br/>cost: 12.6"]
+    T35["T35<br/>cost: 11.1"]
+    T66["T66<br/>cost: 8.5"]
+    T105["T105<br/>cost: 10.0"]
+    T111["T111<br/>cost: 8.6"]
+    T102["T102<br/>cost: 11.5"]
+    T108["T108<br/>cost: 7.8"]
+    T90["T90<br/>cost: 12.3"]
+    T152["T152<br/>cost: 8.8"]
+    T21["T21<br/>cost: 9.6"]
+    T32["T32<br/>cost: 8.6"]
+    T137["T137<br/>cost: 10.4"]
+    T62["T62<br/>cost: 13.9"]
+    T103["T103<br/>cost: 9.4"]
+    T130["T130<br/>cost: 11.3"]
+    T37["T37<br/>cost: 9.8"]
+    T40["T40<br/>cost: 7.5"]
+    T39["T39<br/>cost: 11.7"]
+    T1["T1<br/>cost: 8.1"]
+    T94["T94<br/>cost: 7.1"]
+    T84["T84<br/>cost: 8.7"]
+    T30["T30<br/>cost: 9.4"]
+    T50["T50<br/>cost: 9.8"]
+    T95["T95<br/>cost: 10.3"]
+    T31["T31<br/>cost: 13.6"]
+    T8["T8<br/>cost: 9.4"]
+    T7["T7<br/>cost: 12.4"]
+    T19["T19<br/>cost: 8.5"]
+    T153["T153<br/>cost: 10.8"]
+    T10["T10<br/>cost: 10.0"]
+    T12["T12<br/>cost: 11.0"]
+    T145["T145<br/>cost: 12.3"]
+    T154["T154<br/>cost: 7.4"]
+    T51["T51<br/>cost: 11.5"]
+    T148["T148<br/>cost: 11.4"]
+    T79["T79<br/>cost: 8.1"]
+    T155["T155<br/>cost: 12.0"]
+    T46["T46<br/>cost: 10.1"]
+    T18["T18<br/>cost: 10.6"]
+    T34["T34<br/>cost: 10.9"]
+    T156["T156<br/>cost: 6.1"]
+    T36["T36<br/>cost: 7.3"]
+    T67["T67<br/>cost: 8.9"]
+    T114["T114<br/>cost: 7.6"]
+    T91["T91<br/>cost: 11.4"]
+    T59["T59<br/>cost: 12.7"]
+    T129["T129<br/>cost: 9.6"]
+    T56["T56<br/>cost: 7.3"]
+    T99["T99<br/>cost: 8.5"]
+    T61["T61<br/>cost: 7.1"]
+    T107["T107<br/>cost: 8.2"]
+    T89["T89<br/>cost: 10.2"]
+    T42["T42<br/>cost: 11.2"]
+    T52["T52<br/>cost: 9.3"]
+    T139["T139<br/>cost: 8.0"]
+    T134["T134<br/>cost: 10.7"]
+    T143["T143<br/>cost: 11.5"]
+    T82 -->|"5"| T90
+    T137 -->|"4"| T144
+    T139 -->|"5"| T156
+    T44 -->|"5"| T74
+    T17 -->|"5"| T33
+    T90 -->|"6"| T121
+    T116 -->|"5"| T136
+    T121 -->|"5"| T135
+    T39 -->|"5"| T45
+    T83 -->|"5"| T106
+    T94 -->|"4"| T110
+    T13 -->|"5"| T14
+    T59 -->|"5"| T74
+    T53 -->|"5"| T73
+    T76 -->|"5"| T96
+    T76 -->|"5"| T97
+    T96 -->|"5"| T103
+    T153 -->|"6"| T156
+    T71 -->|"5"| T83
+    T121 -->|"5"| T125
+    T48 -->|"5"| T71
+    T73 -->|"6"| T97
+    T59 -->|"5"| T82
+    T2 -->|"5"| T19
+    T42 -->|"5"| T65
+    T59 -->|"5"| T72
+    T59 -->|"5"| T85
+    T99 -->|"5"| T101
+    T38 -->|"4"| T50
+    T62 -->|"6"| T79
+    T11 -->|"6"| T21
+    T94 -->|"5"| T118
+    T14 -->|"5"| T38
+    T62 -->|"5"| T69
+    T91 -->|"4"| T101
+    T109 -->|"5"| T132
+    T106 -->|"5"| T116
+    T60 -->|"5"| T78
+    T131 -->|"5"| T140
+    T128 -->|"5"| T142
+    T7 -->|"5"| T26
+    T13 -->|"4"| T15
+    T36 -->|"6"| T44
+    T80 -->|"6"| T105
+    T60 -->|"5"| T77
+    T111 -->|"5"| T132
+    T90 -->|"5"| T116
+    T107 -->|"5"| T126
+    T81 -->|"5"| T104
+    T122 -->|"4"| T128
+    T136 -->|"5"| T147
+    T80 -->|"5"| T90
+    T65 -->|"5"| T86
+    T146 -->|"5"| T149
+    T123 -->|"5"| T138
+    T67 -->|"4"| T87
+    T100 -->|"6"| T114
+    T133 -->|"5"| T143
+    T145 -->|"5"| T150
+    T88 -->|"4"| T100
+    T79 -->|"4"| T98
+    T52 -->|"5"| T67
+    T18 -->|"5"| T39
+    T74 -->|"6"| T95
+    T13 -->|"4"| T33
+    T54 -->|"5"| T71
+    T35 -->|"5"| T50
+    T116 -->|"4"| T137
+    T102 -->|"6"| T122
+    T22 -->|"5"| T31
+    T132 -->|"6"| T154
+    T16 -->|"4"| T24
+    T20 -->|"5"| T24
+    T84 -->|"4"| T95
+    T39 -->|"5"| T56
+    T92 -->|"5"| T114
+    T5 -->|"4"| T17
+    T18 -->|"5"| T37
+    T38 -->|"5"| T67
+    T99 -->|"5"| T115
+    T124 -->|"5"| T135
+    T6 -->|"5"| T31
+    T128 -->|"5"| T135
+    T133 -->|"5"| T148
+    T19 -->|"6"| T30
+    T141 -->|"6"| T149
+    T68 -->|"6"| T79
+    T63 -->|"5"| T88
+    T28 -->|"4"| T40
+    T85 -->|"5"| T104
+    T8 -->|"5"| T16
+    T142 -->|"5"| T156
+    T94 -->|"5"| T114
+    T100 -->|"5"| T125
+    T17 -->|"5"| T35
+    T101 -->|"5"| T127
+    T7 -->|"5"| T29
+    T20 -->|"6"| T33
+    T122 -->|"6"| T124
+    T83 -->|"4"| T89
+    T104 -->|"5"| T110
+    T10 -->|"4"| T27
+    T56 -->|"4"| T66
+    T67 -->|"4"| T84
+    T33 -->|"5"| T44
+    T91 -->|"5"| T106
+    T0 -->|"6"| T5
+    T39 -->|"5"| T63
+    T22 -->|"5"| T26
+    T84 -->|"5"| T105
+    T104 -->|"5"| T118
+    T9 -->|"5"| T29
+    T132 -->|"4"| T147
+    T25 -->|"5"| T47
+    T115 -->|"4"| T131
+    T9 -->|"5"| T17
+    T111 -->|"5"| T131
+    T83 -->|"5"| T98
+    T126 -->|"5"| T146
+    T114 -->|"5"| T136
+    T31 -->|"5"| T40
+    T50 -->|"5"| T66
+    T82 -->|"5"| T108
+    T47 -->|"5"| T62
+    T127 -->|"5"| T133
+    T78 -->|"5"| T100
+    T98 -->|"5"| T122
+    T98 -->|"4"| T119
+    T52 -->|"5"| T62
+    T60 -->|"5"| T88
+    T62 -->|"6"| T76
+    T123 -->|"5"| T133
+    T43 -->|"4"| T60
+    T61 -->|"5"| T84
+    T117 -->|"4"| T137
+    T142 -->|"5"| T154
+    T3 -->|"5"| T31
+    T72 -->|"5"| T89
+    T30 -->|"5"| T36
+    T140 -->|"5"| T150
+    T120 -->|"5"| T124
+    T79 -->|"5"| T97
+    T109 -->|"5"| T127
+    T117 -->|"6"| T125
+    T85 -->|"6"| T95
+    T81 -->|"5"| T90
+    T13 -->|"5"| T25
+    T13 -->|"5"| T30
+    T59 -->|"6"| T78
+    T4 -->|"4"| T17
+    T103 -->|"5"| T119
+    T0 -->|"5"| T3
+    T12 -->|"5"| T19
+    T100 -->|"5"| T112
+    T125 -->|"5"| T143
+    T72 -->|"6"| T80
+    T71 -->|"6"| T91
+    T18 -->|"5"| T27
+    T100 -->|"6"| T128
+    T33 -->|"5"| T51
+    T138 -->|"5"| T150
+    T51 -->|"5"| T60
+    T145 -->|"4"| T153
+    T127 -->|"5"| T146
+    T132 -->|"6"| T152
+    T122 -->|"4"| T130
+    T34 -->|"5"| T40
+    T104 -->|"6"| T114
+    T6 -->|"5"| T29
+    T20 -->|"5"| T35
+    T123 -->|"5"| T146
+    T126 -->|"6"| T142
+    T74 -->|"4"| T76
+    T68 -->|"5"| T97
+    T14 -->|"5"| T36
+    T137 -->|"4"| T148
+    T114 -->|"4"| T137
+    T19 -->|"5"| T38
+    T20 -->|"4"| T25
+    T81 -->|"4"| T100
+    T6 -->|"5"| T17
+    T143 -->|"5"| T153
+    T117 -->|"5"| T134
+    T61 -->|"5"| T72
+    T61 -->|"5"| T85
+    T28 -->|"5"| T49
+    T25 -->|"4"| T44
+    T73 -->|"5"| T88
+    T76 -->|"6"| T99
+    T85 -->|"5"| T90
+    T77 -->|"5"| T97
+    T35 -->|"4"| T45
+    T87 -->|"4"| T107
+    T46 -->|"6"| T61
+    T80 -->|"5"| T93
+    T25 -->|"5"| T35
+    T147 -->|"5"| T150
+    T1 -->|"5"| T31
+    T19 -->|"5"| T32
+    T64 -->|"5"| T88
+    T127 -->|"5"| T136
+    T89 -->|"6"| T121
+    T50 -->|"5"| T61
+    T24 -->|"5"| T39
+    T37 -->|"6"| T47
+    T65 -->|"5"| T80
+    T106 -->|"6"| T119
+    T40 -->|"5"| T48
+    T28 -->|"5"| T35
+    T144 -->|"5"| T150
+    T33 -->|"5"| T38
+    T75 -->|"6"| T94
+    T120 -->|"6"| T130
+    T101 -->|"5"| T110
+    T134 -->|"5"| T139
+    T86 -->|"5"| T97
+    T56 -->|"5"| T64
+    T28 -->|"5"| T53
+    T4 -->|"5"| T18
+    T85 -->|"4"| T100
+    T118 -->|"4"| T126
+    T89 -->|"5"| T113
+    T36 -->|"5"| T55
+    T125 -->|"5"| T142
+    T77 -->|"5"| T94
+    T126 -->|"6"| T139
+    T48 -->|"5"| T66
+    T124 -->|"5"| T138
+    T63 -->|"5"| T85
+    T78 -->|"6"| T93
+    T98 -->|"5"| T112
+    T35 -->|"5"| T52
+    T100 -->|"6"| T113
+    T72 -->|"4"| T97
+    T8 -->|"4"| T22
+    T22 -->|"5"| T36
+    T71 -->|"5"| T78
+    T41 -->|"5"| T49
+    T8 -->|"5"| T23
+    T35 -->|"6"| T56
+    T131 -->|"5"| T146
+    T96 -->|"5"| T105
+    T135 -->|"5"| T147
+    T36 -->|"5"| T46
+    T131 -->|"6"| T148
+    T30 -->|"5"| T37
+    T66 -->|"5"| T72
+    T0 -->|"5"| T12
+    T56 -->|"5"| T67
+    T45 -->|"5"| T74
+    T31 -->|"5"| T53
+    T148 -->|"5"| T151
+    T126 -->|"4"| T145
+    T96 -->|"4"| T116
+    T47 -->|"5"| T58
+    T117 -->|"5"| T124
+    T123 -->|"5"| T135
+    T112 -->|"5"| T132
+    T15 -->|"5"| T35
+    T97 -->|"5"| T108
+    T80 -->|"5"| T106
+    T88 -->|"5"| T92
+    T21 -->|"5"| T39
+    T136 -->|"5"| T143
+    T94 -->|"5"| T113
+    T35 -->|"5"| T63
+    T146 -->|"4"| T150
+    T41 -->|"6"| T53
+    T13 -->|"5"| T34
+    T106 -->|"5"| T123
+    T18 -->|"4"| T41
+    T148 -->|"6"| T152
+    T62 -->|"4"| T81
+    T137 -->|"5"| T139
+    T101 -->|"4"| T119
+    T14 -->|"5"| T37
+    T47 -->|"5"| T72
+    T49 -->|"5"| T72
+    T59 -->|"5"| T87
+    T131 -->|"5"| T142
+    T12 -->|"5"| T31
+    T148 -->|"5"| T155
+    T129 -->|"5"| T134
+    T95 -->|"6"| T107
+    T34 -->|"5"| T53
+    T86 -->|"5"| T102
+    T136 -->|"5"| T148
+    T127 -->|"5"| T145
+    T14 -->|"5"| T43
+    T75 -->|"5"| T103
+    T95 -->|"5"| T115
+    T97 -->|"5"| T101
+    T103 -->|"5"| T124
+    T107 -->|"5"| T118
+    T60 -->|"6"| T69
+    T53 -->|"4"| T74
+    T40 -->|"4"| T55
+    T102 -->|"4"| T129
+    T28 -->|"4"| T42
+    T82 -->|"5"| T89
+    T141 -->|"4"| T150
+    T70 -->|"5"| T86
+    T128 -->|"5"| T133
+    T78 -->|"6"| T106
+    T27 -->|"4"| T49
+    T10 -->|"5"| T14
+    T3 -->|"5"| T20
+    T62 -->|"5"| T83
+    T113 -->|"5"| T125
+    T133 -->|"5"| T138
+    T35 -->|"5"| T58
+    T53 -->|"4"| T72
+    T104 -->|"5"| T124
+    T18 -->|"5"| T28
+    T147 -->|"5"| T149
+    T52 -->|"5"| T57
+    T8 -->|"5"| T30
+    T17 -->|"5"| T40
+    T92 -->|"5"| T109
+    T12 -->|"4"| T26
+    T71 -->|"4"| T88
+    T84 -->|"5"| T106
+    T41 -->|"6"| T48
+    T22 -->|"5"| T39
+    T129 -->|"4"| T147
+    T34 -->|"7"| T51
+    T71 -->|"5"| T99
+    T78 -->|"5"| T92
+    T92 -->|"5"| T111
+    T31 -->|"5"| T38
+    T38 -->|"5"| T57
+    T134 -->|"5"| T138
+    T118 -->|"6"| T127
+    T136 -->|"5"| T142
+    T5 -->|"5"| T27
+    T86 -->|"5"| T103
+    T128 -->|"6"| T146
+    T60 -->|"5"| T68
+    T141 -->|"5"| T155
+    T73 -->|"6"| T95
+    T55 -->|"5"| T61
+    T60 -->|"5"| T70
+    T94 -->|"5"| T111
+    T97 -->|"6"| T115
+    T0 -->|"5"| T8
+    T92 -->|"5"| T110
+    T104 -->|"6"| T116
+    T132 -->|"5"| T148
+    T126 -->|"5"| T138
+    T107 -->|"5"| T119
+    T43 -->|"6"| T61
+    T51 -->|"5"| T70
+    T7 -->|"4"| T27
+    T66 -->|"6"| T78
+    T114 -->|"5"| T130
+    T91 -->|"4"| T102
+    T92 -->|"6"| T118
+    T111 -->|"5"| T125
+    T28 -->|"5"| T55
+    T128 -->|"5"| T136
+    T35 -->|"5"| T57
+    T131 -->|"6"| T145
+    T51 -->|"5"| T57
+    T114 -->|"5"| T129
+    T133 -->|"5"| T153
+    T146 -->|"5"| T153
+    T71 -->|"5"| T87
+    T101 -->|"5"| T112
+    T113 -->|"5"| T128
+    T23 -->|"5"| T36
+    T34 -->|"5"| T42
+    T81 -->|"5"| T92
+    T35 -->|"4"| T61
+    T60 -->|"4"| T73
+    T78 -->|"6"| T89
+    T26 -->|"5"| T38
+    T73 -->|"5"| T90
+    T58 -->|"5"| T82
+    T105 -->|"5"| T111
+    T126 -->|"5"| T130
+    T99 -->|"5"| T118
+    T18 -->|"5"| T24
+    T28 -->|"4"| T46
+    T85 -->|"5"| T106
+    T127 -->|"6"| T138
+    T110 -->|"6"| T123
+    T32 -->|"5"| T49
+    T62 -->|"5"| T74
+    T72 -->|"5"| T75
+    T43 -->|"6"| T64
+    T98 -->|"5"| T117
+    T84 -->|"6"| T89
+    T121 -->|"5"| T134
+    T82 -->|"5"| T96
+    T24 -->|"6"| T50
+    T120 -->|"5"| T134
+    T89 -->|"5"| T107
+    T108 -->|"5"| T110
+    T76 -->|"5"| T100
+    T140 -->|"6"| T154
+    T19 -->|"5"| T37
+    T74 -->|"5"| T98
+    T32 -->|"5"| T35
+    T92 -->|"5"| T119
+    T85 -->|"5"| T92
+    T103 -->|"5"| T117
+    T136 -->|"5"| T145
+    T55 -->|"6"| T67
+    T8 -->|"6"| T32
+    T29 -->|"5"| T38
+    T101 -->|"5"| T124
+    T11 -->|"5"| T24
+    T11 -->|"5"| T15
+    T29 -->|"5"| T42
+    T50 -->|"5"| T63
+    T154 -->|"5"| T156
+    T106 -->|"5"| T129
+    T127 -->|"5"| T130
+    T94 -->|"5"| T119
+    T10 -->|"5"| T25
+    T131 -->|"5"| T150
+    T111 -->|"4"| T128
+    T101 -->|"5"| T121
+    T104 -->|"6"| T117
+    T110 -->|"4"| T132
+    T119 -->|"4"| T130
+    T145 -->|"5"| T155
+    T123 -->|"6"| T130
+    T74 -->|"5"| T82
+    T65 -->|"5"| T75
+    T133 -->|"5"| T141
+    T34 -->|"5"| T55
+    T120 -->|"5"| T132
+    T12 -->|"5"| T18
+    T64 -->|"5"| T77
+    T26 -->|"5"| T55
+    T47 -->|"5"| T71
+    T88 -->|"5"| T94
+    T54 -->|"5"| T60
+    T91 -->|"5"| T114
+    T135 -->|"4"| T143
+    T35 -->|"6"| T67
+    T36 -->|"6"| T48
+    T137 -->|"5"| T153
+    T44 -->|"5"| T57
+    T87 -->|"5"| T102
+    T31 -->|"5"| T36
+    T23 -->|"5"| T39
+    T109 -->|"4"| T124
+    T100 -->|"5"| T123
+    T44 -->|"5"| T61
+    T111 -->|"6"| T124
+    T91 -->|"5"| T120
+    T108 -->|"5"| T114
+    T148 -->|"4"| T156
+    T136 -->|"5"| T144
+    T69 -->|"4"| T79
+    T125 -->|"4"| T133
+    T9 -->|"5"| T16
+    T126 -->|"5"| T141
+    T3 -->|"5"| T27
+    T50 -->|"6"| T65
+    T113 -->|"5"| T130
+    T40 -->|"4"| T56
+    T42 -->|"5"| T55
+    T18 -->|"5"| T30
+    T132 -->|"5"| T140
+    T79 -->|"5"| T90
+    T138 -->|"5"| T151
+    T59 -->|"5"| T76
+    T98 -->|"6"| T107
+    T80 -->|"5"| T108
+    T4 -->|"5"| T32
+    T92 -->|"5"| T104
+    T130 -->|"4"| T144
+    T140 -->|"6"| T152
+    T98 -->|"5"| T115
+    T104 -->|"4"| T122
+    T50 -->|"5"| T68
+    T102 -->|"4"| T126
+    T77 -->|"4"| T91
+    T87 -->|"5"| T103
+    T57 -->|"4"| T69
+    T68 -->|"6"| T96
+    T14 -->|"4"| T28
+    T50 -->|"6"| T70
+    T3 -->|"5"| T26
+    T88 -->|"4"| T101
+    T112 -->|"5"| T136
+    T2 -->|"6"| T27
+    T44 -->|"5"| T64
+    T7 -->|"5"| T28
+    T26 -->|"6"| T36
+    T69 -->|"5"| T90
+    T98 -->|"5"| T106
+    T19 -->|"5"| T26
+    T24 -->|"5"| T45
+    T120 -->|"5"| T131
+    T93 -->|"5"| T111
+    T40 -->|"5"| T63
+    T117 -->|"5"| T123
+    T83 -->|"5"| T91
+    T35 -->|"5"| T62
+    T43 -->|"5"| T47
+    T103 -->|"5"| T115
+    T135 -->|"4"| T142
+    T50 -->|"6"| T57
+    T127 -->|"5"| T141
+    T139 -->|"4"| T151
+    T94 -->|"5"| T112
+    T147 -->|"5"| T151
+    T82 -->|"5"| T103
+    T107 -->|"4"| T113
+    T60 -->|"6"| T81
+    T107 -->|"5"| T116
+    T46 -->|"5"| T73
+    T22 -->|"6"| T41
+    T28 -->|"5"| T37
+    T10 -->|"5"| T32
+    T83 -->|"5"| T96
+    T80 -->|"5"| T101
+    T6 -->|"5"| T16
+    T125 -->|"5"| T141
+    T84 -->|"6"| T94
+    T130 -->|"5"| T138
+    T70 -->|"5"| T76
+    T144 -->|"5"| T151
+    T125 -->|"5"| T136
+    T129 -->|"5"| T143
+    T78 -->|"5"| T108
+    T101 -->|"5"| T117
+    T146 -->|"4"| T154
+    T111 -->|"5"| T130
+    T30 -->|"5"| T45
+    T57 -->|"5"| T68
+    T151 -->|"5"| T156
+    T109 -->|"5"| T129
+    T61 -->|"4"| T69
+    T118 -->|"5"| T135
+    T100 -->|"5"| T121
+    T86 -->|"5"| T105
+    T27 -->|"4"| T36
+    T67 -->|"5"| T68
+    T9 -->|"5"| T21
+    T4 -->|"6"| T28
+    T95 -->|"5"| T109
+    T67 -->|"4"| T70
+    T70 -->|"5"| T94
+    T103 -->|"5"| T123
+    T19 -->|"6"| T29
+    T139 -->|"5"| T155
+    T38 -->|"5"| T49
+    T84 -->|"5"| T108
+    T17 -->|"5"| T34
+    T144 -->|"5"| T152
+    T96 -->|"5"| T121
+    T147 -->|"5"| T155
+    T134 -->|"6"| T154
+    T3 -->|"5"| T17
+    T5 -->|"5"| T24
+    T112 -->|"5"| T135
+    T65 -->|"5"| T85
+    T112 -->|"4"| T125
+    T68 -->|"5"| T78
+    T141 -->|"5"| T154
+    T22 -->|"5"| T28
+    T34 -->|"4"| T45
+    T25 -->|"5"| T51
+    T36 -->|"5"| T50
+    T90 -->|"5"| T115
+    T11 -->|"6"| T31
+    T31 -->|"5"| T52
+    T104 -->|"6"| T123
+    T144 -->|"5"| T155
+    T69 -->|"5"| T76
+    T68 -->|"6"| T77
+    T78 -->|"5"| T101
+    T0 -->|"5"| T20
+    T94 -->|"5"| T121
+    T5 -->|"6"| T33
+    T6 -->|"5"| T28
+    T57 -->|"5"| T73
+    T71 -->|"5"| T76
+    T21 -->|"5"| T24
+    T152 -->|"5"| T156
+    T81 -->|"5"| T108
+    T125 -->|"6"| T137
+    T64 -->|"5"| T81
+    T92 -->|"5"| T113
+    T10 -->|"5"| T28
+    T59 -->|"4"| T86
+    T67 -->|"6"| T73
+    T30 -->|"5"| T43
+    T93 -->|"6"| T122
+    T16 -->|"4"| T38
+    T20 -->|"5"| T38
+    T130 -->|"4"| T153
+    T32 -->|"5"| T46
+    T54 -->|"5"| T69
+    T95 -->|"4"| T118
+    T48 -->|"4"| T68
+    T14 -->|"4"| T33
+    T20 -->|"6"| T42
+    T16 -->|"4"| T26
+    T24 -->|"5"| T44
+    T9 -->|"4"| T15
+    T85 -->|"5"| T94
+    T4 -->|"5"| T14
+    T21 -->|"6"| T33
+    T146 -->|"4"| T151
+    T133 -->|"4"| T150
+    T135 -->|"5"| T145
+    T55 -->|"4"| T69
+    T36 -->|"5"| T54
+    T62 -->|"5"| T75
+    T50 -->|"4"| T67
+    T76 -->|"6"| T92
+    T66 -->|"6"| T69
+    T35 -->|"5"| T44
+    T125 -->|"5"| T139
+    T10 -->|"5"| T21
+    T145 -->|"5"| T156
+    T54 -->|"4"| T65
+    T100 -->|"4"| T129
+    T39 -->|"5"| T55
+    T43 -->|"5"| T58
+    T25 -->|"5"| T38
+    T99 -->|"5"| T116
+    T78 -->|"5"| T107
+    T136 -->|"5"| T146
+    T9 -->|"5"| T22
+    T130 -->|"5"| T149
+    T123 -->|"5"| T134
+    T45 -->|"4"| T66
+    T55 -->|"4"| T65
+    T33 -->|"5"| T50
+    T117 -->|"5"| T131
+    T119 -->|"5"| T123
+    T106 -->|"5"| T126
+    T60 -->|"5"| T80
+    T30 -->|"5"| T44
+    T113 -->|"4"| T137
+    T72 -->|"4"| T78
+    T94 -->|"4"| T100
+    T143 -->|"5"| T156
+    T32 -->|"5"| T36
+    T54 -->|"5"| T68
+    T115 -->|"6"| T136
+    T41 -->|"5"| T63
+    T53 -->|"4"| T63
+    T43 -->|"5"| T65
+    T1 -->|"5"| T16
+    T146 -->|"5"| T155
+    T105 -->|"6"| T116
+    T49 -->|"5"| T66
+    T22 -->|"5"| T24
+    T20 -->|"5"| T29
+    T66 -->|"5"| T68
+    T4 -->|"5"| T22
+    T49 -->|"5"| T59
+    T55 -->|"5"| T70
+    T4 -->|"5"| T23
+    T71 -->|"5"| T93
+    T95 -->|"5"| T114
+    T134 -->|"5"| T152
+    T27 -->|"6"| T37
+    T37 -->|"5"| T51
+    T68 -->|"5"| T88
+    T155 -->|"4"| T156
+    T132 -->|"6"| T149
+    T127 -->|"5"| T147
+    T83 -->|"4"| T103
+    T33 -->|"6"| T54
+    T5 -->|"5"| T25
+    T135 -->|"4"| T144
+    T5 -->|"6"| T30
+    T27 -->|"5"| T52
+    T29 -->|"5"| T52
+    T123 -->|"4"| T147
+    T51 -->|"5"| T72
+    T37 -->|"5"| T48
+    T23 -->|"5"| T41
+    T70 -->|"5"| T75
+    T41 -->|"5"| T66
+    T65 -->|"5"| T78
+    T92 -->|"5"| T117
+    T53 -->|"6"| T59
+    T71 -->|"5"| T86
+    T41 -->|"6"| T59
+    T7 -->|"5"| T30
+    T21 -->|"4"| T30
+    T36 -->|"6"| T62
+    T36 -->|"6"| T45
+    T110 -->|"6"| T136
+    T15 -->|"4"| T26
+    T37 -->|"5"| T66
+    T66 -->|"5"| T73
+    T2 -->|"5"| T21
+    T0 -->|"4"| T6
+    T64 -->|"5"| T79
+    T94 -->|"5"| T117
+    T115 -->|"6"| T135
+    T80 -->|"5"| T98
+    T79 -->|"5"| T106
+    T93 -->|"5"| T112
+    T140 -->|"4"| T156
+    T9 -->|"5"| T25
+    T66 -->|"5"| T76
+    T123 -->|"5"| T140
+    T25 -->|"4"| T50
+    T48 -->|"4"| T67
+    T0 -->|"5"| T1
+    T54 -->|"6"| T64
+    T70 -->|"4"| T83
+    T2 -->|"5"| T14
+    T108 -->|"5"| T109
+    T72 -->|"5"| T93
+    T91 -->|"6"| T110
+    T1 -->|"5"| T21
+    T122 -->|"4"| T126
+    T138 -->|"5"| T156
+    T102 -->|"5"| T111
+    T107 -->|"5"| T115
+    T79 -->|"6"| T92
+    T142 -->|"5"| T149
+    T72 -->|"4"| T88
+    T28 -->|"5"| T41
+    T27 -->|"5"| T48
+    T72 -->|"4"| T99
+    T136 -->|"5"| T139
+    T88 -->|"5"| T91
+    T105 -->|"6"| T117
+    T124 -->|"5"| T148
+    T137 -->|"5"| T155
+    T3 -->|"5"| T22
+    T109 -->|"5"| T123
+    T0 -->|"5"| T13
+    T59 -->|"5"| T79
+    T92 -->|"6"| T101
+    T62 -->|"5"| T82
+    T11 -->|"5"| T18
+    T64 -->|"6"| T68
+    T15 -->|"5"| T29
+    T44 -->|"5"| T58
+    T57 -->|"5"| T81
+    T79 -->|"5"| T104
+    T111 -->|"5"| T123
+    T21 -->|"5"| T31
+    T91 -->|"5"| T103
+    T2 -->|"5"| T24
+    T22 -->|"5"| T35
+    T1 -->|"5"| T14
+    T119 -->|"5"| T131
+    T11 -->|"5"| T20
+    T69 -->|"5"| T92
+    T112 -->|"5"| T130
+    T54 -->|"6"| T67
+    T42 -->|"5"| T59
+    T106 -->|"6"| T127
+    T88 -->|"5"| T96
+    T102 -->|"5"| T118
+    T94 -->|"5"| T101
+    T147 -->|"5"| T156
+    T32 -->|"5"| T52
+    T117 -->|"4"| T133
+    T93 -->|"6"| T121
+    T28 -->|"5"| T54
+    T121 -->|"5"| T126
+    T112 -->|"4"| T129
+    T75 -->|"6"| T104
+    T32 -->|"5"| T43
+    T70 -->|"4"| T84
+    T2 -->|"6"| T22
+    T2 -->|"5"| T23
+    T144 -->|"5"| T156
+    T65 -->|"5"| T88
+    T23 -->|"5"| T40
+    T135 -->|"4"| T153
+    T119 -->|"5"| T127
+    T1 -->|"5"| T24
+    T148 -->|"5"| T149
+    T0 -->|"6"| T9
+    T1 -->|"4"| T15
+    T80 -->|"5"| T96
+    T57 -->|"5"| T83
+    T21 -->|"6"| T42
+    T96 -->|"4"| T115
+    T121 -->|"5"| T132
+    T77 -->|"5"| T104
+    T67 -->|"5"| T83
+    T1 -->|"5"| T33
+    T56 -->|"4"| T74
+    T53 -->|"6"| T64
+    T97 -->|"6"| T104
+    T8 -->|"5"| T29
+    T52 -->|"5"| T71
+    T64 -->|"5"| T76
+    T135 -->|"6"| T149
+    T131 -->|"6"| T152
+    T139 -->|"5"| T154
+    T128 -->|"4"| T134
+    T147 -->|"5"| T154
+    T38 -->|"5"| T54
+    T94 -->|"5"| T115
+    T34 -->|"5"| T41
+    T26 -->|"5"| T50
+    T70 -->|"6"| T82
+    T46 -->|"5"| T74
+    T115 -->|"5"| T124
+    T23 -->|"5"| T33
+    T7 -->|"5"| T34
+    T122 -->|"5"| T131
+    T42 -->|"4"| T61
+    T135 -->|"5"| T146
+    T65 -->|"5"| T87
+    T12 -->|"4"| T21
+    T50 -->|"5"| T74
+    T0 -->|"4"| T7
+    T69 -->|"5"| T80
+    T136 -->|"5"| T150
+    T136 -->|"5"| T151
+    T15 -->|"4"| T36
+    T78 -->|"5"| T97
+    T69 -->|"5"| T98
+    T117 -->|"6"| T136
+    T134 -->|"4"| T143
+    T19 -->|"5"| T27
+    T41 -->|"5"| T67
+    T96 -->|"5"| T120
+    T63 -->|"6"| T75
+    T88 -->|"5"| T102
+    T146 -->|"6"| T156
+    T60 -->|"6"| T71
+    T128 -->|"5"| T147
+    T106 -->|"5"| T109
+    T130 -->|"5"| T151
+    T0 -->|"5"| T11
+    T86 -->|"4"| T89
+    T122 -->|"6"| T127
+    T130 -->|"5"| T150
+    T52 -->|"5"| T60
+    T2 -->|"5"| T25
+    T90 -->|"6"| T109
+    T134 -->|"6"| T148
+    T58 -->|"5"| T76
+    T29 -->|"5"| T50
+    T16 -->|"5"| T43
+    T138 -->|"5"| T152
+    T68 -->|"5"| T90
+    T62 -->|"5"| T77
+    T76 -->|"6"| T101
+    T57 -->|"4"| T74
+    T40 -->|"5"| T44
+    T86 -->|"5"| T98
+    T99 -->|"5"| T104
+    T12 -->|"5"| T24
+    T63 -->|"5"| T83
+    T129 -->|"5"| T133
+    T93 -->|"5"| T117
+    T77 -->|"5"| T105
+    T25 -->|"5"| T52
+    T8 -->|"5"| T18
+    T6 -->|"6"| T32
+    T30 -->|"4"| T40
+    T57 -->|"5"| T82
+    T60 -->|"5"| T75
+    T1 -->|"6"| T30
+    T90 -->|"6"| T110
+    T31 -->|"5"| T45
+    T25 -->|"5"| T43
+    T67 -->|"5"| T82
+    T88 -->|"5"| T103
+    T97 -->|"5"| T105
+    T117 -->|"5"| T126
+    T42 -->|"4"| T54
+    T133 -->|"4"| T154
+    T27 -->|"5"| T54
+    T18 -->|"5"| T31
+    T149 -->|"5"| T156
+    T118 -->|"5"| T137
+    T61 -->|"5"| T79
+    T12 -->|"5"| T22
+    T139 -->|"4"| T152
+    T12 -->|"5"| T23
+    T23 -->|"5"| T25
+    T5 -->|"5"| T20
+    T90 -->|"6"| T103
+    T147 -->|"6"| T152
+    T28 -->|"5"| T43
+    T28 -->|"5"| T56
+    T53 -->|"5"| T62
+    T29 -->|"5"| T36
+    T31 -->|"5"| T39
+    T10 -->|"5"| T34
+    T111 -->|"4"| T129
+    T41 -->|"5"| T45
+    T69 -->|"5"| T96
+    T69 -->|"4"| T97
+    T88 -->|"4"| T99
+    T116 -->|"5"| T131
+    T37 -->|"5"| T45
+    T30 -->|"5"| T47
+    T108 -->|"5"| T112
+    T15 -->|"6"| T39
+    T103 -->|"5"| T120
+    T124 -->|"4"| T131
+    T95 -->|"6"| T111
+    T128 -->|"5"| T131
+    T145 -->|"5"| T149
+    T48 -->|"5"| T74
+    T18 -->|"5"| T42
+    T41 -->|"5"| T47
+    T93 -->|"5"| T101
+    T103 -->|"4"| T126
+    T129 -->|"6"| T141
+    T104 -->|"6"| T120
+    T15 -->|"5"| T37
+    T31 -->|"5"| T56
+    T9 -->|"6"| T20
+    T80 -->|"4"| T99
+    T64 -->|"4"| T75
+    T42 -->|"5"| T60
+    T90 -->|"5"| T122
+    T143 -->|"5"| T149
+    T114 -->|"5"| T132
+    T104 -->|"5"| T126
+    T44 -->|"5"| T71
+    T0 -->|"6"| T21
+    T47 -->|"4"| T63
+    T66 -->|"5"| T79
+    T0 -->|"5"| T10
+    T66 -->|"4"| T80
+    T39 -->|"5"| T61
+    T41 -->|"5"| T56
+    T37 -->|"4"| T52
+    T40 -->|"5"| T57
+    T60 -->|"5"| T84
+    T73 -->|"4"| T83
+    T108 -->|"5"| T124
+    T142 -->|"5"| T152
+    T91 -->|"6"| T105
+    T27 -->|"7"| T45
+    T31 -->|"4"| T44
+    T55 -->|"5"| T74
+    T84 -->|"6"| T103
+    T0 -->|"4"| T14
+    T18 -->|"5"| T29
+    T9 -->|"5"| T19
+    T45 -->|"5"| T69
+    T134 -->|"5"| T145
+    T45 -->|"5"| T58
+    T2 -->|"5"| T34
+    T108 -->|"5"| T121
+    T35 -->|"5"| T53
+    T74 -->|"5"| T93
+    T125 -->|"4"| T134
+    T78 -->|"5"| T99
+    T133 -->|"6"| T152
+    T121 -->|"5"| T133
+    T56 -->|"5"| T71
+    T129 -->|"5"| T137
+    T39 -->|"4"| T50
+    T30 -->|"5"| T35
+    T19 -->|"5"| T28
+    T65 -->|"6"| T70
+    T102 -->|"5"| T113
+    T134 -->|"5"| T140
+    T43 -->|"5"| T51
+    T148 -->|"5"| T150
+    T10 -->|"5"| T18
+    T41 -->|"5"| T44
+    T47 -->|"5"| T69
+    T97 -->|"5"| T116
+    T129 -->|"4"| T135
+    T52 -->|"5"| T66
+    T62 -->|"5"| T87
+    T34 -->|"5"| T49
+    T16 -->|"4"| T29
+    T13 -->|"6"| T16
+    T52 -->|"5"| T59
+    T1 -->|"5"| T34
+    T108 -->|"5"| T116
+    T140 -->|"5"| T149
+    T66 -->|"6"| T70
+    T126 -->|"4"| T140
+    T75 -->|"5"| T101
+    T11 -->|"5"| T29
+    T50 -->|"5"| T71
+    T86 -->|"5"| T108
+    T73 -->|"6"| T84
+    T0 -->|"5"| T2
+    T45 -->|"4"| T68
+    T35 -->|"5"| T51
+    T123 -->|"5"| T132
+    T119 -->|"5"| T132
+    T38 -->|"4"| T59
+    T11 -->|"5"| T17
+    T26 -->|"6"| T44
+    T70 -->|"4"| T88
+    T101 -->|"5"| T114
+    T34 -->|"5"| T35
+    T125 -->|"5"| T147
+    T27 -->|"4"| T43
+    T0 -->|"5"| T22
+    T23 -->|"5"| T34
+    T45 -->|"5"| T70
+    T27 -->|"6"| T56
+    T89 -->|"5"| T109
+    T29 -->|"6"| T56
+    T79 -->|"4"| T107
+    T53 -->|"4"| T69
+    T26 -->|"5"| T35
+    T81 -->|"5"| T99
+    T47 -->|"5"| T68
+    T134 -->|"5"| T144
+    T49 -->|"6"| T68
+    T87 -->|"5"| T95
+    T123 -->|"5"| T145
+    T16 -->|"5"| T41
+    T126 -->|"5"| T131
+    T49 -->|"5"| T70
+    T19 -->|"5"| T40
+    T53 -->|"5"| T65
+    T121 -->|"5"| T136
+    T108 -->|"5"| T129
+    T131 -->|"5"| T154
+    T35 -->|"6"| T66
+    T120 -->|"5"| T136
+    T89 -->|"5"| T110
+    T113 -->|"5"| T126
+    T126 -->|"5"| T144
+    T100 -->|"6"| T111
+    T137 -->|"5"| T140
+    T35 -->|"5"| T59
+    T24 -->|"5"| T38
+    T69 -->|"5"| T88
+    T73 -->|"5"| T82
+    T85 -->|"5"| T93
+    T27 -->|"5"| T44
+    T64 -->|"6"| T74
+    T29 -->|"5"| T44
+    T25 -->|"5"| T41
+    T125 -->|"6"| T140
+    T104 -->|"5"| T127
+    T8 -->|"5"| T27
+    T19 -->|"6"| T24
+    T89 -->|"6"| T118
+    T137 -->|"5"| T152
+    T5 -->|"5"| T31
+    T85 -->|"5"| T99
+    T150 -->|"5"| T156
+    T68 -->|"6"| T81
+    T59 -->|"5"| T84
+    T77 -->|"5"| T107
+    T113 -->|"5"| T132
+    T47 -->|"5"| T73
+    T13 -->|"5"| T21
+    T57 -->|"4"| T88
+    T32 -->|"4"| T47
+    T97 -->|"4"| T107
+    T127 -->|"5"| T131
+    T83 -->|"5"| T107
+    T0 -->|"5"| T4
+    T2 -->|"5"| T15
+    T42 -->|"5"| T58
+    T148 -->|"4"| T153
+    T127 -->|"4"| T144
+    T96 -->|"5"| T118
+    T58 -->|"5"| T80
+    T136 -->|"6"| T154
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (157)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>T29</td><td>12.24</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T92</td><td>8.07</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T54</td><td>11.43</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T23</td><td>10.30</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T9</td><td>13.39</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T101</td><td>10.42</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T15</td><td>8.37</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T25</td><td>7.71</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T4</td><td>11.57</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T135</td><td>8.23</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T33</td><td>10.68</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T124</td><td>11.06</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T72</td><td>10.54</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T55</td><td>8.75</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T27</td><td>8.65</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T118</td><td>10.73</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T20</td><td>9.98</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T138</td><td>10.08</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T13</td><td>8.17</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T144</td><td>11.59</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T45</td><td>6.48</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T116</td><td>10.95</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T98</td><td>12.67</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T126</td><td>14.07</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T6</td><td>9.23</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T97</td><td>8.31</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T48</td><td>7.84</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T75</td><td>11.91</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T17</td><td>12.64</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T64</td><td>10.75</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T109</td><td>9.09</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T151</td><td>11.47</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T115</td><td>6.52</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T150</td><td>11.51</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T65</td><td>6.93</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T16</td><td>10.79</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T49</td><td>10.16</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T57</td><td>7.69</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T123</td><td>8.70</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T0</td><td>8.22</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T83</td><td>6.48</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T127</td><td>10.13</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T93</td><td>9.49</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T147</td><td>8.64</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T100</td><td>5.91</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T78</td><td>12.60</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T141</td><td>9.71</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T133</td><td>8.77</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T120</td><td>11.51</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T122</td><td>9.86</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T140</td><td>9.60</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T53</td><td>10.57</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T113</td><td>7.28</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T117</td><td>11.68</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T149</td><td>8.77</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T131</td><td>11.15</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T80</td><td>10.59</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T87</td><td>4.99</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T43</td><td>11.80</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T24</td><td>9.66</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T85</td><td>8.26</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T41</td><td>10.92</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T44</td><td>9.52</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T68</td><td>11.67</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T146</td><td>6.33</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T110</td><td>12.71</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T121</td><td>6.82</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T28</td><td>9.56</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T128</td><td>10.45</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T136</td><td>6.01</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T142</td><td>13.01</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T74</td><td>8.86</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T76</td><td>9.87</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T81</td><td>11.55</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T69</td><td>8.34</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T14</td><td>11.84</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T88</td><td>11.65</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T86</td><td>9.53</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T112</td><td>10.05</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T82</td><td>4.57</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T71</td><td>7.51</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T96</td><td>9.34</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T73</td><td>10.54</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T47</td><td>11.98</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T58</td><td>7.12</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T125</td><td>11.38</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T77</td><td>9.69</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T104</td><td>10.60</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T132</td><td>9.05</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T3</td><td>11.37</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T106</td><td>9.71</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T11</td><td>9.20</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T38</td><td>12.15</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T22</td><td>7.60</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T26</td><td>7.95</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T60</td><td>9.54</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T70</td><td>10.62</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T63</td><td>7.57</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T119</td><td>9.62</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T5</td><td>10.35</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T2</td><td>12.56</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T35</td><td>11.09</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T66</td><td>8.53</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T105</td><td>9.97</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T111</td><td>8.62</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T102</td><td>11.50</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T108</td><td>7.85</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T90</td><td>12.27</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T152</td><td>8.76</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T21</td><td>9.58</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T32</td><td>8.58</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T137</td><td>10.35</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T62</td><td>13.92</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T103</td><td>9.41</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T130</td><td>11.26</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T37</td><td>9.82</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T40</td><td>7.50</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T39</td><td>11.70</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T1</td><td>8.07</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T94</td><td>7.09</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T84</td><td>8.72</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T30</td><td>9.37</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T50</td><td>9.75</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T95</td><td>10.34</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T31</td><td>13.63</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T8</td><td>9.44</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T7</td><td>12.37</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T19</td><td>8.50</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T153</td><td>10.78</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T10</td><td>10.04</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T12</td><td>10.97</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T145</td><td>12.32</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T154</td><td>7.45</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T51</td><td>11.50</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T148</td><td>11.43</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T79</td><td>8.13</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T155</td><td>12.01</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T46</td><td>10.13</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T18</td><td>10.59</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T34</td><td>10.91</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T156</td><td>6.06</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T36</td><td>7.30</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T67</td><td>8.88</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T114</td><td>7.63</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T91</td><td>11.43</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T59</td><td>12.66</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T129</td><td>9.59</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T56</td><td>7.31</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T99</td><td>8.53</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T61</td><td>7.10</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T107</td><td>8.16</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T89</td><td>10.23</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T42</td><td>11.15</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T52</td><td>9.35</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T139</td><td>7.98</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T134</td><td>10.71</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T143</td><td>11.53</td><td>Processing step in synthetic pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>157</td></tr><tr><td>Edges</td><td>1070</td></tr><tr><td>Depth</td><td>17</td></tr><tr><td>Width</td><td>14</td></tr><tr><td>CCR</td><td>3.4840</td></tr><tr><td>Parallelism</td><td>9.2353</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">Algorithmically generated</span>
+        <br><br>
+        <strong>Source:</strong> Random layered DAG generator<br>
+<strong>Repository:</strong> <a href="https://github.com/ANRGUSC/Automatic-DAG-Generator" target="_blank">https://github.com/ANRGUSC/Automatic-DAG-Generator</a><br>
+<strong>Extraction Method:</strong> Algorithmically generated<br>
+<strong>Extractor:</strong> dagbench-random-dag-generator<br>
+<strong>Date:</strong> 2026-02-14<br>
+<strong>Notes:</strong> Clean reimplementation of ANRGUSC Automatic-DAG-Generator algorithm (Sep 2018, BSD license). Structure and costs are randomly generated with fixed seed for reproducibility.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fully-connected<br>
+<strong>Nodes:</strong> 4
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">random-layered</span><span class="badge">xlarge</span><span class="badge">stress-test</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; synthetic.random_xlarge
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

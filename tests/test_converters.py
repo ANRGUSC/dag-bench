@@ -4,8 +4,8 @@ import networkx as nx
 from dagbench.converters.stg import parse_stg
 from dagbench.converters.dot import parse_dot
 from dagbench.converters.csv_conv import parse_edge_list_csv, parse_task_and_edge_csv
-from dagbench.converters.manual import (
-    DAGBuilder,
+from dagbench.converters.manual import DAGBuilder
+from dagbench.generators.classic import (
     gaussian_elimination_dag,
     fft_dag,
     lu_decomposition_dag,

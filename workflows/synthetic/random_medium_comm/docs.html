@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Medium Comm-Heavy DAG - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Random Medium Comm-Heavy DAG</h1>
+    <div class="meta">
+        <strong>ID:</strong> synthetic.random_medium_comm &nbsp;|&nbsp;
+        <strong>Domains:</strong> synthetic &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Medium random DAG with high CCR (2.0) -- communication dominates computation.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    T1["T1<br/>cost: 7.7"]
+    T16["T16<br/>cost: 7.3"]
+    T29["T29<br/>cost: 8.8"]
+    T30["T30<br/>cost: 10.2"]
+    T0["T0<br/>cost: 7.7"]
+    T31["T31<br/>cost: 9.1"]
+    T8["T8<br/>cost: 9.3"]
+    T7["T7<br/>cost: 10.7"]
+    T19["T19<br/>cost: 11.4"]
+    T3["T3<br/>cost: 10.0"]
+    T23["T23<br/>cost: 11.9"]
+    T10["T10<br/>cost: 5.8"]
+    T12["T12<br/>cost: 6.3"]
+    T11["T11<br/>cost: 12.3"]
+    T9["T9<br/>cost: 10.5"]
+    T15["T15<br/>cost: 12.6"]
+    T25["T25<br/>cost: 12.2"]
+    T4["T4<br/>cost: 7.8"]
+    T22["T22<br/>cost: 10.7"]
+    T26["T26<br/>cost: 11.8"]
+    T18["T18<br/>cost: 12.0"]
+    T24["T24<br/>cost: 14.3"]
+    T5["T5<br/>cost: 10.0"]
+    T27["T27<br/>cost: 9.7"]
+    T20["T20<br/>cost: 8.4"]
+    T2["T2<br/>cost: 9.9"]
+    T13["T13<br/>cost: 8.8"]
+    T28["T28<br/>cost: 9.1"]
+    T6["T6<br/>cost: 9.3"]
+    T21["T21<br/>cost: 12.9"]
+    T14["T14<br/>cost: 11.3"]
+    T17["T17<br/>cost: 10.4"]
+    T25 -->|"22"| T28
+    T24 -->|"20"| T27
+    T23 -->|"23"| T27
+    T17 -->|"20"| T23
+    T7 -->|"19"| T14
+    T3 -->|"20"| T11
+    T19 -->|"20"| T29
+    T23 -->|"24"| T29
+    T2 -->|"22"| T8
+    T22 -->|"20"| T28
+    T18 -->|"22"| T28
+    T21 -->|"22"| T26
+    T13 -->|"20"| T15
+    T14 -->|"21"| T24
+    T14 -->|"19"| T15
+    T7 -->|"18"| T15
+    T25 -->|"17"| T31
+    T1 -->|"20"| T8
+    T12 -->|"19"| T24
+    T17 -->|"21"| T26
+    T13 -->|"22"| T22
+    T9 -->|"20"| T24
+    T13 -->|"20"| T23
+    T14 -->|"18"| T23
+    T3 -->|"21"| T8
+    T18 -->|"21"| T21
+    T4 -->|"21"| T9
+    T16 -->|"19"| T24
+    T5 -->|"21"| T11
+    T26 -->|"21"| T31
+    T0 -->|"20"| T8
+    T12 -->|"21"| T22
+    T10 -->|"17"| T21
+    T19 -->|"20"| T25
+    T10 -->|"21"| T23
+    T19 -->|"21"| T30
+    T23 -->|"19"| T30
+    T12 -->|"18"| T23
+    T21 -->|"23"| T27
+    T9 -->|"18"| T22
+    T25 -->|"19"| T26
+    T21 -->|"19"| T29
+    T20 -->|"21"| T22
+    T24 -->|"22"| T29
+    T13 -->|"25"| T17
+    T14 -->|"19"| T17
+    T20 -->|"21"| T23
+    T17 -->|"21"| T25
+    T17 -->|"19"| T30
+    T7 -->|"15"| T17
+    T6 -->|"22"| T9
+    T13 -->|"19"| T20
+    T0 -->|"17"| T5
+    T11 -->|"18"| T23
+    T22 -->|"23"| T26
+    T7 -->|"18"| T12
+    T16 -->|"17"| T27
+    T15 -->|"20"| T21
+    T20 -->|"18"| T27
+    T18 -->|"21"| T26
+    T20 -->|"19"| T29
+    T5 -->|"20"| T8
+    T27 -->|"19"| T31
+    T29 -->|"22"| T31
+    T4 -->|"19"| T7
+    T5 -->|"20"| T7
+    T9 -->|"20"| T20
+    T10 -->|"19"| T24
+    T25 -->|"21"| T27
+    T3 -->|"18"| T10
+    T1 -->|"22"| T6
+    T6 -->|"19"| T13
+    T25 -->|"20"| T29
+    T13 -->|"19"| T19
+    T14 -->|"21"| T19
+    T4 -->|"18"| T11
+    T0 -->|"20"| T3
+    T3 -->|"15"| T14
+    T22 -->|"18"| T27
+    T12 -->|"20"| T19
+    T21 -->|"21"| T30
+    T10 -->|"19"| T19
+    T11 -->|"18"| T24
+    T22 -->|"18"| T29
+    T11 -->|"19"| T15
+    T18 -->|"21"| T27
+    T9 -->|"21"| T19
+    T15 -->|"21"| T24
+    T2 -->|"24"| T10
+    T13 -->|"21"| T18
+    T14 -->|"20"| T18
+    T7 -->|"20"| T11
+    T9 -->|"18"| T25
+    T7 -->|"18"| T18
+    T8 -->|"20"| T10
+    T16 -->|"24"| T25
+    T16 -->|"18"| T30
+    T0 -->|"19"| T1
+    T11 -->|"19"| T19
+    T19 -->|"21"| T28
+    T2 -->|"19"| T6
+    T10 -->|"20"| T18
+    T23 -->|"20"| T28
+    T2 -->|"14"| T14
+    T15 -->|"19"| T22
+    T12 -->|"19"| T17
+    T6 -->|"23"| T12
+    T2 -->|"22"| T9
+    T15 -->|"19"| T23
+    T9 -->|"22"| T18
+    T16 -->|"20"| T29
+    T4 -->|"23"| T8
+    T12 -->|"19"| T20
+    T10 -->|"16"| T20
+    T13 -->|"20"| T16
+    T17 -->|"22"| T28
+    T25 -->|"21"| T30
+    T5 -->|"19"| T6
+    T15 -->|"20"| T27
+    T0 -->|"18"| T2
+    T11 -->|"23"| T18
+    T12 -->|"22"| T16
+    T19 -->|"23"| T21
+    T11 -->|"20"| T17
+    T21 -->|"21"| T31
+    T1 -->|"19"| T14
+    T24 -->|"20"| T31
+    T23 -->|"19"| T31
+    T1 -->|"24"| T9
+    T9 -->|"16"| T16
+    T22 -->|"19"| T30
+    T2 -->|"26"| T13
+    T6 -->|"21"| T19
+    T17 -->|"24"| T21
+    T3 -->|"19"| T9
+    T8 -->|"20"| T13
+    T30 -->|"23"| T31
+    T6 -->|"20"| T18
+    T21 -->|"21"| T28
+    T24 -->|"19"| T26
+    T23 -->|"20"| T26
+    T19 -->|"22"| T26
+    T4 -->|"21"| T10
+    T19 -->|"19"| T24
+    T5 -->|"20"| T10
+    T1 -->|"20"| T7
+    T8 -->|"19"| T11
+    T28 -->|"18"| T31
+    T2 -->|"24"| T12
+    T4 -->|"20"| T6
+    T8 -->|"20"| T17
+    T13 -->|"20"| T21
+    T16 -->|"24"| T28
+    T20 -->|"20"| T28
+    T5 -->|"17"| T14
+    T3 -->|"18"| T7
+    T5 -->|"22"| T9
+    T0 -->|"17"| T4
+    T7 -->|"24"| T10
+    T19 -->|"20"| T23
+    T10 -->|"18"| T16
+    T6 -->|"19"| T10
+    T1 -->|"20"| T11
+    T12 -->|"19"| T21
+    T0 -->|"25"| T7
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (32)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>T1</td><td>7.68</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T16</td><td>7.34</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T29</td><td>8.77</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T30</td><td>10.22</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T0</td><td>7.66</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T31</td><td>9.15</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T8</td><td>9.31</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T7</td><td>10.73</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T19</td><td>11.35</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T3</td><td>9.97</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T23</td><td>11.90</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T10</td><td>5.83</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T12</td><td>6.29</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T11</td><td>12.28</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T9</td><td>10.50</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T15</td><td>12.63</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T25</td><td>12.20</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T4</td><td>7.80</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T22</td><td>10.66</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T26</td><td>11.77</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T18</td><td>12.03</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T24</td><td>14.35</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T5</td><td>10.01</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T27</td><td>9.68</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T20</td><td>8.45</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T2</td><td>9.93</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T13</td><td>8.78</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T28</td><td>9.10</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T6</td><td>9.29</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T21</td><td>12.94</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T14</td><td>11.35</td><td>Processing step in synthetic pipeline</td></tr><tr><td>T17</td><td>10.41</td><td>Processing step in synthetic pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>32</td></tr><tr><td>Edges</td><td>165</td></tr><tr><td>Depth</td><td>8</td></tr><tr><td>Width</td><td>6</td></tr><tr><td>CCR</td><td>10.3506</td></tr><tr><td>Parallelism</td><td>4.0000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">Algorithmically generated</span>
+        <br><br>
+        <strong>Source:</strong> Random layered DAG generator<br>
+<strong>Repository:</strong> <a href="https://github.com/ANRGUSC/Automatic-DAG-Generator" target="_blank">https://github.com/ANRGUSC/Automatic-DAG-Generator</a><br>
+<strong>Extraction Method:</strong> Algorithmically generated<br>
+<strong>Extractor:</strong> dagbench-random-dag-generator<br>
+<strong>Date:</strong> 2026-02-14<br>
+<strong>Notes:</strong> Clean reimplementation of ANRGUSC Automatic-DAG-Generator algorithm (Sep 2018, BSD license). Structure and costs are randomly generated with fixed seed for reproducibility.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fully-connected<br>
+<strong>Nodes:</strong> 4
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">random-layered</span><span class="badge">medium</span><span class="badge">comm-heavy</span><span class="badge">high-ccr</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; synthetic.random_medium_comm
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>
