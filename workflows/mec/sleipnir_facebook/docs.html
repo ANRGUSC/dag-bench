@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLEIPNIR Facebook App - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>SLEIPNIR Facebook App</h1>
+    <div class="meta">
+        <strong>ID:</strong> mec.sleipnir_facebook &nbsp;|&nbsp;
+        <strong>Domains:</strong> mec, edge-computing &nbsp;|&nbsp;
+        <strong>Completeness:</strong> structure-and-costs &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Mobile social media application DAG from the SLEIPNIR offloading simulator (De Maio and Brandic, CCGrid 2018). The GUI fans out to authentication (GET_TOKEN) and API request in parallel, then proceeds through response processing, file upload, image filter application, and final post creation. Near-linear chain with an early fork-join at GUI, 7 tasks total.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    FACEBOOK_GUI["FACEBOOK_GUI<br/>cost: 200.0"]
+    GET_TOKEN["GET_TOKEN<br/>cost: 300.0"]
+    POST_REQUEST["POST_REQUEST<br/>cost: 200.0"]
+    PROCESS_RESPONSE["PROCESS_RESPONSE<br/>cost: 200.0"]
+    FILE_UPLOAD["FILE_UPLOAD<br/>cost: 500.0"]
+    APPLY_FILTER["APPLY_FILTER<br/>cost: 800.0"]
+    FACEBOOK_POST["FACEBOOK_POST<br/>cost: 200.0"]
+    FACEBOOK_GUI -->|"50"| GET_TOKEN
+    FACEBOOK_GUI -->|"50"| POST_REQUEST
+    GET_TOKEN -->|"50"| POST_REQUEST
+    POST_REQUEST -->|"200"| PROCESS_RESPONSE
+    PROCESS_RESPONSE -->|"50"| FILE_UPLOAD
+    FILE_UPLOAD -->|"1000"| APPLY_FILTER
+    APPLY_FILTER -->|"1000"| FACEBOOK_POST
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (7)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>FACEBOOK_GUI</td><td>200.00</td><td>Processing step in mec pipeline</td></tr><tr><td>GET_TOKEN</td><td>300.00</td><td>Processing step in mec pipeline</td></tr><tr><td>POST_REQUEST</td><td>200.00</td><td>Processing step in mec pipeline</td></tr><tr><td>PROCESS_RESPONSE</td><td>200.00</td><td>Processing step in mec pipeline</td></tr><tr><td>FILE_UPLOAD</td><td>500.00</td><td>Data loading / fetching</td></tr><tr><td>APPLY_FILTER</td><td>800.00</td><td>Filter / validate data</td></tr><tr><td>FACEBOOK_POST</td><td>200.00</td><td>Processing step in mec pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>7</td></tr><tr><td>Edges</td><td>7</td></tr><tr><td>Depth</td><td>7</td></tr><tr><td>Width</td><td>1</td></tr><tr><td>CCR</td><td>1.0000</td></tr><tr><td>Parallelism</td><td>1.0000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">Manually extracted from paper figure</span>
+        <br><br>
+        <strong>Source:</strong> Faithfully extracted from SLEIPNIR open-source simulator (De Maio and Brandic, CCGrid 2018)<br>
+<strong>Paper:</strong> First Hop Mobile Offloading of DAG Computations<br>
+<strong>Authors:</strong> Vincenzo De Maio, Ivona Brandic<br>
+<strong>Year:</strong> 2018<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1109/CCGRID.2018.00023" target="_blank">10.1109/CCGRID.2018.00023</a><br>
+<strong>Figure/Table:</strong> Source code: FacebookApp.java<br>
+<strong>Repository:</strong> <a href="https://github.com/vindem/sleipnir" target="_blank">https://github.com/vindem/sleipnir</a><br>
+<strong>Extraction Method:</strong> Manually extracted from paper figure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-14<br>
+<strong>Notes:</strong> DAG structure and task computation costs (in MI) faithfully extracted from FacebookApp.java in the SLEIPNIR simulator. GUI, FILE_UPLOAD, and FACEBOOK_POST are non-offloadable. Data transfer sizes are normalized from source code data volumes: image upload/filter edges (facebookImageSize=20KB) mapped to 1000 data units, API control edges mapped to 50 data units, response data to 200 data units, producing a balanced CCR of 1.0. Network is a 3-node MEC topology. MIT licensed source code. Affiliations: TU Wien.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> mec<br>
+<strong>Nodes:</strong> 3
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">social-media</span><span class="badge">mobile-offloading</span><span class="badge">image-filter</span><span class="badge">authentication</span><span class="badge">near-linear</span><span class="badge">sleipnir</span><span class="badge">mec-offloading</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; mec.sleipnir_facebook
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

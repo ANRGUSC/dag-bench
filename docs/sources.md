@@ -31,7 +31,13 @@ These papers contain explicit DAG figures from which workflows were faithfully e
 - **Liang et al. 2024** (Figure 1, Table 1 → `edge.splitstream_pipeline`): Liang, Y., Zhang, S., Wu, J. (2024). "SplitStream: Distributed and workload-adaptive video analytics at the edge." *J. Network and Computer Applications*. DOI: [10.1016/j.jnca.2024.103866](https://doi.org/10.1016/j.jnca.2024.103866)
 - **Alghareb & Hasan 2025** (Figures 4-5 → `edge.face_analysis_pipeline`): "Pipeline-Parallel Face Analysis System for Edge Computing." *Computers (MDPI)*. DOI: [10.3390/computers14010029](https://doi.org/10.3390/computers14010029)
 - **Romero et al. 2024** (Figure 2(a) → `edge.loki_traffic_pipeline`): Romero, K.K.W. et al. (2024). "Loki: A System for Serving ML Inference Pipelines with Hardware-Aware Scheduling." *HPDC*. DOI: [10.1145/3625549.3658688](https://doi.org/10.1145/3625549.3658688)
-- **Li et al. 2024** (Figure 5 → `edge.mtec_lightgbm`): Li, X., Abdallah, M., Lou, Y.-Y., Chiang, M., Kim, K.T., Bagchi, S. (2024). "Dynamic DAG-Application Scheduling for Multi-Tier Edge Computing in Heterogeneous Networks." arXiv: [2409.10839](https://arxiv.org/abs/2409.10839)
+- **Li et al. 2024** (Figure 5 → `edge.mtec_lightgbm`, `edge.mtec_video_analytics`, `edge.mtec_matrix_ops`): Li, X., Abdallah, M., Lou, Y.-Y., Chiang, M., Kim, K.T., Bagchi, S. (2024). "Dynamic DAG-Application Scheduling for Multi-Tier Edge Computing in Heterogeneous Networks." arXiv: [2409.10839](https://arxiv.org/abs/2409.10839)
+
+### MEC / Mobile Offloading — Code-Extracted DAGs (manual-figure)
+
+These DAGs were faithfully extracted from open-source simulator source code:
+
+- **De Maio & Brandic 2018** (Source code → `mec.sleipnir_navigator`, `mec.sleipnir_antivirus`, `mec.sleipnir_facerecognizer`, `mec.sleipnir_facebook`, `mec.sleipnir_chess`): De Maio, V., Brandic, I. (2018). "First Hop Mobile Offloading of DAG Computations." *IEEE/ACM CCGrid*. DOI: [10.1109/CCGRID.2018.00023](https://doi.org/10.1109/CCGRID.2018.00023). Source code: [github.com/vindem/sleipnir](https://github.com/vindem/sleipnir) (MIT license).
 
 ### Agriculture IoT — Paper-Extracted DAGs (manual-figure)
 

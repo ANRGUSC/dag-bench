@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M-TEC Matrix Operations Pipeline - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>M-TEC Matrix Operations Pipeline</h1>
+    <div class="meta">
+        <strong>ID:</strong> edge.mtec_matrix_ops &nbsp;|&nbsp;
+        <strong>Domains:</strong> edge-computing, scientific, data-analytics &nbsp;|&nbsp;
+        <strong>Completeness:</strong> structure-and-costs &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Distributed matrix operations pipeline faithfully extracted from Figure 5 (Application 4) of Li et al. (arXiv 2024). A matrix is loaded then forked to transpose and multiply operations. Both feed into a matrix-vector multiplication, while the multiply result also feeds into matrix inversion. The inversion and first mat-vec multiply converge at a final mat-vec multiply, creating complex overlapping diamond structures. The most structurally interesting of the four M-TEC applications.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    LoadMatrix["LoadMatrix<br/>cost: 5.0"]
+    MatrixTranspose["MatrixTranspose<br/>cost: 15.0"]
+    MatrixMultiply["MatrixMultiply<br/>cost: 40.0"]
+    MatVecMult1["MatVecMult1<br/>cost: 20.0"]
+    MatrixInversion["MatrixInversion<br/>cost: 50.0"]
+    MatVecMult2["MatVecMult2<br/>cost: 20.0"]
+    LoadMatrix -->|"50"| MatrixTranspose
+    LoadMatrix -->|"50"| MatrixMultiply
+    MatrixTranspose -->|"30"| MatVecMult1
+    MatrixMultiply -->|"30"| MatVecMult1
+    MatrixMultiply -->|"30"| MatrixInversion
+    MatrixInversion -->|"30"| MatVecMult2
+    MatVecMult1 -->|"20"| MatVecMult2
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (6)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>LoadMatrix</td><td>5.00</td><td>Data loading / fetching</td></tr><tr><td>MatrixTranspose</td><td>15.00</td><td>Processing step in edge-computing pipeline</td></tr><tr><td>MatrixMultiply</td><td>40.00</td><td>Processing step in edge-computing pipeline</td></tr><tr><td>MatVecMult1</td><td>20.00</td><td>Processing step in edge-computing pipeline</td></tr><tr><td>MatrixInversion</td><td>50.00</td><td>Processing step in edge-computing pipeline</td></tr><tr><td>MatVecMult2</td><td>20.00</td><td>Processing step in edge-computing pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>6</td></tr><tr><td>Edges</td><td>7</td></tr><tr><td>Depth</td><td>4</td></tr><tr><td>Width</td><td>2</td></tr><tr><td>CCR</td><td>1.6000</td></tr><tr><td>Parallelism</td><td>1.5000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">Manually extracted from paper figure</span>
+        <br><br>
+        <strong>Source:</strong> Faithfully extracted from Figure 5 (Application 4: Matrix Operations) of Li et al. (arXiv 2024)<br>
+<strong>Paper:</strong> Dynamic DAG-Application Scheduling for Multi-Tier Edge Computing in Heterogeneous Networks<br>
+<strong>Authors:</strong> Xiang Li, Mustafa Abdallah, Yuan-Yao Lou, Mung Chiang, Kwang Taik Kim, Saurabh Bagchi<br>
+<strong>Year:</strong> 2024<br>
+<strong>arXiv:</strong> <a href="https://arxiv.org/abs/2409.10839" target="_blank">2409.10839</a><br>
+<strong>Figure/Table:</strong> Figure 5 (Application 4)<br>
+<strong>Extraction Method:</strong> Manually extracted from paper figure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-14<br>
+<strong>Notes:</strong> DAG structure faithfully extracted from Figure 5 &#x27;DAG-based applications used in the experiments&#x27;, specifically Application 4 (Matrix Operations). The pipeline loads a matrix, then performs transpose and multiply in parallel. Both results feed into a matrix-vector multiplication, while the multiply also feeds into inversion. The final mat-vec multiply combines inversion and first mat-vec results. This creates overlapping diamond structures making it the most topologically interesting M-TEC app. Task costs are estimated proportional to computational complexity: O(n^3) operations (multiply, inversion) are heaviest, O(n^2) operations (transpose, mat-vec) moderate, I/O lightest. Data transfer sizes estimated from typical matrix dimensions. Evaluated on heterogeneous testbed (Table III). Affiliations: Purdue University.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> heterogeneous<br>
+<strong>Nodes:</strong> 4
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">matrix-operations</span><span class="badge">linear-algebra</span><span class="badge">overlapping-diamonds</span><span class="badge">transpose</span><span class="badge">inversion</span><span class="badge">jetson</span><span class="badge">heterogeneous-testbed</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; edge.mtec_matrix_ops
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

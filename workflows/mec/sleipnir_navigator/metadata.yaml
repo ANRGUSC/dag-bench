@@ -1,0 +1,62 @@
+id: mec.sleipnir_navigator
+name: SLEIPNIR Navigator App
+description: "Mobile navigation application DAG from the SLEIPNIR offloading simulator
+  (De Maio and Brandic, CCGrid 2018). A config panel and GPS sensor feed into a control
+  node that fans out to map loading, path calculation, and traffic monitoring. Map
+  data and traffic flow into path calculation, which then fans out to voice synthesis,
+  speed trap alerts, and GUI display. The richest DAG structure among the five SLEIPNIR
+  apps, with 9 tasks and complex fan-out/fan-in patterns."
+domains:
+- mec
+- edge-computing
+provenance:
+  source: "Faithfully extracted from SLEIPNIR open-source simulator (De Maio and Brandic, CCGrid 2018)"
+  paper_doi: 10.1109/CCGRID.2018.00023
+  paper_title: "First Hop Mobile Offloading of DAG Computations"
+  authors:
+  - Vincenzo De Maio
+  - Ivona Brandic
+  year: 2018
+  figure_or_table: "Source code: NavigatorApp.java"
+  repo_url: "https://github.com/vindem/sleipnir"
+  extraction_method: manual-figure
+  extractor: claude-opus-4
+  extraction_date: '2026-02-14'
+  notes: "DAG structure and task computation costs (in MI - millions of instructions)
+    faithfully extracted from the SLEIPNIR open-source Java simulator, specifically
+    NavigatorApp.java. Tasks include configuration, GPS, map loading, path calculation,
+    traffic monitoring, voice synthesis, speed trap alerts, and GUI display. Several
+    tasks are marked non-offloadable in the source (CONF_PANEL, GPS, VOICE_SYNTH,
+    SPEED_TRAP, GUI). Data transfer sizes are normalized from SLEIPNIR source code
+    data volumes (outData parameters) to produce balanced CCR ratios suitable for
+    scheduling benchmarks. The original outData values include stochastic map data
+    sizes (exponential distribution with mean 25MB); we use representative fixed
+    values. Network is a 3-node MEC topology with 1 mobile device and 2 edge servers.
+    MIT licensed source code. Affiliations: TU Wien."
+license:
+  source_license: MIT
+  dagbench_license: Apache-2.0
+  notes: "Extracted from MIT-licensed open-source simulator code"
+completeness: structure-and-costs
+cost_model: deterministic
+network:
+  included: true
+  topology: mec
+  num_nodes_min: 3
+  num_nodes_max: 3
+graph_stats:
+  num_tasks: 9
+  num_edges: 13
+  depth: 7
+  width: 2
+  ccr: 1.0606
+  parallelism: 1.2857
+campaign: campaign_003_paper_extraction
+tags:
+- navigation
+- mobile-offloading
+- gps
+- voice-synthesis
+- fan-out-fan-in
+- sleipnir
+- mec-offloading

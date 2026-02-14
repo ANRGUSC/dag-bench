@@ -1,0 +1,66 @@
+{
+  "name": "mec.sleipnir_chess",
+  "task_graph": {
+    "tasks": [
+      {"name": "CHESS_UI_0", "cost": 400.0},
+      {"name": "UPDATE_CHESS_0", "cost": 200.0},
+      {"name": "COMPUTE_MOVE_0", "cost": 1000.0},
+      {"name": "CHESS_OUTPUT_0", "cost": 200.0},
+      {"name": "CHESS_UI_1", "cost": 400.0},
+      {"name": "UPDATE_CHESS_1", "cost": 200.0},
+      {"name": "COMPUTE_MOVE_1", "cost": 1000.0},
+      {"name": "CHESS_OUTPUT_1", "cost": 200.0},
+      {"name": "CHESS_UI_2", "cost": 400.0},
+      {"name": "UPDATE_CHESS_2", "cost": 200.0},
+      {"name": "COMPUTE_MOVE_2", "cost": 1000.0},
+      {"name": "CHESS_OUTPUT_2", "cost": 200.0},
+      {"name": "CHESS_UI_3", "cost": 400.0},
+      {"name": "UPDATE_CHESS_3", "cost": 200.0},
+      {"name": "COMPUTE_MOVE_3", "cost": 1000.0},
+      {"name": "CHESS_OUTPUT_3", "cost": 200.0},
+      {"name": "CHESS_UI_4", "cost": 400.0},
+      {"name": "UPDATE_CHESS_4", "cost": 200.0},
+      {"name": "COMPUTE_MOVE_4", "cost": 1000.0},
+      {"name": "CHESS_OUTPUT_4", "cost": 200.0}
+    ],
+    "dependencies": [
+      {"source": "CHESS_UI_0", "target": "UPDATE_CHESS_0", "size": 500.0},
+      {"source": "UPDATE_CHESS_0", "target": "COMPUTE_MOVE_0", "size": 500.0},
+      {"source": "COMPUTE_MOVE_0", "target": "CHESS_OUTPUT_0", "size": 500.0},
+      {"source": "CHESS_OUTPUT_0", "target": "CHESS_UI_1", "size": 500.0},
+      {"source": "CHESS_UI_1", "target": "UPDATE_CHESS_1", "size": 500.0},
+      {"source": "UPDATE_CHESS_1", "target": "COMPUTE_MOVE_1", "size": 500.0},
+      {"source": "COMPUTE_MOVE_1", "target": "CHESS_OUTPUT_1", "size": 500.0},
+      {"source": "CHESS_OUTPUT_1", "target": "CHESS_UI_2", "size": 500.0},
+      {"source": "CHESS_UI_2", "target": "UPDATE_CHESS_2", "size": 500.0},
+      {"source": "UPDATE_CHESS_2", "target": "COMPUTE_MOVE_2", "size": 500.0},
+      {"source": "COMPUTE_MOVE_2", "target": "CHESS_OUTPUT_2", "size": 500.0},
+      {"source": "CHESS_OUTPUT_2", "target": "CHESS_UI_3", "size": 500.0},
+      {"source": "CHESS_UI_3", "target": "UPDATE_CHESS_3", "size": 500.0},
+      {"source": "UPDATE_CHESS_3", "target": "COMPUTE_MOVE_3", "size": 500.0},
+      {"source": "COMPUTE_MOVE_3", "target": "CHESS_OUTPUT_3", "size": 500.0},
+      {"source": "CHESS_OUTPUT_3", "target": "CHESS_UI_4", "size": 500.0},
+      {"source": "CHESS_UI_4", "target": "UPDATE_CHESS_4", "size": 500.0},
+      {"source": "UPDATE_CHESS_4", "target": "COMPUTE_MOVE_4", "size": 500.0},
+      {"source": "COMPUTE_MOVE_4", "target": "CHESS_OUTPUT_4", "size": 500.0}
+    ]
+  },
+  "network": {
+    "nodes": [
+      {"name": "MobileDevice", "speed": 1.0},
+      {"name": "EdgeServer1", "speed": 5.0},
+      {"name": "EdgeServer2", "speed": 5.0}
+    ],
+    "edges": [
+      {"source": "MobileDevice", "target": "EdgeServer1", "speed": 1000.0},
+      {"source": "MobileDevice", "target": "EdgeServer2", "speed": 1000.0},
+      {"source": "EdgeServer1", "target": "MobileDevice", "speed": 1000.0},
+      {"source": "EdgeServer1", "target": "EdgeServer2", "speed": 1000.0},
+      {"source": "EdgeServer2", "target": "MobileDevice", "speed": 1000.0},
+      {"source": "EdgeServer2", "target": "EdgeServer1", "speed": 1000.0},
+      {"source": "MobileDevice", "target": "MobileDevice", "speed": 1000000000.0},
+      {"source": "EdgeServer1", "target": "EdgeServer1", "speed": 1000000000.0},
+      {"source": "EdgeServer2", "target": "EdgeServer2", "speed": 1000000000.0}
+    ]
+  }
+}

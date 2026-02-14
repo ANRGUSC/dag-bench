@@ -31,7 +31,7 @@
         <strong>Completeness:</strong> structure-and-costs &nbsp;|&nbsp;
         <strong>Cost Model:</strong> deterministic
     </div>
-    <p>Distributed video query pipeline for edge-based traffic analytics, faithfully extracted from Figure 1 of Liang et al. (JNCA 2024). An object detector (YOLOv5m) classifies detected objects as person or vehicle, routing to two cascaded classification branches: person branch (gender classifier → behaviour classifier) and vehicle branch (type classifier → maker classifier), with results collected at a final aggregation node. Deployed across heterogeneous edge devices (Jetson Nano, AGX Xavier, Intel E5 server).</p>
+    <p>Distributed video query pipeline for edge-based traffic analytics, faithfully extracted from Figure 1 of Liang et al. (JNCA 2024). An object detector (YOLOv5m) classifies detected objects as person or vehicle, routing to two cascaded classification branches: person branch (gender classifier, then behaviour classifier) and vehicle branch (type classifier, then maker classifier), with results collected at a final aggregation node. Deployed across heterogeneous edge devices (Jetson Nano, AGX Xavier, Intel E5 server).</p>
 
     <div class="section">
         <h2>DAG Visualization</h2>

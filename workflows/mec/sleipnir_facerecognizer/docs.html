@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLEIPNIR Face Recognizer App - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>SLEIPNIR Face Recognizer App</h1>
+    <div class="meta">
+        <strong>ID:</strong> mec.sleipnir_facerecognizer &nbsp;|&nbsp;
+        <strong>Domains:</strong> mec, edge-computing, image-processing &nbsp;|&nbsp;
+        <strong>Completeness:</strong> structure-and-costs &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Mobile face recognition application DAG from the SLEIPNIR offloading simulator (De Maio and Brandic, CCGrid 2018). The UI triggers face matching, which initializes a match database and detects faces in an image, with a bypass edge from matching to detection. Chain-with-bypass pattern with 5 tasks, where the heaviest task (DETECT_FACE at 1600 MI) performs the core face detection computation.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    FACERECOGNIZER_UI["FACERECOGNIZER_UI<br/>cost: 500.0"]
+    FIND_MATCH["FIND_MATCH<br/>cost: 800.0"]
+    FIND_MATCH_INIT["FIND_MATCH_INIT<br/>cost: 800.0"]
+    DETECT_FACE["DETECT_FACE<br/>cost: 1600.0"]
+    FACERECOGNIZER_OUTPUT["FACERECOGNIZER_OUTPUT<br/>cost: 800.0"]
+    FACERECOGNIZER_UI -->|"100"| FIND_MATCH
+    FIND_MATCH -->|"3000"| FIND_MATCH_INIT
+    FIND_MATCH -->|"3000"| DETECT_FACE
+    FIND_MATCH_INIT -->|"100"| DETECT_FACE
+    DETECT_FACE -->|"3000"| FACERECOGNIZER_OUTPUT
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (5)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>FACERECOGNIZER_UI</td><td>500.00</td><td>Processing step in mec pipeline</td></tr><tr><td>FIND_MATCH</td><td>800.00</td><td>Processing step in mec pipeline</td></tr><tr><td>FIND_MATCH_INIT</td><td>800.00</td><td>Processing step in mec pipeline</td></tr><tr><td>DETECT_FACE</td><td>1600.00</td><td>Detection / anomaly identification</td></tr><tr><td>FACERECOGNIZER_OUTPUT</td><td>800.00</td><td>Final output / data sink</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>5</td></tr><tr><td>Edges</td><td>5</td></tr><tr><td>Depth</td><td>5</td></tr><tr><td>Width</td><td>1</td></tr><tr><td>CCR</td><td>2.0444</td></tr><tr><td>Parallelism</td><td>1.0000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">Manually extracted from paper figure</span>
+        <br><br>
+        <strong>Source:</strong> Faithfully extracted from SLEIPNIR open-source simulator (De Maio and Brandic, CCGrid 2018)<br>
+<strong>Paper:</strong> First Hop Mobile Offloading of DAG Computations<br>
+<strong>Authors:</strong> Vincenzo De Maio, Ivona Brandic<br>
+<strong>Year:</strong> 2018<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1109/CCGRID.2018.00023" target="_blank">10.1109/CCGRID.2018.00023</a><br>
+<strong>Figure/Table:</strong> Source code: FacerecognizerApp.java<br>
+<strong>Repository:</strong> <a href="https://github.com/vindem/sleipnir" target="_blank">https://github.com/vindem/sleipnir</a><br>
+<strong>Extraction Method:</strong> Manually extracted from paper figure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-14<br>
+<strong>Notes:</strong> DAG structure and task computation costs (in MI) faithfully extracted from FacerecognizerApp.java in the SLEIPNIR simulator. The UI and output tasks are non-offloadable. Data transfer sizes are normalized from source code data volumes: face image data (facerecImageSize=10MB) mapped to 3000 data units, control signals mapped to 100 data units, producing a CCR of 2.04. The original uses fixed image sizes (not stochastic). Network is a 3-node MEC topology. MIT licensed source code. Affiliations: TU Wien.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> mec<br>
+<strong>Nodes:</strong> 3
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">face-recognition</span><span class="badge">mobile-offloading</span><span class="badge">image-processing</span><span class="badge">chain-with-bypass</span><span class="badge">sleipnir</span><span class="badge">mec-offloading</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; mec.sleipnir_facerecognizer
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

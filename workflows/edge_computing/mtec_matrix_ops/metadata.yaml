@@ -1,0 +1,66 @@
+id: edge.mtec_matrix_ops
+name: M-TEC Matrix Operations Pipeline
+description: "Distributed matrix operations pipeline faithfully extracted from Figure 5
+  (Application 4) of Li et al. (arXiv 2024). A matrix is loaded then forked to
+  transpose and multiply operations. Both feed into a matrix-vector multiplication,
+  while the multiply result also feeds into matrix inversion. The inversion and first
+  mat-vec multiply converge at a final mat-vec multiply, creating complex overlapping
+  diamond structures. The most structurally interesting of the four M-TEC applications."
+domains:
+- edge-computing
+- scientific
+- data-analytics
+provenance:
+  source: "Faithfully extracted from Figure 5 (Application 4: Matrix Operations) of Li et al. (arXiv 2024)"
+  paper_arxiv: "2409.10839"
+  paper_title: "Dynamic DAG-Application Scheduling for Multi-Tier Edge Computing in Heterogeneous Networks"
+  authors:
+  - Xiang Li
+  - Mustafa Abdallah
+  - Yuan-Yao Lou
+  - Mung Chiang
+  - Kwang Taik Kim
+  - Saurabh Bagchi
+  year: 2024
+  figure_or_table: "Figure 5 (Application 4)"
+  extraction_method: manual-figure
+  extractor: claude-opus-4
+  extraction_date: '2026-02-14'
+  notes: "DAG structure faithfully extracted from Figure 5 'DAG-based applications
+    used in the experiments', specifically Application 4 (Matrix Operations). The
+    pipeline loads a matrix, then performs transpose and multiply in parallel. Both
+    results feed into a matrix-vector multiplication, while the multiply also feeds
+    into inversion. The final mat-vec multiply combines inversion and first mat-vec
+    results. This creates overlapping diamond structures making it the most
+    topologically interesting M-TEC app. Task costs are estimated proportional to
+    computational complexity: O(n^3) operations (multiply, inversion) are heaviest,
+    O(n^2) operations (transpose, mat-vec) moderate, I/O lightest. Data transfer
+    sizes estimated from typical matrix dimensions. Evaluated on heterogeneous
+    testbed (Table III). Affiliations: Purdue University."
+license:
+  source_license: "arXiv"
+  dagbench_license: Apache-2.0
+  notes: "DAG structure extracted from published figure under fair use for research benchmarking"
+completeness: structure-and-costs
+cost_model: deterministic
+network:
+  included: true
+  topology: heterogeneous
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 6
+  num_edges: 7
+  depth: 4
+  width: 2
+  ccr: 1.6
+  parallelism: 1.5
+campaign: campaign_003_paper_extraction
+tags:
+- matrix-operations
+- linear-algebra
+- overlapping-diamonds
+- transpose
+- inversion
+- jetson
+- heterogeneous-testbed

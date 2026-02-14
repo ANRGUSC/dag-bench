@@ -1,8 +1,8 @@
 # DAGBench
 
-**A curated task graph benchmark for scheduling research — 88 DAGs across 25 application domains with honest provenance.**
+**A curated task graph benchmark for scheduling research — 95 DAGs across 26 application domains with honest provenance.**
 
-DAGBench provides 88 diverse, well-characterized task graphs (DAGs) from 25 application domains, all in a uniform SAGA-compatible format with full provenance tracking. Every workflow has verified provenance — either genuinely sourced from code repositories, algorithmically generated, faithfully extracted from published paper figures, or clearly labeled as AI-generated with honest attribution. Load any workflow in one line and schedule it with any of SAGA's 17 algorithms.
+DAGBench provides 95 diverse, well-characterized task graphs (DAGs) from 26 application domains, all in a uniform SAGA-compatible format with full provenance tracking. Every workflow has verified provenance — either genuinely sourced from code repositories, algorithmically generated, faithfully extracted from published paper figures, or clearly labeled as AI-generated with honest attribution. Load any workflow in one line and schedule it with any of SAGA's 17 algorithms.
 
 ## Installation
 
@@ -67,12 +67,12 @@ Every workflow in DAGBench has honest, verified provenance. We use four extracti
 
 | Method | Count | Description |
 |--------|-------|-------------|
-| `manual-figure` | 6 | Faithfully extracted from published paper figures with per-task costs from the paper's tables/measurements |
+| `manual-figure` | 13 | Faithfully extracted from published paper figures or open-source simulator code with per-task costs from the source |
 | `programmatic` | 23 | Genuinely sourced from code repositories (RIoTBench from SAGA) or algorithmically generated (classic benchmarks) |
 | `generated` | 5 | Algorithmically generated synthetic patterns (fork-join, stencil, etc.) |
 | `ai-generated` | 54 | AI-generated task graphs inspired by domain literature. Each cites its inspiration source with honest notes explaining the relationship |
 
-The 6 `manual-figure` workflows are faithfully extracted from specific figures in published papers, with task costs derived from the paper's own measurements or proportional estimates. Each workflow's `metadata.yaml` documents exactly which figure was extracted and what assumptions were made.
+The 13 `manual-figure` workflows are faithfully extracted from specific figures in published papers or open-source simulator code, with task costs derived from the source's own measurements or proportional estimates. Each workflow's `metadata.yaml` documents exactly which figure/code was extracted and what assumptions were made.
 
 Workflows labeled `ai-generated` are NOT extracted from paper figures. They are synthetic structures designed to represent typical patterns in their respective domains. Where papers are cited, the `notes` field explains exactly what the paper contains and how the workflow relates to it. No DOI has been fabricated — all cited DOIs have been verified.
 
@@ -80,16 +80,17 @@ Each workflow also includes an HTML documentation page (`docs.html`) with a Merm
 
 ## Workflow Catalog
 
-### By Domain (88 workflows)
+### By Domain (95 workflows)
 
 | Domain | Count | Examples |
 |--------|-------|---------|
 | Classic Benchmarks | 13 | Gaussian elimination, FFT butterfly, LU decomposition, Cholesky, MapReduce |
-| Edge Computing | 11 | SplitStream pipeline, face analysis, Loki traffic, M-TEC LightGBM, ML surveillance, AR pipeline, autonomous driving |
+| Edge Computing | 13 | SplitStream pipeline, face analysis, Loki traffic, M-TEC (LightGBM, video analytics, matrix ops), ML surveillance, AR pipeline |
 | Synthetic Patterns | 11 | Diamond, chain, fork-join, branching, stencil, reduction tree, wide parallel |
 | IoT / Sensor Networks | 6 | RIoTBench (ETL, stats, train, predict), smart grid, predictive maintenance |
 | Scientific Workflows | 6 | Montage, Epigenomics, Seismology, BLAST, SoyKB, BWA alignment |
 | Fog Computing | 6 | Three-tier offload, latency-critical, federated fog, healthcare, content distribution, smart building |
+| MEC (SLEIPNIR) | 5 | Navigator, antivirus, face recognizer, Facebook, chess — from open-source SLEIPNIR simulator |
 | Agriculture IoT | 5 | FlockFocus feeder pipeline, precision irrigation, livestock monitoring, greenhouse, crop disease |
 | Industrial IoT | 5 | Robotic assembly, CNC monitoring, process control, digital twin, energy monitoring |
 | Smart City | 5 | Traffic management, emergency response, waste, air quality, water distribution |
@@ -105,9 +106,9 @@ Each workflow also includes an HTML documentation page (`docs.html`) with a Merm
 
 | Range | Count | Examples |
 |-------|-------|---------|
-| 1-10 tasks | 24 | Loki traffic (3), diamond (4), chain (4-8), FlockFocus feeder (5), SplitStream (6), face analysis (6), M-TEC LightGBM (6), ML surveillance (7), SFC (8) |
+| 1-10 tasks | 30 | Loki traffic (3), diamond (4), chain (4-8), SLEIPNIR antivirus (5), SplitStream (6), M-TEC LightGBM (6), matrix ops (6), video analytics (7), SLEIPNIR navigator (9) |
 | 11-15 tasks | 38 | CNC monitoring (11), crop disease (11), smart grid (10), etc. |
-| 16-20 tasks | 13 | Robotic assembly (16), BLAST-like (19), search rescue (20) |
+| 16-20 tasks | 14 | Robotic assembly (16), BLAST-like (19), search rescue (20), SLEIPNIR chess (20) |
 | 21-40 tasks | 9 | MapReduce (27), Cholesky-5 (35), delivery fleet (24) |
 | 41-64 tasks | 3 | Branching-4x3 (41), Gauss-10 (55), Cholesky-6 (56) |
 | 65+ tasks | 1 | FFT-32 (144) |
@@ -141,6 +142,8 @@ Each workflow also includes an HTML documentation page (`docs.html`) with a Merm
 | edge.loki_traffic_pipeline | 3 | 2 | 1 | 2 | Loki Traffic Analysis Pipeline |
 | edge.ml_surveillance_pipeline | 7 | 6 | 3 | 3 | Multi-Model ML Surveillance Pipeline |
 | edge.mtec_lightgbm | 6 | 8 | 3 | 3 | M-TEC LightGBM Training Pipeline |
+| edge.mtec_matrix_ops | 6 | 7 | 4 | 2 | M-TEC Matrix Operations Pipeline |
+| edge.mtec_video_analytics | 7 | 8 | 5 | 2 | M-TEC Video Analytics Pipeline |
 | edge.smart_home | 12 | 13 | 5 | 4 | Smart Home IoT Pipeline |
 | edge.splitstream_pipeline | 6 | 6 | 3 | 2 | SplitStream Video Query Pipeline |
 | edge.video_transcoding | 14 | 16 | 5 | 4 | Video Transcoding Pipeline |
@@ -162,6 +165,11 @@ Each workflow also includes an HTML documentation page (`docs.html`) with a Merm
 | iot.riotbench_train | 10 | 11 | 8 | 2 | RIoTBench ML Training Pipeline |
 | iot.smart_grid | 10 | 11 | 5 | 4 | Smart Grid Energy Management |
 | mec.face_detection_offload | 9 | 9 | 7 | 2 | MEC Face Detection Offloading |
+| mec.sleipnir_antivirus | 5 | 5 | 4 | 2 | SLEIPNIR Antivirus App |
+| mec.sleipnir_chess | 20 | 19 | 20 | 1 | SLEIPNIR Chess App (5 Moves) |
+| mec.sleipnir_facebook | 7 | 7 | 7 | 1 | SLEIPNIR Facebook App |
+| mec.sleipnir_facerecognizer | 5 | 5 | 5 | 1 | SLEIPNIR Face Recognizer App |
+| mec.sleipnir_navigator | 9 | 13 | 7 | 2 | SLEIPNIR Navigator App |
 | mec.video_analytics | 13 | 14 | 8 | 3 | MEC Video Analytics Pipeline |
 | ml.cnn_inference | 13 | 12 | 13 | 1 | CNN Inference Pipeline |
 | ml.etl_warehouse | 12 | 12 | 8 | 4 | ETL Data Warehouse Pipeline |

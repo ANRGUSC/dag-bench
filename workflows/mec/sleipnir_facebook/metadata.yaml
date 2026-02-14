@@ -1,0 +1,57 @@
+id: mec.sleipnir_facebook
+name: SLEIPNIR Facebook App
+description: "Mobile social media application DAG from the SLEIPNIR offloading simulator
+  (De Maio and Brandic, CCGrid 2018). The GUI fans out to authentication (GET_TOKEN)
+  and API request in parallel, then proceeds through response processing, file upload,
+  image filter application, and final post creation. Near-linear chain with an early
+  fork-join at GUI, 7 tasks total."
+domains:
+- mec
+- edge-computing
+provenance:
+  source: "Faithfully extracted from SLEIPNIR open-source simulator (De Maio and Brandic, CCGrid 2018)"
+  paper_doi: 10.1109/CCGRID.2018.00023
+  paper_title: "First Hop Mobile Offloading of DAG Computations"
+  authors:
+  - Vincenzo De Maio
+  - Ivona Brandic
+  year: 2018
+  figure_or_table: "Source code: FacebookApp.java"
+  repo_url: "https://github.com/vindem/sleipnir"
+  extraction_method: manual-figure
+  extractor: claude-opus-4
+  extraction_date: '2026-02-14'
+  notes: "DAG structure and task computation costs (in MI) faithfully extracted from
+    FacebookApp.java in the SLEIPNIR simulator. GUI, FILE_UPLOAD, and FACEBOOK_POST
+    are non-offloadable. Data transfer sizes are normalized from source code data
+    volumes: image upload/filter edges (facebookImageSize=20KB) mapped to 1000 data
+    units, API control edges mapped to 50 data units, response data to 200 data
+    units, producing a balanced CCR of 1.0. Network is a 3-node MEC topology. MIT
+    licensed source code. Affiliations: TU Wien."
+license:
+  source_license: MIT
+  dagbench_license: Apache-2.0
+  notes: "Extracted from MIT-licensed open-source simulator code"
+completeness: structure-and-costs
+cost_model: deterministic
+network:
+  included: true
+  topology: mec
+  num_nodes_min: 3
+  num_nodes_max: 3
+graph_stats:
+  num_tasks: 7
+  num_edges: 7
+  depth: 7
+  width: 1
+  ccr: 1.0
+  parallelism: 1.0
+campaign: campaign_003_paper_extraction
+tags:
+- social-media
+- mobile-offloading
+- image-filter
+- authentication
+- near-linear
+- sleipnir
+- mec-offloading

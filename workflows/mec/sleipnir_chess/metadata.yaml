@@ -1,0 +1,60 @@
+id: mec.sleipnir_chess
+name: SLEIPNIR Chess App (5 Moves)
+description: "Mobile chess application DAG from the SLEIPNIR offloading simulator
+  (De Maio and Brandic, CCGrid 2018). Models 5 sequential chess moves, each consisting
+  of 4 tasks: UI display, board update, move computation (AI), and output display.
+  The output of each move feeds into the UI of the next move, creating a long linear
+  chain of 20 tasks. The largest SLEIPNIR app by task count, parameterized by
+  chessMovesNum (default 5). Interesting for stress-testing schedulers on long chains."
+domains:
+- mec
+- edge-computing
+provenance:
+  source: "Faithfully extracted from SLEIPNIR open-source simulator (De Maio and Brandic, CCGrid 2018)"
+  paper_doi: 10.1109/CCGRID.2018.00023
+  paper_title: "First Hop Mobile Offloading of DAG Computations"
+  authors:
+  - Vincenzo De Maio
+  - Ivona Brandic
+  year: 2018
+  figure_or_table: "Source code: ChessApp.java"
+  repo_url: "https://github.com/vindem/sleipnir"
+  extraction_method: manual-figure
+  extractor: claude-opus-4
+  extraction_date: '2026-02-14'
+  notes: "DAG structure and task computation costs (in MI) faithfully extracted from
+    ChessApp.java in the SLEIPNIR simulator. Parameterized by chessMovesNum=5 and
+    chessMI=1000 (for COMPUTE_MOVE tasks). CHESS_UI and CHESS_OUTPUT tasks are
+    non-offloadable; UPDATE_CHESS and COMPUTE_MOVE are offloadable. Data transfer
+    sizes use source code outData values directly (all 500 data units), giving a
+    balanced CCR of 1.06. Network is a 3-node MEC topology. The purely linear
+    structure (width=1, parallelism=1.0) with 20 tasks makes this useful for
+    testing scheduler behavior on long sequential chains. MIT licensed source code.
+    Affiliations: TU Wien."
+license:
+  source_license: MIT
+  dagbench_license: Apache-2.0
+  notes: "Extracted from MIT-licensed open-source simulator code"
+completeness: structure-and-costs
+cost_model: deterministic
+network:
+  included: true
+  topology: mec
+  num_nodes_min: 3
+  num_nodes_max: 3
+graph_stats:
+  num_tasks: 20
+  num_edges: 19
+  depth: 20
+  width: 1
+  ccr: 1.0556
+  parallelism: 1.0
+campaign: campaign_003_paper_extraction
+tags:
+- chess
+- mobile-offloading
+- game-ai
+- iterative-chain
+- long-chain
+- sleipnir
+- mec-offloading
