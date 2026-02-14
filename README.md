@@ -78,6 +78,27 @@ Workflows labeled `ai-generated` are NOT extracted from paper figures. They are 
 
 Each workflow also includes an HTML documentation page (`docs.html`) with a Mermaid.js DAG visualization, per-task descriptions, and full provenance details.
 
+### Relationship to SAGA
+
+**10 of 95 workflows** are direct snapshots from SAGA's built-in generators, exported verbatim via `scripts/import_from_saga.py`:
+
+| Workflow ID | SAGA Source |
+|-------------|-------------|
+| `iot.riotbench_etl` | `saga.schedulers.data.riotbench.get_etl_task_graphs()` |
+| `iot.riotbench_stats` | `saga.schedulers.data.riotbench.get_stats_task_graphs()` |
+| `iot.riotbench_train` | `saga.schedulers.data.riotbench.get_train_task_graphs()` |
+| `iot.riotbench_predict` | `saga.schedulers.data.riotbench.get_predict_task_graphs()` |
+| `synthetic.diamond` | `saga.utils.random_graphs.get_diamond_dag()` |
+| `synthetic.chain_4` | `saga.utils.random_graphs.get_chain_dag(4)` |
+| `synthetic.chain_8` | `saga.utils.random_graphs.get_chain_dag(8)` |
+| `synthetic.fork` | `saga.utils.random_graphs.get_fork_dag()` |
+| `synthetic.branching_3x2` | `saga.utils.random_graphs.get_branching_dag(3, 2)` |
+| `synthetic.branching_4x3` | `saga.utils.random_graphs.get_branching_dag(4, 3)` |
+
+These workflows carry `extraction_method: programmatic` in their metadata. If you are benchmarking against SAGA's own schedulers, be aware that these graphs already exist inside SAGA itself.
+
+The 6 `scientific.*_like` workflows (e.g. `scientific.montage_like`, `scientific.epigenomics_like`) share family names with WfCommons/Pegasus but are **independently AI-generated** at different scale and structure -- they are NOT imported from WfCommons or SAGA. See [docs/sources.md](docs/sources.md) for full details.
+
 ## Workflow Catalog
 
 ### By Domain (95 workflows)
@@ -235,6 +256,27 @@ Each workflow consists of:
 }
 ```
 
+## Generators
+
+Generate DAGs programmatically:
+
+```python
+from dagbench.generators import (
+    gaussian_elimination_dag, fft_dag, cholesky_dag,
+    lu_decomposition_dag, mapreduce_dag, random_layered_dag,
+)
+
+# Classic benchmarks
+tg = gaussian_elimination_dag(n=10)
+tg = fft_dag(num_points=64)
+tg = cholesky_dag(n=8)
+
+# Random layered DAG (configurable structure + costs)
+tg = random_layered_dag(depth=6, width_min=3, width_max=8, ccr=0.5, seed=42)
+```
+
+> Backward compat: `from dagbench.converters import gaussian_elimination_dag` still works.
+
 ## Converters
 
 Import DAGs from external formats:
@@ -256,12 +298,6 @@ tg = (DAGBuilder("my_dag")
     .task("A", 10.0).task("B", 20.0).task("C", 15.0)
     .edge("A", "B", 5.0).edge("A", "C", 3.0)
     .build())
-
-# Classic benchmark generators
-from dagbench.converters import gaussian_elimination_dag, fft_dag, cholesky_dag
-tg = gaussian_elimination_dag(n=10)
-tg = fft_dag(num_points=64)
-tg = cholesky_dag(n=8)
 ```
 
 ## Network Presets

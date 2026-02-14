@@ -10,6 +10,23 @@ Master list of all sources used to build the DAGBench workflow collection.
 |--------|------|-----------|---------|
 | [SAGA](https://github.com/anrgusc/saga) (anrg-saga) | Framework | RIoTBench (4), random generators (6) | Non-commercial (USC/ANRG) |
 
+**SAGA-sourced workflows (10 total):** These workflows are direct snapshots from SAGA's built-in generators, exported verbatim via `scripts/import_from_saga.py`. Their task graphs, costs, and edge weights are identical to what SAGA produces at runtime.
+
+| Workflow ID | SAGA Generator Function |
+|-------------|------------------------|
+| `iot.riotbench_etl` | `get_etl_task_graphs()` from `saga.schedulers.data.riotbench` |
+| `iot.riotbench_stats` | `get_stats_task_graphs()` from `saga.schedulers.data.riotbench` |
+| `iot.riotbench_train` | `get_train_task_graphs()` from `saga.schedulers.data.riotbench` |
+| `iot.riotbench_predict` | `get_predict_task_graphs()` from `saga.schedulers.data.riotbench` |
+| `synthetic.diamond` | `get_diamond_dag()` from `saga.utils.random_graphs` |
+| `synthetic.chain_4` | `get_chain_dag(num_nodes=4)` from `saga.utils.random_graphs` |
+| `synthetic.chain_8` | `get_chain_dag(num_nodes=8)` from `saga.utils.random_graphs` |
+| `synthetic.fork` | `get_fork_dag()` from `saga.utils.random_graphs` |
+| `synthetic.branching_3x2` | `get_branching_dag(levels=3, branching_factor=2)` from `saga.utils.random_graphs` |
+| `synthetic.branching_4x3` | `get_branching_dag(levels=4, branching_factor=3)` from `saga.utils.random_graphs` |
+
+**Note on `scientific.*_like` workflows:** The 6 workflows `scientific.montage_like`, `scientific.epigenomics_like`, `scientific.seismology_like`, `scientific.blast_like`, `scientific.soykb_like`, and `scientific.bwa_like` share family names with WfCommons/Pegasus workflow types but are **NOT** imported from WfCommons or SAGA. They are independently AI-generated (`extraction_method: ai-generated`) at different scales and with different structures. The names use the `_like` suffix to make this distinction clear.
+
 ## Papers Cited
 
 All DOIs below have been verified. Papers marked with "(no DAG)" do not contain extractable task dependency graphs — the corresponding workflows are AI-generated structures inspired by the paper's domain.
