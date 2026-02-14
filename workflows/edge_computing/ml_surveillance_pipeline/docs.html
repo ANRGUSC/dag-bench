@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multi-Model ML Surveillance Pipeline - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Multi-Model ML Surveillance Pipeline</h1>
+    <div class="meta">
+        <strong>ID:</strong> edge.ml_surveillance_pipeline &nbsp;|&nbsp;
+        <strong>Domains:</strong> edge-computing, ml-pipeline, mec &nbsp;|&nbsp;
+        <strong>Completeness:</strong> structure-and-costs &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Distributed ML inference pipeline for edge-based video monitoring, faithfully extracted from Figure 1 of Wu et al. (MILCOM 2024). Multi-modal sensors (camera, microphone, seismic) feed two parallel detection-classification branches: vehicle detection (YOLOv4) followed by vehicle classification (EfficientNet/ResNet), and human detection followed by person identification. Deployed across heterogeneous edge servers (Nvidia A2, Orin Nano, GTX 1080).</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    CameraEnc["CameraEnc<br/>cost: 2.0"]
+    AudioEnc["AudioEnc<br/>cost: 1.5"]
+    SeismicEnc["SeismicEnc<br/>cost: 1.5"]
+    VehicleDetect["VehicleDetect<br/>cost: 15.0"]
+    HumanDetect["HumanDetect<br/>cost: 15.0"]
+    VehicleClassify["VehicleClassify<br/>cost: 8.0"]
+    HumanClassify["HumanClassify<br/>cost: 8.0"]
+    CameraEnc -->|"6"| VehicleDetect
+    SeismicEnc -->|"2"| VehicleDetect
+    CameraEnc -->|"6"| HumanDetect
+    AudioEnc -->|"2"| HumanDetect
+    VehicleDetect -->|"3"| VehicleClassify
+    HumanDetect -->|"3"| HumanClassify
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (7)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>CameraEnc</td><td>2.00</td><td>Processing step in edge-computing pipeline</td></tr><tr><td>AudioEnc</td><td>1.50</td><td>Processing step in edge-computing pipeline</td></tr><tr><td>SeismicEnc</td><td>1.50</td><td>Processing step in edge-computing pipeline</td></tr><tr><td>VehicleDetect</td><td>15.00</td><td>Detection / anomaly identification</td></tr><tr><td>HumanDetect</td><td>15.00</td><td>Detection / anomaly identification</td></tr><tr><td>VehicleClassify</td><td>8.00</td><td>Classification / prediction</td></tr><tr><td>HumanClassify</td><td>8.00</td><td>Classification / prediction</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>7</td></tr><tr><td>Edges</td><td>6</td></tr><tr><td>Depth</td><td>3</td></tr><tr><td>Width</td><td>3</td></tr><tr><td>CCR</td><td>0.0000</td></tr><tr><td>Parallelism</td><td>0.0000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">Manually extracted from paper figure</span>
+        <br><br>
+        <strong>Source:</strong> Faithfully extracted from Figure 1 and Section IV of Wu et al. (MILCOM 2024)<br>
+<strong>Paper:</strong> Enhancing Resilience in Distributed ML Inference Pipelines for Edge Computing<br>
+<strong>Authors:</strong> Li Wu, Walid A. Hanafy, Abel Souza, Tarek Abdelzaher, Gunjan Verma, Prashant Shenoy<br>
+<strong>Year:</strong> 2024<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1109/MILCOM61039.2024.10773652" target="_blank">10.1109/MILCOM61039.2024.10773652</a><br>
+<strong>Figure/Table:</strong> Figure 1<br>
+<strong>Extraction Method:</strong> Manually extracted from paper figure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-13<br>
+<strong>Notes:</strong> DAG structure faithfully extracted from Figure 1 (&#x27;Distributed ML Inference Pipelines at the edge&#x27;). The paper describes a video monitoring pipeline using object detection models (YOLOv4) to identify vehicles and people, with downstream classification (EfficientNetB0/B5, ResNet50). The pipeline was profiled on Nvidia A2, Orin Nano, and GTX 1080 GPUs. Task costs are normalized estimates based on the paper&#x27;s description of model computational requirements (YOLOv4 detection is heaviest, classification is moderate, encoding is lightweight). Data transfer sizes are estimated from typical image/feature dimensions. The paper shows end-to-end response times in Figures 4-5 but does not provide per-task cost tables. The multi-modal sensing structure (camera + audio for human detection, camera + seismic for vehicle detection) reflects Section III.A and V of the paper. Network node speeds reflect the three GPU types profiled. Affiliations: UMass Amherst, UC Santa Cruz, UIUC, Army Research Lab.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> mec<br>
+<strong>Nodes:</strong> 7
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">ml-inference</span><span class="badge">multi-model</span><span class="badge">video-analytics</span><span class="badge">surveillance</span><span class="badge">yolov4</span><span class="badge">multi-modal</span><span class="badge">edge-gpu</span><span class="badge">milcom</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; edge.ml_surveillance_pipeline
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>
