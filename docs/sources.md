@@ -23,7 +23,21 @@ All DOIs below have been verified. Papers marked with "(no DAG)" do not contain 
 
 - **RIoTBench**: Shukla, A., Chaturvedi, S., Simmhan, Y. (2017). "RIoTBench: An IoT Benchmark for Distributed Stream Processing Systems." DOI: [10.1109/SC2.2017.42](https://doi.org/10.1109/SC2.2017.42)
 
-### Edge Computing
+### Edge Computing — Paper-Extracted DAGs (manual-figure)
+
+These papers contain explicit DAG figures from which workflows were faithfully extracted:
+
+- **Wu et al. 2024** (Figure 1 → `edge.ml_surveillance_pipeline`): Wu, L., Hanafy, W.A., Souza, A., Abdelzaher, T., Verma, G., Shenoy, P. (2024). "Enhancing Resilience in Distributed ML Inference Pipelines for Edge Computing." *IEEE MILCOM*. DOI: [10.1109/MILCOM61039.2024.10773652](https://doi.org/10.1109/MILCOM61039.2024.10773652)
+- **Liang et al. 2024** (Figure 1, Table 1 → `edge.splitstream_pipeline`): Liang, Y., Zhang, S., Wu, J. (2024). "SplitStream: Distributed and workload-adaptive video analytics at the edge." *J. Network and Computer Applications*. DOI: [10.1016/j.jnca.2024.103866](https://doi.org/10.1016/j.jnca.2024.103866)
+- **Alghareb & Hasan 2025** (Figures 4-5 → `edge.face_analysis_pipeline`): "Pipeline-Parallel Face Analysis System for Edge Computing." *Computers (MDPI)*. DOI: [10.3390/computers14010029](https://doi.org/10.3390/computers14010029)
+- **Romero et al. 2024** (Figure 2(a) → `edge.loki_traffic_pipeline`): Romero, K.K.W. et al. (2024). "Loki: A System for Serving ML Inference Pipelines with Hardware-Aware Scheduling." *HPDC*. DOI: [10.1145/3625549.3658688](https://doi.org/10.1145/3625549.3658688)
+- **Li et al. 2024** (Figure 5 → `edge.mtec_lightgbm`): Li, X., Abdallah, M., Lou, Y.-Y., Chiang, M., Kim, K.T., Bagchi, S. (2024). "Dynamic DAG-Application Scheduling for Multi-Tier Edge Computing in Heterogeneous Networks." arXiv: [2409.10839](https://arxiv.org/abs/2409.10839)
+
+### Agriculture IoT — Paper-Extracted DAGs (manual-figure)
+
+- **Ghafouri et al. 2025** (Figure 1 → `agri.flockfocus_feeder`): Ghafouri, S., Ding, Y., Diaz Chito, K., Martinez del Rincon, J., O'Connell, N., Vandierendonck, H. (2025). "Optimizing Video Analytics Inference Pipelines: A Case Study." arXiv: [2512.07009](https://arxiv.org/abs/2512.07009)
+
+### Edge Computing — Other References
 
 - **Guo et al. 2025** (no DAG match): Guo, K., Wang, H., Chen, G. (2025). "Dependent Task Offloading Model for Mobile Edge Computing." *MDPI Electronics*. DOI: [10.3390/electronics14163184](https://doi.org/10.3390/electronics14163184)
 - **Liu et al. 2022** (no DAG match): Liu, B., Wang, Y., Wang, G., Cai, Z. (2022). "Collaborative Computation and Dependency-Aware Task Offloading for Vehicular Edge Computing." *J. Cloud Computing*. DOI: [10.1186/s13677-022-00340-3](https://doi.org/10.1186/s13677-022-00340-3)

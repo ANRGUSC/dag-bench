@@ -1,0 +1,60 @@
+id: edge.face_analysis_pipeline
+name: Pipeline-Parallel Face Analysis System
+description: "Edge-based face analysis pipeline with pipeline-parallel multi-task
+  learning, faithfully extracted from Figures 4-5 of a Computers (MDPI) 2025 paper.
+  YOLOv8 detects and crops heads, VGG-Face extracts features, then three parallel
+  MTL classification modules (hair, gender, face ID) run on distributed Raspberry
+  Pi edge devices, with results aggregated at a write-back stage. Each MTL module
+  produces two classification outputs (e.g., hair color + hairstyle, gender + smile,
+  face recognition + age estimation)."
+domains:
+- edge-computing
+- ml-pipeline
+- image-processing
+provenance:
+  source: "Faithfully extracted from Figures 4-5 of a Computers (MDPI) 2025 paper on face analysis"
+  paper_doi: 10.3390/computers14010029
+  paper_title: "Pipeline-Parallel Face Analysis System for Edge Computing"
+  year: 2025
+  figure_or_table: "Figures 4, 5"
+  extraction_method: manual-figure
+  extractor: claude-opus-4
+  extraction_date: '2026-02-14'
+  notes: "DAG structure faithfully extracted from Figure 4 (pipeline stages) and
+    Figure 5 (pipeline-parallel architecture). Stage 1: YOLOv8 head detection on
+    edge server. Stage 2: VGG-Face feature extraction on edge server. Stage 3:
+    three parallel MTL classification modules distributed across Raspberry Pi 4
+    devices — HairModule (hair color + hairstyle), GenderModule (gender + smile),
+    FaceIDModule (face recognition + age estimation). Stage 4: write-back aggregation.
+    The paper reports 8.2s total per individual but does not provide per-stage
+    breakdown. Task costs are proportional estimates based on model complexity
+    (YOLOv8 and VGG-Face are heaviest, MTL modules are lighter, write-back is
+    minimal). Data transfer sizes are estimated from typical feature vector dimensions.
+    Network reflects the paper's architecture: Core i5 edge server + 3 RPi 4 devices."
+license:
+  source_license: "MDPI (CC BY 4.0)"
+  dagbench_license: Apache-2.0
+  notes: "DAG structure extracted from published figure under CC BY 4.0 license"
+completeness: structure-and-costs
+cost_model: deterministic
+network:
+  included: true
+  topology: heterogeneous
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 6
+  num_edges: 7
+  depth: 3
+  width: 3
+  ccr: 0.4353
+  parallelism: 2.0
+campaign: campaign_003_paper_extraction
+tags:
+- face-analysis
+- yolov8
+- vgg-face
+- multi-task-learning
+- pipeline-parallel
+- raspberry-pi
+- edge-server

@@ -1,8 +1,8 @@
 # DAGBench
 
-**A curated task graph benchmark for scheduling research — 82 DAGs across 25 application domains with honest provenance.**
+**A curated task graph benchmark for scheduling research — 88 DAGs across 25 application domains with honest provenance.**
 
-DAGBench provides 82 diverse, well-characterized task graphs (DAGs) from 25 application domains, all in a uniform SAGA-compatible format with full provenance tracking. Every workflow has verified provenance — either genuinely sourced from code repositories, algorithmically generated, or clearly labeled as AI-generated with honest attribution. Load any workflow in one line and schedule it with any of SAGA's 17 algorithms.
+DAGBench provides 88 diverse, well-characterized task graphs (DAGs) from 25 application domains, all in a uniform SAGA-compatible format with full provenance tracking. Every workflow has verified provenance — either genuinely sourced from code repositories, algorithmically generated, faithfully extracted from published paper figures, or clearly labeled as AI-generated with honest attribution. Load any workflow in one line and schedule it with any of SAGA's 17 algorithms.
 
 ## Installation
 
@@ -63,13 +63,16 @@ dagbench docs classic.fft_8     # single workflow
 
 ## Provenance Policy
 
-Every workflow in DAGBench has honest, verified provenance. We use three extraction methods:
+Every workflow in DAGBench has honest, verified provenance. We use four extraction methods:
 
 | Method | Count | Description |
 |--------|-------|-------------|
+| `manual-figure` | 6 | Faithfully extracted from published paper figures with per-task costs from the paper's tables/measurements |
 | `programmatic` | 23 | Genuinely sourced from code repositories (RIoTBench from SAGA) or algorithmically generated (classic benchmarks) |
 | `generated` | 5 | Algorithmically generated synthetic patterns (fork-join, stencil, etc.) |
 | `ai-generated` | 54 | AI-generated task graphs inspired by domain literature. Each cites its inspiration source with honest notes explaining the relationship |
+
+The 6 `manual-figure` workflows are faithfully extracted from specific figures in published papers, with task costs derived from the paper's own measurements or proportional estimates. Each workflow's `metadata.yaml` documents exactly which figure was extracted and what assumptions were made.
 
 Workflows labeled `ai-generated` are NOT extracted from paper figures. They are synthetic structures designed to represent typical patterns in their respective domains. Where papers are cited, the `notes` field explains exactly what the paper contains and how the workflow relates to it. No DOI has been fabricated — all cited DOIs have been verified.
 
@@ -77,19 +80,19 @@ Each workflow also includes an HTML documentation page (`docs.html`) with a Merm
 
 ## Workflow Catalog
 
-### By Domain (82 workflows)
+### By Domain (88 workflows)
 
 | Domain | Count | Examples |
 |--------|-------|---------|
 | Classic Benchmarks | 13 | Gaussian elimination, FFT butterfly, LU decomposition, Cholesky, MapReduce |
+| Edge Computing | 11 | SplitStream pipeline, face analysis, Loki traffic, M-TEC LightGBM, ML surveillance, AR pipeline, autonomous driving |
 | Synthetic Patterns | 11 | Diamond, chain, fork-join, branching, stencil, reduction tree, wide parallel |
 | IoT / Sensor Networks | 6 | RIoTBench (ETL, stats, train, predict), smart grid, predictive maintenance |
 | Scientific Workflows | 6 | Montage, Epigenomics, Seismology, BLAST, SoyKB, BWA alignment |
 | Fog Computing | 6 | Three-tier offload, latency-critical, federated fog, healthcare, content distribution, smart building |
-| Edge Computing | 6 | Face recognition, AR pipeline, autonomous driving, smart home, video transcoding, SFC |
+| Agriculture IoT | 5 | FlockFocus feeder pipeline, precision irrigation, livestock monitoring, greenhouse, crop disease |
 | Industrial IoT | 5 | Robotic assembly, CNC monitoring, process control, digital twin, energy monitoring |
 | Smart City | 5 | Traffic management, emergency response, waste, air quality, water distribution |
-| Agriculture IoT | 4 | Precision irrigation, livestock monitoring, greenhouse control, crop disease |
 | V2X / Vehicular | 4 | Cooperative perception, platooning, intersection management, collision avoidance |
 | ML Pipelines | 4 | CNN inference, federated learning, NLP pipeline, ETL warehouse |
 | UAV / Drone | 3 | Search & rescue, precision agriculture, fleet delivery |
@@ -102,7 +105,7 @@ Each workflow also includes an HTML documentation page (`docs.html`) with a Merm
 
 | Range | Count | Examples |
 |-------|-------|---------|
-| 1-10 tasks | 18 | Diamond (4), chain (4-8), face recognition (7), SFC (8) |
+| 1-10 tasks | 24 | Loki traffic (3), diamond (4), chain (4-8), FlockFocus feeder (5), SplitStream (6), face analysis (6), M-TEC LightGBM (6), ML surveillance (7), SFC (8) |
 | 11-15 tasks | 38 | CNC monitoring (11), crop disease (11), smart grid (10), etc. |
 | 16-20 tasks | 13 | Robotic assembly (16), BLAST-like (19), search rescue (20) |
 | 21-40 tasks | 9 | MapReduce (27), Cholesky-5 (35), delivery fleet (24) |
@@ -114,6 +117,7 @@ Each workflow also includes an HTML documentation page (`docs.html`) with a Merm
 | ID | Tasks | Edges | Depth | Width | Name |
 |----|-------|-------|-------|-------|------|
 | agri.crop_disease | 11 | 12 | 7 | 3 | Crop Disease Detection |
+| agri.flockfocus_feeder | 5 | 4 | 3 | 2 | FlockFocus Feeder Monitoring Pipeline |
 | agri.greenhouse_control | 12 | 14 | 5 | 5 | Greenhouse Climate Control |
 | agri.livestock_monitoring | 14 | 13 | 3 | 10 | Livestock Monitoring |
 | agri.precision_irrigation | 14 | 13 | 5 | 9 | Precision Irrigation |
@@ -132,8 +136,13 @@ Each workflow also includes an HTML documentation page (`docs.html`) with a Merm
 | classic.mapreduce_16m_8r | 27 | 48 | 5 | 16 | MapReduce (16 mappers, 8 reducers) |
 | edge.ar_pipeline | 8 | 8 | 6 | 2 | AR Object Detection Pipeline |
 | edge.autonomous_driving | 11 | 10 | 7 | 3 | Autonomous Driving Pipeline |
+| edge.face_analysis_pipeline | 6 | 7 | 3 | 3 | Pipeline-Parallel Face Analysis System |
 | edge.face_recognition | 7 | 7 | 6 | 2 | Face Recognition Pipeline |
+| edge.loki_traffic_pipeline | 3 | 2 | 1 | 2 | Loki Traffic Analysis Pipeline |
+| edge.ml_surveillance_pipeline | 7 | 6 | 3 | 3 | Multi-Model ML Surveillance Pipeline |
+| edge.mtec_lightgbm | 6 | 8 | 3 | 3 | M-TEC LightGBM Training Pipeline |
 | edge.smart_home | 12 | 13 | 5 | 4 | Smart Home IoT Pipeline |
+| edge.splitstream_pipeline | 6 | 6 | 3 | 2 | SplitStream Video Query Pipeline |
 | edge.video_transcoding | 14 | 16 | 5 | 4 | Video Transcoding Pipeline |
 | fog.content_distribution | 10 | 14 | 5 | 4 | Fog Content Distribution |
 | fog.federated_fog | 23 | 26 | 7 | 5 | Federated Fog Learning |

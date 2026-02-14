@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pipeline-Parallel Face Analysis System - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Pipeline-Parallel Face Analysis System</h1>
+    <div class="meta">
+        <strong>ID:</strong> edge.face_analysis_pipeline &nbsp;|&nbsp;
+        <strong>Domains:</strong> edge-computing, ml-pipeline, image-processing &nbsp;|&nbsp;
+        <strong>Completeness:</strong> structure-and-costs &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Edge-based face analysis pipeline with pipeline-parallel multi-task learning, faithfully extracted from Figures 4-5 of a Computers (MDPI) 2025 paper. YOLOv8 detects and crops heads, VGG-Face extracts features, then three parallel MTL classification modules (hair, gender, face ID) run on distributed Raspberry Pi edge devices, with results aggregated at a write-back stage. Each MTL module produces two classification outputs (e.g., hair color + hairstyle, gender + smile, face recognition + age estimation).</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    HeadDetect["HeadDetect<br/>cost: 30.0"]
+    FeatureExtract["FeatureExtract<br/>cost: 25.0"]
+    HairModule["HairModule<br/>cost: 8.0"]
+    GenderModule["GenderModule<br/>cost: 8.0"]
+    FaceIDModule["FaceIDModule<br/>cost: 12.0"]
+    WriteBack["WriteBack<br/>cost: 2.0"]
+    HeadDetect -->|"15"| FeatureExtract
+    FeatureExtract -->|"5"| HairModule
+    FeatureExtract -->|"5"| GenderModule
+    FeatureExtract -->|"8"| FaceIDModule
+    HairModule -->|"1"| WriteBack
+    GenderModule -->|"1"| WriteBack
+    FaceIDModule -->|"2"| WriteBack
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (6)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>HeadDetect</td><td>30.00</td><td>Detection / anomaly identification</td></tr><tr><td>FeatureExtract</td><td>25.00</td><td>Processing step in edge-computing pipeline</td></tr><tr><td>HairModule</td><td>8.00</td><td>Processing step in edge-computing pipeline</td></tr><tr><td>GenderModule</td><td>8.00</td><td>Processing step in edge-computing pipeline</td></tr><tr><td>FaceIDModule</td><td>12.00</td><td>Processing step in edge-computing pipeline</td></tr><tr><td>WriteBack</td><td>2.00</td><td>Data storage / caching</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>6</td></tr><tr><td>Edges</td><td>7</td></tr><tr><td>Depth</td><td>3</td></tr><tr><td>Width</td><td>3</td></tr><tr><td>CCR</td><td>0.4353</td></tr><tr><td>Parallelism</td><td>2.0000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">Manually extracted from paper figure</span>
+        <br><br>
+        <strong>Source:</strong> Faithfully extracted from Figures 4-5 of a Computers (MDPI) 2025 paper on face analysis<br>
+<strong>Paper:</strong> Pipeline-Parallel Face Analysis System for Edge Computing<br>
+<strong>Year:</strong> 2025<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.3390/computers14010029" target="_blank">10.3390/computers14010029</a><br>
+<strong>Figure/Table:</strong> Figures 4, 5<br>
+<strong>Extraction Method:</strong> Manually extracted from paper figure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-14<br>
+<strong>Notes:</strong> DAG structure faithfully extracted from Figure 4 (pipeline stages) and Figure 5 (pipeline-parallel architecture). Stage 1: YOLOv8 head detection on edge server. Stage 2: VGG-Face feature extraction on edge server. Stage 3: three parallel MTL classification modules distributed across Raspberry Pi 4 devices — HairModule (hair color + hairstyle), GenderModule (gender + smile), FaceIDModule (face recognition + age estimation). Stage 4: write-back aggregation. The paper reports 8.2s total per individual but does not provide per-stage breakdown. Task costs are proportional estimates based on model complexity (YOLOv8 and VGG-Face are heaviest, MTL modules are lighter, write-back is minimal). Data transfer sizes are estimated from typical feature vector dimensions. Network reflects the paper&#x27;s architecture: Core i5 edge server + 3 RPi 4 devices.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> heterogeneous<br>
+<strong>Nodes:</strong> 4
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">face-analysis</span><span class="badge">yolov8</span><span class="badge">vgg-face</span><span class="badge">multi-task-learning</span><span class="badge">pipeline-parallel</span><span class="badge">raspberry-pi</span><span class="badge">edge-server</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; edge.face_analysis_pipeline
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

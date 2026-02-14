@@ -1,0 +1,67 @@
+id: agri.flockfocus_feeder
+name: FlockFocus Feeder Monitoring Pipeline
+description: "Video analytics pipeline for automated poultry feeding behavior monitoring,
+  faithfully extracted from Figure 1 of Ghafouri et al. (arXiv 2025). The feeder
+  pipeline detects chickens (UNeXt) and feeders (YOLOX) in parallel, tracks chickens
+  over time via multi-object tracking, analyzes feeding behavior based on spatial
+  proximity to feeders, and estimates bird weights from bounding box dimensions.
+  Deployed on AWS g4dn.2xlarge instances with NVIDIA T4 GPU."
+domains:
+- agriculture-iot
+- ml-pipeline
+provenance:
+  source: "Faithfully extracted from Figure 1 (Feeder pipeline row) of Ghafouri et al. (arXiv 2025)"
+  paper_arxiv: "2512.07009"
+  paper_title: "Optimizing Video Analytics Inference Pipelines: A Case Study"
+  authors:
+  - Saeid Ghafouri
+  - Yuming Ding
+  - Katerine Diaz Chito
+  - "Jes\xFAs Martinez del Rinc\xF3n"
+  - Niamh O'Connell
+  - Hans Vandierendonck
+  year: 2025
+  figure_or_table: "Figure 1 (Feeder pipeline)"
+  extraction_method: manual-figure
+  extractor: claude-opus-4
+  extraction_date: '2026-02-14'
+  notes: "DAG structure faithfully extracted from the Feeder pipeline row of Figure 1
+    ('FlockFocus system architecture and per-zone video pipelines'). The feeder
+    pipeline monitors chicken feeding behavior at commercial poultry farms. Tasks
+    are the processing modules with sharp-cornered boxes in the figure: ChickenDetector
+    (UNeXt segmentation), FeederDetector (YOLOX detection), TrackingAlg (two-stage
+    tracking-by-detection), FeedingAnalysis (feeding behavior classification based
+    on proximity to feeder lines), WeightAnalysis (regression model for weight
+    estimation from bounding box dimensions). Task costs are proportional to
+    processing times reported in the paper: detection ~2000s, tracking ~5000s,
+    behavior analysis ~22000s per 5-minute video on AWS g4dn.2xlarge (NVIDIA T4,
+    16GB VRAM, 8 vCPUs). Data transfer sizes are estimated from intermediate
+    result dimensions. Affiliations: Queen's University Belfast."
+license:
+  source_license: "arXiv (CC BY)"
+  dagbench_license: Apache-2.0
+  notes: "DAG structure extracted from published figure under CC BY license"
+completeness: structure-and-costs
+cost_model: deterministic
+network:
+  included: true
+  topology: heterogeneous
+  num_nodes_min: 3
+  num_nodes_max: 3
+graph_stats:
+  num_tasks: 5
+  num_edges: 4
+  depth: 3
+  width: 2
+  ccr: 0.3492
+  parallelism: 1.6667
+campaign: campaign_003_paper_extraction
+tags:
+- poultry-monitoring
+- video-analytics
+- object-detection
+- tracking
+- behavior-analysis
+- weight-estimation
+- aws-gpu
+- precision-agriculture

@@ -1,0 +1,48 @@
+{
+  "name": "edge.face_analysis_pipeline",
+  "task_graph": {
+    "tasks": [
+      {"name": "HeadDetect", "cost": 30.0},
+      {"name": "FeatureExtract", "cost": 25.0},
+      {"name": "HairModule", "cost": 8.0},
+      {"name": "GenderModule", "cost": 8.0},
+      {"name": "FaceIDModule", "cost": 12.0},
+      {"name": "WriteBack", "cost": 2.0}
+    ],
+    "dependencies": [
+      {"source": "HeadDetect", "target": "FeatureExtract", "size": 15.0},
+      {"source": "FeatureExtract", "target": "HairModule", "size": 5.0},
+      {"source": "FeatureExtract", "target": "GenderModule", "size": 5.0},
+      {"source": "FeatureExtract", "target": "FaceIDModule", "size": 8.0},
+      {"source": "HairModule", "target": "WriteBack", "size": 1.0},
+      {"source": "GenderModule", "target": "WriteBack", "size": 1.0},
+      {"source": "FaceIDModule", "target": "WriteBack", "size": 2.0}
+    ]
+  },
+  "network": {
+    "nodes": [
+      {"name": "EdgeServer", "speed": 10.0},
+      {"name": "RPiEdge1", "speed": 1.0},
+      {"name": "RPiEdge2", "speed": 1.0},
+      {"name": "RPiEdge3", "speed": 1.0}
+    ],
+    "edges": [
+      {"source": "EdgeServer", "target": "RPiEdge1", "speed": 500.0},
+      {"source": "EdgeServer", "target": "RPiEdge2", "speed": 500.0},
+      {"source": "EdgeServer", "target": "RPiEdge3", "speed": 500.0},
+      {"source": "RPiEdge1", "target": "EdgeServer", "speed": 500.0},
+      {"source": "RPiEdge2", "target": "EdgeServer", "speed": 500.0},
+      {"source": "RPiEdge3", "target": "EdgeServer", "speed": 500.0},
+      {"source": "RPiEdge1", "target": "RPiEdge2", "speed": 200.0},
+      {"source": "RPiEdge1", "target": "RPiEdge3", "speed": 200.0},
+      {"source": "RPiEdge2", "target": "RPiEdge1", "speed": 200.0},
+      {"source": "RPiEdge2", "target": "RPiEdge3", "speed": 200.0},
+      {"source": "RPiEdge3", "target": "RPiEdge1", "speed": 200.0},
+      {"source": "RPiEdge3", "target": "RPiEdge2", "speed": 200.0},
+      {"source": "EdgeServer", "target": "EdgeServer", "speed": 1000000000.0},
+      {"source": "RPiEdge1", "target": "RPiEdge1", "speed": 1000000000.0},
+      {"source": "RPiEdge2", "target": "RPiEdge2", "speed": 1000000000.0},
+      {"source": "RPiEdge3", "target": "RPiEdge3", "speed": 1000000000.0}
+    ]
+  }
+}

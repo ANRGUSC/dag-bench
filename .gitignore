@@ -1,0 +1,24 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+*.so
+.mypy_cache/
+
+# Downloaded PDFs (not part of repo)
+*.pdf
+
+# Claude settings
+.claude/
+
+# Windows artifacts
+nul

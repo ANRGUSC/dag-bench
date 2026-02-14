@@ -1,0 +1,57 @@
+{
+  "name": "edge.splitstream_pipeline",
+  "task_graph": {
+    "tasks": [
+      {"name": "ObjectDetection", "cost": 574.0},
+      {"name": "GenderClassifier", "cost": 23.1},
+      {"name": "BehaviourClassifier", "cost": 23.1},
+      {"name": "TypeClassifier", "cost": 45.0},
+      {"name": "MakerClassifier", "cost": 45.0},
+      {"name": "ResultCollector", "cost": 5.0}
+    ],
+    "dependencies": [
+      {"source": "ObjectDetection", "target": "GenderClassifier", "size": 150.0},
+      {"source": "ObjectDetection", "target": "TypeClassifier", "size": 150.0},
+      {"source": "GenderClassifier", "target": "BehaviourClassifier", "size": 10.0},
+      {"source": "TypeClassifier", "target": "MakerClassifier", "size": 10.0},
+      {"source": "BehaviourClassifier", "target": "ResultCollector", "size": 1.0},
+      {"source": "MakerClassifier", "target": "ResultCollector", "size": 1.0}
+    ]
+  },
+  "network": {
+    "nodes": [
+      {"name": "JetsonNano", "speed": 1.0},
+      {"name": "AGXXavier15W", "speed": 4.35},
+      {"name": "AGXXavier30W", "speed": 5.47},
+      {"name": "AGXXavierMAXN", "speed": 8.08},
+      {"name": "E5Server", "speed": 3.63}
+    ],
+    "edges": [
+      {"source": "JetsonNano", "target": "AGXXavier15W", "speed": 1000.0},
+      {"source": "JetsonNano", "target": "AGXXavier30W", "speed": 1000.0},
+      {"source": "JetsonNano", "target": "AGXXavierMAXN", "speed": 1000.0},
+      {"source": "JetsonNano", "target": "E5Server", "speed": 1000.0},
+      {"source": "AGXXavier15W", "target": "JetsonNano", "speed": 1000.0},
+      {"source": "AGXXavier15W", "target": "AGXXavier30W", "speed": 1000.0},
+      {"source": "AGXXavier15W", "target": "AGXXavierMAXN", "speed": 1000.0},
+      {"source": "AGXXavier15W", "target": "E5Server", "speed": 1000.0},
+      {"source": "AGXXavier30W", "target": "JetsonNano", "speed": 1000.0},
+      {"source": "AGXXavier30W", "target": "AGXXavier15W", "speed": 1000.0},
+      {"source": "AGXXavier30W", "target": "AGXXavierMAXN", "speed": 1000.0},
+      {"source": "AGXXavier30W", "target": "E5Server", "speed": 1000.0},
+      {"source": "AGXXavierMAXN", "target": "JetsonNano", "speed": 1000.0},
+      {"source": "AGXXavierMAXN", "target": "AGXXavier15W", "speed": 1000.0},
+      {"source": "AGXXavierMAXN", "target": "AGXXavier30W", "speed": 1000.0},
+      {"source": "AGXXavierMAXN", "target": "E5Server", "speed": 1000.0},
+      {"source": "E5Server", "target": "JetsonNano", "speed": 1000.0},
+      {"source": "E5Server", "target": "AGXXavier15W", "speed": 1000.0},
+      {"source": "E5Server", "target": "AGXXavier30W", "speed": 1000.0},
+      {"source": "E5Server", "target": "AGXXavierMAXN", "speed": 1000.0},
+      {"source": "JetsonNano", "target": "JetsonNano", "speed": 1000000000.0},
+      {"source": "AGXXavier15W", "target": "AGXXavier15W", "speed": 1000000000.0},
+      {"source": "AGXXavier30W", "target": "AGXXavier30W", "speed": 1000000000.0},
+      {"source": "AGXXavierMAXN", "target": "AGXXavierMAXN", "speed": 1000000000.0},
+      {"source": "E5Server", "target": "E5Server", "speed": 1000000000.0}
+    ]
+  }
+}
