@@ -352,7 +352,7 @@ If you use DAGBench in your research, please cite:
 @software{dagbench2026,
   title={DAGBench: A Task Graph Benchmark Repository for Scheduling Research},
   year={2026},
-  url={https://github.com/ANRGUSC/dag-bench}
+  url={https://github.com/ANRGUSC/dagbench}
 }
 ```
 
