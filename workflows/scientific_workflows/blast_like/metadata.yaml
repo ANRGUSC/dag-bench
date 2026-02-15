@@ -1,7 +1,7 @@
 id: scientific.blast_like
 name: BLAST-like Sequence Search Workflow
-description: "Bioinformatics sequence search workflow modeled after BLAST. Split \u2192\
-  \ 5 parallel (format, search, filter) lanes \u2192 merge \u2192 annotate \u2192\
+description: "Bioinformatics sequence search workflow modeled after BLAST. Split ->\
+  \ 5 parallel (format, search, filter) lanes -> merge -> annotate ->\
   \ report."
 domains:
 - scientific

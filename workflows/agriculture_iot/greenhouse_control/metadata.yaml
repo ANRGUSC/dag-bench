@@ -1,7 +1,7 @@
 id: agri.greenhouse_control
 name: Greenhouse Climate Control
-description: Greenhouse control. 5 sensors → climate model → optimize → 4 parallel
-  actuators (HVAC, irrigation, light, CO2) → log.
+description: Greenhouse control. 5 sensors -> climate model -> optimize -> 4 parallel
+  actuators (HVAC, irrigation, light, CO2) -> log.
 domains:
 - agriculture-iot
 - iot

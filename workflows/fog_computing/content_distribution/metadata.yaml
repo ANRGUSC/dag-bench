@@ -1,7 +1,7 @@
 id: fog.content_distribution
 name: Fog Content Distribution
-description: Content distribution. Ingest → 3 parallel transcodes → DRM → 4 regional
-  caches → manifest.
+description: Content distribution. Ingest -> 3 parallel transcodes -> DRM -> 4 regional
+  caches -> manifest.
 domains:
 - fog-computing
 - edge-computing

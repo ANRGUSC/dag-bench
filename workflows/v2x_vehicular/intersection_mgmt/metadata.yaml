@@ -1,7 +1,7 @@
 id: v2x.intersection_mgmt
 name: V2X Intersection Management
-description: "Intersection management. RSU \u2192 4 lanes (detect, track) \u2192 conflict\
-  \ detect \u2192 priority \u2192 timing \u2192 (signal, V2X advise) \u2192 monitor."
+description: "Intersection management. RSU -> 4 lanes (detect, track) -> conflict\
+  \ detect -> priority -> timing -> (signal, V2X advise) -> monitor."
 domains:
 - v2x
 - smart-city
@@ -18,7 +18,7 @@ provenance:
   extraction_date: '2026-02-12'
   notes: "Paper proposes a tile-based reservation protocol for coordinating autonomous
     vehicles through intersections. It does not contain any DAG or task dependency
-    graph — it is a multiagent coordination paper, not a task scheduling paper. This
+    graph -- it is a multiagent coordination paper, not a task scheduling paper. This
     intersection management pipeline is an AI-generated task graph inspired by the
     concepts described in the paper."
 license:

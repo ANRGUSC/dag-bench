@@ -1,7 +1,7 @@
 id: iiot.energy_monitoring
 name: IIoT Factory Energy Monitoring
-description: Factory energy. 8 meters → collect → (baseline, peak detect, forecast)
-  → report.
+description: Factory energy. 8 meters -> collect -> (baseline, peak detect, forecast)
+  -> report.
 domains:
 - industrial-iot
 - iot

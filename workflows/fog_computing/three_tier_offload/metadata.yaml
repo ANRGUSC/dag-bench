@@ -1,8 +1,8 @@
 id: fog.three_tier_offload
 name: Fog Three-Tier Offloading
-description: "Three-tier pipeline. Sensor \u2192 edge (filter, analyze) \u2192 fog\
-  \ (aggregate, ML) \u2192 cloud (store, train) \u2192 model update \u2192 deploy\
-  \ \u2192 monitor \u2192 feedback."
+description: "Three-tier pipeline. Sensor -> edge (filter, analyze) -> fog\
+  \ (aggregate, ML) -> cloud (store, train) -> model update -> deploy\
+  \ -> monitor -> feedback."
 domains:
 - fog-computing
 - edge-computing

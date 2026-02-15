@@ -1,7 +1,7 @@
 id: telecom.sfc_5g
 name: 5G Service Function Chain
-description: "5G network service function chain. Traffic \u2192 DPI \u2192 Firewall\
-  \ \u2192 NAT \u2192 LoadBalancer \u2192 (IDS, CDN) \u2192 Application. Typical NFV\
+description: "5G network service function chain. Traffic -> DPI -> Firewall\
+  \ -> NAT -> LoadBalancer -> (IDS, CDN) -> Application. Typical NFV\
   \ deployment."
 domains:
 - telecom

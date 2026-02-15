@@ -1,7 +1,7 @@
 id: iiot.digital_twin
 name: IIoT Digital Twin Synchronization
-description: "Digital twin. 5 sensors \u2192 edge preprocess \u2192 edge twin \u2192\
-  \ cloud sync \u2192 cloud twin \u2192 (predict, optimize, simulate) \u2192 dashboard."
+description: "Digital twin. 5 sensors -> edge preprocess -> edge twin ->\
+  \ cloud sync -> cloud twin -> (predict, optimize, simulate) -> dashboard."
 domains:
 - industrial-iot
 - edge-computing

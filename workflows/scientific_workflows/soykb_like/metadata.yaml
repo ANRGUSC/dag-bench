@@ -1,7 +1,7 @@
 id: scientific.soykb_like
 name: SoyKB-like Genome Pipeline
-description: Soybean genome processing pipeline. Index → 3 parallel lanes (align,
-  sort, dedup, realign, call) → merge VCF → filter → annotate.
+description: Soybean genome processing pipeline. Index -> 3 parallel lanes (align,
+  sort, dedup, realign, call) -> merge VCF -> filter -> annotate.
 domains:
 - scientific
 - genomics

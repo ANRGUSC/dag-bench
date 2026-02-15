@@ -1,7 +1,7 @@
 id: ml.cnn_inference
 name: CNN Inference Pipeline
 description: 'Convolutional neural network inference pipeline. Sequential layers:
-  preprocessing → conv/pool stages → fully connected → softmax. Represents deep learning
+  preprocessing -> conv/pool stages -> fully connected -> softmax. Represents deep learning
   inference workload.'
 domains:
 - ml-pipeline

@@ -1,7 +1,7 @@
 id: uav.precision_agriculture
 name: UAV Precision Agriculture Survey
-description: "Precision agriculture. Plan \u2192 4 sequential strips (fly, capture)\
-  \ \u2192 mosaic \u2192 (NDVI, stress) \u2192 prescription map."
+description: "Precision agriculture. Plan -> 4 sequential strips (fly, capture)\
+  \ -> mosaic -> (NDVI, stress) -> prescription map."
 domains:
 - uav
 - agriculture-iot

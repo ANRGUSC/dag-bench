@@ -26,7 +26,7 @@ graph_stats:
   num_edges: 0
   depth: 1
   width: 1
-  ccr: null
+  ccr: 0.0
   parallelism: 1.0
 campaign: campaign_005_new_synthetics
 tags:

@@ -1,7 +1,7 @@
 id: ml.etl_warehouse
 name: ETL Data Warehouse Pipeline
-description: Data warehouse ETL pipeline. 4 source extracts → validate → dedup → transform
-  → (load facts, load dims) → index → QA → notify.
+description: Data warehouse ETL pipeline. 4 source extracts -> validate -> dedup -> transform
+  -> (load facts, load dims) -> index -> QA -> notify.
 domains:
 - data-analytics
 provenance:

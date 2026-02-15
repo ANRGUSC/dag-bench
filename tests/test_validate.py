@@ -42,7 +42,7 @@ def _create_valid_workflow(root: Path) -> Path:
         "completeness": "full",
         "cost_model": "deterministic",
         "network": {"included": True, "topology": "fully-connected"},
-        "graph_stats": {"num_tasks": 2, "num_edges": 1, "depth": 2, "width": 1},
+        "graph_stats": {"num_tasks": 2, "num_edges": 1, "depth": 2, "width": 1, "ccr": 0.1667, "parallelism": 1.0},
     }
     with open(wf_dir / "metadata.yaml", "w", encoding="utf-8") as f:
         yaml.dump(metadata, f)
@@ -77,7 +77,7 @@ class TestValidateWorkflow:
         result = validate_workflow(wf_dir)
         assert not result.ok
 
-    def test_stats_mismatch_warning(self, tmp_path):
+    def test_stats_mismatch_error(self, tmp_path):
         wf_dir = _create_valid_workflow(tmp_path)
         # Update metadata with wrong stats
         with open(wf_dir / "metadata.yaml", "r") as f:
@@ -86,5 +86,5 @@ class TestValidateWorkflow:
         with open(wf_dir / "metadata.yaml", "w") as f:
             yaml.dump(meta, f)
         result = validate_workflow(wf_dir)
-        assert len(result.warnings) > 0
-        assert "num_tasks" in result.warnings[0]
+        assert not result.ok
+        assert any("num_tasks" in e for e in result.errors)

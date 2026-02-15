@@ -1,7 +1,7 @@
 id: agri.precision_irrigation
 name: Precision Irrigation
-description: "Precision irrigation. 8 soil sensors + weather \u2192 aggregate \u2192\
-  \ ET calc \u2192 zone calc \u2192 (valve schedule, pump control)."
+description: "Precision irrigation. 8 soil sensors + weather -> aggregate ->\
+  \ ET calc -> zone calc -> (valve schedule, pump control)."
 domains:
 - agriculture-iot
 - iot

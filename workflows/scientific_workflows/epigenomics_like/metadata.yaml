@@ -1,7 +1,7 @@
 id: scientific.epigenomics_like
 name: Epigenomics-like Genome Workflow
-description: "Genome processing workflow modeled after Epigenomics. QC \u2192 4 parallel\
-  \ lanes (filter, convert, map, RC) \u2192 peak calling \u2192 annotation. Bioinformatics\
+description: "Genome processing workflow modeled after Epigenomics. QC -> 4 parallel\
+  \ lanes (filter, convert, map, RC) -> peak calling -> annotation. Bioinformatics\
   \ scatter-gather."
 domains:
 - scientific

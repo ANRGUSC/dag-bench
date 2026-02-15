@@ -1,7 +1,7 @@
 id: ml.nlp_pipeline
 name: NLP Text Analysis Pipeline
-description: Natural language processing pipeline. Text → (tokenize, sentence split)
-  → (POS, NER, sentiment, summary) → entity linking → report.
+description: Natural language processing pipeline. Text -> (tokenize, sentence split)
+  -> (POS, NER, sentiment, summary) -> entity linking -> report.
 domains:
 - ml-pipeline
 - data-analytics

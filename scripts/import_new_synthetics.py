@@ -26,6 +26,17 @@ WORKFLOWS_DIR = PROJECT_ROOT / "workflows"
 TODAY = date.today().isoformat()
 
 
+def _preflight():
+    """Validate all imports and prerequisites before writing any files."""
+    from dagbench.converters.manual import DAGBuilder  # noqa: F401
+    from dagbench.generators.random_dag import random_layered_dag  # noqa: F401
+    from dagbench.networks import homogeneous_network  # noqa: F401
+    assert WORKFLOWS_DIR.exists(), f"Missing: {WORKFLOWS_DIR}"
+
+
+_preflight()
+
+
 def _save_workflow(wf_dir: Path, instance: ProblemInstance, metadata: dict) -> None:
     wf_dir.mkdir(parents=True, exist_ok=True)
     raw = json.loads(instance.model_dump_json(indent=2))
@@ -71,8 +82,8 @@ def _make_metadata(wf_id, name, description, task_graph, tags=None):
             "num_edges": stats.num_edges,
             "depth": stats.depth,
             "width": stats.width,
-            "ccr": round(stats.ccr, 4) if stats.ccr else None,
-            "parallelism": round(stats.parallelism, 4) if stats.parallelism else None,
+            "ccr": round(stats.ccr, 4) if stats.ccr is not None else None,
+            "parallelism": round(stats.parallelism, 4) if stats.parallelism is not None else None,
         },
         "campaign": "campaign_005_new_synthetics",
         "tags": tags,

@@ -1,8 +1,8 @@
 id: uav.search_rescue
 name: UAV Search and Rescue Coordination
-description: "Search and rescue with 3 drones. Command \u2192 3 parallel drone chains\
-  \ (launch, search, detect, classify, report) \u2192 fuse \u2192 rank \u2192 plan\
-  \ \u2192 dispatch."
+description: "Search and rescue with 3 drones. Command -> 3 parallel drone chains\
+  \ (launch, search, detect, classify, report) -> fuse -> rank -> plan\
+  \ -> dispatch."
 domains:
 - uav
 - edge-computing

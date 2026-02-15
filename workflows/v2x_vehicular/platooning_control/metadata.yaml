@@ -1,7 +1,7 @@
 id: v2x.platooning_control
 name: V2X Truck Platooning Control
-description: "Truck platooning. Leader sense \u2192 plan \u2192 broadcast \u2192 3\
-  \ followers (receive, adapt, control) \u2192 coordinate."
+description: "Truck platooning. Leader sense -> plan -> broadcast -> 3\
+  \ followers (receive, adapt, control) -> coordinate."
 domains:
 - v2x
 - cyber-physical

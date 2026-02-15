@@ -1,7 +1,7 @@
 id: synthetic.wide_parallel_20
 name: Wide Parallel DAG (20 workers)
-description: "Embarrassingly parallel pattern: source \u2192 20 independent workers\
-  \ \u2192 sink. Maximum parallelism, no inter-task communication."
+description: "Embarrassingly parallel pattern: source -> 20 independent workers\
+  \ -> sink. Maximum parallelism, no inter-task communication."
 domains:
 - synthetic
 provenance:

@@ -1,7 +1,7 @@
 id: tactical.isr_pipeline
 name: Tactical ISR Processing
-description: ISR pipeline. 3 collection channels (SIGINT, IMINT, HUMINT) → process
-  → multi-fuse → (target ID, threat) → nominate → approve → disseminate → BDA.
+description: ISR pipeline. 3 collection channels (SIGINT, IMINT, HUMINT) -> process
+  -> multi-fuse -> (target ID, threat) -> nominate -> approve -> disseminate -> BDA.
 domains:
 - tactical
 - manet

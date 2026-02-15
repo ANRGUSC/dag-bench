@@ -1,7 +1,7 @@
 id: iiot.process_control
 name: IIoT Chemical Process Control
-description: "Chemical process. 5 sensors \u2192 process model \u2192 3 PID controllers\
-  \ \u2192 cascade control \u2192 (valve, safety interlock)."
+description: "Chemical process. 5 sensors -> process model -> 3 PID controllers\
+  \ -> cascade control -> (valve, safety interlock)."
 domains:
 - industrial-iot
 - cyber-physical

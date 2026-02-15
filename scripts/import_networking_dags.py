@@ -56,8 +56,8 @@ def _meta(wf_id, name, desc, domains, tg, prov, tags=None, net_topo="fully-conne
         "graph_stats": {
             "num_tasks": stats.num_tasks, "num_edges": stats.num_edges,
             "depth": stats.depth, "width": stats.width,
-            "ccr": round(stats.ccr, 4) if stats.ccr else None,
-            "parallelism": round(stats.parallelism, 4) if stats.parallelism else None,
+            "ccr": round(stats.ccr, 4) if stats.ccr is not None else None,
+            "parallelism": round(stats.parallelism, 4) if stats.parallelism is not None else None,
         },
         "campaign": CAMPAIGN, "tags": tags,
     }

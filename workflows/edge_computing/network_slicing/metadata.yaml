@@ -1,7 +1,7 @@
 id: telecom.network_slicing
 name: 5G Network Slicing Orchestration
-description: Network slice provisioning workflow. Request → check → admit → deploy
-  VNFs[3] → chain → (QoS, monitor) → activate. Orchestration of 5G network slice lifecycle.
+description: Network slice provisioning workflow. Request -> check -> admit -> deploy
+  VNFs[3] -> chain -> (QoS, monitor) -> activate. Orchestration of 5G network slice lifecycle.
 domains:
 - telecom
 - 5g

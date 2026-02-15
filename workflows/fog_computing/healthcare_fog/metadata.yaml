@@ -1,7 +1,7 @@
 id: fog.healthcare_fog
 name: Fog Healthcare Monitoring
-description: "Healthcare fog. 9 sensors \u2192 3 patient edges \u2192 fog (analyze,\
-  \ alert) \u2192 cloud (store, analytics) + doctor notify."
+description: "Healthcare fog. 9 sensors -> 3 patient edges -> fog (analyze,\
+  \ alert) -> cloud (store, analytics) + doctor notify."
 domains:
 - fog-computing
 - iot

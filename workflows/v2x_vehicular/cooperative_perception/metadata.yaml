@@ -1,8 +1,8 @@
 id: v2x.cooperative_perception
 name: V2X Cooperative Perception
-description: "V2X cooperative perception. 3 vehicles (camera+lidar\u2192fuse) \u2192\
-  \ V2X exchange \u2192 global fuse \u2192 object list \u2192 threat \u2192 path plan\
-  \ \u2192 control."
+description: "V2X cooperative perception. 3 vehicles (camera+lidar->fuse) ->\
+  \ V2X exchange -> global fuse -> object list -> threat -> path plan\
+  \ -> control."
 domains:
 - v2x
 - edge-computing

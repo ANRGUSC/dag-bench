@@ -1,7 +1,7 @@
 id: smart_city.air_quality
 name: Air Quality Monitoring
-description: "Air quality. 5 stations (sense, calibrate) \u2192 aggregate \u2192 (AQI\
-  \ calc, source attribution, health impact) \u2192 alert."
+description: "Air quality. 5 stations (sense, calibrate) -> aggregate -> (AQI\
+  \ calc, source attribution, health impact) -> alert."
 domains:
 - smart-city
 - iot

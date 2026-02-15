@@ -40,5 +40,8 @@ dagbench = "dagbench.cli:main"
 [tool.hatch.build.targets.wheel]
 packages = ["src/dagbench"]
 
+[tool.hatch.build.targets.wheel.force-include]
+"workflows" = "dagbench/workflows"
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]

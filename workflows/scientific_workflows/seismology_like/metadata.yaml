@@ -1,7 +1,7 @@
 id: scientific.seismology_like
 name: Seismology-like Hazard Workflow
-description: Earthquake hazard characterization workflow. Site info → extract SGTs[3]
-  → synthesis[3x3] → peak values → hazard curve → hazard map. CyberShake-inspired.
+description: Earthquake hazard characterization workflow. Site info -> extract SGTs[3]
+  -> synthesis[3x3] -> peak values -> hazard curve -> hazard map. CyberShake-inspired.
 domains:
 - scientific
 - seismology
@@ -11,14 +11,13 @@ provenance:
   authors:
   - Philip Maechling
   - Ewa Deelman
-  - et al.
   year: 2015
   extraction_method: ai-generated
   extractor: claude-opus-4
   extraction_date: '2026-02-12'
-  notes: Paper/standard describes a scientific computing system but contains no explicit
+  notes: 'Paper/standard describes a scientific computing system but contains no explicit
     DAG figure. Task graph is an AI interpretation of the architecture described in
-    the text.
+    the text. Author list is partial; full author list not yet verified.'
 license:
   source_license: Apache-2.0
   dagbench_license: Apache-2.0

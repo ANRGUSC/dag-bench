@@ -1,7 +1,7 @@
 id: iiot.cnc_monitoring
 name: IIoT CNC Machine Monitoring
-description: "CNC monitoring. 4 sensors \u2192 collect \u2192 (tool wear, chatter,\
-  \ thermal) \u2192 adaptive control \u2192 (feed rate, alert)."
+description: "CNC monitoring. 4 sensors -> collect -> (tool wear, chatter,\
+  \ thermal) -> adaptive control -> (feed rate, alert)."
 domains:
 - industrial-iot
 - cyber-physical

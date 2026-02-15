@@ -1,7 +1,7 @@
 id: fog.federated_fog
 name: Federated Fog Learning
-description: Federated learning on fog. Global init → 5 fog nodes (data prep, train,
-  eval, upload) → aggregate → global update.
+description: Federated learning on fog. Global init -> 5 fog nodes (data prep, train,
+  eval, upload) -> aggregate -> global update.
 domains:
 - fog-computing
 - ml-pipeline

@@ -1,7 +1,7 @@
 id: iiot.robotic_assembly
 name: IIoT Robotic Assembly Coordination
-description: "Robotic assembly. Order \u2192 3 robots (fetch, position, check) \u2192\
-  \ 3 sequential assembly steps \u2192 inspect \u2192 package \u2192 log."
+description: "Robotic assembly. Order -> 3 robots (fetch, position, check) ->\
+  \ 3 sequential assembly steps -> inspect -> package -> log."
 domains:
 - industrial-iot
 - cyber-physical

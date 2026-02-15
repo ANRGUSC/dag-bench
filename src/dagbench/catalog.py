@@ -1,6 +1,7 @@
 """Auto-discovers workflows and provides search/filter capabilities."""
 from __future__ import annotations
 
+import logging
 from pathlib import Path
 from typing import List, Optional
 
@@ -8,9 +9,19 @@ import yaml
 
 from dagbench.schema import Domain, WorkflowMetadata
 
+logger = logging.getLogger(__name__)
+
 
 def _get_workflows_dir() -> Path:
-    """Return the workflows/ directory path."""
+    """Return the workflows/ directory path.
+
+    Checks both installed package location and source checkout location.
+    """
+    # Installed package location (via force-include in pyproject.toml)
+    pkg_dir = Path(__file__).resolve().parent / "workflows"
+    if pkg_dir.exists():
+        return pkg_dir
+    # Source checkout location (development mode)
     return Path(__file__).resolve().parent.parent.parent / "workflows"
 
 
@@ -28,7 +39,7 @@ def get_workflow_path(workflow_id: str, workflows_dir: Optional[Path] = None) ->
     """Look up a workflow directory by its metadata ID.
 
     Args:
-        workflow_id: The workflow's unique ID (e.g. 'iot.etl_pipeline')
+        workflow_id: The workflow's unique ID (e.g. 'iot.riotbench_etl')
         workflows_dir: Override the default workflows/ directory
 
     Returns:
@@ -41,7 +52,8 @@ def get_workflow_path(workflow_id: str, workflows_dir: Optional[Path] = None) ->
                 raw = yaml.safe_load(f)
             if raw.get("id") == workflow_id:
                 return d
-        except Exception:
+        except Exception as e:
+            logger.warning(f"Skipping {meta_path}: {e}")
             continue
     return None
 
@@ -55,7 +67,8 @@ def list_workflows(workflows_dir: Optional[Path] = None) -> List[WorkflowMetadat
             with open(meta_path, "r", encoding="utf-8") as f:
                 raw = yaml.safe_load(f)
             results.append(WorkflowMetadata.model_validate(raw))
-        except Exception:
+        except Exception as e:
+            logger.warning(f"Skipping {meta_path}: {e}")
             continue
     return results
 

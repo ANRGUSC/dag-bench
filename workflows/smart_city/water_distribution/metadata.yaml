@@ -1,6 +1,6 @@
 id: smart_city.water_distribution
 name: Water Distribution Network
-description: Water distribution. 6 sensor pairs (read, validate) → SCADA collect →
+description: Water distribution. 6 sensor pairs (read, validate) -> SCADA collect ->
   (leak detect, pressure optimize, quality check).
 domains:
 - smart-city

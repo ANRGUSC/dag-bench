@@ -1,7 +1,7 @@
 id: edge.video_transcoding
 name: Video Transcoding Pipeline
 description: 'Video transcoding with 4 parallel GOP (Group of Pictures) processing
-  lanes. Each GOP: decode → resize → encode. Classic data-parallel edge workload.'
+  lanes. Each GOP: decode -> resize -> encode. Classic data-parallel edge workload.'
 domains:
 - edge-computing
 - data-analytics

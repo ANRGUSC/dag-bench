@@ -1,7 +1,7 @@
 id: agri.crop_disease
 name: Crop Disease Detection
-description: "Crop disease. Capture \u2192 preprocess \u2192 3 feature extractors\
-  \ \u2192 fuse \u2192 classify \u2192 severity \u2192 (treatment, alert, map)."
+description: "Crop disease. Capture -> preprocess -> 3 feature extractors\
+  \ -> fuse -> classify -> severity -> (treatment, alert, map)."
 domains:
 - agriculture-iot
 - ml-pipeline

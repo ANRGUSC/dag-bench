@@ -1,7 +1,7 @@
 id: fog.latency_critical
 name: Fog Latency-Critical Processing
-description: "Latency-critical fog pipeline. Sense \u2192 edge preproc \u2192 edge\
-  \ infer \u2192 fog validate \u2192 fog enrich \u2192 decide \u2192 (actuate, log)."
+description: "Latency-critical fog pipeline. Sense -> edge preproc -> edge\
+  \ infer -> fog validate -> fog enrich -> decide -> (actuate, log)."
 domains:
 - fog-computing
 - edge-computing

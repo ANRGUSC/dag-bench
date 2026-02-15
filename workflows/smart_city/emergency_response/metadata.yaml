@@ -1,7 +1,7 @@
 id: smart_city.emergency_response
 name: Emergency Response Coordination
-description: Emergency response. Detect → (classify, locate) → 3 dispatch services
-  → route calc → coordinate → (traffic clear, notify).
+description: Emergency response. Detect -> (classify, locate) -> 3 dispatch services
+  -> route calc -> coordinate -> (traffic clear, notify).
 domains:
 - smart-city
 - edge-computing

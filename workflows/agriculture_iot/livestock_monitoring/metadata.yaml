@@ -1,6 +1,6 @@
 id: agri.livestock_monitoring
 name: Livestock Monitoring
-description: Livestock monitoring. 10 animal sensors → collect → (herd analytics,
+description: Livestock monitoring. 10 animal sensors -> collect -> (herd analytics,
   health alert, location track).
 domains:
 - agriculture-iot

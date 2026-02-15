@@ -1,7 +1,7 @@
 id: nfv.ue_attach
 name: 5G UE Attach Procedure
-description: 5G attach. UE → AMF → (AUSF, UDM, NRF, NSSF) → AMF context → SMF → UPF
-  → (QoS, gNB) → complete.
+description: 5G attach. UE -> AMF -> (AUSF, UDM, NRF, NSSF) -> AMF context -> SMF -> UPF
+  -> (QoS, gNB) -> complete.
 domains:
 - nfv
 - telecom

@@ -1,7 +1,7 @@
 id: scientific.montage_like
 name: Montage-like Astronomy Workflow
 description: 'Astronomy image mosaic workflow modeled after Montage. Stages: project[6]
-  → diff_fit[3] → concat → bg_model → background[6] → add → shrink. Scatter-gather
+  -> diff_fit[3] -> concat -> bg_model -> background[6] -> add -> shrink. Scatter-gather
   pattern.'
 domains:
 - scientific

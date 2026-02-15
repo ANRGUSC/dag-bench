@@ -1,7 +1,7 @@
 id: smart_city.traffic_mgmt
 name: Smart City Traffic Management
-description: "Traffic management. 6 camera feeds \u2192 count \u2192 fuse \u2192 predict\
-  \ \u2192 optimize signals \u2192 (deploy, dashboard)."
+description: "Traffic management. 6 camera feeds -> count -> fuse -> predict\
+  \ -> optimize signals -> (deploy, dashboard)."
 domains:
 - smart-city
 - edge-computing

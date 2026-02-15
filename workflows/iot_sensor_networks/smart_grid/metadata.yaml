@@ -1,7 +1,7 @@
 id: iot.smart_grid
 name: Smart Grid Energy Management
-description: Smart grid energy optimization. 4 forecasts → optimize → (battery, dispatch,
-  pricing → demand response) → monitor.
+description: Smart grid energy optimization. 4 forecasts -> optimize -> (battery, dispatch,
+  pricing -> demand response) -> monitor.
 domains:
 - iot
 - cyber-physical

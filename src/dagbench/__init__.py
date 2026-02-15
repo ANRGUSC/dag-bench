@@ -7,7 +7,7 @@ Usage:
     dagbench.list_workflows()
 
     # Load a specific workflow as a SAGA ProblemInstance
-    instance = dagbench.load_workflow("iot.etl_pipeline")
+    instance = dagbench.load_workflow("iot.riotbench_etl")
 
     # Search workflows by domain
     dagbench.search(domain="iot")

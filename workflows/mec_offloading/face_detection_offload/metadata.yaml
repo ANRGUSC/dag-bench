@@ -1,7 +1,7 @@
 id: mec.face_detection_offload
 name: MEC Face Detection Offloading
-description: "Face detection pipeline offloaded to MEC. Camera \u2192 preprocess \u2192\
-  \ detect \u2192 (landmark, feature) \u2192 (align, encode) \u2192 match \u2192 result."
+description: "Face detection pipeline offloaded to MEC. Camera -> preprocess ->\
+  \ detect -> (landmark, feature) -> (align, encode) -> match -> result."
 domains:
 - mec
 - edge-computing

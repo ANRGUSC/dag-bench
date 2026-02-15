@@ -1,7 +1,7 @@
 id: tactical.mesh_routing
 name: MANET Mesh Routing Protocol
-description: OLSR-like mesh routing. Hello → neighbor discover → MPR select → topology
-  build → route calc → 4 forwarding tables → maintenance.
+description: OLSR-like mesh routing. Hello -> neighbor discover -> MPR select -> topology
+  build -> route calc -> 4 forwarding tables -> maintenance.
 domains:
 - manet
 - wireless

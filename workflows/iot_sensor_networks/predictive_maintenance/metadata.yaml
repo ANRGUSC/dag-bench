@@ -1,7 +1,7 @@
 id: iot.predictive_maintenance
 name: Industrial Predictive Maintenance
-description: IIoT predictive maintenance. 5 sensors → fusion → (FFT, stat, time features)
-  → concat → (ML predict, RUL estimate) → maintenance schedule.
+description: IIoT predictive maintenance. 5 sensors -> fusion -> (FFT, stat, time features)
+  -> concat -> (ML predict, RUL estimate) -> maintenance schedule.
 domains:
 - iot
 - edge-computing

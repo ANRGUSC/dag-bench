@@ -1,7 +1,7 @@
 id: scientific.bwa_like
 name: BWA-like Alignment Workflow
-description: DNA sequence alignment workflow. Split → 4 parallel (BWA align, sort)
-  → merge BAM → mark duplicates → base recalibration → final BAM.
+description: DNA sequence alignment workflow. Split -> 4 parallel (BWA align, sort)
+  -> merge BAM -> mark duplicates -> base recalibration -> final BAM.
 domains:
 - scientific
 - genomics

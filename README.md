@@ -1,8 +1,8 @@
 # DAGBench
 
-**A curated task graph benchmark for scheduling research — 107 DAGs across 26 application domains with honest provenance.**
+**A curated task graph benchmark for scheduling research — 107 DAGs across 25 application domains with honest provenance.**
 
-DAGBench provides 107 diverse, well-characterized task graphs (DAGs) from 26 application domains, all in a uniform SAGA-compatible format with full provenance tracking. Every workflow has verified provenance — either genuinely sourced from code repositories, algorithmically generated, faithfully extracted from published paper figures, or clearly labeled as AI-generated with honest attribution. Load any workflow in one line and schedule it with any of SAGA's 17 algorithms.
+DAGBench provides 107 diverse, well-characterized task graphs (DAGs) from 25 application domains, all in a uniform SAGA-compatible format with full provenance tracking. Every workflow has verified provenance — either genuinely sourced from code repositories, algorithmically generated, faithfully extracted from published paper figures, or clearly labeled as AI-generated with honest attribution. Load any workflow in one line and schedule it with any of SAGA's 17 algorithms.
 
 ## Installation
 
@@ -140,7 +140,7 @@ The 6 `scientific.*_like` workflows (e.g. `scientific.montage_like`, `scientific
 | ID | Tasks | Edges | Depth | Width | Name |
 |----|-------|-------|-------|-------|------|
 | agri.crop_disease | 11 | 12 | 7 | 3 | Crop Disease Detection |
-| agri.flockfocus_feeder | 5 | 4 | 3 | 2 | FlockFocus Feeder Monitoring Pipeline |
+| agri.flockfocus_feeder | 5 | 4 | 4 | 2 | FlockFocus Feeder Monitoring Pipeline |
 | agri.greenhouse_control | 12 | 14 | 5 | 5 | Greenhouse Climate Control |
 | agri.livestock_monitoring | 14 | 13 | 3 | 10 | Livestock Monitoring |
 | agri.precision_irrigation | 14 | 13 | 5 | 9 | Precision Irrigation |
@@ -159,15 +159,15 @@ The 6 `scientific.*_like` workflows (e.g. `scientific.montage_like`, `scientific
 | classic.mapreduce_16m_8r | 27 | 48 | 5 | 16 | MapReduce (16 mappers, 8 reducers) |
 | edge.ar_pipeline | 8 | 8 | 6 | 2 | AR Object Detection Pipeline |
 | edge.autonomous_driving | 11 | 10 | 7 | 3 | Autonomous Driving Pipeline |
-| edge.face_analysis_pipeline | 6 | 7 | 3 | 3 | Pipeline-Parallel Face Analysis System |
+| edge.face_analysis_pipeline | 6 | 7 | 4 | 3 | Pipeline-Parallel Face Analysis System |
 | edge.face_recognition | 7 | 7 | 6 | 2 | Face Recognition Pipeline |
-| edge.loki_traffic_pipeline | 3 | 2 | 1 | 2 | Loki Traffic Analysis Pipeline |
+| edge.loki_traffic_pipeline | 3 | 2 | 2 | 2 | Loki Traffic Analysis Pipeline |
 | edge.ml_surveillance_pipeline | 7 | 6 | 3 | 3 | Multi-Model ML Surveillance Pipeline |
-| edge.mtec_lightgbm | 6 | 8 | 3 | 3 | M-TEC LightGBM Training Pipeline |
+| edge.mtec_lightgbm | 6 | 8 | 4 | 3 | M-TEC LightGBM Training Pipeline |
 | edge.mtec_matrix_ops | 6 | 7 | 4 | 2 | M-TEC Matrix Operations Pipeline |
 | edge.mtec_video_analytics | 7 | 8 | 5 | 2 | M-TEC Video Analytics Pipeline |
 | edge.smart_home | 12 | 13 | 5 | 4 | Smart Home IoT Pipeline |
-| edge.splitstream_pipeline | 6 | 6 | 3 | 2 | SplitStream Video Query Pipeline |
+| edge.splitstream_pipeline | 6 | 6 | 4 | 2 | SplitStream Video Query Pipeline |
 | edge.video_transcoding | 14 | 16 | 5 | 4 | Video Transcoding Pipeline |
 | fog.content_distribution | 10 | 14 | 5 | 4 | Fog Content Distribution |
 | fog.federated_fog | 23 | 26 | 7 | 5 | Federated Fog Learning |
@@ -352,7 +352,7 @@ If you use DAGBench in your research, please cite:
 @software{dagbench2026,
   title={DAGBench: A Task Graph Benchmark Repository for Scheduling Research},
   year={2026},
-  url={https://github.com/dagbench/dagbench}
+  url={https://github.com/ANRGUSC/dag-bench}
 }
 ```
 

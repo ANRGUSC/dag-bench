@@ -1,7 +1,7 @@
 id: smart_city.waste_mgmt
 name: IoT Waste Management
-description: Waste management. 8 bin sensors → collect → fill predict → route optimize
-  → assign trucks → schedule → notify.
+description: Waste management. 8 bin sensors -> collect -> fill predict -> route optimize
+  -> assign trucks -> schedule -> notify.
 domains:
 - smart-city
 - iot

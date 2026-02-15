@@ -1,7 +1,7 @@
 id: tactical.situational_awareness
 name: Tactical COP Situational Awareness
-description: Common Operating Picture. 4 teams (sense, report) → force track → (enemy,
-  terrain, weather) → COP build → (distribute, archive).
+description: Common Operating Picture. 4 teams (sense, report) -> force track -> (enemy,
+  terrain, weather) -> COP build -> (distribute, archive).
 domains:
 - tactical
 - manet

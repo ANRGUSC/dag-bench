@@ -1,7 +1,7 @@
 id: v2x.collision_avoidance
 name: V2X Collision Avoidance System
-description: Collision avoidance. (Radar, V2X BSM) → process → fusion → threat → decision
-  → (brake, steer, alert).
+description: Collision avoidance. (Radar, V2X BSM) -> process -> fusion -> threat -> decision
+  -> (brake, steer, alert).
 domains:
 - v2x
 - cyber-physical

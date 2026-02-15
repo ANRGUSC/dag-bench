@@ -1,7 +1,7 @@
 id: mec.video_analytics
 name: MEC Video Analytics Pipeline
-description: "Video analytics on MEC. Ingest \u2192 decode \u2192 sample \u2192 3\
-  \ parallel detectors \u2192 3 trackers \u2192 fuse \u2192 behavior \u2192 (alert,\
+description: "Video analytics on MEC. Ingest -> decode -> sample -> 3\
+  \ parallel detectors -> 3 trackers -> fuse -> behavior -> (alert,\
   \ dashboard)."
 domains:
 - mec

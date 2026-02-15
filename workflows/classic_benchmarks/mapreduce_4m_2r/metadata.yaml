@@ -1,7 +1,7 @@
 id: classic.mapreduce_4m_2r
 name: MapReduce (4 mappers, 2 reducers)
-description: "Small MapReduce pattern. Split \u2192 Map[4] \u2192 Shuffle \u2192 Reduce[2]\
-  \ \u2192 Merge."
+description: "Small MapReduce pattern. Split -> Map[4] -> Shuffle -> Reduce[2]\
+  \ -> Merge."
 domains:
 - classic-benchmark
 - data-analytics

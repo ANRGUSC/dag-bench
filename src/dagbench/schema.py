@@ -109,23 +109,23 @@ class NetworkInfo(BaseModel):
     """Information about the network topology included with the workflow."""
     included: bool = Field(description="Whether a network definition is included")
     topology: Optional[NetworkTopology] = Field(default=None, description="Type of network topology")
-    num_nodes_min: Optional[int] = Field(default=None, description="Minimum number of network nodes")
-    num_nodes_max: Optional[int] = Field(default=None, description="Maximum number of network nodes")
+    num_nodes_min: Optional[int] = Field(default=None, ge=0, description="Minimum number of network nodes")
+    num_nodes_max: Optional[int] = Field(default=None, ge=0, description="Maximum number of network nodes")
 
 
 class GraphStats(BaseModel):
     """Auto-computed graph statistics."""
-    num_tasks: int = Field(description="Number of tasks (nodes)")
-    num_edges: int = Field(description="Number of dependencies (edges)")
-    depth: int = Field(description="Length of longest path (critical path depth)")
-    width: int = Field(description="Maximum number of tasks at any level")
-    ccr: Optional[float] = Field(default=None, description="Communication-to-Computation Ratio")
-    parallelism: Optional[float] = Field(default=None, description="Average parallelism (num_tasks / depth)")
+    num_tasks: int = Field(ge=0, description="Number of tasks (nodes)")
+    num_edges: int = Field(ge=0, description="Number of dependencies (edges)")
+    depth: int = Field(ge=0, description="Length of longest path (critical path depth)")
+    width: int = Field(ge=0, description="Maximum number of tasks at any level")
+    ccr: Optional[float] = Field(default=None, ge=0, description="Communication-to-Computation Ratio")
+    parallelism: Optional[float] = Field(default=None, ge=0, description="Average parallelism (num_tasks / depth)")
 
 
 class WorkflowMetadata(BaseModel):
     """Complete metadata for a DAGBench workflow entry."""
-    id: str = Field(description="Unique identifier (e.g. 'iot.etl_pipeline')")
+    id: str = Field(description="Unique identifier (e.g. 'iot.riotbench_etl')")
     name: str = Field(description="Human-readable name")
     description: str = Field(description="Description of what this workflow represents")
     domains: List[Domain] = Field(description="Application domain tags")

@@ -1,7 +1,7 @@
 id: fog.smart_building
 name: Fog Smart Building Management
-description: Smart building. 12 sensors → 4 floor edges → building fog → (energy,
-  comfort, security optimize) → actuate.
+description: Smart building. 12 sensors -> 4 floor edges -> building fog -> (energy,
+  comfort, security optimize) -> actuate.
 domains:
 - fog-computing
 - smart-city

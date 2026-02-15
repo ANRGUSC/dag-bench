@@ -34,7 +34,7 @@ def load_metadata(
     """Load metadata for a workflow by ID.
 
     Args:
-        workflow_id: The workflow's unique ID (e.g. 'iot.etl_pipeline')
+        workflow_id: The workflow's unique ID (e.g. 'iot.riotbench_etl')
         workflows_dir: Override the default workflows/ directory
 
     Returns:
@@ -60,7 +60,7 @@ def load_workflow(
     """Load a workflow as a SAGA ProblemInstance.
 
     Args:
-        workflow_id: The workflow's unique ID (e.g. 'iot.etl_pipeline')
+        workflow_id: The workflow's unique ID (e.g. 'iot.riotbench_etl')
         workflows_dir: Override the default workflows/ directory
 
     Returns:

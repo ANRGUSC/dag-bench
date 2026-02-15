@@ -1,7 +1,7 @@
 id: uav.delivery_fleet
 name: UAV Fleet Delivery Orchestration
-description: Fleet delivery. Order batch → optimize → 5 parallel drones (assign, load,
-  fly, deliver) → fleet monitor → report.
+description: Fleet delivery. Order batch -> optimize -> 5 parallel drones (assign, load,
+  fly, deliver) -> fleet monitor -> report.
 domains:
 - uav
 - edge-computing

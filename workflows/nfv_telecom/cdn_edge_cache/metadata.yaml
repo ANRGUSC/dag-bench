@@ -1,7 +1,7 @@
 id: nfv.cdn_edge_cache
 name: NFV CDN Edge Caching
-description: CDN caching. Request → lookup → (cache hit/miss paths) → transcode →
-  store → mux → ABR → deliver → analytics.
+description: CDN caching. Request -> lookup -> (cache hit/miss paths) -> transcode ->
+  store -> mux -> ABR -> deliver -> analytics.
 domains:
 - nfv
 - edge-computing

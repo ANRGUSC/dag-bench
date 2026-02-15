@@ -1,7 +1,7 @@
 id: synthetic.pipeline_stages
 name: Multi-Stage Pipeline DAG
-description: "Pipeline with varying widths per stage: source \u2192 2 \u2192 3 \u2192\
-  \ 2 \u2192 1 \u2192 sink. Tests scheduling across stages with different parallelism\
+description: "Pipeline with varying widths per stage: source -> 2 -> 3 ->\
+  \ 2 -> 1 -> sink. Tests scheduling across stages with different parallelism\
   \ levels."
 domains:
 - synthetic

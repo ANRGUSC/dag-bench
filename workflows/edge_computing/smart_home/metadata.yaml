@@ -1,7 +1,7 @@
 id: edge.smart_home
 name: Smart Home IoT Pipeline
-description: Smart home automation pipeline. 4 sensors → aggregate → parallel anomaly/predict/rule
-  branches → 3 actuators → dashboard. Typical fog computing use case.
+description: Smart home automation pipeline. 4 sensors -> aggregate -> parallel anomaly/predict/rule
+  branches -> 3 actuators -> dashboard. Typical fog computing use case.
 domains:
 - iot
 - edge-computing

@@ -1,8 +1,8 @@
 id: ml.federated_learning
 name: Federated Learning Round (5 clients)
-description: "One round of federated learning with 5 clients. Structure: init \u2192\
-  \ select \u2192 distribute[5] \u2192 local_train[5] \u2192 upload[5] \u2192 aggregate\
-  \ \u2192 update. Each client trains independently."
+description: "One round of federated learning with 5 clients. Structure: init ->\
+  \ select -> distribute[5] -> local_train[5] -> upload[5] -> aggregate\
+  \ -> update. Each client trains independently."
 domains:
 - ml-pipeline
 provenance:

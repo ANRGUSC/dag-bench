@@ -1,7 +1,7 @@
 id: telecom.oran_uplink
 name: O-RAN Uplink Processing Pipeline
-description: O-RAN uplink signal processing chain. RF → ADC → Low-PHY (FFT, demod)
-  → High-PHY (decode, descramble) → MAC → RLC → PDCP → SDAP → Core. Split 7.2 architecture.
+description: O-RAN uplink signal processing chain. RF -> ADC -> Low-PHY (FFT, demod)
+  -> High-PHY (decode, descramble) -> MAC -> RLC -> PDCP -> SDAP -> Core. Split 7.2 architecture.
 domains:
 - telecom
 - 5g

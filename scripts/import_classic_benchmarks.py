@@ -22,8 +22,8 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from dagbench.stats import compute_graph_stats
-from dagbench.converters.manual import (
-    DAGBuilder,
+from dagbench.converters.manual import DAGBuilder
+from dagbench.generators import (
     gaussian_elimination_dag,
     fft_dag,
     lu_decomposition_dag,
@@ -34,6 +34,17 @@ from dagbench.networks import homogeneous_network, fog_network, star_network
 
 WORKFLOWS_DIR = PROJECT_ROOT / "workflows"
 TODAY = date.today().isoformat()
+
+
+def _preflight():
+    """Validate all imports and prerequisites before writing any files."""
+    from dagbench.generators import gaussian_elimination_dag, fft_dag, lu_decomposition_dag, cholesky_dag, mapreduce_dag  # noqa: F401
+    from dagbench.converters.manual import DAGBuilder  # noqa: F401
+    from dagbench.networks import homogeneous_network, fog_network, star_network  # noqa: F401
+    assert WORKFLOWS_DIR.exists(), f"Missing: {WORKFLOWS_DIR}"
+
+
+_preflight()
 
 
 def _save_workflow(wf_dir: Path, instance: ProblemInstance, metadata: dict) -> None:
@@ -80,8 +91,8 @@ def _make_metadata(wf_id, name, description, domains, task_graph, provenance,
             "num_edges": stats.num_edges,
             "depth": stats.depth,
             "width": stats.width,
-            "ccr": round(stats.ccr, 4) if stats.ccr else None,
-            "parallelism": round(stats.parallelism, 4) if stats.parallelism else None,
+            "ccr": round(stats.ccr, 4) if stats.ccr is not None else None,
+            "parallelism": round(stats.parallelism, 4) if stats.parallelism is not None else None,
         },
         "campaign": campaign,
         "tags": tags,
@@ -424,15 +435,6 @@ def import_edge_computing_dags():
         .task("Mux", 3.0)
         .fan_out("Demux", "Decode_GOP0", "Decode_GOP1", "Decode_GOP2", "Decode_GOP3", edge_size=20.0)
         .build())
-    for i in range(4):
-        tg_builder = DAGBuilder.__new__(DAGBuilder)
-        # Already built, add the chain edges manually
-    # Rebuild with all edges
-    tg = (DAGBuilder("video_transcoding")
-        .task("Demux", 3.0)
-        .task("Mux", 3.0)
-        .build())
-    # Let me build this properly
     builder = DAGBuilder("video_transcoding")
     builder.task("Demux", 3.0).task("Mux", 3.0)
     for i in range(4):
