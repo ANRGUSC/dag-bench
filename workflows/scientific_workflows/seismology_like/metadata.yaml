@@ -1,0 +1,59 @@
+id: scientific.seismology_like
+name: Seismology-like Hazard Workflow
+description: Earthquake hazard characterization workflow. Site info -> extract SGTs[3]
+  -> synthesis[3x3] -> peak values -> hazard curve -> hazard map. CyberShake-inspired.
+domains:
+- scientific
+- seismology
+provenance:
+  source: "AI-generated, based on architecture described in Graves et al. 2010"
+  paper_doi: 10.1007/s00024-010-0161-6
+  paper_title: "CyberShake: A Physics-Based Seismic Hazard Model for Southern California"
+  authors:
+  - Robert Graves
+  - Thomas H. Jordan
+  - Scott Callaghan
+  - Ewa Deelman
+  - Edward Field
+  - Gideon Juve
+  - Carl Kesselman
+  - Philip Maechling
+  - Gaurang Mehta
+  - Kevin Milner
+  - David Okaya
+  - Patrick Small
+  - Karan Vahi
+  year: 2010
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: Paper describes the CyberShake methodology for physics-based seismic hazard
+    analysis, including SGT extraction, seismogram synthesis, peak value computation,
+    and hazard curve generation. The CyberShake workflow is well-known in the Pegasus
+    workflow management ecosystem. This task graph is an AI-generated approximation of
+    the CyberShake processing stages, not extracted from any specific figure in the
+    paper.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+  notes: Classic benchmark structure; costs are representative
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 24
+  num_edges: 31
+  depth: 6
+  width: 9
+  ccr: 0.5685
+  parallelism: 4.0
+campaign: campaign_002_classic_and_manual
+tags:
+- seismology
+- hazard
+- cybershake
+- scatter-gather

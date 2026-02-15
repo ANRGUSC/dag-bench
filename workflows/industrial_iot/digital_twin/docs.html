@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IIoT Digital Twin Synchronization - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>IIoT Digital Twin Synchronization</h1>
+    <div class="meta">
+        <strong>ID:</strong> iiot.digital_twin &nbsp;|&nbsp;
+        <strong>Domains:</strong> industrial-iot, edge-computing &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Digital twin. 5 sensors -&gt; edge preprocess -&gt; edge twin -&gt; cloud sync -&gt; cloud twin -&gt; (predict, optimize, simulate) -&gt; dashboard.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    EdgePreprocess["EdgePreprocess<br/>cost: 4.0"]
+    Sensor0["Sensor0<br/>cost: 1.0"]
+    Sensor2["Sensor2<br/>cost: 1.0"]
+    Sensor3["Sensor3<br/>cost: 1.0"]
+    CloudSync["CloudSync<br/>cost: 5.0"]
+    Sensor1["Sensor1<br/>cost: 1.0"]
+    EdgeTwin["EdgeTwin<br/>cost: 8.0"]
+    Dashboard["Dashboard<br/>cost: 3.0"]
+    PredictMaint["PredictMaint<br/>cost: 7.0"]
+    SimulateWhat["SimulateWhat<br/>cost: 6.0"]
+    Sensor4["Sensor4<br/>cost: 1.0"]
+    CloudTwin["CloudTwin<br/>cost: 10.0"]
+    OptimizeProcess["OptimizeProcess<br/>cost: 8.0"]
+    Sensor2 -->|"1"| EdgePreprocess
+    CloudTwin -->|"3"| PredictMaint
+    Sensor0 -->|"1"| EdgePreprocess
+    CloudTwin -->|"3"| SimulateWhat
+    EdgePreprocess -->|"3"| EdgeTwin
+    Sensor3 -->|"1"| EdgePreprocess
+    OptimizeProcess -->|"2"| Dashboard
+    Sensor4 -->|"1"| EdgePreprocess
+    Sensor1 -->|"1"| EdgePreprocess
+    CloudTwin -->|"3"| OptimizeProcess
+    PredictMaint -->|"2"| Dashboard
+    EdgeTwin -->|"3"| CloudSync
+    CloudSync -->|"3"| CloudTwin
+    SimulateWhat -->|"2"| Dashboard
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (13)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>EdgePreprocess</td><td>4.00</td><td>Data preprocessing</td></tr><tr><td>Sensor0</td><td>1.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>Sensor2</td><td>1.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>Sensor3</td><td>1.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>CloudSync</td><td>5.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>Sensor1</td><td>1.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>EdgeTwin</td><td>8.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>Dashboard</td><td>3.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>PredictMaint</td><td>7.00</td><td>Classification / prediction</td></tr><tr><td>SimulateWhat</td><td>6.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>Sensor4</td><td>1.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>CloudTwin</td><td>10.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>OptimizeProcess</td><td>8.00</td><td>Processing step in industrial-iot pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>13</td></tr><tr><td>Edges</td><td>14</td></tr><tr><td>Depth</td><td>7</td></tr><tr><td>Width</td><td>5</td></tr><tr><td>CCR</td><td>0.5179</td></tr><tr><td>Parallelism</td><td>1.8571</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, based on architecture described in Tao et al. 2019<br>
+<strong>Paper:</strong> Digital Twin in Industry: State-of-the-Art<br>
+<strong>Authors:</strong> Fei Tao, He Zhang, Ang Liu, Andrew Y.C. Nee<br>
+<strong>Year:</strong> 2019<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1109/TII.2018.2873186" target="_blank">10.1109/TII.2018.2873186</a><br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Paper is a review of digital twin technology in IEEE Transactions on Industrial Informatics. It does not contain any DAG or task dependency graph. The original DOI (10.1007/s12206-019-0823-4) was fabricated (404, pointed to Journal of Mechanical Science and Technology); corrected to the real IEEE TII DOI. This digital twin pipeline is an AI-generated task graph inspired by the digital twin concepts described in the paper.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fog-three-tier<br>
+<strong>Nodes:</strong> 8
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">digital-twin</span><span class="badge">simulation</span><span class="badge">cloud-edge</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; iiot.digital_twin
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+id: classic.fft_16
+name: FFT Butterfly (16-point)
+description: 16-point Fast Fourier Transform butterfly DAG. 4 stages of butterfly
+  operations.
+domains:
+- classic-benchmark
+provenance:
+  source: Classic scheduling benchmark
+  paper_title: 'The FFT: An Algorithm the Whole Family Can Use'
+  authors:
+  - Thomas H. Cormen
+  year: 1999
+  extraction_method: programmatic
+  extractor: dagbench-import-script
+  extraction_date: '2026-02-12'
+  figure_or_table: Standard butterfly structure
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+  notes: Classic benchmark structure; costs are representative
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 64
+  num_edges: 80
+  depth: 6
+  width: 16
+  ccr: 0.8333
+  parallelism: 10.6667
+campaign: campaign_002_classic_and_manual
+tags:
+- fft
+- signal-processing
+- butterfly
+- medium

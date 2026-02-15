@@ -1,0 +1,94 @@
+{
+  "name": "synthetic.chain_2",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "A",
+        "cost": 10.0
+      },
+      {
+        "name": "B",
+        "cost": 15.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "A",
+        "target": "B",
+        "size": 5.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N2",
+        "speed": 1.0
+      },
+      {
+        "name": "N0",
+        "speed": 1.0
+      },
+      {
+        "name": "N1",
+        "speed": 1.0
+      },
+      {
+        "name": "N3",
+        "speed": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 100.0
+      },
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N0",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N3",
+        "target": "N3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 100.0
+      },
+      {
+        "source": "N2",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 100.0
+      }
+    ]
+  }
+}

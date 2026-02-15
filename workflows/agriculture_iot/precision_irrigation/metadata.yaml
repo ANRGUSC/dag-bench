@@ -1,0 +1,47 @@
+id: agri.precision_irrigation
+name: Precision Irrigation
+description: "Precision irrigation. 8 soil sensors + weather -> aggregate ->\
+  \ ET calc -> zone calc -> (valve schedule, pump control)."
+domains:
+- agriculture-iot
+- iot
+provenance:
+  source: "AI-generated, based on architecture described in Ojha et al. 2015"
+  paper_doi: 10.1016/j.compag.2015.08.011
+  paper_title: "Wireless sensor networks for agriculture: The state-of-the-art in
+    practice and future challenges"
+  authors:
+  - Tamoghna Ojha
+  - Sudip Misra
+  - Narendra Singh Raghuwanshi
+  year: 2015
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: "Paper is a survey of wireless sensor networks for agriculture in Computers
+    and Electronics in Agriculture. It reviews system architectures, communication
+    protocols, and deployment challenges but does not contain any DAG or task
+    dependency graph. This precision irrigation pipeline is an AI-generated task
+    graph inspired by agricultural WSN concepts described in the survey."
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 14
+  num_edges: 13
+  depth: 5
+  width: 9
+  ccr: 0.3333
+  parallelism: 2.8
+campaign: campaign_004_networking
+tags:
+- irrigation
+- soil-moisture
+- precision-agriculture

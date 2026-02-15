@@ -1,0 +1,53 @@
+id: scientific.blast_like
+name: BLAST-like Sequence Search Workflow
+description: "Bioinformatics sequence search workflow modeled after BLAST. Split ->\
+  \ 5 parallel (format, search, filter) lanes -> merge -> annotate ->\
+  \ report."
+domains:
+- scientific
+- genomics
+provenance:
+  source: "AI-generated, based on the BLAST algorithm described in Altschul et al.
+    1990"
+  paper_doi: 10.1016/S0022-2836(05)80360-2
+  paper_title: "Basic local alignment search tool"
+  authors:
+  - Stephen F. Altschul
+  - Warren Gish
+  - Webb Miller
+  - Eugene W. Myers
+  - David J. Lipman
+  year: 1990
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: "The original BLAST paper in Journal of Molecular Biology describes the
+    maximal segment pair scoring algorithm for sequence alignment. It is an algorithm
+    paper containing mathematical formulas and statistical tables but no DAG or
+    workflow pipeline figure. This BLAST-like workflow is an AI-generated task graph
+    modeling a scatter-gather BLAST pipeline pattern (split, parallel search lanes,
+    merge, annotate), inspired by how BLAST pipelines work in practice but not
+    extracted from any specific figure."
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 19
+  num_edges: 22
+  depth: 7
+  width: 5
+  ccr: 0.9699
+  parallelism: 2.7143
+campaign: campaign_002_classic_and_manual
+tags:
+- blast
+- bioinformatics
+- sequence-search
+- scatter-gather

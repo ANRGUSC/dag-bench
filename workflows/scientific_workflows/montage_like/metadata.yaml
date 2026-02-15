@@ -1,0 +1,58 @@
+id: scientific.montage_like
+name: Montage-like Astronomy Workflow
+description: 'Astronomy image mosaic workflow modeled after Montage. Stages: project[6]
+  -> diff_fit[3] -> concat -> bg_model -> background[6] -> add -> shrink. Scatter-gather
+  pattern.'
+domains:
+- scientific
+- astronomy
+- image-processing
+provenance:
+  source: "AI-generated, based on architecture described in Berriman et al. 2004"
+  paper_doi: 10.1117/12.550551
+  paper_title: "Montage: a grid-enabled engine for delivering custom science-grade
+    mosaics on demand"
+  authors:
+  - G. Bruce Berriman
+  - Ewa Deelman
+  - John C. Good
+  - Joseph C. Jacob
+  - Daniel S. Katz
+  - Carl Kesselman
+  - Anastasia C. Laity
+  - Thomas A. Prince
+  - Gurmeet Singh
+  - Mei-Hu Su
+  year: 2004
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: Paper describes Montage as a grid-enabled astronomical image mosaic engine
+    with processing stages (reprojection, background modeling, co-addition) that
+    exploit parallelism. The Montage workflow is well-known in the Pegasus workflow
+    management ecosystem. This task graph is an AI-generated approximation of the
+    Montage processing stages, not extracted from any specific figure in the paper.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+  notes: Classic benchmark structure; costs are representative
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 19
+  num_edges: 29
+  depth: 7
+  width: 6
+  ccr: 1.2239
+  parallelism: 2.7143
+campaign: campaign_002_classic_and_manual
+tags:
+- montage
+- astronomy
+- scatter-gather
+- scientific

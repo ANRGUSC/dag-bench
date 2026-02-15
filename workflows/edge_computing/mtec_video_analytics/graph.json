@@ -1,0 +1,50 @@
+{
+  "name": "edge.mtec_video_analytics",
+  "task_graph": {
+    "tasks": [
+      {"name": "ReadStorage", "cost": 5.0},
+      {"name": "SplitVideo", "cost": 15.0},
+      {"name": "ExtractFrame1", "cost": 20.0},
+      {"name": "ExtractFrame2", "cost": 20.0},
+      {"name": "ClassifyFrame1", "cost": 40.0},
+      {"name": "ClassifyFrame2", "cost": 40.0},
+      {"name": "WriteStorage", "cost": 5.0}
+    ],
+    "dependencies": [
+      {"source": "ReadStorage", "target": "SplitVideo", "size": 100.0},
+      {"source": "SplitVideo", "target": "ExtractFrame1", "size": 40.0},
+      {"source": "SplitVideo", "target": "ExtractFrame2", "size": 40.0},
+      {"source": "ExtractFrame1", "target": "ClassifyFrame1", "size": 10.0},
+      {"source": "ExtractFrame2", "target": "ClassifyFrame2", "size": 10.0},
+      {"source": "ClassifyFrame1", "target": "WriteStorage", "size": 5.0},
+      {"source": "ClassifyFrame2", "target": "WriteStorage", "size": 5.0},
+      {"source": "SplitVideo", "target": "WriteStorage", "size": 10.0}
+    ]
+  },
+  "network": {
+    "nodes": [
+      {"name": "Desktop", "speed": 10.0},
+      {"name": "AGXXavier", "speed": 5.0},
+      {"name": "XavierNX", "speed": 3.5},
+      {"name": "JetsonTX2", "speed": 2.0}
+    ],
+    "edges": [
+      {"source": "Desktop", "target": "AGXXavier", "speed": 5000.0},
+      {"source": "Desktop", "target": "XavierNX", "speed": 5000.0},
+      {"source": "Desktop", "target": "JetsonTX2", "speed": 5000.0},
+      {"source": "AGXXavier", "target": "Desktop", "speed": 5000.0},
+      {"source": "AGXXavier", "target": "XavierNX", "speed": 5000.0},
+      {"source": "AGXXavier", "target": "JetsonTX2", "speed": 5000.0},
+      {"source": "XavierNX", "target": "Desktop", "speed": 5000.0},
+      {"source": "XavierNX", "target": "AGXXavier", "speed": 5000.0},
+      {"source": "XavierNX", "target": "JetsonTX2", "speed": 5000.0},
+      {"source": "JetsonTX2", "target": "Desktop", "speed": 5000.0},
+      {"source": "JetsonTX2", "target": "AGXXavier", "speed": 5000.0},
+      {"source": "JetsonTX2", "target": "XavierNX", "speed": 5000.0},
+      {"source": "Desktop", "target": "Desktop", "speed": 1000000000.0},
+      {"source": "AGXXavier", "target": "AGXXavier", "speed": 1000000000.0},
+      {"source": "XavierNX", "target": "XavierNX", "speed": 1000000000.0},
+      {"source": "JetsonTX2", "target": "JetsonTX2", "speed": 1000000000.0}
+    ]
+  }
+}

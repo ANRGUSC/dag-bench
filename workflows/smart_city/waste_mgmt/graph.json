@@ -1,0 +1,348 @@
+{
+  "name": "smart_city.waste_mgmt",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "Bin7_Sense",
+        "cost": 1.0
+      },
+      {
+        "name": "Bin0_Sense",
+        "cost": 1.0
+      },
+      {
+        "name": "AssignTrucks",
+        "cost": 4.0
+      },
+      {
+        "name": "Bin6_Sense",
+        "cost": 1.0
+      },
+      {
+        "name": "Collect",
+        "cost": 3.0
+      },
+      {
+        "name": "Bin3_Sense",
+        "cost": 1.0
+      },
+      {
+        "name": "RouteOptimize",
+        "cost": 10.0
+      },
+      {
+        "name": "Bin1_Sense",
+        "cost": 1.0
+      },
+      {
+        "name": "Schedule",
+        "cost": 3.0
+      },
+      {
+        "name": "FillPredict",
+        "cost": 6.0
+      },
+      {
+        "name": "Bin5_Sense",
+        "cost": 1.0
+      },
+      {
+        "name": "Bin2_Sense",
+        "cost": 1.0
+      },
+      {
+        "name": "Notify",
+        "cost": 2.0
+      },
+      {
+        "name": "Bin4_Sense",
+        "cost": 1.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "Bin3_Sense",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Bin7_Sense",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Schedule",
+        "target": "Notify",
+        "size": 1.0
+      },
+      {
+        "source": "Bin1_Sense",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Bin2_Sense",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Bin6_Sense",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Bin0_Sense",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Bin4_Sense",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Bin5_Sense",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Collect",
+        "target": "FillPredict",
+        "size": 2.0
+      },
+      {
+        "source": "RouteOptimize",
+        "target": "AssignTrucks",
+        "size": 1.0
+      },
+      {
+        "source": "FillPredict",
+        "target": "RouteOptimize",
+        "size": 2.0
+      },
+      {
+        "source": "AssignTrucks",
+        "target": "Schedule",
+        "size": 1.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "E2",
+        "speed": 1.0
+      },
+      {
+        "name": "F0",
+        "speed": 8.0
+      },
+      {
+        "name": "C0",
+        "speed": 50.0
+      },
+      {
+        "name": "E3",
+        "speed": 1.0
+      },
+      {
+        "name": "E1",
+        "speed": 1.0
+      },
+      {
+        "name": "E0",
+        "speed": 1.0
+      },
+      {
+        "name": "E4",
+        "speed": 1.0
+      },
+      {
+        "name": "F1",
+        "speed": 8.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "C0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E0",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "C0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F0",
+        "speed": 12500.0
+      },
+      {
+        "source": "E1",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E3",
+        "target": "E3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "F1",
+        "target": "F1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E1",
+        "target": "E1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "F0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "E0",
+        "target": "E0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E4",
+        "target": "E4",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "F0",
+        "target": "F0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F1",
+        "speed": 12500.0
+      }
+    ]
+  }
+}

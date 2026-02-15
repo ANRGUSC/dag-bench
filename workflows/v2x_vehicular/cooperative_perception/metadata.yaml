@@ -1,0 +1,48 @@
+id: v2x.cooperative_perception
+name: V2X Cooperative Perception
+description: "V2X cooperative perception. 3 vehicles (camera+lidar->fuse) ->\
+  \ V2X exchange -> global fuse -> object list -> threat -> path plan\
+  \ -> control."
+domains:
+- v2x
+- edge-computing
+provenance:
+  source: "AI-generated, based on architecture described in Chen et al. 2019"
+  paper_doi: 10.1109/ICDCS.2019.00058
+  paper_title: "Cooper: Cooperative Perception for Connected Autonomous Vehicles Based on 3D Point Clouds"
+  authors:
+  - Qi Chen
+  - Sihai Tang
+  - Qing Yang
+  - Song Fu
+  year: 2019
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: Paper describes LiDAR-based cooperative perception where connected autonomous
+    vehicles share 3D point cloud data. It does not contain any DAG or task dependency
+    graph. This cooperative perception pipeline is an AI-generated task graph inspired
+    by the architecture described in the paper.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: mec
+  num_nodes_min: 7
+  num_nodes_max: 7
+graph_stats:
+  num_tasks: 15
+  num_edges: 14
+  depth: 8
+  width: 6
+  ccr: 0.697
+  parallelism: 1.875
+campaign: campaign_004_networking
+tags:
+- v2x
+- cooperative
+- perception
+- lidar

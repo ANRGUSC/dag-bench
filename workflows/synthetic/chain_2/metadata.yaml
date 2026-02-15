@@ -1,0 +1,35 @@
+id: synthetic.chain_2
+name: Chain DAG (2 nodes)
+description: 'Minimal dependency DAG: two tasks A->B with one edge. The smallest non-trivial
+  DAG.'
+domains:
+- synthetic
+provenance:
+  source: DAGBench synthetic generator
+  extraction_method: generated
+  extractor: dagbench-synthetic-generator
+  extraction_date: '2026-02-14'
+  notes: Synthetic workflow generated for benchmarking edge cases and scalability
+    testing.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 2
+  num_edges: 1
+  depth: 2
+  width: 1
+  ccr: 0.2
+  parallelism: 1.0
+campaign: campaign_005_new_synthetics
+tags:
+- chain
+- minimal
+- tiny

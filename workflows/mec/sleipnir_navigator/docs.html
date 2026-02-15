@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLEIPNIR Navigator App - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>SLEIPNIR Navigator App</h1>
+    <div class="meta">
+        <strong>ID:</strong> mec.sleipnir_navigator &nbsp;|&nbsp;
+        <strong>Domains:</strong> mec, edge-computing &nbsp;|&nbsp;
+        <strong>Completeness:</strong> structure-and-costs &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Mobile navigation application DAG from the SLEIPNIR offloading simulator (De Maio and Brandic, CCGrid 2018). A config panel and GPS sensor feed into a control node that fans out to map loading, path calculation, and traffic monitoring. Map data and traffic flow into path calculation, which then fans out to voice synthesis, speed trap alerts, and GUI display. The richest DAG structure among the five SLEIPNIR apps, with 9 tasks and complex fan-out/fan-in patterns.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    CONF_PANEL["CONF_PANEL<br/>cost: 200.0"]
+    GPS["GPS<br/>cost: 200.0"]
+    CONTROL["CONTROL<br/>cost: 500.0"]
+    MAPS["MAPS<br/>cost: 1000.0"]
+    PATH_CALC["PATH_CALC<br/>cost: 1500.0"]
+    TRAFFIC["TRAFFIC<br/>cost: 1000.0"]
+    VOICE_SYNTH["VOICE_SYNTH<br/>cost: 15000.0"]
+    SPEED_TRAP["SPEED_TRAP<br/>cost: 200.0"]
+    GUI["GUI<br/>cost: 200.0"]
+    CONF_PANEL -->|"100"| GPS
+    CONF_PANEL -->|"100"| CONTROL
+    GPS -->|"100"| CONTROL
+    CONTROL -->|"100"| MAPS
+    CONTROL -->|"100"| PATH_CALC
+    CONTROL -->|"100"| TRAFFIC
+    MAPS -->|"5000"| PATH_CALC
+    TRAFFIC -->|"200"| PATH_CALC
+    PATH_CALC -->|"5000"| VOICE_SYNTH
+    PATH_CALC -->|"5000"| GUI
+    PATH_CALC -->|"5000"| SPEED_TRAP
+    VOICE_SYNTH -->|"100"| GUI
+    SPEED_TRAP -->|"100"| GUI
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (9)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>CONF_PANEL</td><td>200.00</td><td>Processing step in mec pipeline</td></tr><tr><td>GPS</td><td>200.00</td><td>Processing step in mec pipeline</td></tr><tr><td>CONTROL</td><td>500.00</td><td>Processing step in mec pipeline</td></tr><tr><td>MAPS</td><td>1000.00</td><td>Map operation</td></tr><tr><td>PATH_CALC</td><td>1500.00</td><td>Processing step in mec pipeline</td></tr><tr><td>TRAFFIC</td><td>1000.00</td><td>Processing step in mec pipeline</td></tr><tr><td>VOICE_SYNTH</td><td>15000.00</td><td>Processing step in mec pipeline</td></tr><tr><td>SPEED_TRAP</td><td>200.00</td><td>Processing step in mec pipeline</td></tr><tr><td>GUI</td><td>200.00</td><td>Processing step in mec pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>9</td></tr><tr><td>Edges</td><td>13</td></tr><tr><td>Depth</td><td>7</td></tr><tr><td>Width</td><td>2</td></tr><tr><td>CCR</td><td>1.0606</td></tr><tr><td>Parallelism</td><td>1.2857</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">Manually extracted from paper figure</span>
+        <br><br>
+        <strong>Source:</strong> Faithfully extracted from SLEIPNIR open-source simulator (De Maio and Brandic, CCGrid 2018)<br>
+<strong>Paper:</strong> First Hop Mobile Offloading of DAG Computations<br>
+<strong>Authors:</strong> Vincenzo De Maio, Ivona Brandic<br>
+<strong>Year:</strong> 2018<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1109/CCGRID.2018.00023" target="_blank">10.1109/CCGRID.2018.00023</a><br>
+<strong>Figure/Table:</strong> Source code: NavigatorApp.java<br>
+<strong>Repository:</strong> <a href="https://github.com/vindem/sleipnir" target="_blank">https://github.com/vindem/sleipnir</a><br>
+<strong>Extraction Method:</strong> Manually extracted from paper figure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-14<br>
+<strong>Notes:</strong> DAG structure and task computation costs (in MI - millions of instructions) faithfully extracted from the SLEIPNIR open-source Java simulator, specifically NavigatorApp.java. Tasks include configuration, GPS, map loading, path calculation, traffic monitoring, voice synthesis, speed trap alerts, and GUI display. Several tasks are marked non-offloadable in the source (CONF_PANEL, GPS, VOICE_SYNTH, SPEED_TRAP, GUI). Data transfer sizes are normalized from SLEIPNIR source code data volumes (outData parameters) to produce balanced CCR ratios suitable for scheduling benchmarks. The original outData values include stochastic map data sizes (exponential distribution with mean 25MB); we use representative fixed values. Network is a 3-node MEC topology with 1 mobile device and 2 edge servers. MIT licensed source code. Affiliations: TU Wien.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> mec<br>
+<strong>Nodes:</strong> 3
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">navigation</span><span class="badge">mobile-offloading</span><span class="badge">gps</span><span class="badge">voice-synthesis</span><span class="badge">fan-out-fan-in</span><span class="badge">sleipnir</span><span class="badge">mec-offloading</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; mec.sleipnir_navigator
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

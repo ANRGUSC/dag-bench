@@ -1,0 +1,49 @@
+{
+  "name": "mec.sleipnir_navigator",
+  "task_graph": {
+    "tasks": [
+      {"name": "CONF_PANEL", "cost": 200.0},
+      {"name": "GPS", "cost": 200.0},
+      {"name": "CONTROL", "cost": 500.0},
+      {"name": "MAPS", "cost": 1000.0},
+      {"name": "PATH_CALC", "cost": 1500.0},
+      {"name": "TRAFFIC", "cost": 1000.0},
+      {"name": "VOICE_SYNTH", "cost": 15000.0},
+      {"name": "SPEED_TRAP", "cost": 200.0},
+      {"name": "GUI", "cost": 200.0}
+    ],
+    "dependencies": [
+      {"source": "CONF_PANEL", "target": "GPS", "size": 100.0},
+      {"source": "CONF_PANEL", "target": "CONTROL", "size": 100.0},
+      {"source": "GPS", "target": "CONTROL", "size": 100.0},
+      {"source": "CONTROL", "target": "MAPS", "size": 100.0},
+      {"source": "CONTROL", "target": "PATH_CALC", "size": 100.0},
+      {"source": "CONTROL", "target": "TRAFFIC", "size": 100.0},
+      {"source": "MAPS", "target": "PATH_CALC", "size": 5000.0},
+      {"source": "TRAFFIC", "target": "PATH_CALC", "size": 200.0},
+      {"source": "PATH_CALC", "target": "VOICE_SYNTH", "size": 5000.0},
+      {"source": "PATH_CALC", "target": "GUI", "size": 5000.0},
+      {"source": "PATH_CALC", "target": "SPEED_TRAP", "size": 5000.0},
+      {"source": "VOICE_SYNTH", "target": "GUI", "size": 100.0},
+      {"source": "SPEED_TRAP", "target": "GUI", "size": 100.0}
+    ]
+  },
+  "network": {
+    "nodes": [
+      {"name": "MobileDevice", "speed": 1.0},
+      {"name": "EdgeServer1", "speed": 5.0},
+      {"name": "EdgeServer2", "speed": 5.0}
+    ],
+    "edges": [
+      {"source": "MobileDevice", "target": "EdgeServer1", "speed": 1000.0},
+      {"source": "MobileDevice", "target": "EdgeServer2", "speed": 1000.0},
+      {"source": "EdgeServer1", "target": "MobileDevice", "speed": 1000.0},
+      {"source": "EdgeServer1", "target": "EdgeServer2", "speed": 1000.0},
+      {"source": "EdgeServer2", "target": "MobileDevice", "speed": 1000.0},
+      {"source": "EdgeServer2", "target": "EdgeServer1", "speed": 1000.0},
+      {"source": "MobileDevice", "target": "MobileDevice", "speed": 1000000000.0},
+      {"source": "EdgeServer1", "target": "EdgeServer1", "speed": 1000000000.0},
+      {"source": "EdgeServer2", "target": "EdgeServer2", "speed": 1000000000.0}
+    ]
+  }
+}

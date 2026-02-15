@@ -1,0 +1,72 @@
+id: edge.mtec_lightgbm
+name: M-TEC LightGBM Training Pipeline
+description: Distributed LightGBM model training pipeline faithfully extracted from
+  Figure 5 (Application 2) of Li et al. (arXiv 2024). Image data is loaded from storage,
+  reduced via PCA, then distributed to parallel decision tree training workers. PCA
+  also sends transformed test data directly to the final combine-and-test stage, creating
+  a diamond DAG with a bypass edge. Evaluated on a real heterogeneous testbed with
+  Desktop, Jetson AGX Xavier, Xavier NX, and TX2 devices connected via Ethernet and
+  CBRS 4G network.
+domains:
+- edge-computing
+- ml-pipeline
+- data-analytics
+provenance:
+  source: 'Faithfully extracted from Figure 5 (Application 2: LightGBM) of Li et al.
+    (arXiv 2024)'
+  paper_arxiv: '2409.10839'
+  paper_title: Dynamic DAG-Application Scheduling for Multi-Tier Edge Computing in
+    Heterogeneous Networks
+  authors:
+  - Xiang Li
+  - Mustafa Abdallah
+  - Yuan-Yao Lou
+  - Mung Chiang
+  - Kwang Taik Kim
+  - Saurabh Bagchi
+  year: 2024
+  figure_or_table: Figure 5 (Application 2)
+  extraction_method: manual-figure
+  extractor: claude-opus-4
+  extraction_date: '2026-02-14'
+  notes: 'DAG structure faithfully extracted from Figure 5 ''DAG-based applications
+    used in the experiments'', specifically Application 2 (LightGBM). The pipeline
+    loads image data, applies PCA for dimensionality reduction, distributes to three
+    parallel decision tree training workers, then combines trained models with test
+    data for evaluation. The bypass edge from PCA to CombineAndTest carries transformed
+    test data, creating the characteristic diamond+bypass pattern. Task costs are
+    estimated proportional to computational complexity (PCA and training are heaviest,
+    I/O is lightest). Data transfer sizes are estimated from typical ML dataset and
+    model dimensions. The paper evaluates on a real testbed with heterogeneous hardware
+    (Table III): Desktop (16-core x86, 32GB), Jetson AGX Xavier (8-core ARM, 16GB),
+    Xavier NX (6-core ARM, 8GB), Jetson TX2 (4-core ARM, 8GB). Network speeds reflect
+    wired LAN connections. Affiliations: Purdue University.'
+license:
+  source_license: arXiv
+  dagbench_license: Apache-2.0
+  notes: DAG structure extracted from published figure under fair use for research
+    benchmarking
+completeness: structure-and-costs
+cost_model: deterministic
+network:
+  included: true
+  topology: heterogeneous
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 6
+  num_edges: 8
+  depth: 4
+  width: 3
+  ccr: 1.1707
+  parallelism: 1.5
+campaign: campaign_003_paper_extraction
+tags:
+- lightgbm
+- model-training
+- pca
+- ensemble-learning
+- diamond-dag
+- jetson
+- heterogeneous-testbed
+- cbrs-4g

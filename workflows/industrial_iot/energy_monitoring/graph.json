@@ -1,0 +1,349 @@
+{
+  "name": "iiot.energy_monitoring",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "Meter0",
+        "cost": 1.0
+      },
+      {
+        "name": "Collect",
+        "cost": 3.0
+      },
+      {
+        "name": "Meter5",
+        "cost": 1.0
+      },
+      {
+        "name": "Meter4",
+        "cost": 1.0
+      },
+      {
+        "name": "Meter3",
+        "cost": 1.0
+      },
+      {
+        "name": "PeakDetect",
+        "cost": 4.0
+      },
+      {
+        "name": "Forecast",
+        "cost": 6.0
+      },
+      {
+        "name": "Report",
+        "cost": 3.0
+      },
+      {
+        "name": "Meter1",
+        "cost": 1.0
+      },
+      {
+        "name": "Meter2",
+        "cost": 1.0
+      },
+      {
+        "name": "Meter6",
+        "cost": 1.0
+      },
+      {
+        "name": "Meter7",
+        "cost": 1.0
+      },
+      {
+        "name": "Baseline",
+        "cost": 5.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "Meter3",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Collect",
+        "target": "Forecast",
+        "size": 2.0
+      },
+      {
+        "source": "Collect",
+        "target": "Baseline",
+        "size": 2.0
+      },
+      {
+        "source": "Meter7",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Meter2",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "PeakDetect",
+        "target": "Report",
+        "size": 1.0
+      },
+      {
+        "source": "Baseline",
+        "target": "Report",
+        "size": 1.0
+      },
+      {
+        "source": "Collect",
+        "target": "PeakDetect",
+        "size": 2.0
+      },
+      {
+        "source": "Meter6",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Meter0",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Meter1",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Meter4",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Meter5",
+        "target": "Collect",
+        "size": 0.5
+      },
+      {
+        "source": "Forecast",
+        "target": "Report",
+        "size": 1.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "E2",
+        "speed": 1.0
+      },
+      {
+        "name": "F0",
+        "speed": 8.0
+      },
+      {
+        "name": "C0",
+        "speed": 50.0
+      },
+      {
+        "name": "E3",
+        "speed": 1.0
+      },
+      {
+        "name": "E1",
+        "speed": 1.0
+      },
+      {
+        "name": "E0",
+        "speed": 1.0
+      },
+      {
+        "name": "E4",
+        "speed": 1.0
+      },
+      {
+        "name": "F1",
+        "speed": 8.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "C0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E0",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "C0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F0",
+        "speed": 12500.0
+      },
+      {
+        "source": "E1",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E3",
+        "target": "E3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "F1",
+        "target": "F1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E1",
+        "target": "E1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "F0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "E0",
+        "target": "E0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E4",
+        "target": "E4",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "F0",
+        "target": "F0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F1",
+        "speed": 12500.0
+      }
+    ]
+  }
+}

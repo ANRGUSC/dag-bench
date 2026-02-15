@@ -1,0 +1,27 @@
+name: campaign_001_initial_import
+description: Initial import of SAGA's built-in datasets
+date_started: "2026-02-12"
+status: complete
+
+sources:
+  - name: SAGA RIoTBench
+    module: saga.schedulers.data.riotbench
+    workflows_imported: 4
+    notes: ETL, Stats, Train, Predict pipelines with fog network
+
+  - name: SAGA Random Graphs
+    module: saga.utils.random_graphs
+    workflows_imported: 6
+    notes: Diamond, chain (4, 8), fork, branching (3x2, 4x3)
+
+total_workflows: 10
+
+domains_covered:
+  - iot
+  - synthetic
+  - data-analytics
+
+next_steps:
+  - Import WfCommons scientific workflows (9 families)
+  - Import STG benchmark representative samples
+  - Manual extraction from IoT/edge/ML papers

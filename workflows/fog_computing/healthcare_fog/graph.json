@@ -1,0 +1,375 @@
+{
+  "name": "fog.healthcare_fog",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "Sensor6",
+        "cost": 1.0
+      },
+      {
+        "name": "Sensor0",
+        "cost": 1.0
+      },
+      {
+        "name": "PatientEdge0",
+        "cost": 4.0
+      },
+      {
+        "name": "Sensor8",
+        "cost": 1.0
+      },
+      {
+        "name": "FogAlert",
+        "cost": 4.0
+      },
+      {
+        "name": "Sensor2",
+        "cost": 1.0
+      },
+      {
+        "name": "Sensor5",
+        "cost": 1.0
+      },
+      {
+        "name": "Sensor1",
+        "cost": 1.0
+      },
+      {
+        "name": "Sensor4",
+        "cost": 1.0
+      },
+      {
+        "name": "Sensor7",
+        "cost": 1.0
+      },
+      {
+        "name": "CloudAnalytics",
+        "cost": 10.0
+      },
+      {
+        "name": "FogAnalyze",
+        "cost": 8.0
+      },
+      {
+        "name": "PatientEdge2",
+        "cost": 4.0
+      },
+      {
+        "name": "DoctorNotify",
+        "cost": 2.0
+      },
+      {
+        "name": "CloudStore",
+        "cost": 5.0
+      },
+      {
+        "name": "Sensor3",
+        "cost": 1.0
+      },
+      {
+        "name": "PatientEdge1",
+        "cost": 4.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "PatientEdge1",
+        "target": "FogAnalyze",
+        "size": 2.0
+      },
+      {
+        "source": "Sensor3",
+        "target": "PatientEdge1",
+        "size": 1.0
+      },
+      {
+        "source": "PatientEdge2",
+        "target": "FogAnalyze",
+        "size": 2.0
+      },
+      {
+        "source": "CloudStore",
+        "target": "CloudAnalytics",
+        "size": 2.0
+      },
+      {
+        "source": "Sensor1",
+        "target": "PatientEdge0",
+        "size": 1.0
+      },
+      {
+        "source": "Sensor7",
+        "target": "PatientEdge2",
+        "size": 1.0
+      },
+      {
+        "source": "Sensor0",
+        "target": "PatientEdge0",
+        "size": 1.0
+      },
+      {
+        "source": "PatientEdge0",
+        "target": "FogAnalyze",
+        "size": 2.0
+      },
+      {
+        "source": "FogAnalyze",
+        "target": "FogAlert",
+        "size": 1.0
+      },
+      {
+        "source": "FogAnalyze",
+        "target": "CloudStore",
+        "size": 3.0
+      },
+      {
+        "source": "Sensor8",
+        "target": "PatientEdge2",
+        "size": 1.0
+      },
+      {
+        "source": "FogAlert",
+        "target": "DoctorNotify",
+        "size": 1.0
+      },
+      {
+        "source": "Sensor2",
+        "target": "PatientEdge0",
+        "size": 1.0
+      },
+      {
+        "source": "Sensor6",
+        "target": "PatientEdge2",
+        "size": 1.0
+      },
+      {
+        "source": "Sensor5",
+        "target": "PatientEdge1",
+        "size": 1.0
+      },
+      {
+        "source": "Sensor4",
+        "target": "PatientEdge1",
+        "size": 1.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "E2",
+        "speed": 1.0
+      },
+      {
+        "name": "F0",
+        "speed": 8.0
+      },
+      {
+        "name": "C0",
+        "speed": 50.0
+      },
+      {
+        "name": "E3",
+        "speed": 1.0
+      },
+      {
+        "name": "E1",
+        "speed": 1.0
+      },
+      {
+        "name": "E0",
+        "speed": 1.0
+      },
+      {
+        "name": "E4",
+        "speed": 1.0
+      },
+      {
+        "name": "F1",
+        "speed": 8.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "C0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E0",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "C0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F0",
+        "speed": 12500.0
+      },
+      {
+        "source": "E1",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E3",
+        "target": "E3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "F1",
+        "target": "F1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E1",
+        "target": "E1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "F0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "E0",
+        "target": "E0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E4",
+        "target": "E4",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "F0",
+        "target": "F0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F1",
+        "speed": 12500.0
+      }
+    ]
+  }
+}

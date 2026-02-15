@@ -1,0 +1,241 @@
+{
+  "name": "edge.ml_surveillance_pipeline",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "CameraEnc",
+        "cost": 2.0
+      },
+      {
+        "name": "AudioEnc",
+        "cost": 1.5
+      },
+      {
+        "name": "SeismicEnc",
+        "cost": 1.5
+      },
+      {
+        "name": "VehicleDetect",
+        "cost": 15.0
+      },
+      {
+        "name": "HumanDetect",
+        "cost": 15.0
+      },
+      {
+        "name": "VehicleClassify",
+        "cost": 8.0
+      },
+      {
+        "name": "HumanClassify",
+        "cost": 8.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "CameraEnc",
+        "target": "VehicleDetect",
+        "size": 6.0
+      },
+      {
+        "source": "SeismicEnc",
+        "target": "VehicleDetect",
+        "size": 1.5
+      },
+      {
+        "source": "CameraEnc",
+        "target": "HumanDetect",
+        "size": 6.0
+      },
+      {
+        "source": "AudioEnc",
+        "target": "HumanDetect",
+        "size": 2.0
+      },
+      {
+        "source": "VehicleDetect",
+        "target": "VehicleClassify",
+        "size": 3.0
+      },
+      {
+        "source": "HumanDetect",
+        "target": "HumanClassify",
+        "size": 3.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "Sensor1",
+        "speed": 1.0
+      },
+      {
+        "name": "Sensor2",
+        "speed": 1.0
+      },
+      {
+        "name": "Sensor3",
+        "speed": 1.0
+      },
+      {
+        "name": "EdgeA2",
+        "speed": 8.0
+      },
+      {
+        "name": "EdgeOrin",
+        "speed": 5.0
+      },
+      {
+        "name": "Edge1080",
+        "speed": 12.0
+      },
+      {
+        "name": "Cloud",
+        "speed": 50.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "Sensor1",
+        "target": "EdgeA2",
+        "speed": 5000.0
+      },
+      {
+        "source": "Sensor1",
+        "target": "EdgeOrin",
+        "speed": 5000.0
+      },
+      {
+        "source": "Sensor1",
+        "target": "Edge1080",
+        "speed": 5000.0
+      },
+      {
+        "source": "Sensor2",
+        "target": "EdgeA2",
+        "speed": 5000.0
+      },
+      {
+        "source": "Sensor2",
+        "target": "EdgeOrin",
+        "speed": 5000.0
+      },
+      {
+        "source": "Sensor2",
+        "target": "Edge1080",
+        "speed": 5000.0
+      },
+      {
+        "source": "Sensor3",
+        "target": "EdgeA2",
+        "speed": 5000.0
+      },
+      {
+        "source": "Sensor3",
+        "target": "EdgeOrin",
+        "speed": 5000.0
+      },
+      {
+        "source": "Sensor3",
+        "target": "Edge1080",
+        "speed": 5000.0
+      },
+      {
+        "source": "EdgeA2",
+        "target": "EdgeOrin",
+        "speed": 10000.0
+      },
+      {
+        "source": "EdgeA2",
+        "target": "Edge1080",
+        "speed": 10000.0
+      },
+      {
+        "source": "EdgeOrin",
+        "target": "Edge1080",
+        "speed": 10000.0
+      },
+      {
+        "source": "EdgeA2",
+        "target": "Cloud",
+        "speed": 500.0
+      },
+      {
+        "source": "EdgeOrin",
+        "target": "Cloud",
+        "speed": 500.0
+      },
+      {
+        "source": "Edge1080",
+        "target": "Cloud",
+        "speed": 500.0
+      },
+      {
+        "source": "Sensor1",
+        "target": "Cloud",
+        "speed": 200.0
+      },
+      {
+        "source": "Sensor2",
+        "target": "Cloud",
+        "speed": 200.0
+      },
+      {
+        "source": "Sensor3",
+        "target": "Cloud",
+        "speed": 200.0
+      },
+      {
+        "source": "Sensor1",
+        "target": "Sensor2",
+        "speed": 200.0
+      },
+      {
+        "source": "Sensor1",
+        "target": "Sensor3",
+        "speed": 200.0
+      },
+      {
+        "source": "Sensor2",
+        "target": "Sensor3",
+        "speed": 200.0
+      },
+      {
+        "source": "Sensor1",
+        "target": "Sensor1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "Sensor2",
+        "target": "Sensor2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "Sensor3",
+        "target": "Sensor3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "EdgeA2",
+        "target": "EdgeA2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "EdgeOrin",
+        "target": "EdgeOrin",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "Edge1080",
+        "target": "Edge1080",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "Cloud",
+        "target": "Cloud",
+        "speed": 1000000000.0
+      }
+    ]
+  }
+}

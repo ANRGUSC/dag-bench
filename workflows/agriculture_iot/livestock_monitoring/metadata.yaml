@@ -1,0 +1,43 @@
+id: agri.livestock_monitoring
+name: Livestock Monitoring
+description: Livestock monitoring. 10 animal sensors -> collect -> (herd analytics,
+  health alert, location track).
+domains:
+- agriculture-iot
+- iot
+provenance:
+  source: "AI-generated, based on architecture described in Neethirajan 2017"
+  paper_doi: 10.1016/j.sbsr.2016.11.004
+  paper_title: "Recent advances in wearable sensors for animal health management"
+  authors:
+  - Suresh Neethirajan
+  year: 2017
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: Paper reviews wearable sensor technologies for livestock health monitoring
+    including temperature, movement, and location sensing. It does not contain any
+    DAG or task dependency graph. This livestock monitoring pipeline is an AI-generated
+    task graph inspired by the sensor-to-analytics architecture described in the paper.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 14
+  num_edges: 13
+  depth: 3
+  width: 10
+  ccr: 0.3667
+  parallelism: 4.6667
+campaign: campaign_004_networking
+tags:
+- livestock
+- animal-health
+- wearable

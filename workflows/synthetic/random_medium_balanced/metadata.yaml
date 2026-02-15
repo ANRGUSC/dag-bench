@@ -1,0 +1,38 @@
+id: synthetic.random_medium_balanced
+name: Random Medium Balanced DAG
+description: Medium random layered DAG with balanced depth and width (depth=6, width
+  3-6).
+domains:
+- synthetic
+provenance:
+  source: Random layered DAG generator
+  repo_url: https://github.com/ANRGUSC/Automatic-DAG-Generator
+  extraction_method: generated
+  extractor: dagbench-random-dag-generator
+  extraction_date: '2026-02-14'
+  notes: Clean reimplementation of ANRGUSC Automatic-DAG-Generator algorithm (Sep
+    2018, BSD license). Structure and costs are randomly generated with fixed seed
+    for reproducibility.
+license:
+  source_license: BSD-3-Clause
+  dagbench_license: Apache-2.0
+  notes: Algorithm inspired by ANRGUSC/Automatic-DAG-Generator; this is a clean reimplementation
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 30
+  num_edges: 153
+  depth: 8
+  width: 6
+  ccr: 2.5159
+  parallelism: 3.75
+campaign: campaign_004_random_layered
+tags:
+- random-layered
+- medium
+- balanced

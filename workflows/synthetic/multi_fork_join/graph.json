@@ -1,0 +1,232 @@
+{
+  "name": "synthetic.multi_fork_join",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "L0_W0",
+        "cost": 8.0
+      },
+      {
+        "name": "Start",
+        "cost": 1.0
+      },
+      {
+        "name": "L1_W2",
+        "cost": 10.0
+      },
+      {
+        "name": "L2_W1",
+        "cost": 12.0
+      },
+      {
+        "name": "End",
+        "cost": 1.0
+      },
+      {
+        "name": "L0_W1",
+        "cost": 8.0
+      },
+      {
+        "name": "L1_W1",
+        "cost": 10.0
+      },
+      {
+        "name": "L1_W3",
+        "cost": 10.0
+      },
+      {
+        "name": "Join_0",
+        "cost": 3.0
+      },
+      {
+        "name": "L1_W0",
+        "cost": 10.0
+      },
+      {
+        "name": "L2_W0",
+        "cost": 12.0
+      },
+      {
+        "name": "L0_W2",
+        "cost": 8.0
+      },
+      {
+        "name": "Join_1",
+        "cost": 3.0
+      },
+      {
+        "name": "Join_2",
+        "cost": 3.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "L0_W2",
+        "target": "Join_0",
+        "size": 2.0
+      },
+      {
+        "source": "L0_W1",
+        "target": "Join_0",
+        "size": 2.0
+      },
+      {
+        "source": "Start",
+        "target": "L0_W1",
+        "size": 2.0
+      },
+      {
+        "source": "L2_W1",
+        "target": "Join_2",
+        "size": 2.0
+      },
+      {
+        "source": "Join_2",
+        "target": "End",
+        "size": 1.0
+      },
+      {
+        "source": "L1_W0",
+        "target": "Join_1",
+        "size": 2.0
+      },
+      {
+        "source": "L1_W1",
+        "target": "Join_1",
+        "size": 2.0
+      },
+      {
+        "source": "Start",
+        "target": "L0_W0",
+        "size": 2.0
+      },
+      {
+        "source": "L1_W3",
+        "target": "Join_1",
+        "size": 2.0
+      },
+      {
+        "source": "L1_W2",
+        "target": "Join_1",
+        "size": 2.0
+      },
+      {
+        "source": "Join_1",
+        "target": "L2_W0",
+        "size": 2.0
+      },
+      {
+        "source": "Join_0",
+        "target": "L1_W3",
+        "size": 2.0
+      },
+      {
+        "source": "L0_W0",
+        "target": "Join_0",
+        "size": 2.0
+      },
+      {
+        "source": "L2_W0",
+        "target": "Join_2",
+        "size": 2.0
+      },
+      {
+        "source": "Join_0",
+        "target": "L1_W2",
+        "size": 2.0
+      },
+      {
+        "source": "Join_1",
+        "target": "L2_W1",
+        "size": 2.0
+      },
+      {
+        "source": "Join_0",
+        "target": "L1_W1",
+        "size": 2.0
+      },
+      {
+        "source": "Start",
+        "target": "L0_W2",
+        "size": 2.0
+      },
+      {
+        "source": "Join_0",
+        "target": "L1_W0",
+        "size": 2.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N1",
+        "speed": 1.0
+      },
+      {
+        "name": "N2",
+        "speed": 1.0
+      },
+      {
+        "name": "N3",
+        "speed": 1.0
+      },
+      {
+        "name": "N0",
+        "speed": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 100.0
+      },
+      {
+        "source": "N0",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 100.0
+      },
+      {
+        "source": "N2",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 100.0
+      },
+      {
+        "source": "N3",
+        "target": "N3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      }
+    ]
+  }
+}

@@ -1,0 +1,48 @@
+id: smart_city.waste_mgmt
+name: IoT Waste Management
+description: Waste management. 8 bin sensors -> collect -> fill predict -> route optimize
+  -> assign trucks -> schedule -> notify.
+domains:
+- smart-city
+- iot
+provenance:
+  source: "AI-generated, based on architecture described in Pardini et al. 2019"
+  paper_doi: 10.3390/jsan8010005
+  paper_title: "IoT-Based Solid Waste Management Solutions: A Survey"
+  authors:
+  - Kellow Pardini
+  - Joel J. P. C. Rodrigues
+  - Sergei A. Kozlov
+  - Neeraj Kumar
+  - Vasco Furtado
+  year: 2019
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: Paper surveys IoT-based solid waste management covering smart bin sensors,
+    fill-level monitoring, collection route optimization, and truck scheduling. It
+    does not contain any DAG or task dependency graph. This waste management pipeline
+    is an AI-generated task graph inspired by the IoT waste collection architecture
+    described in the paper.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 14
+  num_edges: 13
+  depth: 7
+  width: 8
+  ccr: 0.3056
+  parallelism: 2.0
+campaign: campaign_004_networking
+tags:
+- waste
+- routing
+- iot-sensors

@@ -1,0 +1,51 @@
+id: smart_city.water_distribution
+name: Water Distribution Network
+description: Water distribution. 6 sensor pairs (read, validate) -> SCADA collect ->
+  (leak detect, pressure optimize, quality check).
+domains:
+- smart-city
+- iot
+- cyber-physical
+provenance:
+  source: "AI-generated, based on architecture described in Loureiro et al. 2016"
+  paper_doi: 10.1080/1573062X.2014.988733
+  paper_title: "Water distribution systems flow monitoring and anomalous event detection:
+    A practical approach"
+  authors:
+  - "D\xE1lia Loureiro"
+  - "Concei\xE7\xE3o Amado"
+  - "Andr\xE9 Martins"
+  - Diogo Vitorino
+  - Aisha Mamade
+  - "S\xE9rgio Teixeira Coelho"
+  year: 2016
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: Paper presents a practical approach to flow monitoring and anomaly detection
+    in water distribution networks using SCADA sensors. It does not contain any DAG
+    or task dependency graph. This water distribution pipeline is an AI-generated task
+    graph inspired by the sensor monitoring and leak detection architecture described
+    in the paper.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 16
+  num_edges: 15
+  depth: 4
+  width: 6
+  ccr: 0.3488
+  parallelism: 4.0
+campaign: campaign_004_networking
+tags:
+- water
+- scada
+- leak-detection

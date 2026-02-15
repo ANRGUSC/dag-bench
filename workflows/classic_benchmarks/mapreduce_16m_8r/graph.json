@@ -1,0 +1,429 @@
+{
+  "name": "classic.mapreduce_16m_8r",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "Map_13",
+        "cost": 10.0
+      },
+      {
+        "name": "Map_1",
+        "cost": 10.0
+      },
+      {
+        "name": "Map_6",
+        "cost": 10.0
+      },
+      {
+        "name": "Map_9",
+        "cost": 10.0
+      },
+      {
+        "name": "Map_15",
+        "cost": 10.0
+      },
+      {
+        "name": "Map_5",
+        "cost": 10.0
+      },
+      {
+        "name": "Merge",
+        "cost": 2.0
+      },
+      {
+        "name": "Reduce_0",
+        "cost": 20.0
+      },
+      {
+        "name": "Map_0",
+        "cost": 10.0
+      },
+      {
+        "name": "Map_7",
+        "cost": 10.0
+      },
+      {
+        "name": "Map_10",
+        "cost": 10.0
+      },
+      {
+        "name": "Map_4",
+        "cost": 10.0
+      },
+      {
+        "name": "Shuffle",
+        "cost": 5.0
+      },
+      {
+        "name": "Reduce_2",
+        "cost": 20.0
+      },
+      {
+        "name": "Reduce_3",
+        "cost": 20.0
+      },
+      {
+        "name": "Map_3",
+        "cost": 10.0
+      },
+      {
+        "name": "Map_8",
+        "cost": 10.0
+      },
+      {
+        "name": "Reduce_4",
+        "cost": 20.0
+      },
+      {
+        "name": "Map_14",
+        "cost": 10.0
+      },
+      {
+        "name": "Reduce_1",
+        "cost": 20.0
+      },
+      {
+        "name": "Map_2",
+        "cost": 10.0
+      },
+      {
+        "name": "Reduce_5",
+        "cost": 20.0
+      },
+      {
+        "name": "Map_11",
+        "cost": 10.0
+      },
+      {
+        "name": "Reduce_7",
+        "cost": 20.0
+      },
+      {
+        "name": "Reduce_6",
+        "cost": 20.0
+      },
+      {
+        "name": "Split",
+        "cost": 2.0
+      },
+      {
+        "name": "Map_12",
+        "cost": 10.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "Split",
+        "target": "Map_3",
+        "size": 1.0
+      },
+      {
+        "source": "Shuffle",
+        "target": "Reduce_4",
+        "size": 2.0
+      },
+      {
+        "source": "Map_14",
+        "target": "Shuffle",
+        "size": 2.0
+      },
+      {
+        "source": "Map_3",
+        "target": "Shuffle",
+        "size": 2.0
+      },
+      {
+        "source": "Shuffle",
+        "target": "Reduce_3",
+        "size": 2.0
+      },
+      {
+        "source": "Shuffle",
+        "target": "Reduce_5",
+        "size": 2.0
+      },
+      {
+        "source": "Map_2",
+        "target": "Shuffle",
+        "size": 2.0
+      },
+      {
+        "source": "Split",
+        "target": "Map_2",
+        "size": 1.0
+      },
+      {
+        "source": "Shuffle",
+        "target": "Reduce_0",
+        "size": 2.0
+      },
+      {
+        "source": "Reduce_7",
+        "target": "Merge",
+        "size": 1.0
+      },
+      {
+        "source": "Reduce_3",
+        "target": "Merge",
+        "size": 1.0
+      },
+      {
+        "source": "Map_8",
+        "target": "Shuffle",
+        "size": 2.0
+      },
+      {
+        "source": "Map_13",
+        "target": "Shuffle",
+        "size": 2.0
+      },
+      {
+        "source": "Shuffle",
+        "target": "Reduce_6",
+        "size": 2.0
+      },
+      {
+        "source": "Map_1",
+        "target": "Shuffle",
+        "size": 2.0
+      },
+      {
+        "source": "Shuffle",
+        "target": "Reduce_7",
+        "size": 2.0
+      },
+      {
+        "source": "Split",
+        "target": "Map_6",
+        "size": 1.0
+      },
+      {
+        "source": "Split",
+        "target": "Map_4",
+        "size": 1.0
+      },
+      {
+        "source": "Reduce_2",
+        "target": "Merge",
+        "size": 1.0
+      },
+      {
+        "source": "Split",
+        "target": "Map_11",
+        "size": 1.0
+      },
+      {
+        "source": "Map_15",
+        "target": "Shuffle",
+        "size": 2.0
+      },
+      {
+        "source": "Shuffle",
+        "target": "Reduce_1",
+        "size": 2.0
+      },
+      {
+        "source": "Map_11",
+        "target": "Shuffle",
+        "size": 2.0
+      },
+      {
+        "source": "Split",
+        "target": "Map_10",
+        "size": 1.0
+      },
+      {
+        "source": "Map_4",
+        "target": "Shuffle",
+        "size": 2.0
+      },
+      {
+        "source": "Reduce_1",
+        "target": "Merge",
+        "size": 1.0
+      },
+      {
+        "source": "Split",
+        "target": "Map_14",
+        "size": 1.0
+      },
+      {
+        "source": "Map_0",
+        "target": "Shuffle",
+        "size": 2.0
+      },
+      {
+        "source": "Split",
+        "target": "Map_13",
+        "size": 1.0
+      },
+      {
+        "source": "Map_9",
+        "target": "Shuffle",
+        "size": 2.0
+      },
+      {
+        "source": "Reduce_0",
+        "target": "Merge",
+        "size": 1.0
+      },
+      {
+        "source": "Reduce_6",
+        "target": "Merge",
+        "size": 1.0
+      },
+      {
+        "source": "Split",
+        "target": "Map_7",
+        "size": 1.0
+      },
+      {
+        "source": "Map_10",
+        "target": "Shuffle",
+        "size": 2.0
+      },
+      {
+        "source": "Map_12",
+        "target": "Shuffle",
+        "size": 2.0
+      },
+      {
+        "source": "Split",
+        "target": "Map_0",
+        "size": 1.0
+      },
+      {
+        "source": "Shuffle",
+        "target": "Reduce_2",
+        "size": 2.0
+      },
+      {
+        "source": "Split",
+        "target": "Map_5",
+        "size": 1.0
+      },
+      {
+        "source": "Split",
+        "target": "Map_1",
+        "size": 1.0
+      },
+      {
+        "source": "Reduce_4",
+        "target": "Merge",
+        "size": 1.0
+      },
+      {
+        "source": "Map_7",
+        "target": "Shuffle",
+        "size": 2.0
+      },
+      {
+        "source": "Map_6",
+        "target": "Shuffle",
+        "size": 2.0
+      },
+      {
+        "source": "Split",
+        "target": "Map_12",
+        "size": 1.0
+      },
+      {
+        "source": "Split",
+        "target": "Map_8",
+        "size": 1.0
+      },
+      {
+        "source": "Split",
+        "target": "Map_15",
+        "size": 1.0
+      },
+      {
+        "source": "Map_5",
+        "target": "Shuffle",
+        "size": 2.0
+      },
+      {
+        "source": "Reduce_5",
+        "target": "Merge",
+        "size": 1.0
+      },
+      {
+        "source": "Split",
+        "target": "Map_9",
+        "size": 1.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N1",
+        "speed": 1.0
+      },
+      {
+        "name": "N2",
+        "speed": 1.0
+      },
+      {
+        "name": "N3",
+        "speed": 1.0
+      },
+      {
+        "name": "N0",
+        "speed": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 100.0
+      },
+      {
+        "source": "N0",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 100.0
+      },
+      {
+        "source": "N2",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 100.0
+      },
+      {
+        "source": "N3",
+        "target": "N3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      }
+    ]
+  }
+}

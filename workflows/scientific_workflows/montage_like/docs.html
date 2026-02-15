@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Montage-like Astronomy Workflow - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Montage-like Astronomy Workflow</h1>
+    <div class="meta">
+        <strong>ID:</strong> scientific.montage_like &nbsp;|&nbsp;
+        <strong>Domains:</strong> scientific, astronomy, image-processing &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Astronomy image mosaic workflow modeled after Montage. Stages: project[6] -&gt; diff_fit[3] -&gt; concat -&gt; bg_model -&gt; background[6] -&gt; add -&gt; shrink. Scatter-gather pattern.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    mProject_1["mProject_1<br/>cost: 10.0"]
+    mBgModel["mBgModel<br/>cost: 8.0"]
+    mDiffFit_23["mDiffFit_23<br/>cost: 5.0"]
+    mProject_5["mProject_5<br/>cost: 10.0"]
+    mDiffFit_45["mDiffFit_45<br/>cost: 5.0"]
+    mBackground_4["mBackground_4<br/>cost: 5.0"]
+    mProject_0["mProject_0<br/>cost: 10.0"]
+    mBackground_3["mBackground_3<br/>cost: 5.0"]
+    mDiffFit_01["mDiffFit_01<br/>cost: 5.0"]
+    mBackground_5["mBackground_5<br/>cost: 5.0"]
+    mAdd["mAdd<br/>cost: 15.0"]
+    mShrink["mShrink<br/>cost: 3.0"]
+    mProject_4["mProject_4<br/>cost: 10.0"]
+    mProject_2["mProject_2<br/>cost: 10.0"]
+    mBackground_0["mBackground_0<br/>cost: 5.0"]
+    mBackground_1["mBackground_1<br/>cost: 5.0"]
+    mBackground_2["mBackground_2<br/>cost: 5.0"]
+    mConcatFit["mConcatFit<br/>cost: 3.0"]
+    mProject_3["mProject_3<br/>cost: 10.0"]
+    mProject_1 -->|"5"| mBackground_1
+    mBackground_5 -->|"10"| mAdd
+    mBgModel -->|"2"| mBackground_2
+    mBgModel -->|"2"| mBackground_1
+    mProject_0 -->|"5"| mBackground_0
+    mProject_5 -->|"8"| mDiffFit_45
+    mDiffFit_01 -->|"2"| mConcatFit
+    mDiffFit_45 -->|"2"| mConcatFit
+    mProject_1 -->|"8"| mDiffFit_01
+    mProject_2 -->|"8"| mDiffFit_23
+    mBgModel -->|"2"| mBackground_4
+    mProject_3 -->|"5"| mBackground_3
+    mBgModel -->|"2"| mBackground_3
+    mBackground_2 -->|"10"| mAdd
+    mBgModel -->|"2"| mBackground_0
+    mAdd -->|"5"| mShrink
+    mBackground_1 -->|"10"| mAdd
+    mProject_4 -->|"8"| mDiffFit_45
+    mBgModel -->|"2"| mBackground_5
+    mProject_5 -->|"5"| mBackground_5
+    mBackground_4 -->|"10"| mAdd
+    mBackground_0 -->|"10"| mAdd
+    mConcatFit -->|"3"| mBgModel
+    mProject_0 -->|"8"| mDiffFit_01
+    mProject_3 -->|"8"| mDiffFit_23
+    mProject_2 -->|"5"| mBackground_2
+    mDiffFit_23 -->|"2"| mConcatFit
+    mProject_4 -->|"5"| mBackground_4
+    mBackground_3 -->|"10"| mAdd
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (19)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>mProject_1</td><td>10.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>mBgModel</td><td>8.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>mDiffFit_23</td><td>5.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>mProject_5</td><td>10.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>mDiffFit_45</td><td>5.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>mBackground_4</td><td>5.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>mProject_0</td><td>10.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>mBackground_3</td><td>5.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>mDiffFit_01</td><td>5.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>mBackground_5</td><td>5.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>mAdd</td><td>15.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>mShrink</td><td>3.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>mProject_4</td><td>10.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>mProject_2</td><td>10.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>mBackground_0</td><td>5.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>mBackground_1</td><td>5.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>mBackground_2</td><td>5.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>mConcatFit</td><td>3.00</td><td>Processing step in scientific pipeline</td></tr><tr><td>mProject_3</td><td>10.00</td><td>Processing step in scientific pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>19</td></tr><tr><td>Edges</td><td>29</td></tr><tr><td>Depth</td><td>7</td></tr><tr><td>Width</td><td>6</td></tr><tr><td>CCR</td><td>1.2239</td></tr><tr><td>Parallelism</td><td>2.7143</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, based on architecture described in Pegasus Montage workflow<br>
+<strong>Paper:</strong> Montage: An Astronomical Image Mosaic Engine<br>
+<strong>Authors:</strong> Jacob C. Good, Joseph E. Berriman, G. Bruce Berriman<br>
+<strong>Year:</strong> 2004<br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Paper/standard describes a scientific computing system but contains no explicit DAG figure. Task graph is an AI interpretation of the architecture described in the text.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fully-connected<br>
+<strong>Nodes:</strong> 4
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">montage</span><span class="badge">astronomy</span><span class="badge">scatter-gather</span><span class="badge">scientific</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; scientific.montage_like
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

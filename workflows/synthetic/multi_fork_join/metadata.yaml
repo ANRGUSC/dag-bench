@@ -1,0 +1,35 @@
+id: synthetic.multi_fork_join
+name: Multi-Level Fork-Join DAG
+description: "Three levels of fork-join with varying widths (3, 4, 2). Start ->\
+  \ fork[3] -> join -> fork[4] -> join -> fork[2] -> join ->\
+  \ end."
+domains:
+- synthetic
+provenance:
+  source: DAGBench synthetic generators
+  extraction_method: generated
+  extractor: dagbench-import-script
+  extraction_date: '2026-02-12'
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+  notes: Classic benchmark structure; costs are representative
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 14
+  num_edges: 19
+  depth: 8
+  width: 4
+  ccr: 0.3737
+  parallelism: 1.75
+campaign: campaign_002_classic_and_manual
+tags:
+- fork-join
+- multi-level
+- parallel

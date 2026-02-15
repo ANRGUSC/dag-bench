@@ -1,0 +1,366 @@
+{
+  "name": "smart_city.water_distribution",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "Sensor1_Read",
+        "cost": 1.0
+      },
+      {
+        "name": "PressureOptimize",
+        "cost": 7.0
+      },
+      {
+        "name": "Sensor2_Read",
+        "cost": 1.0
+      },
+      {
+        "name": "Sensor0_Read",
+        "cost": 1.0
+      },
+      {
+        "name": "Sensor2_Validate",
+        "cost": 2.0
+      },
+      {
+        "name": "Sensor3_Read",
+        "cost": 1.0
+      },
+      {
+        "name": "Sensor3_Validate",
+        "cost": 2.0
+      },
+      {
+        "name": "Sensor5_Read",
+        "cost": 1.0
+      },
+      {
+        "name": "Sensor5_Validate",
+        "cost": 2.0
+      },
+      {
+        "name": "LeakDetect",
+        "cost": 8.0
+      },
+      {
+        "name": "Sensor0_Validate",
+        "cost": 2.0
+      },
+      {
+        "name": "QualityCheck",
+        "cost": 6.0
+      },
+      {
+        "name": "Sensor4_Validate",
+        "cost": 2.0
+      },
+      {
+        "name": "SCADA_Collect",
+        "cost": 4.0
+      },
+      {
+        "name": "Sensor1_Validate",
+        "cost": 2.0
+      },
+      {
+        "name": "Sensor4_Read",
+        "cost": 1.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "Sensor5_Validate",
+        "target": "SCADA_Collect",
+        "size": 1.0
+      },
+      {
+        "source": "Sensor3_Validate",
+        "target": "SCADA_Collect",
+        "size": 1.0
+      },
+      {
+        "source": "Sensor4_Read",
+        "target": "Sensor4_Validate",
+        "size": 0.5
+      },
+      {
+        "source": "Sensor2_Read",
+        "target": "Sensor2_Validate",
+        "size": 0.5
+      },
+      {
+        "source": "Sensor5_Read",
+        "target": "Sensor5_Validate",
+        "size": 0.5
+      },
+      {
+        "source": "Sensor0_Read",
+        "target": "Sensor0_Validate",
+        "size": 0.5
+      },
+      {
+        "source": "Sensor2_Validate",
+        "target": "SCADA_Collect",
+        "size": 1.0
+      },
+      {
+        "source": "Sensor1_Validate",
+        "target": "SCADA_Collect",
+        "size": 1.0
+      },
+      {
+        "source": "SCADA_Collect",
+        "target": "PressureOptimize",
+        "size": 2.0
+      },
+      {
+        "source": "SCADA_Collect",
+        "target": "QualityCheck",
+        "size": 2.0
+      },
+      {
+        "source": "SCADA_Collect",
+        "target": "LeakDetect",
+        "size": 2.0
+      },
+      {
+        "source": "Sensor1_Read",
+        "target": "Sensor1_Validate",
+        "size": 0.5
+      },
+      {
+        "source": "Sensor3_Read",
+        "target": "Sensor3_Validate",
+        "size": 0.5
+      },
+      {
+        "source": "Sensor0_Validate",
+        "target": "SCADA_Collect",
+        "size": 1.0
+      },
+      {
+        "source": "Sensor4_Validate",
+        "target": "SCADA_Collect",
+        "size": 1.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "E2",
+        "speed": 1.0
+      },
+      {
+        "name": "F0",
+        "speed": 8.0
+      },
+      {
+        "name": "C0",
+        "speed": 50.0
+      },
+      {
+        "name": "E3",
+        "speed": 1.0
+      },
+      {
+        "name": "E1",
+        "speed": 1.0
+      },
+      {
+        "name": "E0",
+        "speed": 1.0
+      },
+      {
+        "name": "E4",
+        "speed": 1.0
+      },
+      {
+        "name": "F1",
+        "speed": 8.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "C0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E0",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "C0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F0",
+        "speed": 12500.0
+      },
+      {
+        "source": "E1",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E3",
+        "target": "E3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "F1",
+        "target": "F1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E1",
+        "target": "E1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "F0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "E0",
+        "target": "E0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E4",
+        "target": "E4",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "F0",
+        "target": "F0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F1",
+        "speed": 12500.0
+      }
+    ]
+  }
+}

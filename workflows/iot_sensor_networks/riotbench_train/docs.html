@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RIoTBench ML Training Pipeline - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>RIoTBench ML Training Pipeline</h1>
+    <div class="meta">
+        <strong>ID:</strong> iot.riotbench_train &nbsp;|&nbsp;
+        <strong>Domains:</strong> iot, data-analytics &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Machine learning model training pipeline for IoT data. Tasks: read, annotate, train regression, write, publish.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    TimerSource["TimerSource<br/>cost: 17.3"]
+    BlobWrite["BlobWrite<br/>cost: 44.0"]
+    __super_sink__["__super_sink__<br/>cost: 0.0"]
+    MQTTPublish["MQTTPublish<br/>cost: 50.0"]
+    DecisionTreeTrain["DecisionTreeTrain<br/>cost: 38.8"]
+    Sink["Sink<br/>cost: 30.3"]
+    __super_source__["__super_source__<br/>cost: 0.0"]
+    Annotation["Annotation<br/>cost: 50.0"]
+    TableRead["TableRead<br/>cost: 17.9"]
+    MultiVarLinearRegTrain["MultiVarLinearRegTrain<br/>cost: 28.0"]
+    TableRead -->|"567"| Annotation
+    Annotation -->|"567"| BlobWrite
+    TimerSource -->|"567"| TableRead
+    DecisionTreeTrain --> __super_sink__
+    __super_source__ --> TimerSource
+    __super_source__ --> DecisionTreeTrain
+    BlobWrite -->|"1134"| MQTTPublish
+    MultiVarLinearRegTrain -->|"567"| BlobWrite
+    MQTTPublish -->|"1134"| Sink
+    TableRead -->|"567"| MultiVarLinearRegTrain
+    Sink --> __super_sink__
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (10)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>TimerSource</td><td>17.32</td><td>Data ingestion / source input</td></tr><tr><td>BlobWrite</td><td>43.99</td><td>Data storage / caching</td></tr><tr><td>__super_sink__</td><td>0.00</td><td>Final output / data sink</td></tr><tr><td>MQTTPublish</td><td>50.00</td><td>Final output / data sink</td></tr><tr><td>DecisionTreeTrain</td><td>38.75</td><td>Model training</td></tr><tr><td>Sink</td><td>30.28</td><td>Final output / data sink</td></tr><tr><td>__super_source__</td><td>0.00</td><td>Data ingestion / source input</td></tr><tr><td>Annotation</td><td>50.00</td><td>Processing step in iot pipeline</td></tr><tr><td>TableRead</td><td>17.86</td><td>Data loading / fetching</td></tr><tr><td>MultiVarLinearRegTrain</td><td>28.02</td><td>Model training</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>10</td></tr><tr><td>Edges</td><td>11</td></tr><tr><td>Depth</td><td>8</td></tr><tr><td>Width</td><td>2</td></tr><tr><td>CCR</td><td>18.4699</td></tr><tr><td>Parallelism</td><td>1.2500</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">Programmatic (from source code/repo)</span>
+        <br><br>
+        <strong>Source:</strong> SAGA framework (anrg-saga)<br>
+<strong>Paper:</strong> RIoTBench: An IoT Benchmark for Distributed Stream Processing Systems<br>
+<strong>Authors:</strong> Anshu Shukla, Shilpa Chaturvedi, Yogesh Simmhan<br>
+<strong>Year:</strong> 2017<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1002/cpe.4257" target="_blank">10.1002/cpe.4257</a><br>
+<strong>arXiv:</strong> <a href="https://arxiv.org/abs/1701.08530" target="_blank">1701.08530</a><br>
+<strong>Figure/Table:</strong> Fig. 2-5<br>
+<strong>Repository:</strong> <a href="https://github.com/anrgusc/saga" target="_blank">https://github.com/anrgusc/saga</a><br>
+<strong>Extraction Method:</strong> Programmatic (from source code/repo)<br>
+<strong>Extractor:</strong> dagbench-import-script<br>
+<strong>Date:</strong> 2026-02-12
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fog-three-tier<br>
+<strong>Nodes:</strong> 15
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">riotbench</span><span class="badge">iot</span><span class="badge">streaming</span><span class="badge">train</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; iot.riotbench_train
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

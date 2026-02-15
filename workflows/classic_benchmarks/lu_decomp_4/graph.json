@@ -1,0 +1,422 @@
+{
+  "name": "classic.lu_decomp_4",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "GEMM_0_3_2",
+        "cost": 8.0
+      },
+      {
+        "name": "TRSM_L_2_3",
+        "cost": 6.0
+      },
+      {
+        "name": "GEMM_0_1_3",
+        "cost": 8.0
+      },
+      {
+        "name": "TRSM_L_0_2",
+        "cost": 6.0
+      },
+      {
+        "name": "GETRF_3",
+        "cost": 10.0
+      },
+      {
+        "name": "TRSM_L_0_3",
+        "cost": 6.0
+      },
+      {
+        "name": "TRSM_L_0_1",
+        "cost": 6.0
+      },
+      {
+        "name": "GEMM_0_2_1",
+        "cost": 8.0
+      },
+      {
+        "name": "TRSM_U_1_2",
+        "cost": 6.0
+      },
+      {
+        "name": "GETRF_0",
+        "cost": 10.0
+      },
+      {
+        "name": "GEMM_0_2_3",
+        "cost": 8.0
+      },
+      {
+        "name": "GEMM_0_1_2",
+        "cost": 8.0
+      },
+      {
+        "name": "TRSM_U_2_3",
+        "cost": 6.0
+      },
+      {
+        "name": "GEMM_0_2_2",
+        "cost": 8.0
+      },
+      {
+        "name": "GEMM_1_3_3",
+        "cost": 8.0
+      },
+      {
+        "name": "TRSM_U_1_3",
+        "cost": 6.0
+      },
+      {
+        "name": "GEMM_0_3_3",
+        "cost": 8.0
+      },
+      {
+        "name": "TRSM_U_0_3",
+        "cost": 6.0
+      },
+      {
+        "name": "GETRF_2",
+        "cost": 10.0
+      },
+      {
+        "name": "TRSM_U_0_2",
+        "cost": 6.0
+      },
+      {
+        "name": "GEMM_1_2_2",
+        "cost": 8.0
+      },
+      {
+        "name": "GEMM_1_2_3",
+        "cost": 8.0
+      },
+      {
+        "name": "TRSM_L_1_3",
+        "cost": 6.0
+      },
+      {
+        "name": "GEMM_0_1_1",
+        "cost": 8.0
+      },
+      {
+        "name": "GEMM_2_3_3",
+        "cost": 8.0
+      },
+      {
+        "name": "TRSM_L_1_2",
+        "cost": 6.0
+      },
+      {
+        "name": "GETRF_1",
+        "cost": 10.0
+      },
+      {
+        "name": "TRSM_U_0_1",
+        "cost": 6.0
+      },
+      {
+        "name": "GEMM_1_3_2",
+        "cost": 8.0
+      },
+      {
+        "name": "GEMM_0_3_1",
+        "cost": 8.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "TRSM_U_1_2",
+        "target": "GEMM_1_2_2",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_L_1_3",
+        "target": "GEMM_1_3_3",
+        "size": 2.0
+      },
+      {
+        "source": "GEMM_0_2_1",
+        "target": "TRSM_U_1_2",
+        "size": 2.0
+      },
+      {
+        "source": "GEMM_1_2_2",
+        "target": "GETRF_2",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_L_0_1",
+        "target": "GEMM_0_2_1",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_U_0_2",
+        "target": "GEMM_0_2_2",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_U_0_3",
+        "target": "GEMM_0_3_2",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_L_0_2",
+        "target": "GEMM_0_2_2",
+        "size": 2.0
+      },
+      {
+        "source": "GEMM_0_1_3",
+        "target": "TRSM_L_1_3",
+        "size": 2.0
+      },
+      {
+        "source": "GETRF_1",
+        "target": "TRSM_L_1_2",
+        "size": 2.0
+      },
+      {
+        "source": "GETRF_0",
+        "target": "TRSM_L_0_2",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_L_0_2",
+        "target": "GEMM_0_1_2",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_U_0_3",
+        "target": "GEMM_0_3_3",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_L_2_3",
+        "target": "GEMM_2_3_3",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_U_1_3",
+        "target": "GEMM_1_3_3",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_U_2_3",
+        "target": "GEMM_2_3_3",
+        "size": 2.0
+      },
+      {
+        "source": "GEMM_0_1_2",
+        "target": "TRSM_L_1_2",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_U_0_1",
+        "target": "GEMM_0_1_3",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_L_0_3",
+        "target": "GEMM_0_2_3",
+        "size": 2.0
+      },
+      {
+        "source": "GEMM_0_1_1",
+        "target": "GETRF_1",
+        "size": 2.0
+      },
+      {
+        "source": "GEMM_0_3_1",
+        "target": "TRSM_U_1_3",
+        "size": 2.0
+      },
+      {
+        "source": "GETRF_2",
+        "target": "TRSM_U_2_3",
+        "size": 2.0
+      },
+      {
+        "source": "GETRF_0",
+        "target": "TRSM_U_0_2",
+        "size": 2.0
+      },
+      {
+        "source": "GETRF_0",
+        "target": "TRSM_L_0_1",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_U_0_2",
+        "target": "GEMM_0_2_3",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_L_1_2",
+        "target": "GEMM_1_3_2",
+        "size": 2.0
+      },
+      {
+        "source": "GETRF_1",
+        "target": "TRSM_U_1_3",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_U_0_3",
+        "target": "GEMM_0_3_1",
+        "size": 2.0
+      },
+      {
+        "source": "GETRF_2",
+        "target": "TRSM_L_2_3",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_U_0_2",
+        "target": "GEMM_0_2_1",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_L_0_3",
+        "target": "GEMM_0_3_3",
+        "size": 2.0
+      },
+      {
+        "source": "GEMM_1_3_2",
+        "target": "TRSM_U_2_3",
+        "size": 2.0
+      },
+      {
+        "source": "GEMM_2_3_3",
+        "target": "GETRF_3",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_U_0_1",
+        "target": "GEMM_0_1_2",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_L_1_2",
+        "target": "GEMM_1_2_2",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_L_1_3",
+        "target": "GEMM_1_2_3",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_L_0_1",
+        "target": "GEMM_0_1_1",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_L_0_3",
+        "target": "GEMM_0_1_3",
+        "size": 2.0
+      },
+      {
+        "source": "GETRF_0",
+        "target": "TRSM_L_0_3",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_U_1_3",
+        "target": "GEMM_1_3_2",
+        "size": 2.0
+      },
+      {
+        "source": "GETRF_0",
+        "target": "TRSM_U_0_3",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_U_0_1",
+        "target": "GEMM_0_1_1",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_L_0_1",
+        "target": "GEMM_0_3_1",
+        "size": 2.0
+      },
+      {
+        "source": "GETRF_1",
+        "target": "TRSM_L_1_3",
+        "size": 2.0
+      },
+      {
+        "source": "GETRF_1",
+        "target": "TRSM_U_1_2",
+        "size": 2.0
+      },
+      {
+        "source": "GETRF_0",
+        "target": "TRSM_U_0_1",
+        "size": 2.0
+      },
+      {
+        "source": "GEMM_1_2_3",
+        "target": "TRSM_L_2_3",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_L_0_2",
+        "target": "GEMM_0_3_2",
+        "size": 2.0
+      },
+      {
+        "source": "TRSM_U_1_2",
+        "target": "GEMM_1_2_3",
+        "size": 2.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N1",
+        "speed": 1.0
+      },
+      {
+        "name": "N2",
+        "speed": 1.0
+      },
+      {
+        "name": "N0",
+        "speed": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 100.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 100.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 100.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      }
+    ]
+  }
+}

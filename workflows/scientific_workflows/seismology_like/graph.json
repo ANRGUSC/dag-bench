@@ -1,0 +1,332 @@
+{
+  "name": "scientific.seismology_like",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "Synth_2_1",
+        "cost": 15.0
+      },
+      {
+        "name": "HazardCurve",
+        "cost": 20.0
+      },
+      {
+        "name": "Synth_2_2",
+        "cost": 15.0
+      },
+      {
+        "name": "ExtractSGT_0",
+        "cost": 10.0
+      },
+      {
+        "name": "PeakVal_0_2",
+        "cost": 5.0
+      },
+      {
+        "name": "PeakVal_1_0",
+        "cost": 5.0
+      },
+      {
+        "name": "PeakVal_1_2",
+        "cost": 5.0
+      },
+      {
+        "name": "PeakVal_2_1",
+        "cost": 5.0
+      },
+      {
+        "name": "Synth_1_0",
+        "cost": 15.0
+      },
+      {
+        "name": "PeakVal_1_1",
+        "cost": 5.0
+      },
+      {
+        "name": "PeakVal_2_0",
+        "cost": 5.0
+      },
+      {
+        "name": "Synth_2_0",
+        "cost": 15.0
+      },
+      {
+        "name": "Synth_1_2",
+        "cost": 15.0
+      },
+      {
+        "name": "ExtractSGT_1",
+        "cost": 10.0
+      },
+      {
+        "name": "ExtractSGT_2",
+        "cost": 10.0
+      },
+      {
+        "name": "PeakVal_0_1",
+        "cost": 5.0
+      },
+      {
+        "name": "PeakVal_2_2",
+        "cost": 5.0
+      },
+      {
+        "name": "Synth_0_1",
+        "cost": 15.0
+      },
+      {
+        "name": "Synth_0_2",
+        "cost": 15.0
+      },
+      {
+        "name": "HazardMap",
+        "cost": 8.0
+      },
+      {
+        "name": "PeakVal_0_0",
+        "cost": 5.0
+      },
+      {
+        "name": "Synth_0_0",
+        "cost": 15.0
+      },
+      {
+        "name": "SiteInfo",
+        "cost": 3.0
+      },
+      {
+        "name": "Synth_1_1",
+        "cost": 15.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "PeakVal_1_2",
+        "target": "HazardCurve",
+        "size": 2.0
+      },
+      {
+        "source": "PeakVal_1_0",
+        "target": "HazardCurve",
+        "size": 2.0
+      },
+      {
+        "source": "SiteInfo",
+        "target": "ExtractSGT_0",
+        "size": 5.0
+      },
+      {
+        "source": "Synth_0_0",
+        "target": "PeakVal_0_0",
+        "size": 3.0
+      },
+      {
+        "source": "PeakVal_2_2",
+        "target": "HazardCurve",
+        "size": 2.0
+      },
+      {
+        "source": "Synth_2_0",
+        "target": "PeakVal_2_0",
+        "size": 3.0
+      },
+      {
+        "source": "Synth_2_1",
+        "target": "PeakVal_2_1",
+        "size": 3.0
+      },
+      {
+        "source": "PeakVal_0_2",
+        "target": "HazardCurve",
+        "size": 2.0
+      },
+      {
+        "source": "ExtractSGT_2",
+        "target": "Synth_2_1",
+        "size": 8.0
+      },
+      {
+        "source": "ExtractSGT_0",
+        "target": "Synth_0_2",
+        "size": 8.0
+      },
+      {
+        "source": "ExtractSGT_2",
+        "target": "Synth_2_0",
+        "size": 8.0
+      },
+      {
+        "source": "Synth_1_0",
+        "target": "PeakVal_1_0",
+        "size": 3.0
+      },
+      {
+        "source": "PeakVal_0_1",
+        "target": "HazardCurve",
+        "size": 2.0
+      },
+      {
+        "source": "Synth_0_2",
+        "target": "PeakVal_0_2",
+        "size": 3.0
+      },
+      {
+        "source": "HazardCurve",
+        "target": "HazardMap",
+        "size": 5.0
+      },
+      {
+        "source": "ExtractSGT_2",
+        "target": "Synth_2_2",
+        "size": 8.0
+      },
+      {
+        "source": "ExtractSGT_0",
+        "target": "Synth_0_1",
+        "size": 8.0
+      },
+      {
+        "source": "PeakVal_0_0",
+        "target": "HazardCurve",
+        "size": 2.0
+      },
+      {
+        "source": "ExtractSGT_1",
+        "target": "Synth_1_0",
+        "size": 8.0
+      },
+      {
+        "source": "SiteInfo",
+        "target": "ExtractSGT_2",
+        "size": 5.0
+      },
+      {
+        "source": "ExtractSGT_1",
+        "target": "Synth_1_1",
+        "size": 8.0
+      },
+      {
+        "source": "PeakVal_2_0",
+        "target": "HazardCurve",
+        "size": 2.0
+      },
+      {
+        "source": "PeakVal_1_1",
+        "target": "HazardCurve",
+        "size": 2.0
+      },
+      {
+        "source": "ExtractSGT_1",
+        "target": "Synth_1_2",
+        "size": 8.0
+      },
+      {
+        "source": "Synth_1_1",
+        "target": "PeakVal_1_1",
+        "size": 3.0
+      },
+      {
+        "source": "ExtractSGT_0",
+        "target": "Synth_0_0",
+        "size": 8.0
+      },
+      {
+        "source": "SiteInfo",
+        "target": "ExtractSGT_1",
+        "size": 5.0
+      },
+      {
+        "source": "Synth_0_1",
+        "target": "PeakVal_0_1",
+        "size": 3.0
+      },
+      {
+        "source": "PeakVal_2_1",
+        "target": "HazardCurve",
+        "size": 2.0
+      },
+      {
+        "source": "Synth_2_2",
+        "target": "PeakVal_2_2",
+        "size": 3.0
+      },
+      {
+        "source": "Synth_1_2",
+        "target": "PeakVal_1_2",
+        "size": 3.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N1",
+        "speed": 2.0
+      },
+      {
+        "name": "N2",
+        "speed": 2.0
+      },
+      {
+        "name": "N3",
+        "speed": 2.0
+      },
+      {
+        "name": "N0",
+        "speed": 2.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 1000.0
+      },
+      {
+        "source": "N0",
+        "target": "N3",
+        "speed": 1000.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N3",
+        "speed": 1000.0
+      },
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 1000.0
+      },
+      {
+        "source": "N2",
+        "target": "N3",
+        "speed": 1000.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 1000.0
+      },
+      {
+        "source": "N3",
+        "target": "N3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      }
+    ]
+  }
+}

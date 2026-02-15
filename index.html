@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DAGBench - Task Graph Benchmark for Scheduling Research</title>
+<style>
+  :root {
+    --blue-900: #1e3a5f;
+    --blue-800: #234b73;
+    --blue-700: #2b5f8a;
+    --blue-600: #3572a5;
+    --blue-500: #4a90c4;
+    --blue-400: #6daed5;
+    --blue-300: #91c4e2;
+    --blue-200: #b8daf0;
+    --blue-100: #e0f0fa;
+    --blue-50: #f0f7fc;
+    --gray-900: #1a1a2e;
+    --gray-800: #2d2d44;
+    --gray-700: #4a4a5e;
+    --gray-600: #6b6b7d;
+    --gray-500: #8e8e9d;
+    --gray-400: #ababba;
+    --gray-300: #c8c8d4;
+    --gray-200: #e2e2ea;
+    --gray-100: #f0f0f5;
+    --gray-50: #f8f8fb;
+    --accent-green: #27ae60;
+    --accent-orange: #e67e22;
+    --accent-red: #c0392b;
+    --accent-purple: #8e44ad;
+    --accent-teal: #16a085;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+    --radius: 8px;
+    --radius-lg: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: var(--gray-800);
+    line-height: 1.6;
+    background: #fff;
+  }
+
+  a { color: var(--blue-600); text-decoration: none; }
+  a:hover { color: var(--blue-800); text-decoration: underline; }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 50%, var(--blue-600) 100%);
+    color: #fff;
+    padding: 64px 0 48px;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: 3.2rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+  }
+  .hero .tagline {
+    font-size: 1.15rem;
+    opacity: 0.9;
+    max-width: 720px;
+    margin: 0 auto 28px;
+    line-height: 1.5;
+  }
+  .hero-links {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+  .hero-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .hero-links a:hover { transform: translateY(-1px); text-decoration: none; }
+  .btn-primary {
+    background: #fff;
+    color: var(--blue-800) !important;
+    box-shadow: var(--shadow-md);
+  }
+  .btn-secondary {
+    background: rgba(255,255,255,0.15);
+    color: #fff !important;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.25); }
+
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+    background: rgba(0,0,0,0.2);
+    border-radius: var(--radius);
+    max-width: 680px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .stat-item {
+    flex: 1;
+    min-width: 140px;
+    padding: 16px 20px;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-number {
+    font-size: 1.8rem;
+    font-weight: 800;
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+  }
+
+  /* Sections */
+  section {
+    padding: 56px 0;
+  }
+  section:nth-child(even) {
+    background: var(--gray-50);
+  }
+  section h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--blue-900);
+    margin-bottom: 20px;
+  }
+  section h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--gray-700);
+    margin: 20px 0 10px;
+  }
+  section p {
+    color: var(--gray-700);
+    max-width: 800px;
+    margin-bottom: 16px;
+  }
+
+  /* What is DAGBench */
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (max-width: 768px) {
+    .intro-grid { grid-template-columns: 1fr; }
+  }
+  .mermaid-container {
+    background: var(--blue-50);
+    border: 1px solid var(--blue-200);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    text-align: center;
+  }
+  .mermaid-container .caption {
+    font-size: 0.85rem;
+    color: var(--gray-600);
+    margin-top: 12px;
+  }
+
+  /* Code blocks */
+  .code-block {
+    background: var(--gray-900);
+    color: #e0e0e0;
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    overflow-x: auto;
+    white-space: pre;
+    margin: 16px 0;
+    box-shadow: var(--shadow-md);
+  }
+  .code-block .comment { color: #6a9955; }
+  .code-block .keyword { color: #c586c0; }
+  .code-block .string { color: #ce9178; }
+  .code-block .func { color: #dcdcaa; }
+  .code-block .type { color: #4ec9b0; }
+  .code-block .number { color: #b5cea8; }
+  .code-block .shell-prompt { color: #6a9955; user-select: none; }
+  .code-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: -1px;
+    position: relative;
+    z-index: 1;
+  }
+  .code-tab {
+    padding: 8px 20px;
+    background: var(--gray-200);
+    border: 1px solid var(--gray-300);
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gray-600);
+    transition: background 0.15s;
+  }
+  .code-tab.active {
+    background: var(--gray-900);
+    color: #e0e0e0;
+    border-color: var(--gray-900);
+  }
+  .code-tab:hover:not(.active) { background: var(--gray-300); }
+  .code-panel { display: none; }
+  .code-panel.active { display: block; }
+  .code-panel .code-block { border-radius: 0 var(--radius) var(--radius) var(--radius); margin-top: 0; }
+
+  /* Provenance */
+  .provenance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 24px;
+  }
+  .prov-card {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    border-left: 4px solid;
+    transition: box-shadow 0.2s, transform 0.15s;
+  }
+  .prov-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .prov-card.manual-figure { border-left-color: var(--accent-green); }
+  .prov-card.programmatic { border-left-color: var(--blue-500); }
+  .prov-card.generated { border-left-color: var(--accent-purple); }
+  .prov-card.ai-generated { border-left-color: var(--accent-orange); }
+  .prov-card .prov-count {
+    font-size: 2rem;
+    font-weight: 800;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .prov-card.manual-figure .prov-count { color: var(--accent-green); }
+  .prov-card.programmatic .prov-count { color: var(--blue-500); }
+  .prov-card.generated .prov-count { color: var(--accent-purple); }
+  .prov-card.ai-generated .prov-count { color: var(--accent-orange); }
+  .prov-card .prov-label {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  .prov-card .prov-desc {
+    font-size: 0.9rem;
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+
+  /* Catalog */
+  .catalog-controls {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .catalog-controls input[type="text"] {
+    flex: 1;
+    min-width: 200px;
+    padding: 10px 16px;
+    border: 2px solid var(--gray-200);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .catalog-controls input[type="text"]:focus { border-color: var(--blue-400); }
+  .catalog-controls select {
+    padding: 10px 16px;
+    border: 2px solid var(--gray-200);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    background: #fff;
+    cursor: pointer;
+    outline: none;
+  }
+  .catalog-controls select:focus { border-color: var(--blue-400); }
+  .catalog-count {
+    font-size: 0.9rem;
+    color: var(--gray-600);
+    margin-bottom: 8px;
+  }
+
+  .catalog-table-wrap {
+    overflow-x: auto;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+  }
+  .catalog-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    min-width: 900px;
+  }
+  .catalog-table th {
+    background: var(--blue-900);
+    color: #fff;
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+  .catalog-table th:hover { background: var(--blue-800); }
+  .catalog-table th .sort-arrow {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 0.7rem;
+    opacity: 0.5;
+  }
+  .catalog-table th.sort-active .sort-arrow { opacity: 1; }
+  .catalog-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--gray-200);
+    vertical-align: top;
+  }
+  .catalog-table tbody tr:hover { background: var(--blue-50); }
+  .catalog-table tbody tr:nth-child(even) { background: var(--gray-50); }
+  .catalog-table tbody tr:nth-child(even):hover { background: var(--blue-50); }
+  .catalog-table .id-link {
+    font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
+    font-size: 0.82rem;
+    color: var(--blue-600);
+    font-weight: 600;
+  }
+  .catalog-table .id-link:hover { color: var(--blue-800); }
+  .method-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .method-badge.manual-figure { background: #e8f5e9; color: #2e7d32; }
+  .method-badge.programmatic { background: #e3f2fd; color: #1565c0; }
+  .method-badge.generated { background: #f3e5f5; color: #7b1fa2; }
+  .method-badge.ai-generated { background: #fff3e0; color: #e65100; }
+  .domain-tag {
+    display: inline-block;
+    padding: 1px 6px;
+    background: var(--gray-100);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    margin: 1px 2px;
+    color: var(--gray-700);
+    white-space: nowrap;
+  }
+
+  /* Domain chart */
+  .domain-chart {
+    max-width: 800px;
+    margin: 24px 0;
+  }
+  .chart-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+    gap: 10px;
+  }
+  .chart-label {
+    width: 150px;
+    text-align: right;
+    font-size: 0.85rem;
+    color: var(--gray-700);
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .chart-bar-wrap {
+    flex: 1;
+    background: var(--gray-100);
+    border-radius: 4px;
+    height: 24px;
+    overflow: hidden;
+  }
+  .chart-bar {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--blue-500), var(--blue-400));
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    transition: width 0.6s ease-out;
+    min-width: 0;
+  }
+  .chart-bar span {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+  }
+  .chart-count {
+    width: 32px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--gray-800);
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* Sources */
+  .source-list {
+    list-style: none;
+    padding: 0;
+  }
+  .source-list li {
+    padding: 14px 20px;
+    border-left: 3px solid var(--blue-300);
+    margin-bottom: 12px;
+    background: #fff;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    box-shadow: var(--shadow-sm);
+  }
+  .source-list .source-name {
+    font-weight: 700;
+    color: var(--blue-900);
+  }
+  .source-list .source-meta {
+    font-size: 0.85rem;
+    color: var(--gray-600);
+    margin-top: 4px;
+  }
+  .source-list .source-meta a { font-weight: 600; }
+
+  /* Data Format */
+  .format-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 768px) {
+    .format-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Footer */
+  footer {
+    background: var(--gray-900);
+    color: var(--gray-400);
+    padding: 48px 0 32px;
+  }
+  footer h3 { color: #fff; margin-bottom: 12px; font-size: 1rem; }
+  footer p { color: var(--gray-400); font-size: 0.9rem; }
+  footer a { color: var(--blue-300); }
+  footer a:hover { color: var(--blue-200); }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+    margin-bottom: 32px;
+  }
+  @media (max-width: 768px) {
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+  .footer-bibtex {
+    background: rgba(255,255,255,0.05);
+    border-radius: var(--radius);
+    padding: 16px;
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.78rem;
+    line-height: 1.6;
+    overflow-x: auto;
+    white-space: pre;
+    color: var(--gray-300);
+  }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 24px;
+    text-align: center;
+    font-size: 0.85rem;
+  }
+
+  /* Nav */
+  .toc-nav {
+    background: #fff;
+    border-bottom: 1px solid var(--gray-200);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+  }
+  .toc-nav .container {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    gap: 0;
+    padding: 0 24px;
+  }
+  .toc-nav .nav-brand {
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--blue-800);
+    padding: 12px 20px 12px 0;
+    white-space: nowrap;
+    border-right: 1px solid var(--gray-200);
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+  .toc-nav a.nav-link {
+    padding: 12px 14px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--gray-600);
+    white-space: nowrap;
+    transition: color 0.15s;
+  }
+  .toc-nav a.nav-link:hover { color: var(--blue-600); text-decoration: none; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 2.2rem; }
+    .hero .tagline { font-size: 1rem; padding: 0 16px; }
+    .stat-item { min-width: 120px; padding: 12px 8px; }
+    .stat-number { font-size: 1.4rem; }
+    section { padding: 36px 0; }
+    section h2 { font-size: 1.4rem; }
+    .chart-label { width: 100px; font-size: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="toc-nav">
+  <div class="container">
+    <span class="nav-brand">DAGBench</span>
+    <a class="nav-link" href="#about">About</a>
+    <a class="nav-link" href="#quickstart">Quick Start</a>
+    <a class="nav-link" href="#provenance">Provenance</a>
+    <a class="nav-link" href="#catalog">Catalog</a>
+    <a class="nav-link" href="#domains">Domains</a>
+    <a class="nav-link" href="#sources">Sources</a>
+    <a class="nav-link" href="#format">Data Format</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+  <div class="container">
+    <h1>DAGBench</h1>
+    <p class="tagline">A curated task graph benchmark for scheduling research &mdash; 82 DAGs across 22 application domains with provenance</p>
+    <div class="hero-links">
+      <a class="btn-primary" href="https://github.com/ANRGUSC/dagbench" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        GitHub Repository
+      </a>
+      <a class="btn-secondary" href="#catalog">Explore Catalog</a>
+    </div>
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-number">82</span>
+        <span class="stat-label">Workflows</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">22</span>
+        <span class="stat-label">Domains</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">13</span>
+        <span class="stat-label">Paper-Extracted</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">1&ndash;1118</span>
+        <span class="stat-label">Task Range</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- What is DAGBench? -->
+<section id="about">
+  <div class="container">
+    <h2>What is DAGBench?</h2>
+    <div class="intro-grid">
+      <div>
+        <p>
+          <strong>Task graph scheduling</strong> is a foundational problem in distributed computing: given a directed acyclic graph (DAG) of dependent tasks with computation costs and communication costs between them, find an optimal mapping of tasks to heterogeneous processors that minimizes the overall completion time (makespan).
+        </p>
+        <p>
+          DAGBench provides a curated, diverse collection of realistic task graph workflows drawn from edge computing, IoT, scientific computing, telecommunications, and more. Every workflow ships with a standardized <code>graph.json</code> (task/edge costs) and <code>metadata.yaml</code> (provenance, domains, paper references), ready for direct use with the <a href="https://github.com/anrgusc/saga" target="_blank" rel="noopener">SAGA scheduling framework</a>.
+        </p>
+        <p>
+          Unlike randomly generated DAGs, DAGBench workflows reflect real application structures&mdash;from FFT butterfly patterns and Cholesky factorizations to ML inference pipelines and UAV coordination systems.
+        </p>
+      </div>
+      <div class="mermaid-container">
+        <div class="mermaid">
+graph TD
+    Source["Source<br/>cost: 10"]
+    TaskA["TaskA<br/>cost: 25"]
+    TaskB["TaskB<br/>cost: 30"]
+    Sink["Sink<br/>cost: 5"]
+    Source -->|"data: 15"| TaskA
+    Source -->|"data: 12"| TaskB
+    TaskA -->|"data: 8"| Sink
+    TaskB -->|"data: 10"| Sink
+    style Source fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    style TaskA fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style TaskB fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style Sink fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+        </div>
+        <div class="caption">Example DAG: diamond fork-join pattern with task costs and edge communication weights</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Installation & Quick Start -->
+<section id="quickstart">
+  <div class="container">
+    <h2>Installation &amp; Quick Start</h2>
+    <div class="code-tabs">
+      <div class="code-tab active" onclick="switchTab(event, 'tab-python')">Python API</div>
+      <div class="code-tab" onclick="switchTab(event, 'tab-generators')">Generators</div>
+      <div class="code-tab" onclick="switchTab(event, 'tab-cli')">CLI</div>
+    </div>
+    <div id="tab-python" class="code-panel active">
+      <div class="code-block"><span class="comment"># Install DAGBench</span>
+<span class="shell-prompt">$ </span>pip install dagbench
+
+<span class="comment"># Load a workflow and schedule with HEFT</span>
+<span class="keyword">from</span> dagbench <span class="keyword">import</span> load_workflow
+<span class="keyword">from</span> dagbench.networks <span class="keyword">import</span> fog_network
+<span class="keyword">from</span> saga.schedulers <span class="keyword">import</span> HeftScheduler
+
+<span class="comment"># Load any workflow by its full ID</span>
+task_graph = <span class="func">load_workflow</span>(<span class="string">"edge.splitstream_pipeline"</span>)
+network = <span class="func">fog_network</span>()
+
+<span class="comment"># Schedule with HEFT</span>
+scheduler = <span class="type">HeftScheduler</span>()
+schedule = scheduler.<span class="func">schedule</span>(network, task_graph)
+<span class="func">print</span>(f<span class="string">"Makespan: {schedule.makespan:.2f}"</span>)</div>
+    </div>
+    <div id="tab-generators" class="code-panel">
+      <div class="code-block"><span class="comment"># Generate classic benchmark DAGs programmatically</span>
+<span class="keyword">from</span> dagbench.generators <span class="keyword">import</span> gaussian_elimination_dag, fft_dag, cholesky_dag
+<span class="keyword">from</span> dagbench.generators <span class="keyword">import</span> mapreduce_dag, lu_decomposition_dag
+<span class="keyword">from</span> dagbench.generators <span class="keyword">import</span> random_layered_dag
+<span class="keyword">from</span> dagbench.networks <span class="keyword">import</span> fog_network
+<span class="keyword">from</span> saga.schedulers <span class="keyword">import</span> HeftScheduler
+
+<span class="comment"># Generate a 7x7 Gaussian elimination DAG (28 tasks)</span>
+task_graph = <span class="func">gaussian_elimination_dag</span>(n=<span class="number">7</span>)
+
+<span class="comment"># Other classic generators</span>
+fft      = <span class="func">fft_dag</span>(num_points=<span class="number">16</span>)        <span class="comment"># 64 tasks</span>
+cholesky = <span class="func">cholesky_dag</span>(tiles=<span class="number">5</span>)         <span class="comment"># 35 tasks</span>
+lu       = <span class="func">lu_decomposition_dag</span>(tiles=<span class="number">4</span>)   <span class="comment"># 30 tasks</span>
+mr       = <span class="func">mapreduce_dag</span>(mappers=<span class="number">8</span>, reducers=<span class="number">4</span>)
+
+<span class="comment"># Random layered DAG with custom structure</span>
+rand_dag = <span class="func">random_layered_dag</span>(
+    min_depth=<span class="number">6</span>, max_depth=<span class="number">10</span>,
+    min_width=<span class="number">3</span>, max_width=<span class="number">8</span>,
+)
+
+<span class="comment"># Schedule any generated DAG</span>
+schedule = <span class="type">HeftScheduler</span>().<span class="func">schedule</span>(<span class="func">fog_network</span>(), task_graph)
+<span class="func">print</span>(f<span class="string">"Makespan: {schedule.makespan:.2f}"</span>)</div>
+    </div>
+    <div id="tab-cli" class="code-panel">
+      <div class="code-block"><span class="comment"># List all workflows</span>
+<span class="shell-prompt">$ </span>dagbench list
+
+<span class="comment"># Filter by domain</span>
+<span class="shell-prompt">$ </span>dagbench list --domain edge-computing
+
+<span class="comment"># Show detailed info for a workflow</span>
+<span class="shell-prompt">$ </span>dagbench info edge.splitstream_pipeline
+
+<span class="comment"># Validate all workflows</span>
+<span class="shell-prompt">$ </span>dagbench validate --all
+
+<span class="comment"># Show statistics across all workflows</span>
+<span class="shell-prompt">$ </span>dagbench stats</div>
+    </div>
+  </div>
+</section>
+
+<!-- Provenance Policy -->
+<section id="provenance">
+  <div class="container">
+    <h2>Provenance Policy</h2>
+    <p>
+      Every workflow in DAGBench includes provenance metadata describing exactly how it was created.
+      We believe transparency about extraction methods is essential for reproducible research.
+    </p>
+    <div class="provenance-grid">
+      <div class="prov-card manual-figure">
+        <span class="prov-count">13</span>
+        <div class="prov-label">manual-figure</div>
+        <div class="prov-desc">
+          Faithfully extracted from published paper figures or open-source code repositories.
+          Task structures, costs, and edge weights come directly from the original source.
+        </div>
+      </div>
+      <div class="prov-card programmatic">
+        <span class="prov-count">23</span>
+        <div class="prov-label">programmatic</div>
+        <div class="prov-desc">
+          Generated from code repositories or algorithmic generators (FFT, Cholesky, MapReduce, Gaussian elimination).
+          Structure and costs follow well-known patterns.
+        </div>
+      </div>
+      <div class="prov-card generated">
+        <span class="prov-count">17</span>
+        <div class="prov-label">generated</div>
+        <div class="prov-desc">
+          Synthetic benchmark patterns (chains, diamonds, fork-joins, stencils, trees)
+          and random layered DAGs with configurable structure, designed to stress-test specific scheduler behaviors.
+        </div>
+      </div>
+      <div class="prov-card ai-generated">
+        <span class="prov-count">29</span>
+        <div class="prov-label">ai-generated</div>
+        <div class="prov-desc">
+          AI-generated workflows with honest attribution. Inspired by real applications
+          and papers, but the specific DAG structure was created by an LLM.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Interactive Workflow Catalog -->
+<section id="catalog">
+  <div class="container">
+    <h2>Workflow Catalog</h2>
+    <p>Search, filter, and sort all 82 workflows. Click any column header to sort. Click a workflow ID to view its full documentation.</p>
+    <div class="catalog-controls">
+      <input type="text" id="searchBox" placeholder="Search by name, ID, or tag...">
+      <select id="domainFilter">
+        <option value="">All domains</option>
+      </select>
+      <select id="methodFilter">
+        <option value="">All methods</option>
+        <option value="manual-figure">manual-figure</option>
+        <option value="programmatic">programmatic</option>
+        <option value="generated">generated</option>
+        <option value="ai-generated">ai-generated</option>
+      </select>
+    </div>
+    <div class="catalog-count" id="catalogCount">Showing 82 of 82 workflows</div>
+    <div class="catalog-table-wrap">
+      <table class="catalog-table" id="catalogTable">
+        <thead>
+          <tr>
+            <th data-col="id" data-type="string">ID <span class="sort-arrow">&#9650;</span></th>
+            <th data-col="name" data-type="string">Name <span class="sort-arrow">&#9650;</span></th>
+            <th data-col="tasks" data-type="number">Tasks <span class="sort-arrow">&#9650;</span></th>
+            <th data-col="edges" data-type="number">Edges <span class="sort-arrow">&#9650;</span></th>
+            <th data-col="depth" data-type="number">Depth <span class="sort-arrow">&#9650;</span></th>
+            <th data-col="width" data-type="number">Width <span class="sort-arrow">&#9650;</span></th>
+            <th data-col="ccr" data-type="number">CCR <span class="sort-arrow">&#9650;</span></th>
+            <th data-col="par" data-type="number">Parallelism <span class="sort-arrow">&#9650;</span></th>
+            <th data-col="method" data-type="string">Method <span class="sort-arrow">&#9650;</span></th>
+            <th data-col="domains" data-type="string">Domains <span class="sort-arrow">&#9650;</span></th>
+          </tr>
+        </thead>
+        <tbody id="catalogBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Domain Distribution -->
+<section id="domains">
+  <div class="container">
+    <h2>Domain Distribution</h2>
+    <p>Workflows span 22 application domains. Many workflows are tagged with multiple domains, reflecting the cross-cutting nature of real applications.</p>
+    <div class="domain-chart" id="domainChart"></div>
+  </div>
+</section>
+
+<!-- Sources & Bibliography -->
+<section id="sources">
+  <div class="container">
+    <h2>Sources &amp; Bibliography</h2>
+    <p>Papers and repositories that contributed workflows to DAGBench, organized by how DAGs were derived.</p>
+
+    <h3>DAG Sources</h3>
+    <p>Papers and code from which DAGs were directly extracted or algorithmically generated:</p>
+    <ul class="source-list">
+      <li>
+        <div class="source-name">SLEIPNIR &mdash; De Maio &amp; Brandic (CCGrid 2018)</div>
+        <div class="source-meta">5 MEC offloading app DAGs &mdash; &ldquo;First Hop Mobile Offloading of DAG Computations.&rdquo; DOI: <a href="https://doi.org/10.1109/CCGRID.2018.00023" target="_blank" rel="noopener">10.1109/CCGRID.2018.00023</a> | GitHub: <a href="https://github.com/vindem/sleipnir" target="_blank" rel="noopener">vindem/sleipnir</a></div>
+      </li>
+      <li>
+        <div class="source-name">M-TEC &mdash; Li et al. (arXiv 2024)</div>
+        <div class="source-meta">3 edge computing app DAGs &mdash; &ldquo;Dynamic DAG-Application Scheduling for Multi-Tier Edge Computing in Heterogeneous Networks.&rdquo; arXiv: <a href="https://arxiv.org/abs/2409.10839" target="_blank" rel="noopener">2409.10839</a></div>
+      </li>
+      <li>
+        <div class="source-name">SplitStream &mdash; Liang et al. (JNCA 2024)</div>
+        <div class="source-meta">Video query pipeline &mdash; &ldquo;SplitStream: Distributed and workload-adaptive video analytics at the edge.&rdquo; DOI: <a href="https://doi.org/10.1016/j.jnca.2024.103866" target="_blank" rel="noopener">10.1016/j.jnca.2024.103866</a></div>
+      </li>
+      <li>
+        <div class="source-name">MILCOM 2024 &mdash; Wu et al.</div>
+        <div class="source-meta">ML surveillance pipeline &mdash; &ldquo;Enhancing Resilience in Distributed ML Inference Pipelines for Edge Computing.&rdquo; DOI: <a href="https://doi.org/10.1109/MILCOM61039.2024.10773652" target="_blank" rel="noopener">10.1109/MILCOM61039.2024.10773652</a></div>
+      </li>
+      <li>
+        <div class="source-name">Face Analysis &mdash; Alghareb &amp; Hasan (MDPI 2025)</div>
+        <div class="source-meta">Face analysis pipeline &mdash; &ldquo;Multitask Learning-Based Pipeline-Parallel Computation Offloading Architecture for Deep Face Analysis.&rdquo; DOI: <a href="https://doi.org/10.3390/computers14010029" target="_blank" rel="noopener">10.3390/computers14010029</a></div>
+      </li>
+      <li>
+        <div class="source-name">Loki &mdash; Ahmad et al. (HPDC 2024)</div>
+        <div class="source-meta">Traffic analysis pipeline &mdash; &ldquo;Loki: A System for Serving ML Inference Pipelines with Hardware and Accuracy Scaling.&rdquo; DOI: <a href="https://doi.org/10.1145/3625549.3658688" target="_blank" rel="noopener">10.1145/3625549.3658688</a></div>
+      </li>
+      <li>
+        <div class="source-name">FlockFocus &mdash; Ghafouri et al. (arXiv 2025)</div>
+        <div class="source-meta">Poultry monitoring pipeline &mdash; &ldquo;Optimizing Video Analytics Inference Pipelines: A Case Study.&rdquo; arXiv: <a href="https://arxiv.org/abs/2512.07009" target="_blank" rel="noopener">2512.07009</a></div>
+      </li>
+      <li>
+        <div class="source-name">RIoTBench &mdash; Shukla et al. (2017)</div>
+        <div class="source-meta">4 IoT stream-processing DAGs &mdash; &ldquo;RIoTBench: An IoT Benchmark for Distributed Stream Processing Systems.&rdquo; DOI: <a href="https://doi.org/10.1002/cpe.4257" target="_blank" rel="noopener">10.1002/cpe.4257</a></div>
+      </li>
+      <li>
+        <div class="source-name">HEFT &mdash; Topcuoglu et al. (2002)</div>
+        <div class="source-meta">3 Gaussian elimination DAGs &mdash; &ldquo;Performance-effective and low-complexity task scheduling for heterogeneous computing.&rdquo; DOI: <a href="https://doi.org/10.1109/71.993206" target="_blank" rel="noopener">10.1109/71.993206</a></div>
+      </li>
+      <li>
+        <div class="source-name">Cholesky &mdash; Lopez et al. (2015)</div>
+        <div class="source-meta">3 tiled Cholesky factorization DAGs &mdash; &ldquo;Design of Multicore Sparse Cholesky Factorization.&rdquo;</div>
+      </li>
+      <li>
+        <div class="source-name">LU Decomposition &mdash; Buttari et al. (2009)</div>
+        <div class="source-meta">Tiled LU factorization DAG &mdash; &ldquo;Scheduling of QR factorization algorithms on SMP and multi-core architectures.&rdquo; DOI: <a href="https://doi.org/10.1016/j.parco.2008.12.008" target="_blank" rel="noopener">10.1016/j.parco.2008.12.008</a></div>
+      </li>
+      <li>
+        <div class="source-name">FFT &mdash; Cormen (1999)</div>
+        <div class="source-meta">3 FFT butterfly DAGs &mdash; &ldquo;The FFT: An Algorithm the Whole Family Can Use.&rdquo;</div>
+      </li>
+      <li>
+        <div class="source-name">MapReduce &mdash; Dean &amp; Ghemawat (2004)</div>
+        <div class="source-meta">3 MapReduce DAGs &mdash; &ldquo;MapReduce: Simplified Data Processing on Large Clusters.&rdquo; DOI: <a href="https://doi.org/10.1145/1327452.1327492" target="_blank" rel="noopener">10.1145/1327452.1327492</a></div>
+      </li>
+      <li>
+        <div class="source-name">PISA/SAGA &mdash; Coleman &amp; Krishnamachari (2024)</div>
+        <div class="source-meta">6 synthetic scheduling DAGs &mdash; &ldquo;PISA: An Adversarial Approach To Comparing Task Graph Scheduling Algorithms.&rdquo; arXiv: <a href="https://arxiv.org/abs/2403.07120" target="_blank" rel="noopener">2403.07120</a></div>
+      </li>
+      <li>
+        <div class="source-name">Automatic-DAG-Generator &mdash; ANRGUSC (2018)</div>
+        <div class="source-meta">9 random layered DAGs. GitHub: <a href="https://github.com/ANRGUSC/Automatic-DAG-Generator" target="_blank" rel="noopener">ANRGUSC/Automatic-DAG-Generator</a> (BSD-3-Clause)</div>
+      </li>
+    </ul>
+
+    <h3>Inspiration Papers</h3>
+    <p>Domain literature whose architectures inspired AI-generated workflow DAGs:</p>
+    <ul class="source-list">
+      <li>
+        <div class="source-name">Mohanty et al. (2016)</div>
+        <div class="source-meta">&ldquo;Using Deep Learning for Image-Based Plant Disease Detection.&rdquo; DOI: <a href="https://doi.org/10.3389/fpls.2016.01419" target="_blank" rel="noopener">10.3389/fpls.2016.01419</a> &mdash; agri.crop_disease</div>
+      </li>
+      <li>
+        <div class="source-name">Shamshiri et al. (2018)</div>
+        <div class="source-meta">&ldquo;Advances in greenhouse automation and controlled environment agriculture: A transition to plant factories and urban agriculture.&rdquo; DOI: <a href="https://doi.org/10.25165/j.ijabe.20181101.3210" target="_blank" rel="noopener">10.25165/j.ijabe.20181101.3210</a> &mdash; agri.greenhouse_control</div>
+      </li>
+      <li>
+        <div class="source-name">Neethirajan (2017)</div>
+        <div class="source-meta">&ldquo;Recent advances in wearable sensors for animal health management.&rdquo; DOI: <a href="https://doi.org/10.1016/j.sbsr.2016.11.004" target="_blank" rel="noopener">10.1016/j.sbsr.2016.11.004</a> &mdash; agri.livestock_monitoring</div>
+      </li>
+      <li>
+        <div class="source-name">Ojha et al. (2015)</div>
+        <div class="source-meta">&ldquo;Wireless sensor networks for agriculture: The state-of-the-art in practice and future challenges.&rdquo; DOI: <a href="https://doi.org/10.1016/j.compag.2015.08.011" target="_blank" rel="noopener">10.1016/j.compag.2015.08.011</a> &mdash; agri.precision_irrigation</div>
+      </li>
+      <li>
+        <div class="source-name">Liu et al. (2022)</div>
+        <div class="source-meta">&ldquo;A collaborative computation and dependency-aware task offloading method for vehicular edge computing: a reinforcement learning approach.&rdquo; DOI: <a href="https://doi.org/10.1186/s13677-022-00340-3" target="_blank" rel="noopener">10.1186/s13677-022-00340-3</a> &mdash; edge.autonomous_driving</div>
+      </li>
+      <li>
+        <div class="source-name">Negash et al. (2018)</div>
+        <div class="source-meta">&ldquo;Leveraging Fog Computing for Healthcare IoT.&rdquo; DOI: <a href="https://doi.org/10.1007/978-3-319-57639-8_8" target="_blank" rel="noopener">10.1007/978-3-319-57639-8_8</a> &mdash; fog.healthcare_fog</div>
+      </li>
+      <li>
+        <div class="source-name">Hosseinalipour et al. (2020)</div>
+        <div class="source-meta">&ldquo;From Federated to Fog Learning: Distributed Machine Learning over Heterogeneous Wireless Networks.&rdquo; DOI: <a href="https://doi.org/10.1109/MCOM.001.2000410" target="_blank" rel="noopener">10.1109/MCOM.001.2000410</a> &mdash; fog.federated_fog</div>
+      </li>
+      <li>
+        <div class="source-name">Alsuhli &amp; Khattab (2019)</div>
+        <div class="source-meta">&ldquo;A Fog-based IoT Platform for Smart Buildings.&rdquo; DOI: <a href="https://doi.org/10.1109/itce.2019.8646480" target="_blank" rel="noopener">10.1109/itce.2019.8646480</a> &mdash; fog.smart_building</div>
+      </li>
+      <li>
+        <div class="source-name">Teti et al. (2010)</div>
+        <div class="source-meta">&ldquo;Advanced monitoring of machining operations.&rdquo; DOI: <a href="https://doi.org/10.1016/j.cirp.2010.05.010" target="_blank" rel="noopener">10.1016/j.cirp.2010.05.010</a> &mdash; iiot.cnc_monitoring</div>
+      </li>
+      <li>
+        <div class="source-name">Tao et al. (2019)</div>
+        <div class="source-meta">&ldquo;Digital Twin in Industry: State-of-the-Art.&rdquo; DOI: <a href="https://doi.org/10.1109/TII.2018.2873186" target="_blank" rel="noopener">10.1109/TII.2018.2873186</a> &mdash; iiot.digital_twin</div>
+      </li>
+      <li>
+        <div class="source-name">O&rsquo;Driscoll &amp; O&rsquo;Donnell (2013)</div>
+        <div class="source-meta">&ldquo;Industrial power and energy metering -- a state-of-the-art review.&rdquo; DOI: <a href="https://doi.org/10.1016/j.jclepro.2012.09.046" target="_blank" rel="noopener">10.1016/j.jclepro.2012.09.046</a> &mdash; iiot.energy_monitoring</div>
+      </li>
+      <li>
+        <div class="source-name">Wan et al. (2018)</div>
+        <div class="source-meta">&ldquo;Reconfigurable Smart Factory for Drug Packing in Healthcare Industry 4.0.&rdquo; DOI: <a href="https://doi.org/10.1109/TII.2018.2843811" target="_blank" rel="noopener">10.1109/TII.2018.2843811</a> &mdash; iiot.robotic_assembly</div>
+      </li>
+      <li>
+        <div class="source-name">Nalinipriya et al. (2024)</div>
+        <div class="source-meta">&ldquo;Optimal directed acyclic graph federated learning model for energy-efficient IoT communication networks.&rdquo; DOI: <a href="https://doi.org/10.1038/s41598-024-71995-y" target="_blank" rel="noopener">10.1038/s41598-024-71995-y</a> &mdash; ml.federated_learning</div>
+      </li>
+      <li>
+        <div class="source-name">Ananthanarayanan et al. (2017)</div>
+        <div class="source-meta">&ldquo;Real-Time Video Analytics: The Killer App for Edge Computing.&rdquo; DOI: <a href="https://doi.org/10.1109/MC.2017.3641638" target="_blank" rel="noopener">10.1109/MC.2017.3641638</a> &mdash; mec.video_analytics</div>
+      </li>
+      <li>
+        <div class="source-name">3GPP TS 23.501</div>
+        <div class="source-meta">&ldquo;System architecture for the 5G System (5GS).&rdquo; 3GPP Technical Specification &mdash; nfv.ue_attach</div>
+      </li>
+      <li>
+        <div class="source-name">Berriman et al. (2004)</div>
+        <div class="source-meta">&ldquo;Montage: a grid-enabled engine for delivering custom science-grade mosaics on demand.&rdquo; DOI: <a href="https://doi.org/10.1117/12.550551" target="_blank" rel="noopener">10.1117/12.550551</a> &mdash; scientific.montage_like</div>
+      </li>
+      <li>
+        <div class="source-name">Deelman et al. (2015)</div>
+        <div class="source-meta">&ldquo;Pegasus, a workflow management system for science automation.&rdquo; DOI: <a href="https://doi.org/10.1016/j.future.2014.10.008" target="_blank" rel="noopener">10.1016/j.future.2014.10.008</a> &mdash; scientific.epigenomics_like</div>
+      </li>
+      <li>
+        <div class="source-name">Altschul et al. (1990)</div>
+        <div class="source-meta">&ldquo;Basic local alignment search tool.&rdquo; DOI: <a href="https://doi.org/10.1016/S0022-2836(05)80360-2" target="_blank" rel="noopener">10.1016/S0022-2836(05)80360-2</a> &mdash; scientific.blast_like</div>
+      </li>
+      <li>
+        <div class="source-name">Graves et al. (2010)</div>
+        <div class="source-meta">&ldquo;CyberShake: A Physics-Based Seismic Hazard Model for Southern California.&rdquo; DOI: <a href="https://doi.org/10.1007/s00024-010-0161-6" target="_blank" rel="noopener">10.1007/s00024-010-0161-6</a> &mdash; scientific.seismology_like</div>
+      </li>
+      <li>
+        <div class="source-name">Morawska et al. (2018)</div>
+        <div class="source-meta">&ldquo;Applications of low-cost sensing technologies for air quality monitoring and exposure assessment: How far have they gone?&rdquo; DOI: <a href="https://doi.org/10.1016/j.envint.2018.04.018" target="_blank" rel="noopener">10.1016/j.envint.2018.04.018</a> &mdash; smart_city.air_quality</div>
+      </li>
+      <li>
+        <div class="source-name">Djahel et al. (2015)</div>
+        <div class="source-meta">&ldquo;A Communications-Oriented Perspective on Traffic Management Systems for Smart Cities: Challenges and Innovative Approaches.&rdquo; DOI: <a href="https://doi.org/10.1109/COMST.2014.2339817" target="_blank" rel="noopener">10.1109/COMST.2014.2339817</a> &mdash; smart_city.traffic_mgmt</div>
+      </li>
+      <li>
+        <div class="source-name">Pardini et al. (2019)</div>
+        <div class="source-meta">&ldquo;IoT-Based Solid Waste Management Solutions: A Survey.&rdquo; DOI: <a href="https://doi.org/10.3390/jsan8010005" target="_blank" rel="noopener">10.3390/jsan8010005</a> &mdash; smart_city.waste_mgmt</div>
+      </li>
+      <li>
+        <div class="source-name">Loureiro et al. (2016)</div>
+        <div class="source-meta">&ldquo;Water distribution systems flow monitoring and anomalous event detection: A practical approach.&rdquo; DOI: <a href="https://doi.org/10.1080/1573062X.2014.988733" target="_blank" rel="noopener">10.1080/1573062X.2014.988733</a> &mdash; smart_city.water_distribution</div>
+      </li>
+      <li>
+        <div class="source-name">Chen et al. (2019)</div>
+        <div class="source-meta">&ldquo;Cooper: Cooperative Perception for Connected Autonomous Vehicles Based on 3D Point Clouds.&rdquo; DOI: <a href="https://doi.org/10.1109/ICDCS.2019.00058" target="_blank" rel="noopener">10.1109/ICDCS.2019.00058</a> &mdash; v2x.cooperative_perception</div>
+      </li>
+      <li>
+        <div class="source-name">Dresner &amp; Stone (2008)</div>
+        <div class="source-meta">&ldquo;A Multiagent Approach to Autonomous Intersection Management.&rdquo; DOI: <a href="https://doi.org/10.1613/jair.2502" target="_blank" rel="noopener">10.1613/jair.2502</a> &mdash; v2x.intersection_mgmt</div>
+      </li>
+      <li>
+        <div class="source-name">Hayat et al. (2016)</div>
+        <div class="source-meta">&ldquo;Survey on Unmanned Aerial Vehicle Networks for Civil Applications: A Communications Viewpoint.&rdquo; DOI: <a href="https://doi.org/10.1109/COMST.2016.2560343" target="_blank" rel="noopener">10.1109/COMST.2016.2560343</a> &mdash; uav.search_rescue</div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- Data Format -->
+<section id="format">
+  <div class="container">
+    <h2>Data Format</h2>
+    <p>Each workflow directory contains three files: <code>metadata.yaml</code> (provenance and description), <code>graph.json</code> (SAGA-compatible task graph), and <code>docs.html</code> (visual documentation).</p>
+    <div class="format-grid">
+      <div>
+        <h3>graph.json</h3>
+        <div class="code-block">{
+  <span class="string">"header"</span>: {
+    <span class="string">"name"</span>: <span class="string">"Diamond DAG"</span>
+  },
+  <span class="string">"graph"</span>: {
+    <span class="string">"nodes"</span>: [
+      {<span class="string">"name"</span>: <span class="string">"Source"</span>, <span class="string">"cost"</span>: [<span class="number">10</span>, <span class="number">12</span>, <span class="number">14</span>]},
+      {<span class="string">"name"</span>: <span class="string">"TaskA"</span>, <span class="string">"cost"</span>: [<span class="number">25</span>, <span class="number">20</span>, <span class="number">30</span>]},
+      {<span class="string">"name"</span>: <span class="string">"TaskB"</span>, <span class="string">"cost"</span>: [<span class="number">30</span>, <span class="number">28</span>, <span class="number">35</span>]},
+      {<span class="string">"name"</span>: <span class="string">"Sink"</span>, <span class="string">"cost"</span>: [<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]}
+    ],
+    <span class="string">"edges"</span>: [
+      {<span class="string">"source"</span>: <span class="string">"Source"</span>, <span class="string">"target"</span>: <span class="string">"TaskA"</span>, <span class="string">"weight"</span>: <span class="number">15</span>},
+      {<span class="string">"source"</span>: <span class="string">"Source"</span>, <span class="string">"target"</span>: <span class="string">"TaskB"</span>, <span class="string">"weight"</span>: <span class="number">12</span>},
+      {<span class="string">"source"</span>: <span class="string">"TaskA"</span>, <span class="string">"target"</span>: <span class="string">"Sink"</span>, <span class="string">"weight"</span>: <span class="number">8</span>},
+      {<span class="string">"source"</span>: <span class="string">"TaskB"</span>, <span class="string">"target"</span>: <span class="string">"Sink"</span>, <span class="string">"weight"</span>: <span class="number">10</span>}
+    ]
+  }
+}</div>
+      </div>
+      <div>
+        <h3>metadata.yaml</h3>
+        <div class="code-block"><span class="type">id</span>: synthetic.diamond
+<span class="type">name</span>: Diamond DAG
+<span class="type">description</span>: >
+  Classic 4-node diamond pattern.
+<span class="type">domains</span>:
+  - synthetic
+<span class="type">provenance</span>:
+  <span class="type">extraction_method</span>: programmatic
+  <span class="type">paper_title</span>: PISA Benchmark
+  <span class="type">paper_arxiv</span>: <span class="string">"2403.07120"</span>
+  <span class="type">authors</span>:
+    - Jared Coleman
+    - Bhaskar Krishnamachari
+<span class="type">tags</span>:
+  - diamond
+  - fork-join
+  - small</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h3>DAGBench</h3>
+        <p>Licensed under <strong>Apache-2.0</strong>.</p>
+        <p style="margin-top:8px; font-size:0.85rem;">
+          Note: The SAGA scheduling dependency uses a non-commercial license (USC/ANRG).
+        </p>
+        <p style="margin-top:16px;">
+          <a href="https://github.com/ANRGUSC/dagbench" target="_blank" rel="noopener">GitHub Repository</a>
+        </p>
+      </div>
+      <div>
+        <h3>Citation</h3>
+        <div class="footer-bibtex">@misc{dagbench2025,
+  title     = {DAGBench: A Task Graph Benchmark for Scheduling Research},
+  author    = {Bhaskar Krishnamachari},
+  year      = {2025},
+  url       = {https://github.com/ANRGUSC/dagbench},
+  note      = {82 DAG workflows across 22 application domains}
+}</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>DAGBench &mdash; USC Autonomous Networks Research Group (ANRG)</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Mermaid.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables: { fontSize: '14px' } });
+</script>
+
+<!-- Catalog Data -->
+<script id="catalogData" type="application/json">
+[{"id":"agri.crop_disease","name":"Crop Disease Detection","domains":["agriculture-iot","ml-pipeline","image-processing"],"method":"ai-generated","tasks":11,"edges":12,"depth":7,"width":3,"ccr":0.49,"par":1.57,"tags":["crop-disease","plant-pathology","deep-learning"],"path":"workflows/agriculture_iot/crop_disease/docs.html"},{"id":"agri.flockfocus_feeder","name":"FlockFocus Feeder Monitoring Pipeline","domains":["agriculture-iot","ml-pipeline"],"method":"manual-figure","tasks":5,"edges":4,"depth":4,"width":2,"ccr":0.35,"par":1.25,"tags":["poultry-monitoring","video-analytics","object-detection","tracking","behavior-analysis","weight-estimation","aws-gpu","precision-agriculture"],"path":"workflows/agriculture_iot/flockfocus_feeder/docs.html"},{"id":"agri.greenhouse_control","name":"Greenhouse Climate Control","domains":["agriculture-iot","iot","cyber-physical"],"method":"ai-generated","tasks":12,"edges":14,"depth":5,"width":5,"ccr":0.44,"par":2.4,"tags":["greenhouse","climate-control","actuator"],"path":"workflows/agriculture_iot/greenhouse_control/docs.html"},{"id":"agri.livestock_monitoring","name":"Livestock Monitoring","domains":["agriculture-iot","iot"],"method":"ai-generated","tasks":14,"edges":13,"depth":3,"width":10,"ccr":0.37,"par":4.67,"tags":["livestock","animal-health","wearable"],"path":"workflows/agriculture_iot/livestock_monitoring/docs.html"},{"id":"agri.precision_irrigation","name":"Precision Irrigation","domains":["agriculture-iot","iot"],"method":"ai-generated","tasks":14,"edges":13,"depth":5,"width":9,"ccr":0.33,"par":2.8,"tags":["irrigation","soil-moisture","precision-agriculture"],"path":"workflows/agriculture_iot/precision_irrigation/docs.html"},{"id":"classic.cholesky_4","name":"Cholesky Factorization (4x4 tiles)","domains":["classic-benchmark"],"method":"programmatic","tasks":20,"edges":26,"depth":10,"width":6,"ccr":0.39,"par":2.0,"tags":["cholesky","linear-algebra","tiled"],"path":"workflows/classic_benchmarks/cholesky_4/docs.html"},{"id":"classic.cholesky_5","name":"Cholesky Factorization (5x5 tiles)","domains":["classic-benchmark"],"method":"programmatic","tasks":35,"edges":50,"depth":13,"width":10,"ccr":0.43,"par":2.69,"tags":["cholesky","linear-algebra","tiled","large"],"path":"workflows/classic_benchmarks/cholesky_5/docs.html"},{"id":"classic.cholesky_6","name":"Cholesky Factorization (6x6 tiles)","domains":["classic-benchmark"],"method":"programmatic","tasks":56,"edges":85,"depth":16,"width":15,"ccr":0.46,"par":3.5,"tags":["cholesky","linear-algebra","large"],"path":"workflows/classic_benchmarks/cholesky_6/docs.html"},{"id":"classic.fft_16","name":"FFT Butterfly (16-point)","domains":["classic-benchmark"],"method":"programmatic","tasks":64,"edges":80,"depth":6,"width":16,"ccr":0.83,"par":10.67,"tags":["fft","signal-processing","butterfly","medium"],"path":"workflows/classic_benchmarks/fft_16/docs.html"},{"id":"classic.fft_32","name":"FFT Butterfly (32-point)","domains":["classic-benchmark"],"method":"programmatic","tasks":144,"edges":192,"depth":7,"width":32,"ccr":0.86,"par":20.57,"tags":["fft","signal-processing","large"],"path":"workflows/classic_benchmarks/fft_32/docs.html"},{"id":"classic.fft_8","name":"FFT Butterfly (8-point)","domains":["classic-benchmark"],"method":"programmatic","tasks":28,"edges":32,"depth":5,"width":8,"ccr":0.8,"par":5.6,"tags":["fft","signal-processing","butterfly"],"path":"workflows/classic_benchmarks/fft_8/docs.html"},{"id":"classic.gauss_elim_10","name":"Gaussian Elimination (n=10)","domains":["classic-benchmark"],"method":"programmatic","tasks":55,"edges":135,"depth":19,"width":9,"ccr":1.26,"par":2.89,"tags":["gaussian-elimination","linear-algebra","large"],"path":"workflows/classic_benchmarks/gauss_elim_10/docs.html"},{"id":"classic.gauss_elim_5","name":"Gaussian Elimination (n=5)","domains":["classic-benchmark"],"method":"programmatic","tasks":15,"edges":30,"depth":9,"width":4,"ccr":1.05,"par":1.67,"tags":["gaussian-elimination","linear-algebra","heft"],"path":"workflows/classic_benchmarks/gauss_elim_5/docs.html"},{"id":"classic.gauss_elim_7","name":"Gaussian Elimination (n=7)","domains":["classic-benchmark"],"method":"programmatic","tasks":28,"edges":63,"depth":13,"width":6,"ccr":1.17,"par":2.15,"tags":["gaussian-elimination","linear-algebra","medium"],"path":"workflows/classic_benchmarks/gauss_elim_7/docs.html"},{"id":"classic.lu_decomp_4","name":"LU Decomposition (4x4 tiles)","domains":["classic-benchmark"],"method":"programmatic","tasks":30,"edges":49,"depth":10,"width":9,"ccr":0.44,"par":3.0,"tags":["lu-decomposition","linear-algebra","tiled"],"path":"workflows/classic_benchmarks/lu_decomp_4/docs.html"},{"id":"classic.mapreduce_16m_8r","name":"MapReduce (16 mappers, 8 reducers)","domains":["classic-benchmark","data-analytics"],"method":"programmatic","tasks":27,"edges":48,"depth":5,"width":16,"ccr":0.22,"par":5.4,"tags":["mapreduce","data-parallel","scatter-gather","large"],"path":"workflows/classic_benchmarks/mapreduce_16m_8r/docs.html"},{"id":"classic.mapreduce_4m_2r","name":"MapReduce (4 mappers, 2 reducers)","domains":["classic-benchmark","data-analytics"],"method":"programmatic","tasks":9,"edges":12,"depth":5,"width":4,"ccr":0.2,"par":1.8,"tags":["mapreduce","data-parallel","small"],"path":"workflows/classic_benchmarks/mapreduce_4m_2r/docs.html"},{"id":"classic.mapreduce_8m_4r","name":"MapReduce (8 mappers, 4 reducers)","domains":["classic-benchmark","data-analytics"],"method":"programmatic","tasks":15,"edges":24,"depth":5,"width":8,"ccr":0.21,"par":3.0,"tags":["mapreduce","data-parallel","scatter-gather"],"path":"workflows/classic_benchmarks/mapreduce_8m_4r/docs.html"},{"id":"edge.autonomous_driving","name":"Autonomous Driving Pipeline","domains":["edge-computing","cyber-physical"],"method":"ai-generated","tasks":11,"edges":10,"depth":7,"width":3,"ccr":0.39,"par":1.57,"tags":["autonomous-driving","v2x","sensor-fusion","real-time"],"path":"workflows/edge_computing/autonomous_driving/docs.html"},{"id":"edge.face_analysis_pipeline","name":"Pipeline-Parallel Face Analysis System","domains":["edge-computing","ml-pipeline","image-processing"],"method":"manual-figure","tasks":6,"edges":7,"depth":4,"width":3,"ccr":0.44,"par":1.5,"tags":["face-analysis","yolov8","vgg-face","multi-task-learning","pipeline-parallel","raspberry-pi","edge-server"],"path":"workflows/edge_computing/face_analysis_pipeline/docs.html"},{"id":"edge.loki_traffic_pipeline","name":"Loki Traffic Analysis Pipeline","domains":["edge-computing","ml-pipeline"],"method":"manual-figure","tasks":3,"edges":2,"depth":2,"width":2,"ccr":0.22,"par":1.5,"tags":["traffic-analysis","yolov5","efficientnet","vgg","object-detection","gpu-cluster","slo"],"path":"workflows/edge_computing/loki_traffic_pipeline/docs.html"},{"id":"edge.ml_surveillance_pipeline","name":"Multi-Model ML Surveillance Pipeline","domains":["edge-computing","ml-pipeline","mec"],"method":"manual-figure","tasks":7,"edges":6,"depth":3,"width":3,"ccr":0.42,"par":2.33,"tags":["ml-inference","multi-model","video-analytics","surveillance","yolov4","multi-modal","edge-gpu","milcom"],"path":"workflows/edge_computing/ml_surveillance_pipeline/docs.html"},{"id":"edge.mtec_lightgbm","name":"M-TEC LightGBM Training Pipeline","domains":["edge-computing","ml-pipeline","data-analytics"],"method":"manual-figure","tasks":6,"edges":8,"depth":4,"width":3,"ccr":1.17,"par":1.5,"tags":["lightgbm","model-training","pca","ensemble-learning","diamond-dag","jetson","heterogeneous-testbed","cbrs-4g"],"path":"workflows/edge_computing/mtec_lightgbm/docs.html"},{"id":"edge.mtec_matrix_ops","name":"M-TEC Matrix Operations Pipeline","domains":["edge-computing","scientific","data-analytics"],"method":"manual-figure","tasks":6,"edges":7,"depth":4,"width":2,"ccr":1.6,"par":1.5,"tags":["matrix-operations","linear-algebra","overlapping-diamonds","transpose","inversion","jetson","heterogeneous-testbed"],"path":"workflows/edge_computing/mtec_matrix_ops/docs.html"},{"id":"edge.mtec_video_analytics","name":"M-TEC Video Analytics Pipeline","domains":["edge-computing","ml-pipeline","data-analytics"],"method":"manual-figure","tasks":7,"edges":8,"depth":5,"width":2,"ccr":1.52,"par":1.4,"tags":["video-analytics","frame-extraction","classification","parallel-branches","jetson","heterogeneous-testbed"],"path":"workflows/edge_computing/mtec_video_analytics/docs.html"},{"id":"edge.smart_home","name":"Smart Home IoT Pipeline","domains":["iot","edge-computing","fog-computing"],"method":"ai-generated","tasks":12,"edges":13,"depth":5,"width":4,"ccr":0.41,"par":2.4,"tags":["smart-home","iot","automation","fog"],"path":"workflows/edge_computing/smart_home/docs.html"},{"id":"edge.splitstream_pipeline","name":"SplitStream Video Query Pipeline","domains":["edge-computing","ml-pipeline"],"method":"manual-figure","tasks":6,"edges":6,"depth":4,"width":2,"ccr":0.45,"par":1.5,"tags":["video-analytics","yolov5","resnet","object-detection","classification","edge-gpu","jetson","dnn-partitioning"],"path":"workflows/edge_computing/splitstream_pipeline/docs.html"},{"id":"edge.video_transcoding","name":"Video Transcoding Pipeline","domains":["edge-computing","data-analytics"],"method":"ai-generated","tasks":14,"edges":16,"depth":5,"width":4,"ccr":1.59,"par":2.8,"tags":["video","transcoding","data-parallel","gop"],"path":"workflows/edge_computing/video_transcoding/docs.html"},{"id":"fog.federated_fog","name":"Federated Fog Learning","domains":["fog-computing","ml-pipeline"],"method":"ai-generated","tasks":23,"edges":26,"depth":7,"width":5,"ccr":0.59,"par":3.29,"tags":["federated-learning","fog","distributed-ml"],"path":"workflows/fog_computing/federated_fog/docs.html"},{"id":"fog.healthcare_fog","name":"Fog Healthcare Monitoring","domains":["fog-computing","iot"],"method":"ai-generated","tasks":17,"edges":16,"depth":5,"width":9,"ccr":0.44,"par":3.4,"tags":["healthcare","fog","patient-monitoring"],"path":"workflows/fog_computing/healthcare_fog/docs.html"},{"id":"fog.smart_building","name":"Fog Smart Building Management","domains":["fog-computing","smart-city","iot"],"method":"ai-generated","tasks":21,"edges":22,"depth":5,"width":12,"ccr":0.42,"par":4.2,"tags":["smart-building","hvac","bms"],"path":"workflows/fog_computing/smart_building/docs.html"},{"id":"iiot.cnc_monitoring","name":"IIoT CNC Machine Monitoring","domains":["industrial-iot","cyber-physical"],"method":"ai-generated","tasks":11,"edges":12,"depth":5,"width":4,"ccr":0.53,"par":2.2,"tags":["cnc","machining","tool-wear"],"path":"workflows/industrial_iot/cnc_monitoring/docs.html"},{"id":"iiot.digital_twin","name":"IIoT Digital Twin Synchronization","domains":["industrial-iot","edge-computing"],"method":"ai-generated","tasks":13,"edges":14,"depth":7,"width":5,"ccr":0.52,"par":1.86,"tags":["digital-twin","simulation","cloud-edge"],"path":"workflows/industrial_iot/digital_twin/docs.html"},{"id":"iiot.energy_monitoring","name":"IIoT Factory Energy Monitoring","domains":["industrial-iot","iot"],"method":"ai-generated","tasks":13,"edges":14,"depth":4,"width":8,"ccr":0.45,"par":3.25,"tags":["energy","monitoring","factory"],"path":"workflows/industrial_iot/energy_monitoring/docs.html"},{"id":"iiot.robotic_assembly","name":"IIoT Robotic Assembly Coordination","domains":["industrial-iot","cyber-physical"],"method":"ai-generated","tasks":16,"edges":17,"depth":10,"width":3,"ccr":0.32,"par":1.6,"tags":["robotics","assembly","manufacturing"],"path":"workflows/industrial_iot/robotic_assembly/docs.html"},{"id":"iot.predictive_maintenance","name":"Industrial Predictive Maintenance","domains":["iot","edge-computing","ml-pipeline"],"method":"ai-generated","tasks":13,"edges":15,"depth":6,"width":5,"ccr":0.53,"par":2.17,"tags":["iiot","predictive-maintenance","fault-detection"],"path":"workflows/iot_sensor_networks/predictive_maintenance/docs.html"},{"id":"iot.riotbench_etl","name":"RIoTBench ETL Pipeline","domains":["iot","data-analytics"],"method":"programmatic","tasks":11,"edges":11,"depth":10,"width":2,"ccr":238.34,"par":1.1,"tags":["riotbench","iot","streaming","etl"],"path":"workflows/iot_sensor_networks/riotbench_etl/docs.html"},{"id":"iot.riotbench_predict","name":"RIoTBench ML Prediction Pipeline","domains":["iot","data-analytics"],"method":"programmatic","tasks":11,"edges":14,"depth":7,"width":3,"ccr":96.02,"par":1.57,"tags":["riotbench","iot","streaming","predict"],"path":"workflows/iot_sensor_networks/riotbench_predict/docs.html"},{"id":"iot.riotbench_stats","name":"RIoTBench Statistical Analytics","domains":["iot","data-analytics"],"method":"programmatic","tasks":9,"edges":10,"depth":7,"width":3,"ccr":728.85,"par":1.29,"tags":["riotbench","iot","streaming","stats"],"path":"workflows/iot_sensor_networks/riotbench_stats/docs.html"},{"id":"iot.riotbench_train","name":"RIoTBench ML Training Pipeline","domains":["iot","data-analytics"],"method":"programmatic","tasks":10,"edges":11,"depth":8,"width":2,"ccr":18.47,"par":1.25,"tags":["riotbench","iot","streaming","train"],"path":"workflows/iot_sensor_networks/riotbench_train/docs.html"},{"id":"mec.sleipnir_antivirus","name":"SLEIPNIR Antivirus App","domains":["mec","edge-computing"],"method":"manual-figure","tasks":5,"edges":5,"depth":4,"width":2,"ccr":2.5,"par":1.25,"tags":["antivirus","mobile-offloading","fork-join","diamond-dag","sleipnir","mec-offloading"],"path":"workflows/mec/sleipnir_antivirus/docs.html"},{"id":"mec.sleipnir_chess","name":"SLEIPNIR Chess App (5 Moves)","domains":["mec","edge-computing"],"method":"manual-figure","tasks":20,"edges":19,"depth":20,"width":1,"ccr":1.06,"par":1.0,"tags":["chess","mobile-offloading","game-ai","iterative-chain","long-chain","sleipnir","mec-offloading"],"path":"workflows/mec/sleipnir_chess/docs.html"},{"id":"mec.sleipnir_facebook","name":"SLEIPNIR Facebook App","domains":["mec","edge-computing"],"method":"manual-figure","tasks":7,"edges":7,"depth":7,"width":1,"ccr":1.0,"par":1.0,"tags":["social-media","mobile-offloading","image-filter","authentication","near-linear","sleipnir","mec-offloading"],"path":"workflows/mec/sleipnir_facebook/docs.html"},{"id":"mec.sleipnir_facerecognizer","name":"SLEIPNIR Face Recognizer App","domains":["mec","edge-computing","image-processing"],"method":"manual-figure","tasks":5,"edges":5,"depth":5,"width":1,"ccr":2.04,"par":1.0,"tags":["face-recognition","mobile-offloading","image-processing","chain-with-bypass","sleipnir","mec-offloading"],"path":"workflows/mec/sleipnir_facerecognizer/docs.html"},{"id":"mec.sleipnir_navigator","name":"SLEIPNIR Navigator App","domains":["mec","edge-computing"],"method":"manual-figure","tasks":9,"edges":13,"depth":7,"width":2,"ccr":1.06,"par":1.29,"tags":["navigation","mobile-offloading","gps","voice-synthesis","fan-out-fan-in","sleipnir","mec-offloading"],"path":"workflows/mec/sleipnir_navigator/docs.html"},{"id":"mec.video_analytics","name":"MEC Video Analytics Pipeline","domains":["mec","edge-computing","image-processing"],"method":"ai-generated","tasks":13,"edges":14,"depth":8,"width":3,"ccr":0.51,"par":1.62,"tags":["video-analytics","tracking","detection"],"path":"workflows/mec_offloading/video_analytics/docs.html"},{"id":"ml.federated_learning","name":"Federated Learning Round (5 clients)","domains":["ml-pipeline"],"method":"ai-generated","tasks":19,"edges":22,"depth":7,"width":5,"ccr":1.1,"par":2.71,"tags":["federated-learning","distributed","privacy"],"path":"workflows/ml_pipelines/federated_learning/docs.html"},{"id":"nfv.ue_attach","name":"5G UE Attach Procedure","domains":["nfv","telecom","5g"],"method":"ai-generated","tasks":12,"edges":15,"depth":8,"width":4,"ccr":0.4,"par":1.5,"tags":["5g","attach","core-network","sba"],"path":"workflows/nfv_telecom/ue_attach/docs.html"},{"id":"scientific.blast_like","name":"BLAST-like Sequence Search Workflow","domains":["scientific","genomics"],"method":"ai-generated","tasks":19,"edges":22,"depth":7,"width":5,"ccr":0.97,"par":2.71,"tags":["blast","bioinformatics","sequence-search","scatter-gather"],"path":"workflows/scientific_workflows/blast_like/docs.html"},{"id":"scientific.epigenomics_like","name":"Epigenomics-like Genome Workflow","domains":["scientific","genomics"],"method":"ai-generated","tasks":19,"edges":21,"depth":7,"width":4,"ccr":0.94,"par":2.71,"tags":["epigenomics","genomics","bioinformatics","scatter-gather"],"path":"workflows/scientific_workflows/epigenomics_like/docs.html"},{"id":"scientific.montage_like","name":"Montage-like Astronomy Workflow","domains":["scientific","astronomy","image-processing"],"method":"ai-generated","tasks":19,"edges":29,"depth":7,"width":6,"ccr":1.22,"par":2.71,"tags":["montage","astronomy","scatter-gather","scientific"],"path":"workflows/scientific_workflows/montage_like/docs.html"},{"id":"scientific.seismology_like","name":"Seismology-like Hazard Workflow","domains":["scientific","seismology"],"method":"ai-generated","tasks":24,"edges":31,"depth":6,"width":9,"ccr":0.57,"par":4.0,"tags":["seismology","hazard","cybershake","scatter-gather"],"path":"workflows/scientific_workflows/seismology_like/docs.html"},{"id":"smart_city.air_quality","name":"Air Quality Monitoring","domains":["smart-city","iot"],"method":"ai-generated","tasks":15,"edges":15,"depth":5,"width":5,"ccr":0.37,"par":3.0,"tags":["air-quality","aqi","environmental"],"path":"workflows/smart_city/air_quality/docs.html"},{"id":"smart_city.traffic_mgmt","name":"Smart City Traffic Management","domains":["smart-city","edge-computing"],"method":"ai-generated","tasks":17,"edges":16,"depth":6,"width":6,"ccr":0.56,"par":2.83,"tags":["traffic","signal-optimization","cameras"],"path":"workflows/smart_city/traffic_mgmt/docs.html"},{"id":"smart_city.waste_mgmt","name":"IoT Waste Management","domains":["smart-city","iot"],"method":"ai-generated","tasks":14,"edges":13,"depth":7,"width":8,"ccr":0.31,"par":2.0,"tags":["waste","routing","iot-sensors"],"path":"workflows/smart_city/waste_mgmt/docs.html"},{"id":"smart_city.water_distribution","name":"Water Distribution Network","domains":["smart-city","iot","cyber-physical"],"method":"ai-generated","tasks":16,"edges":15,"depth":4,"width":6,"ccr":0.35,"par":4.0,"tags":["water","scada","leak-detection"],"path":"workflows/smart_city/water_distribution/docs.html"},{"id":"synthetic.branching_3x2","name":"Branching DAG (3 levels, factor 2)","domains":["synthetic"],"method":"programmatic","tasks":8,"edges":10,"depth":4,"width":4,"ccr":2.0,"par":2.0,"tags":["branching","tree","parallel","medium"],"path":"workflows/synthetic/branching_3x2/docs.html"},{"id":"synthetic.branching_4x3","name":"Branching DAG (4 levels, factor 3)","domains":["synthetic"],"method":"programmatic","tasks":41,"edges":66,"depth":5,"width":27,"ccr":1.62,"par":8.2,"tags":["branching","tree","parallel","large"],"path":"workflows/synthetic/branching_4x3/docs.html"},{"id":"synthetic.chain_2","name":"Chain DAG (2 nodes)","domains":["synthetic"],"method":"generated","tasks":2,"edges":1,"depth":2,"width":1,"ccr":0.2,"par":1.0,"tags":["chain","minimal","tiny"],"path":"workflows/synthetic/chain_2/docs.html"},{"id":"synthetic.chain_4","name":"Chain DAG (4 nodes)","domains":["synthetic"],"method":"programmatic","tasks":4,"edges":3,"depth":4,"width":1,"ccr":0.89,"par":1.0,"tags":["chain","sequential","small"],"path":"workflows/synthetic/chain_4/docs.html"},{"id":"synthetic.chain_8","name":"Chain DAG (8 nodes)","domains":["synthetic"],"method":"programmatic","tasks":8,"edges":7,"depth":8,"width":1,"ccr":1.37,"par":1.0,"tags":["chain","sequential","medium"],"path":"workflows/synthetic/chain_8/docs.html"},{"id":"synthetic.diamond","name":"Diamond DAG","domains":["synthetic"],"method":"programmatic","tasks":4,"edges":4,"depth":3,"width":2,"ccr":1.24,"par":1.33,"tags":["diamond","fork-join","small"],"path":"workflows/synthetic/diamond/docs.html"},{"id":"synthetic.fork","name":"Fork-Join DAG","domains":["synthetic"],"method":"programmatic","tasks":6,"edges":6,"depth":4,"width":2,"ccr":0.85,"par":1.5,"tags":["fork-join","parallel","small"],"path":"workflows/synthetic/fork/docs.html"},{"id":"synthetic.multi_fork_join","name":"Multi-Level Fork-Join DAG","domains":["synthetic"],"method":"generated","tasks":14,"edges":19,"depth":8,"width":4,"ccr":0.37,"par":1.75,"tags":["fork-join","multi-level","parallel"],"path":"workflows/synthetic/multi_fork_join/docs.html"},{"id":"synthetic.one_task","name":"Single Task DAG","domains":["synthetic"],"method":"generated","tasks":1,"edges":0,"depth":1,"width":1,"ccr":0.0,"par":1.0,"tags":["single-task","base-case","tiny"],"path":"workflows/synthetic/one_task/docs.html"},{"id":"synthetic.pipeline_stages","name":"Multi-Stage Pipeline DAG","domains":["synthetic"],"method":"generated","tasks":10,"edges":17,"depth":6,"width":3,"ccr":0.37,"par":1.67,"tags":["pipeline","staged","varying-width"],"path":"workflows/synthetic/pipeline_stages/docs.html"},{"id":"synthetic.random_large_balanced","name":"Random Large Balanced DAG","domains":["synthetic"],"method":"generated","tasks":87,"edges":546,"depth":12,"width":12,"ccr":3.15,"par":7.25,"tags":["random-layered","large","balanced"],"path":"workflows/synthetic/random_large_balanced/docs.html"},{"id":"synthetic.random_large_dense","name":"Random Large Dense DAG","domains":["synthetic"],"method":"generated","tasks":57,"edges":514,"depth":10,"width":9,"ccr":4.55,"par":5.7,"tags":["random-layered","large","dense"],"path":"workflows/synthetic/random_large_dense/docs.html"},{"id":"synthetic.random_medium_balanced","name":"Random Medium Balanced DAG","domains":["synthetic"],"method":"generated","tasks":30,"edges":153,"depth":8,"width":6,"ccr":2.52,"par":3.75,"tags":["random-layered","medium","balanced"],"path":"workflows/synthetic/random_medium_balanced/docs.html"},{"id":"synthetic.random_medium_comm","name":"Random Medium Comm-Heavy DAG","domains":["synthetic"],"method":"generated","tasks":32,"edges":165,"depth":8,"width":6,"ccr":10.35,"par":4.0,"tags":["random-layered","medium","comm-heavy","high-ccr"],"path":"workflows/synthetic/random_medium_comm/docs.html"},{"id":"synthetic.random_medium_compute","name":"Random Medium Compute-Heavy DAG","domains":["synthetic"],"method":"generated","tasks":25,"edges":118,"depth":8,"width":6,"ccr":0.45,"par":3.13,"tags":["random-layered","medium","compute-heavy","low-ccr"],"path":"workflows/synthetic/random_medium_compute/docs.html"},{"id":"synthetic.random_medium_deep","name":"Random Medium Deep DAG","domains":["synthetic"],"method":"generated","tasks":33,"edges":147,"depth":14,"width":3,"ccr":2.16,"par":2.36,"tags":["random-layered","medium","deep"],"path":"workflows/synthetic/random_medium_deep/docs.html"},{"id":"synthetic.random_small_narrow","name":"Random Small Narrow DAG","domains":["synthetic"],"method":"generated","tasks":10,"edges":21,"depth":6,"width":3,"ccr":1.05,"par":1.67,"tags":["random-layered","small","narrow"],"path":"workflows/synthetic/random_small_narrow/docs.html"},{"id":"synthetic.random_small_wide","name":"Random Small Wide DAG","domains":["synthetic"],"method":"generated","tasks":12,"edges":39,"depth":4,"width":6,"ccr":1.47,"par":3.0,"tags":["random-layered","small","wide"],"path":"workflows/synthetic/random_small_wide/docs.html"},{"id":"synthetic.random_xlarge","name":"Random Extra-Large DAG","domains":["synthetic"],"method":"generated","tasks":157,"edges":1070,"depth":17,"width":14,"ccr":3.48,"par":9.24,"tags":["random-layered","xlarge","stress-test"],"path":"workflows/synthetic/random_xlarge/docs.html"},{"id":"synthetic.random_xxlarge","name":"Random XXL DAG","domains":["synthetic"],"method":"generated","tasks":1118,"edges":8450,"depth":22,"width":70,"ccr":3.79,"par":50.82,"tags":["random-layered","xxlarge","stress-test"],"path":"workflows/synthetic/random_xxlarge/docs.html"},{"id":"synthetic.reduction_tree","name":"Binary Reduction Tree (8 leaves)","domains":["synthetic"],"method":"generated","tasks":15,"edges":14,"depth":4,"width":8,"ccr":0.81,"par":3.75,"tags":["reduction","tree","aggregation"],"path":"workflows/synthetic/reduction_tree/docs.html"},{"id":"synthetic.stencil_3x4","name":"Stencil Computation (3x4 grid)","domains":["synthetic"],"method":"generated","tasks":12,"edges":17,"depth":6,"width":3,"ccr":0.57,"par":2.0,"tags":["stencil","grid","wavefront"],"path":"workflows/synthetic/stencil_3x4/docs.html"},{"id":"synthetic.wide_parallel_20","name":"Wide Parallel DAG (20 workers)","domains":["synthetic"],"method":"generated","tasks":22,"edges":40,"depth":3,"width":20,"ccr":0.2,"par":7.33,"tags":["embarrassingly-parallel","wide","benchmark"],"path":"workflows/synthetic/wide_parallel_20/docs.html"},{"id":"uav.search_rescue","name":"UAV Search and Rescue Coordination","domains":["uav","edge-computing"],"method":"ai-generated","tasks":20,"edges":21,"depth":10,"width":3,"ccr":0.44,"par":2.0,"tags":["search-rescue","multi-drone","coordination"],"path":"workflows/uav_drone/search_rescue/docs.html"},{"id":"v2x.cooperative_perception","name":"V2X Cooperative Perception","domains":["v2x","edge-computing"],"method":"ai-generated","tasks":15,"edges":14,"depth":8,"width":6,"ccr":0.7,"par":1.88,"tags":["v2x","cooperative","perception","lidar"],"path":"workflows/v2x_vehicular/cooperative_perception/docs.html"},{"id":"v2x.intersection_mgmt","name":"V2X Intersection Management","domains":["v2x","smart-city"],"method":"ai-generated","tasks":15,"edges":18,"depth":8,"width":4,"ccr":0.53,"par":1.88,"tags":["intersection","rsu","traffic"],"path":"workflows/v2x_vehicular/intersection_mgmt/docs.html"}]
+</script>
+
+<!-- Application Logic -->
+<script>
+(function() {
+  'use strict';
+
+  var catalogData = JSON.parse(document.getElementById('catalogData').textContent);
+  var sortCol = 'id';
+  var sortDir = 'asc';
+
+  // Collect unique domains
+  var domainSet = {};
+  catalogData.forEach(function(w) {
+    w.domains.forEach(function(d) { domainSet[d] = (domainSet[d] || 0) + 1; });
+  });
+  var allDomains = Object.keys(domainSet).sort();
+
+  // Populate domain filter
+  var domainFilter = document.getElementById('domainFilter');
+  allDomains.forEach(function(d) {
+    var opt = document.createElement('option');
+    opt.value = d;
+    opt.textContent = d + ' (' + domainSet[d] + ')';
+    domainFilter.appendChild(opt);
+  });
+
+  // Render domain chart
+  var chartEl = document.getElementById('domainChart');
+  var domainPairs = Object.keys(domainSet).map(function(d) { return { name: d, count: domainSet[d] }; });
+  domainPairs.sort(function(a, b) { return b.count - a.count; });
+  var maxCount = domainPairs[0].count;
+  domainPairs.forEach(function(dp) {
+    var pct = Math.round((dp.count / maxCount) * 100);
+    var row = document.createElement('div');
+    row.className = 'chart-row';
+    row.innerHTML = '<div class="chart-label">' + dp.name + '</div>' +
+      '<div class="chart-bar-wrap"><div class="chart-bar" style="width:' + pct + '%"></div></div>' +
+      '<div class="chart-count">' + dp.count + '</div>';
+    chartEl.appendChild(row);
+  });
+
+  // Filter and render table
+  function getFilteredData() {
+    var search = document.getElementById('searchBox').value.toLowerCase();
+    var domain = domainFilter.value;
+    var method = document.getElementById('methodFilter').value;
+
+    return catalogData.filter(function(w) {
+      if (domain && w.domains.indexOf(domain) === -1) return false;
+      if (method && w.method !== method) return false;
+      if (search) {
+        var haystack = (w.id + ' ' + w.name + ' ' + w.tags.join(' ')).toLowerCase();
+        if (haystack.indexOf(search) === -1) return false;
+      }
+      return true;
+    });
+  }
+
+  function sortData(data) {
+    var col = sortCol;
+    var dir = sortDir === 'asc' ? 1 : -1;
+    return data.slice().sort(function(a, b) {
+      var va = col === 'domains' ? a[col].join(', ') : a[col];
+      var vb = col === 'domains' ? b[col].join(', ') : b[col];
+      if (typeof va === 'number' && typeof vb === 'number') return (va - vb) * dir;
+      va = String(va).toLowerCase();
+      vb = String(vb).toLowerCase();
+      if (va < vb) return -1 * dir;
+      if (va > vb) return 1 * dir;
+      return 0;
+    });
+  }
+
+  function renderTable() {
+    var filtered = sortData(getFilteredData());
+    var tbody = document.getElementById('catalogBody');
+    var html = '';
+    filtered.forEach(function(w) {
+      var methodClass = w.method.replace(/\s+/g, '-');
+      var domainsHtml = w.domains.map(function(d) { return '<span class="domain-tag">' + d + '</span>'; }).join('');
+      html += '<tr>' +
+        '<td><a class="id-link" href="' + w.path + '">' + w.id + '</a></td>' +
+        '<td>' + w.name + '</td>' +
+        '<td>' + w.tasks + '</td>' +
+        '<td>' + w.edges + '</td>' +
+        '<td>' + w.depth + '</td>' +
+        '<td>' + w.width + '</td>' +
+        '<td>' + w.ccr + '</td>' +
+        '<td>' + w.par + '</td>' +
+        '<td><span class="method-badge ' + methodClass + '">' + w.method + '</span></td>' +
+        '<td>' + domainsHtml + '</td>' +
+        '</tr>';
+    });
+    tbody.innerHTML = html;
+    document.getElementById('catalogCount').textContent = 'Showing ' + filtered.length + ' of ' + catalogData.length + ' workflows';
+  }
+
+  // Sort headers
+  document.querySelectorAll('.catalog-table th').forEach(function(th) {
+    th.addEventListener('click', function() {
+      var col = this.getAttribute('data-col');
+      if (sortCol === col) {
+        sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+      } else {
+        sortCol = col;
+        sortDir = 'asc';
+      }
+      // Update arrows
+      document.querySelectorAll('.catalog-table th').forEach(function(h) {
+        h.classList.remove('sort-active');
+        h.querySelector('.sort-arrow').innerHTML = '&#9650;';
+      });
+      this.classList.add('sort-active');
+      this.querySelector('.sort-arrow').innerHTML = sortDir === 'asc' ? '&#9650;' : '&#9660;';
+      renderTable();
+    });
+  });
+
+  // Filter events
+  document.getElementById('searchBox').addEventListener('input', renderTable);
+  domainFilter.addEventListener('change', renderTable);
+  document.getElementById('methodFilter').addEventListener('change', renderTable);
+
+  // Initial render
+  renderTable();
+})();
+
+// Tab switching
+function switchTab(event, tabId) {
+  document.querySelectorAll('.code-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.code-panel').forEach(function(p) { p.classList.remove('active'); });
+  event.target.classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+</script>
+
+</body>
+</html>

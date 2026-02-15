@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLEIPNIR Antivirus App - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>SLEIPNIR Antivirus App</h1>
+    <div class="meta">
+        <strong>ID:</strong> mec.sleipnir_antivirus &nbsp;|&nbsp;
+        <strong>Domains:</strong> mec, edge-computing &nbsp;|&nbsp;
+        <strong>Completeness:</strong> structure-and-costs &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Mobile antivirus application DAG from the SLEIPNIR offloading simulator (De Maio and Brandic, CCGrid 2018). The UI task fans out to load virus definitions and scan a file in parallel, both feeding into a comparison stage that produces the final output. Classic fork-join diamond pattern with 5 tasks.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    ANTIVIRUS_UI["ANTIVIRUS_UI<br/>cost: 400.0"]
+    LOAD_DEFINITIONS["LOAD_DEFINITIONS<br/>cost: 200.0"]
+    SCAN_FILE["SCAN_FILE<br/>cost: 200.0"]
+    COMPARE["COMPARE<br/>cost: 200.0"]
+    ANTIVIRUS_OUTPUT["ANTIVIRUS_OUTPUT<br/>cost: 200.0"]
+    ANTIVIRUS_UI -->|"500"| LOAD_DEFINITIONS
+    ANTIVIRUS_UI -->|"500"| SCAN_FILE
+    LOAD_DEFINITIONS -->|"1000"| COMPARE
+    SCAN_FILE -->|"500"| COMPARE
+    COMPARE -->|"500"| ANTIVIRUS_OUTPUT
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (5)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>ANTIVIRUS_UI</td><td>400.00</td><td>Processing step in mec pipeline</td></tr><tr><td>LOAD_DEFINITIONS</td><td>200.00</td><td>Data loading / fetching</td></tr><tr><td>SCAN_FILE</td><td>200.00</td><td>Processing step in mec pipeline</td></tr><tr><td>COMPARE</td><td>200.00</td><td>Processing step in mec pipeline</td></tr><tr><td>ANTIVIRUS_OUTPUT</td><td>200.00</td><td>Final output / data sink</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>5</td></tr><tr><td>Edges</td><td>5</td></tr><tr><td>Depth</td><td>4</td></tr><tr><td>Width</td><td>2</td></tr><tr><td>CCR</td><td>2.5000</td></tr><tr><td>Parallelism</td><td>1.2500</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">Manually extracted from paper figure</span>
+        <br><br>
+        <strong>Source:</strong> Faithfully extracted from SLEIPNIR open-source simulator (De Maio and Brandic, CCGrid 2018)<br>
+<strong>Paper:</strong> First Hop Mobile Offloading of DAG Computations<br>
+<strong>Authors:</strong> Vincenzo De Maio, Ivona Brandic<br>
+<strong>Year:</strong> 2018<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1109/CCGRID.2018.00023" target="_blank">10.1109/CCGRID.2018.00023</a><br>
+<strong>Figure/Table:</strong> Source code: AntivirusApp.java<br>
+<strong>Repository:</strong> <a href="https://github.com/vindem/sleipnir" target="_blank">https://github.com/vindem/sleipnir</a><br>
+<strong>Extraction Method:</strong> Manually extracted from paper figure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-14<br>
+<strong>Notes:</strong> DAG structure and task computation costs (in MI) faithfully extracted from AntivirusApp.java in the SLEIPNIR simulator. The UI and output tasks are non-offloadable in the source. Data transfer sizes use the source code outData values directly (500 and 1000 data units), which happen to produce a balanced CCR of 2.5 relative to the MI costs. Network is a 3-node MEC topology. MIT licensed source code. Affiliations: TU Wien.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> mec<br>
+<strong>Nodes:</strong> 3
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">antivirus</span><span class="badge">mobile-offloading</span><span class="badge">fork-join</span><span class="badge">diamond-dag</span><span class="badge">sleipnir</span><span class="badge">mec-offloading</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; mec.sleipnir_antivirus
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

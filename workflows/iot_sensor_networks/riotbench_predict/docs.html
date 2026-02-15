@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RIoTBench ML Prediction Pipeline - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>RIoTBench ML Prediction Pipeline</h1>
+    <div class="meta">
+        <strong>ID:</strong> iot.riotbench_predict &nbsp;|&nbsp;
+        <strong>Domains:</strong> iot, data-analytics &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Machine learning inference pipeline for IoT data. Tasks: subscribe, read model, predict, publish results.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    BlobRead["BlobRead<br/>cost: 30.8"]
+    DecisionTree["DecisionTree<br/>cost: 10.0"]
+    VirtualSource["VirtualSource<br/>cost: 0.0"]
+    Source["Source<br/>cost: 18.7"]
+    MQTTSubscribe["MQTTSubscribe<br/>cost: 50.0"]
+    MQTTPublish["MQTTPublish<br/>cost: 23.3"]
+    ErrorEstimate["ErrorEstimate<br/>cost: 30.1"]
+    Sink["Sink<br/>cost: 50.0"]
+    Average["Average<br/>cost: 10.0"]
+    MultiVarLinearReg["MultiVarLinearReg<br/>cost: 38.2"]
+    SenMLParse["SenMLParse<br/>cost: 32.4"]
+    SenMLParse -->|"1084"| DecisionTree
+    SenMLParse -->|"1084"| MultiVarLinearReg
+    VirtualSource -->|"0"| MQTTSubscribe
+    MQTTSubscribe -->|"1084"| BlobRead
+    BlobRead -->|"1084"| DecisionTree
+    MultiVarLinearReg -->|"2169"| ErrorEstimate
+    BlobRead -->|"1084"| MultiVarLinearReg
+    Source -->|"1084"| SenMLParse
+    VirtualSource -->|"0"| Source
+    MQTTPublish -->|"2169"| Sink
+    DecisionTree -->|"2169"| MQTTPublish
+    SenMLParse -->|"10843"| Average
+    Average -->|"2169"| ErrorEstimate
+    ErrorEstimate -->|"2169"| MQTTPublish
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (11)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>BlobRead</td><td>30.82</td><td>Data loading / fetching</td></tr><tr><td>DecisionTree</td><td>10.00</td><td>Processing step in iot pipeline</td></tr><tr><td>VirtualSource</td><td>0.00</td><td>Data ingestion / source input</td></tr><tr><td>Source</td><td>18.66</td><td>Data ingestion / source input</td></tr><tr><td>MQTTSubscribe</td><td>50.00</td><td>Processing step in iot pipeline</td></tr><tr><td>MQTTPublish</td><td>23.33</td><td>Final output / data sink</td></tr><tr><td>ErrorEstimate</td><td>30.14</td><td>Processing step in iot pipeline</td></tr><tr><td>Sink</td><td>50.00</td><td>Final output / data sink</td></tr><tr><td>Average</td><td>10.00</td><td>Processing step in iot pipeline</td></tr><tr><td>MultiVarLinearReg</td><td>38.22</td><td>Processing step in iot pipeline</td></tr><tr><td>SenMLParse</td><td>32.45</td><td>Parse incoming data</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>11</td></tr><tr><td>Edges</td><td>14</td></tr><tr><td>Depth</td><td>7</td></tr><tr><td>Width</td><td>3</td></tr><tr><td>CCR</td><td>96.0194</td></tr><tr><td>Parallelism</td><td>1.5714</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">Programmatic (from source code/repo)</span>
+        <br><br>
+        <strong>Source:</strong> SAGA framework (anrg-saga)<br>
+<strong>Paper:</strong> RIoTBench: An IoT Benchmark for Distributed Stream Processing Systems<br>
+<strong>Authors:</strong> Anshu Shukla, Shilpa Chaturvedi, Yogesh Simmhan<br>
+<strong>Year:</strong> 2017<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1002/cpe.4257" target="_blank">10.1002/cpe.4257</a><br>
+<strong>arXiv:</strong> <a href="https://arxiv.org/abs/1701.08530" target="_blank">1701.08530</a><br>
+<strong>Figure/Table:</strong> Fig. 2-5<br>
+<strong>Repository:</strong> <a href="https://github.com/anrgusc/saga" target="_blank">https://github.com/anrgusc/saga</a><br>
+<strong>Extraction Method:</strong> Programmatic (from source code/repo)<br>
+<strong>Extractor:</strong> dagbench-import-script<br>
+<strong>Date:</strong> 2026-02-12
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fog-three-tier<br>
+<strong>Nodes:</strong> 15
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">riotbench</span><span class="badge">iot</span><span class="badge">streaming</span><span class="badge">predict</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; iot.riotbench_predict
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

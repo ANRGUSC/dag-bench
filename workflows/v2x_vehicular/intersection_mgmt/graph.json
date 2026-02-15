@@ -1,0 +1,333 @@
+{
+  "name": "v2x.intersection_mgmt",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "Lane3_Detect",
+        "cost": 3.0
+      },
+      {
+        "name": "ConflictDetect",
+        "cost": 8.0
+      },
+      {
+        "name": "Lane2_Detect",
+        "cost": 3.0
+      },
+      {
+        "name": "Lane3_Track",
+        "cost": 4.0
+      },
+      {
+        "name": "V2X_Advise",
+        "cost": 3.0
+      },
+      {
+        "name": "Lane0_Track",
+        "cost": 4.0
+      },
+      {
+        "name": "Lane0_Detect",
+        "cost": 3.0
+      },
+      {
+        "name": "RSU_Init",
+        "cost": 2.0
+      },
+      {
+        "name": "Lane2_Track",
+        "cost": 4.0
+      },
+      {
+        "name": "Monitor",
+        "cost": 2.0
+      },
+      {
+        "name": "Lane1_Track",
+        "cost": 4.0
+      },
+      {
+        "name": "Lane1_Detect",
+        "cost": 3.0
+      },
+      {
+        "name": "TimingCalc",
+        "cost": 6.0
+      },
+      {
+        "name": "PriorityAssign",
+        "cost": 5.0
+      },
+      {
+        "name": "SignalUpdate",
+        "cost": 3.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "Lane1_Detect",
+        "target": "Lane1_Track",
+        "size": 2.0
+      },
+      {
+        "source": "Lane2_Detect",
+        "target": "Lane2_Track",
+        "size": 2.0
+      },
+      {
+        "source": "Lane0_Detect",
+        "target": "Lane0_Track",
+        "size": 2.0
+      },
+      {
+        "source": "RSU_Init",
+        "target": "Lane2_Detect",
+        "size": 1.0
+      },
+      {
+        "source": "Lane1_Track",
+        "target": "ConflictDetect",
+        "size": 2.0
+      },
+      {
+        "source": "Lane2_Track",
+        "target": "ConflictDetect",
+        "size": 2.0
+      },
+      {
+        "source": "RSU_Init",
+        "target": "Lane1_Detect",
+        "size": 1.0
+      },
+      {
+        "source": "Lane3_Track",
+        "target": "ConflictDetect",
+        "size": 2.0
+      },
+      {
+        "source": "Lane0_Track",
+        "target": "ConflictDetect",
+        "size": 2.0
+      },
+      {
+        "source": "RSU_Init",
+        "target": "Lane0_Detect",
+        "size": 1.0
+      },
+      {
+        "source": "V2X_Advise",
+        "target": "Monitor",
+        "size": 1.0
+      },
+      {
+        "source": "PriorityAssign",
+        "target": "TimingCalc",
+        "size": 2.0
+      },
+      {
+        "source": "TimingCalc",
+        "target": "SignalUpdate",
+        "size": 2.0
+      },
+      {
+        "source": "ConflictDetect",
+        "target": "PriorityAssign",
+        "size": 2.0
+      },
+      {
+        "source": "TimingCalc",
+        "target": "V2X_Advise",
+        "size": 2.0
+      },
+      {
+        "source": "Lane3_Detect",
+        "target": "Lane3_Track",
+        "size": 2.0
+      },
+      {
+        "source": "RSU_Init",
+        "target": "Lane3_Detect",
+        "size": 1.0
+      },
+      {
+        "source": "SignalUpdate",
+        "target": "Monitor",
+        "size": 1.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "MEC1",
+        "speed": 10.0
+      },
+      {
+        "name": "UE3",
+        "speed": 1.0
+      },
+      {
+        "name": "UE2",
+        "speed": 1.0
+      },
+      {
+        "name": "UE0",
+        "speed": 1.0
+      },
+      {
+        "name": "UE1",
+        "speed": 1.0
+      },
+      {
+        "name": "MEC0",
+        "speed": 10.0
+      },
+      {
+        "name": "Cloud",
+        "speed": 50.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "MEC0",
+        "target": "MEC1",
+        "speed": 10000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE0",
+        "speed": 5000.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE3",
+        "speed": 500.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE2",
+        "speed": 500.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE0",
+        "speed": 500.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE1",
+        "speed": 5000.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE1",
+        "speed": 200.0
+      },
+      {
+        "source": "MEC0",
+        "target": "MEC0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "MEC1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "UE1",
+        "target": "UE1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "Cloud",
+        "target": "MEC1",
+        "speed": 15000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE1",
+        "speed": 5000.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE3",
+        "speed": 5000.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE2",
+        "speed": 5000.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE0",
+        "speed": 5000.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE3",
+        "speed": 200.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE1",
+        "speed": 500.0
+      },
+      {
+        "source": "Cloud",
+        "target": "Cloud",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE2",
+        "speed": 200.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "UE1",
+        "target": "UE3",
+        "speed": 200.0
+      },
+      {
+        "source": "UE1",
+        "target": "UE2",
+        "speed": 200.0
+      },
+      {
+        "source": "Cloud",
+        "target": "MEC0",
+        "speed": 15000.0
+      },
+      {
+        "source": "UE2",
+        "target": "UE3",
+        "speed": 200.0
+      },
+      {
+        "source": "UE2",
+        "target": "UE2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE3",
+        "speed": 5000.0
+      },
+      {
+        "source": "UE3",
+        "target": "UE3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE2",
+        "speed": 5000.0
+      }
+    ]
+  }
+}

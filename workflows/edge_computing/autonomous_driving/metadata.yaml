@@ -1,0 +1,53 @@
+id: edge.autonomous_driving
+name: Autonomous Driving Pipeline
+description: "Vehicle autonomous driving processing pipeline. Three sensor sources\
+  \ (LiDAR, camera, radar) fuse into detection and planning chain. Strict real-time\
+  \ constraints."
+domains:
+- edge-computing
+- cyber-physical
+provenance:
+  source: "AI-generated, based on architecture described in G. Liu et al. 2022"
+  paper_doi: 10.1186/s13677-022-00340-3
+  paper_title: "A collaborative computation and dependency-aware task offloading method
+    for vehicular edge computing: a reinforcement learning approach"
+  authors:
+  - Guozhi Liu
+  - Fei Dai
+  - Bi Huang
+  - Zhenping Qiang
+  - Shuai Wang
+  - Lecheng Li
+  year: 2022
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: "Paper presents a dependency-aware task offloading framework for vehicular
+    edge computing. Figure 1(a) shows a small generic 5-node example DAG illustrating
+    task dependencies, but this workflow's 11-task structure with domain-specific names
+    (LiDAR, Camera, SensorFusion, etc.) does not correspond to any figure in the
+    paper. This autonomous driving pipeline is an AI-generated task graph inspired
+    by vehicular edge computing concepts."
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 11
+  num_edges: 10
+  depth: 7
+  width: 3
+  ccr: 0.3936
+  parallelism: 1.5714
+campaign: campaign_002_classic_and_manual
+tags:
+- autonomous-driving
+- v2x
+- sensor-fusion
+- real-time

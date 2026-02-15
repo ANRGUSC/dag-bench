@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IIoT Robotic Assembly Coordination - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>IIoT Robotic Assembly Coordination</h1>
+    <div class="meta">
+        <strong>ID:</strong> iiot.robotic_assembly &nbsp;|&nbsp;
+        <strong>Domains:</strong> industrial-iot, cyber-physical &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Robotic assembly. Order -&gt; 3 robots (fetch, position, check) -&gt; 3 sequential assembly steps -&gt; inspect -&gt; package -&gt; log.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    R0_Check["R0_Check<br/>cost: 2.0"]
+    Package["Package<br/>cost: 3.0"]
+    R2_Position["R2_Position<br/>cost: 3.0"]
+    OrderInit["OrderInit<br/>cost: 2.0"]
+    R1_Fetch["R1_Fetch<br/>cost: 4.0"]
+    Log["Log<br/>cost: 2.0"]
+    R0_Fetch["R0_Fetch<br/>cost: 4.0"]
+    R2_Check["R2_Check<br/>cost: 2.0"]
+    R1_Check["R1_Check<br/>cost: 2.0"]
+    Assemble_Step1["Assemble_Step1<br/>cost: 6.0"]
+    Assemble_Step2["Assemble_Step2<br/>cost: 8.0"]
+    Assemble_Step3["Assemble_Step3<br/>cost: 7.0"]
+    R0_Position["R0_Position<br/>cost: 3.0"]
+    R1_Position["R1_Position<br/>cost: 3.0"]
+    R2_Fetch["R2_Fetch<br/>cost: 4.0"]
+    QualityInspect["QualityInspect<br/>cost: 5.0"]
+    OrderInit -->|"1"| R0_Fetch
+    R2_Fetch -->|"1"| R2_Position
+    QualityInspect -->|"1"| Package
+    R0_Position -->|"1"| R0_Check
+    Assemble_Step1 -->|"2"| Assemble_Step2
+    Package -->|"1"| Log
+    R0_Check -->|"1"| Assemble_Step1
+    R1_Position -->|"1"| R1_Check
+    Assemble_Step3 -->|"1"| QualityInspect
+    OrderInit -->|"1"| R2_Fetch
+    R2_Check -->|"1"| Assemble_Step1
+    R2_Position -->|"1"| R2_Check
+    R0_Fetch -->|"1"| R0_Position
+    Assemble_Step2 -->|"2"| Assemble_Step3
+    R1_Fetch -->|"1"| R1_Position
+    OrderInit -->|"1"| R1_Fetch
+    R1_Check -->|"1"| Assemble_Step1
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (16)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>R0_Check</td><td>2.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>Package</td><td>3.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>R2_Position</td><td>3.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>OrderInit</td><td>2.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>R1_Fetch</td><td>4.00</td><td>Data loading / fetching</td></tr><tr><td>Log</td><td>2.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>R0_Fetch</td><td>4.00</td><td>Data loading / fetching</td></tr><tr><td>R2_Check</td><td>2.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>R1_Check</td><td>2.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>Assemble_Step1</td><td>6.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>Assemble_Step2</td><td>8.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>Assemble_Step3</td><td>7.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>R0_Position</td><td>3.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>R1_Position</td><td>3.00</td><td>Processing step in industrial-iot pipeline</td></tr><tr><td>R2_Fetch</td><td>4.00</td><td>Data loading / fetching</td></tr><tr><td>QualityInspect</td><td>5.00</td><td>Processing step in industrial-iot pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>16</td></tr><tr><td>Edges</td><td>17</td></tr><tr><td>Depth</td><td>10</td></tr><tr><td>Width</td><td>3</td></tr><tr><td>CCR</td><td>0.3167</td></tr><tr><td>Parallelism</td><td>1.6000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, based on architecture described in Wan et al. 2018<br>
+<strong>Paper:</strong> Reconfigurable Smart Factory for Drug Packing in Healthcare Industry 4.0<br>
+<strong>Authors:</strong> Jiafu Wan, Shenglong Tang, Di Li, Muhammad Imran, Chunhua Zhang, Chengliang Liu, Zhibo Pang<br>
+<strong>Year:</strong> 2018<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1109/TII.2018.2843811" target="_blank">10.1109/TII.2018.2843811</a><br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> The original DOI (10.1109/TII.2019.2938890) resolved to a completely different paper (Yuan et al. on soft sensor deep learning). Corrected to the real Wan et al. paper about reconfigurable smart factories. The paper describes drug packing in Industry 4.0, not robotic assembly per se, and does not contain an extractable task dependency DAG. This robotic assembly pipeline is an AI-generated task graph inspired by smart factory concepts.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fog-three-tier<br>
+<strong>Nodes:</strong> 8
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">robotics</span><span class="badge">assembly</span><span class="badge">manufacturing</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; iiot.robotic_assembly
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

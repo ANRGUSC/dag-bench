@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SplitStream Video Query Pipeline - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>SplitStream Video Query Pipeline</h1>
+    <div class="meta">
+        <strong>ID:</strong> edge.splitstream_pipeline &nbsp;|&nbsp;
+        <strong>Domains:</strong> edge-computing, ml-pipeline &nbsp;|&nbsp;
+        <strong>Completeness:</strong> structure-and-costs &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Distributed video query pipeline for edge-based traffic analytics, faithfully extracted from Figure 1 of Liang et al. (JNCA 2024). An object detector (YOLOv5m) classifies detected objects as person or vehicle, routing to two cascaded classification branches: person branch (gender classifier, then behaviour classifier) and vehicle branch (type classifier, then maker classifier), with results collected at a final aggregation node. Deployed across heterogeneous edge devices (Jetson Nano, AGX Xavier, Intel E5 server).</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    ObjectDetection["ObjectDetection<br/>cost: 574.0"]
+    GenderClassifier["GenderClassifier<br/>cost: 23.1"]
+    BehaviourClassifier["BehaviourClassifier<br/>cost: 23.1"]
+    TypeClassifier["TypeClassifier<br/>cost: 45.0"]
+    MakerClassifier["MakerClassifier<br/>cost: 45.0"]
+    ResultCollector["ResultCollector<br/>cost: 5.0"]
+    ObjectDetection -->|"150"| GenderClassifier
+    ObjectDetection -->|"150"| TypeClassifier
+    GenderClassifier -->|"10"| BehaviourClassifier
+    TypeClassifier -->|"10"| MakerClassifier
+    BehaviourClassifier -->|"1"| ResultCollector
+    MakerClassifier -->|"1"| ResultCollector
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (6)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>ObjectDetection</td><td>574.00</td><td>Detection / anomaly identification</td></tr><tr><td>GenderClassifier</td><td>23.10</td><td>Classification / prediction</td></tr><tr><td>BehaviourClassifier</td><td>23.10</td><td>Classification / prediction</td></tr><tr><td>TypeClassifier</td><td>45.00</td><td>Classification / prediction</td></tr><tr><td>MakerClassifier</td><td>45.00</td><td>Classification / prediction</td></tr><tr><td>ResultCollector</td><td>5.00</td><td>Processing step in edge-computing pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>6</td></tr><tr><td>Edges</td><td>6</td></tr><tr><td>Depth</td><td>4</td></tr><tr><td>Width</td><td>2</td></tr><tr><td>CCR</td><td>0.4502</td></tr><tr><td>Parallelism</td><td>1.5000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">Manually extracted from paper figure</span>
+        <br><br>
+        <strong>Source:</strong> Faithfully extracted from Figure 1 and Table 1 of Liang et al. (JNCA 2024)<br>
+<strong>Paper:</strong> SplitStream: Distributed and workload-adaptive video analytics at the edge<br>
+<strong>Authors:</strong> Yu Liang, Sheng Zhang, Jie Wu<br>
+<strong>Year:</strong> 2024<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1016/j.jnca.2024.103866" target="_blank">10.1016/j.jnca.2024.103866</a><br>
+<strong>Figure/Table:</strong> Figure 1, Table 1<br>
+<strong>Extraction Method:</strong> Manually extracted from paper figure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-14<br>
+<strong>Notes:</strong> DAG structure faithfully extracted from Figure 1 (&#x27;A representative video query pipeline&#x27;). The pipeline detects objects via YOLOv5m then routes to person or vehicle classification branches, each with two cascaded ResNet classifiers. Task costs are actual inference times (ms) on Jetson Nano 4GB from Table 1: ObjectDetection=574ms (YOLOv5m), GenderClassifier=23.1ms (ResNet18), BehaviourClassifier=23.1ms (ResNet18), TypeClassifier=45ms (ResNet34), MakerClassifier=45ms (ResNet34). ResultCollector cost (5ms) is estimated. Network node speeds are derived from YOLOv5m speedup ratios across devices in Table 1. Data transfer sizes are estimated from typical intermediate feature map and ROI dimensions. Affiliations: Nanjing Normal University, Nanjing University, Temple University.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> heterogeneous<br>
+<strong>Nodes:</strong> 5
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">video-analytics</span><span class="badge">yolov5</span><span class="badge">resnet</span><span class="badge">object-detection</span><span class="badge">classification</span><span class="badge">edge-gpu</span><span class="badge">jetson</span><span class="badge">dnn-partitioning</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; edge.splitstream_pipeline
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

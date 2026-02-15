@@ -1,0 +1,65 @@
+id: edge.splitstream_pipeline
+name: SplitStream Video Query Pipeline
+description: 'Distributed video query pipeline for edge-based traffic analytics, faithfully
+  extracted from Figure 1 of Liang et al. (JNCA 2024). An object detector (YOLOv5m)
+  classifies detected objects as person or vehicle, routing to two cascaded classification
+  branches: person branch (gender classifier, then behaviour classifier) and vehicle
+  branch (type classifier, then maker classifier), with results collected at a final
+  aggregation node. Deployed across heterogeneous edge devices (Jetson Nano, AGX Xavier,
+  Intel E5 server).'
+domains:
+- edge-computing
+- ml-pipeline
+provenance:
+  source: Faithfully extracted from Figure 1 and Table 1 of Liang et al. (JNCA 2024)
+  paper_doi: 10.1016/j.jnca.2024.103866
+  paper_title: 'SplitStream: Distributed and workload-adaptive video analytics at
+    the edge'
+  authors:
+  - Yu Liang
+  - Sheng Zhang
+  - Jie Wu
+  year: 2024
+  figure_or_table: Figure 1, Table 1
+  extraction_method: manual-figure
+  extractor: claude-opus-4
+  extraction_date: '2026-02-14'
+  notes: 'DAG structure faithfully extracted from Figure 1 (''A representative video
+    query pipeline''). The pipeline detects objects via YOLOv5m then routes to person
+    or vehicle classification branches, each with two cascaded ResNet classifiers.
+    Task costs are actual inference times (ms) on Jetson Nano 4GB from Table 1: ObjectDetection=574ms
+    (YOLOv5m), GenderClassifier=23.1ms (ResNet18), BehaviourClassifier=23.1ms (ResNet18),
+    TypeClassifier=45ms (ResNet34), MakerClassifier=45ms (ResNet34). ResultCollector
+    cost (5ms) is estimated. Network node speeds are derived from YOLOv5m speedup
+    ratios across devices in Table 1. Data transfer sizes are estimated from typical
+    intermediate feature map and ROI dimensions. Affiliations: Nanjing Normal University,
+    Nanjing University, Temple University.'
+license:
+  source_license: Elsevier
+  dagbench_license: Apache-2.0
+  notes: DAG structure extracted from published figure under fair use for research
+    benchmarking
+completeness: structure-and-costs
+cost_model: deterministic
+network:
+  included: true
+  topology: heterogeneous
+  num_nodes_min: 5
+  num_nodes_max: 5
+graph_stats:
+  num_tasks: 6
+  num_edges: 6
+  depth: 4
+  width: 2
+  ccr: 0.4502
+  parallelism: 1.5
+campaign: campaign_003_paper_extraction
+tags:
+- video-analytics
+- yolov5
+- resnet
+- object-detection
+- classification
+- edge-gpu
+- jetson
+- dnn-partitioning

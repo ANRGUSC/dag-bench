@@ -1,0 +1,37 @@
+{
+  "name": "mec.sleipnir_facerecognizer",
+  "task_graph": {
+    "tasks": [
+      {"name": "FACERECOGNIZER_UI", "cost": 500.0},
+      {"name": "FIND_MATCH", "cost": 800.0},
+      {"name": "FIND_MATCH_INIT", "cost": 800.0},
+      {"name": "DETECT_FACE", "cost": 1600.0},
+      {"name": "FACERECOGNIZER_OUTPUT", "cost": 800.0}
+    ],
+    "dependencies": [
+      {"source": "FACERECOGNIZER_UI", "target": "FIND_MATCH", "size": 100.0},
+      {"source": "FIND_MATCH", "target": "FIND_MATCH_INIT", "size": 3000.0},
+      {"source": "FIND_MATCH", "target": "DETECT_FACE", "size": 3000.0},
+      {"source": "FIND_MATCH_INIT", "target": "DETECT_FACE", "size": 100.0},
+      {"source": "DETECT_FACE", "target": "FACERECOGNIZER_OUTPUT", "size": 3000.0}
+    ]
+  },
+  "network": {
+    "nodes": [
+      {"name": "MobileDevice", "speed": 1.0},
+      {"name": "EdgeServer1", "speed": 5.0},
+      {"name": "EdgeServer2", "speed": 5.0}
+    ],
+    "edges": [
+      {"source": "MobileDevice", "target": "EdgeServer1", "speed": 1000.0},
+      {"source": "MobileDevice", "target": "EdgeServer2", "speed": 1000.0},
+      {"source": "EdgeServer1", "target": "MobileDevice", "speed": 1000.0},
+      {"source": "EdgeServer1", "target": "EdgeServer2", "speed": 1000.0},
+      {"source": "EdgeServer2", "target": "MobileDevice", "speed": 1000.0},
+      {"source": "EdgeServer2", "target": "EdgeServer1", "speed": 1000.0},
+      {"source": "MobileDevice", "target": "MobileDevice", "speed": 1000000000.0},
+      {"source": "EdgeServer1", "target": "EdgeServer1", "speed": 1000000000.0},
+      {"source": "EdgeServer2", "target": "EdgeServer2", "speed": 1000000000.0}
+    ]
+  }
+}

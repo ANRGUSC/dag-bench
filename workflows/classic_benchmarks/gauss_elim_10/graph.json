@@ -1,0 +1,976 @@
+{
+  "name": "classic.gauss_elim_10",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "elim_4_7",
+        "cost": 11.0
+      },
+      {
+        "name": "pivot_5",
+        "cost": 9.0
+      },
+      {
+        "name": "pivot_7",
+        "cost": 5.0
+      },
+      {
+        "name": "elim_3_7",
+        "cost": 13.0
+      },
+      {
+        "name": "elim_0_5",
+        "cost": 19.0
+      },
+      {
+        "name": "elim_3_9",
+        "cost": 13.0
+      },
+      {
+        "name": "elim_8_9",
+        "cost": 3.0
+      },
+      {
+        "name": "elim_4_9",
+        "cost": 11.0
+      },
+      {
+        "name": "elim_7_8",
+        "cost": 5.0
+      },
+      {
+        "name": "elim_0_8",
+        "cost": 19.0
+      },
+      {
+        "name": "elim_2_8",
+        "cost": 15.0
+      },
+      {
+        "name": "pivot_2",
+        "cost": 15.0
+      },
+      {
+        "name": "pivot_0",
+        "cost": 19.0
+      },
+      {
+        "name": "elim_0_2",
+        "cost": 19.0
+      },
+      {
+        "name": "pivot_4",
+        "cost": 11.0
+      },
+      {
+        "name": "elim_6_7",
+        "cost": 7.0
+      },
+      {
+        "name": "elim_5_9",
+        "cost": 9.0
+      },
+      {
+        "name": "elim_4_6",
+        "cost": 11.0
+      },
+      {
+        "name": "elim_4_5",
+        "cost": 11.0
+      },
+      {
+        "name": "elim_5_7",
+        "cost": 9.0
+      },
+      {
+        "name": "elim_1_3",
+        "cost": 17.0
+      },
+      {
+        "name": "elim_0_1",
+        "cost": 19.0
+      },
+      {
+        "name": "elim_0_6",
+        "cost": 19.0
+      },
+      {
+        "name": "pivot_3",
+        "cost": 13.0
+      },
+      {
+        "name": "elim_6_9",
+        "cost": 7.0
+      },
+      {
+        "name": "pivot_9",
+        "cost": 1.0
+      },
+      {
+        "name": "elim_0_4",
+        "cost": 19.0
+      },
+      {
+        "name": "elim_4_8",
+        "cost": 11.0
+      },
+      {
+        "name": "elim_1_4",
+        "cost": 17.0
+      },
+      {
+        "name": "elim_2_7",
+        "cost": 15.0
+      },
+      {
+        "name": "elim_0_3",
+        "cost": 19.0
+      },
+      {
+        "name": "elim_2_6",
+        "cost": 15.0
+      },
+      {
+        "name": "elim_5_6",
+        "cost": 9.0
+      },
+      {
+        "name": "elim_1_8",
+        "cost": 17.0
+      },
+      {
+        "name": "elim_3_5",
+        "cost": 13.0
+      },
+      {
+        "name": "elim_0_7",
+        "cost": 19.0
+      },
+      {
+        "name": "elim_1_7",
+        "cost": 17.0
+      },
+      {
+        "name": "elim_6_8",
+        "cost": 7.0
+      },
+      {
+        "name": "elim_7_9",
+        "cost": 5.0
+      },
+      {
+        "name": "elim_1_5",
+        "cost": 17.0
+      },
+      {
+        "name": "elim_3_4",
+        "cost": 13.0
+      },
+      {
+        "name": "elim_2_4",
+        "cost": 15.0
+      },
+      {
+        "name": "elim_1_2",
+        "cost": 17.0
+      },
+      {
+        "name": "pivot_6",
+        "cost": 7.0
+      },
+      {
+        "name": "pivot_8",
+        "cost": 3.0
+      },
+      {
+        "name": "elim_2_5",
+        "cost": 15.0
+      },
+      {
+        "name": "elim_2_9",
+        "cost": 15.0
+      },
+      {
+        "name": "elim_1_6",
+        "cost": 17.0
+      },
+      {
+        "name": "elim_1_9",
+        "cost": 17.0
+      },
+      {
+        "name": "pivot_1",
+        "cost": 17.0
+      },
+      {
+        "name": "elim_3_6",
+        "cost": 13.0
+      },
+      {
+        "name": "elim_0_9",
+        "cost": 19.0
+      },
+      {
+        "name": "elim_2_3",
+        "cost": 15.0
+      },
+      {
+        "name": "elim_5_8",
+        "cost": 9.0
+      },
+      {
+        "name": "elim_3_8",
+        "cost": 13.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "elim_7_9",
+        "target": "pivot_8",
+        "size": 2.0
+      },
+      {
+        "source": "pivot_6",
+        "target": "elim_6_7",
+        "size": 4.0
+      },
+      {
+        "source": "elim_0_4",
+        "target": "pivot_1",
+        "size": 9.0
+      },
+      {
+        "source": "pivot_0",
+        "target": "elim_0_2",
+        "size": 10.0
+      },
+      {
+        "source": "elim_1_8",
+        "target": "elim_2_8",
+        "size": 8.0
+      },
+      {
+        "source": "elim_0_9",
+        "target": "elim_1_9",
+        "size": 9.0
+      },
+      {
+        "source": "elim_5_9",
+        "target": "pivot_6",
+        "size": 4.0
+      },
+      {
+        "source": "pivot_7",
+        "target": "elim_7_9",
+        "size": 3.0
+      },
+      {
+        "source": "elim_4_5",
+        "target": "pivot_5",
+        "size": 5.0
+      },
+      {
+        "source": "elim_5_6",
+        "target": "pivot_6",
+        "size": 4.0
+      },
+      {
+        "source": "elim_7_9",
+        "target": "elim_8_9",
+        "size": 2.0
+      },
+      {
+        "source": "pivot_4",
+        "target": "elim_4_9",
+        "size": 6.0
+      },
+      {
+        "source": "elim_3_4",
+        "target": "pivot_4",
+        "size": 6.0
+      },
+      {
+        "source": "pivot_3",
+        "target": "elim_3_4",
+        "size": 7.0
+      },
+      {
+        "source": "pivot_4",
+        "target": "elim_4_5",
+        "size": 6.0
+      },
+      {
+        "source": "pivot_0",
+        "target": "elim_0_8",
+        "size": 10.0
+      },
+      {
+        "source": "elim_2_4",
+        "target": "pivot_3",
+        "size": 7.0
+      },
+      {
+        "source": "elim_2_8",
+        "target": "pivot_3",
+        "size": 7.0
+      },
+      {
+        "source": "elim_2_6",
+        "target": "pivot_3",
+        "size": 7.0
+      },
+      {
+        "source": "pivot_4",
+        "target": "pivot_5",
+        "size": 5.0
+      },
+      {
+        "source": "elim_0_4",
+        "target": "elim_1_4",
+        "size": 9.0
+      },
+      {
+        "source": "elim_0_7",
+        "target": "elim_1_7",
+        "size": 9.0
+      },
+      {
+        "source": "elim_3_9",
+        "target": "pivot_4",
+        "size": 6.0
+      },
+      {
+        "source": "elim_5_8",
+        "target": "elim_6_8",
+        "size": 4.0
+      },
+      {
+        "source": "elim_3_6",
+        "target": "elim_4_6",
+        "size": 6.0
+      },
+      {
+        "source": "elim_6_7",
+        "target": "pivot_7",
+        "size": 3.0
+      },
+      {
+        "source": "pivot_0",
+        "target": "elim_0_1",
+        "size": 10.0
+      },
+      {
+        "source": "elim_0_1",
+        "target": "pivot_1",
+        "size": 9.0
+      },
+      {
+        "source": "pivot_1",
+        "target": "elim_1_6",
+        "size": 9.0
+      },
+      {
+        "source": "elim_0_5",
+        "target": "elim_1_5",
+        "size": 9.0
+      },
+      {
+        "source": "pivot_0",
+        "target": "elim_0_3",
+        "size": 10.0
+      },
+      {
+        "source": "elim_6_9",
+        "target": "pivot_7",
+        "size": 3.0
+      },
+      {
+        "source": "elim_3_9",
+        "target": "elim_4_9",
+        "size": 6.0
+      },
+      {
+        "source": "elim_5_8",
+        "target": "pivot_6",
+        "size": 4.0
+      },
+      {
+        "source": "elim_6_9",
+        "target": "elim_7_9",
+        "size": 3.0
+      },
+      {
+        "source": "elim_4_9",
+        "target": "elim_5_9",
+        "size": 5.0
+      },
+      {
+        "source": "elim_0_6",
+        "target": "pivot_1",
+        "size": 9.0
+      },
+      {
+        "source": "pivot_5",
+        "target": "elim_5_8",
+        "size": 5.0
+      },
+      {
+        "source": "elim_1_5",
+        "target": "pivot_2",
+        "size": 8.0
+      },
+      {
+        "source": "pivot_2",
+        "target": "elim_2_3",
+        "size": 8.0
+      },
+      {
+        "source": "pivot_8",
+        "target": "pivot_9",
+        "size": 1.0
+      },
+      {
+        "source": "pivot_2",
+        "target": "elim_2_9",
+        "size": 8.0
+      },
+      {
+        "source": "elim_0_6",
+        "target": "elim_1_6",
+        "size": 9.0
+      },
+      {
+        "source": "pivot_6",
+        "target": "elim_6_9",
+        "size": 4.0
+      },
+      {
+        "source": "elim_4_6",
+        "target": "elim_5_6",
+        "size": 5.0
+      },
+      {
+        "source": "pivot_6",
+        "target": "elim_6_8",
+        "size": 4.0
+      },
+      {
+        "source": "pivot_0",
+        "target": "elim_0_7",
+        "size": 10.0
+      },
+      {
+        "source": "elim_5_7",
+        "target": "elim_6_7",
+        "size": 4.0
+      },
+      {
+        "source": "elim_1_8",
+        "target": "pivot_2",
+        "size": 8.0
+      },
+      {
+        "source": "pivot_3",
+        "target": "pivot_4",
+        "size": 6.0
+      },
+      {
+        "source": "elim_1_3",
+        "target": "pivot_2",
+        "size": 8.0
+      },
+      {
+        "source": "pivot_2",
+        "target": "elim_2_5",
+        "size": 8.0
+      },
+      {
+        "source": "elim_2_6",
+        "target": "elim_3_6",
+        "size": 7.0
+      },
+      {
+        "source": "elim_0_2",
+        "target": "pivot_1",
+        "size": 9.0
+      },
+      {
+        "source": "pivot_0",
+        "target": "elim_0_9",
+        "size": 10.0
+      },
+      {
+        "source": "pivot_2",
+        "target": "elim_2_7",
+        "size": 8.0
+      },
+      {
+        "source": "elim_3_8",
+        "target": "elim_4_8",
+        "size": 6.0
+      },
+      {
+        "source": "elim_1_6",
+        "target": "pivot_2",
+        "size": 8.0
+      },
+      {
+        "source": "elim_4_7",
+        "target": "elim_5_7",
+        "size": 5.0
+      },
+      {
+        "source": "elim_2_7",
+        "target": "pivot_3",
+        "size": 7.0
+      },
+      {
+        "source": "elim_0_2",
+        "target": "elim_1_2",
+        "size": 9.0
+      },
+      {
+        "source": "elim_4_8",
+        "target": "elim_5_8",
+        "size": 5.0
+      },
+      {
+        "source": "pivot_1",
+        "target": "elim_1_2",
+        "size": 9.0
+      },
+      {
+        "source": "elim_1_4",
+        "target": "pivot_2",
+        "size": 8.0
+      },
+      {
+        "source": "pivot_2",
+        "target": "elim_2_6",
+        "size": 8.0
+      },
+      {
+        "source": "elim_3_6",
+        "target": "pivot_4",
+        "size": 6.0
+      },
+      {
+        "source": "pivot_0",
+        "target": "elim_0_6",
+        "size": 10.0
+      },
+      {
+        "source": "pivot_2",
+        "target": "elim_2_4",
+        "size": 8.0
+      },
+      {
+        "source": "pivot_2",
+        "target": "pivot_3",
+        "size": 7.0
+      },
+      {
+        "source": "elim_3_7",
+        "target": "elim_4_7",
+        "size": 6.0
+      },
+      {
+        "source": "pivot_3",
+        "target": "elim_3_5",
+        "size": 7.0
+      },
+      {
+        "source": "pivot_1",
+        "target": "elim_1_8",
+        "size": 9.0
+      },
+      {
+        "source": "pivot_1",
+        "target": "elim_1_4",
+        "size": 9.0
+      },
+      {
+        "source": "elim_0_3",
+        "target": "pivot_1",
+        "size": 9.0
+      },
+      {
+        "source": "pivot_4",
+        "target": "elim_4_7",
+        "size": 6.0
+      },
+      {
+        "source": "elim_8_9",
+        "target": "pivot_9",
+        "size": 1.0
+      },
+      {
+        "source": "pivot_3",
+        "target": "elim_3_9",
+        "size": 7.0
+      },
+      {
+        "source": "pivot_8",
+        "target": "elim_8_9",
+        "size": 2.0
+      },
+      {
+        "source": "elim_1_7",
+        "target": "pivot_2",
+        "size": 8.0
+      },
+      {
+        "source": "elim_2_8",
+        "target": "elim_3_8",
+        "size": 7.0
+      },
+      {
+        "source": "elim_1_2",
+        "target": "pivot_2",
+        "size": 8.0
+      },
+      {
+        "source": "pivot_5",
+        "target": "elim_5_7",
+        "size": 5.0
+      },
+      {
+        "source": "pivot_4",
+        "target": "elim_4_8",
+        "size": 6.0
+      },
+      {
+        "source": "elim_4_9",
+        "target": "pivot_5",
+        "size": 5.0
+      },
+      {
+        "source": "pivot_6",
+        "target": "pivot_7",
+        "size": 3.0
+      },
+      {
+        "source": "elim_2_4",
+        "target": "elim_3_4",
+        "size": 7.0
+      },
+      {
+        "source": "elim_0_9",
+        "target": "pivot_1",
+        "size": 9.0
+      },
+      {
+        "source": "pivot_4",
+        "target": "elim_4_6",
+        "size": 6.0
+      },
+      {
+        "source": "pivot_5",
+        "target": "elim_5_6",
+        "size": 5.0
+      },
+      {
+        "source": "elim_3_7",
+        "target": "pivot_4",
+        "size": 6.0
+      },
+      {
+        "source": "elim_0_7",
+        "target": "pivot_1",
+        "size": 9.0
+      },
+      {
+        "source": "elim_6_8",
+        "target": "pivot_7",
+        "size": 3.0
+      },
+      {
+        "source": "pivot_5",
+        "target": "elim_5_9",
+        "size": 5.0
+      },
+      {
+        "source": "pivot_7",
+        "target": "pivot_8",
+        "size": 2.0
+      },
+      {
+        "source": "elim_4_6",
+        "target": "pivot_5",
+        "size": 5.0
+      },
+      {
+        "source": "pivot_5",
+        "target": "pivot_6",
+        "size": 4.0
+      },
+      {
+        "source": "elim_1_3",
+        "target": "elim_2_3",
+        "size": 8.0
+      },
+      {
+        "source": "elim_1_4",
+        "target": "elim_2_4",
+        "size": 8.0
+      },
+      {
+        "source": "elim_1_5",
+        "target": "elim_2_5",
+        "size": 8.0
+      },
+      {
+        "source": "pivot_0",
+        "target": "elim_0_4",
+        "size": 10.0
+      },
+      {
+        "source": "elim_1_7",
+        "target": "elim_2_7",
+        "size": 8.0
+      },
+      {
+        "source": "elim_5_7",
+        "target": "pivot_6",
+        "size": 4.0
+      },
+      {
+        "source": "elim_3_8",
+        "target": "pivot_4",
+        "size": 6.0
+      },
+      {
+        "source": "pivot_1",
+        "target": "elim_1_3",
+        "size": 9.0
+      },
+      {
+        "source": "elim_3_5",
+        "target": "pivot_4",
+        "size": 6.0
+      },
+      {
+        "source": "pivot_3",
+        "target": "elim_3_6",
+        "size": 7.0
+      },
+      {
+        "source": "elim_6_8",
+        "target": "elim_7_8",
+        "size": 3.0
+      },
+      {
+        "source": "pivot_1",
+        "target": "pivot_2",
+        "size": 8.0
+      },
+      {
+        "source": "elim_2_9",
+        "target": "pivot_3",
+        "size": 7.0
+      },
+      {
+        "source": "elim_2_3",
+        "target": "pivot_3",
+        "size": 7.0
+      },
+      {
+        "source": "elim_2_5",
+        "target": "elim_3_5",
+        "size": 7.0
+      },
+      {
+        "source": "pivot_1",
+        "target": "elim_1_5",
+        "size": 9.0
+      },
+      {
+        "source": "elim_2_9",
+        "target": "elim_3_9",
+        "size": 7.0
+      },
+      {
+        "source": "elim_2_5",
+        "target": "pivot_3",
+        "size": 7.0
+      },
+      {
+        "source": "elim_2_7",
+        "target": "elim_3_7",
+        "size": 7.0
+      },
+      {
+        "source": "pivot_0",
+        "target": "elim_0_5",
+        "size": 10.0
+      },
+      {
+        "source": "elim_0_5",
+        "target": "pivot_1",
+        "size": 9.0
+      },
+      {
+        "source": "pivot_1",
+        "target": "elim_1_9",
+        "size": 9.0
+      },
+      {
+        "source": "elim_4_7",
+        "target": "pivot_5",
+        "size": 5.0
+      },
+      {
+        "source": "pivot_7",
+        "target": "elim_7_8",
+        "size": 3.0
+      },
+      {
+        "source": "elim_0_3",
+        "target": "elim_1_3",
+        "size": 9.0
+      },
+      {
+        "source": "pivot_1",
+        "target": "elim_1_7",
+        "size": 9.0
+      },
+      {
+        "source": "pivot_0",
+        "target": "pivot_1",
+        "size": 9.0
+      },
+      {
+        "source": "elim_3_5",
+        "target": "elim_4_5",
+        "size": 6.0
+      },
+      {
+        "source": "elim_1_6",
+        "target": "elim_2_6",
+        "size": 8.0
+      },
+      {
+        "source": "elim_1_9",
+        "target": "pivot_2",
+        "size": 8.0
+      },
+      {
+        "source": "elim_0_8",
+        "target": "pivot_1",
+        "size": 9.0
+      },
+      {
+        "source": "elim_4_8",
+        "target": "pivot_5",
+        "size": 5.0
+      },
+      {
+        "source": "pivot_3",
+        "target": "elim_3_7",
+        "size": 7.0
+      },
+      {
+        "source": "pivot_2",
+        "target": "elim_2_8",
+        "size": 8.0
+      },
+      {
+        "source": "elim_5_9",
+        "target": "elim_6_9",
+        "size": 4.0
+      },
+      {
+        "source": "elim_7_8",
+        "target": "pivot_8",
+        "size": 2.0
+      },
+      {
+        "source": "pivot_3",
+        "target": "elim_3_8",
+        "size": 7.0
+      },
+      {
+        "source": "elim_1_9",
+        "target": "elim_2_9",
+        "size": 8.0
+      },
+      {
+        "source": "elim_0_8",
+        "target": "elim_1_8",
+        "size": 9.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N1",
+        "speed": 1.0
+      },
+      {
+        "name": "N2",
+        "speed": 1.0
+      },
+      {
+        "name": "N3",
+        "speed": 1.0
+      },
+      {
+        "name": "N0",
+        "speed": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 100.0
+      },
+      {
+        "source": "N0",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 100.0
+      },
+      {
+        "source": "N2",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 100.0
+      },
+      {
+        "source": "N3",
+        "target": "N3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      }
+    ]
+  }
+}

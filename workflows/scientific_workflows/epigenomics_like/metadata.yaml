@@ -1,0 +1,59 @@
+id: scientific.epigenomics_like
+name: Epigenomics-like Genome Workflow
+description: "Genome processing workflow modeled after Epigenomics. QC -> 4 parallel\
+  \ lanes (filter, convert, map, RC) -> peak calling -> annotation. Bioinformatics\
+  \ scatter-gather."
+domains:
+- scientific
+- genomics
+provenance:
+  source: "AI-generated, based on the Pegasus Epigenomics workflow described in
+    Deelman et al. 2015"
+  paper_doi: 10.1016/j.future.2014.10.008
+  paper_title: "Pegasus, a workflow management system for science automation"
+  authors:
+  - Ewa Deelman
+  - Karan Vahi
+  - Gideon Juve
+  - Mats Rynge
+  - Scott Callaghan
+  - Philip J. Maechling
+  - Rajiv Mayani
+  - Weiwei Chen
+  - Rafael Ferreira da Silva
+  - Miron Livny
+  - R. Kent Wenger
+  year: 2015
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: "The Pegasus paper in Future Generation Computer Systems describes the
+    workflow management system and discusses several scientific workflows including
+    Epigenomics. The Epigenomics workflow DAG structure is well-documented in the
+    Pegasus ecosystem (Workflow Gallery) and widely cited in scheduling literature.
+    However, this specific workflow's task names and structure are an AI-generated
+    approximation of the Epigenomics pattern, not a faithful extraction from any
+    specific figure in the paper or from the Pegasus DAX files."
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 19
+  num_edges: 21
+  depth: 7
+  width: 4
+  ccr: 0.9384
+  parallelism: 2.7143
+campaign: campaign_002_classic_and_manual
+tags:
+- epigenomics
+- genomics
+- bioinformatics
+- scatter-gather

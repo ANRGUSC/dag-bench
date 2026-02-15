@@ -1,0 +1,204 @@
+{
+  "name": "nfv.ue_attach",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "AMF_Receive",
+        "cost": 3.0
+      },
+      {
+        "name": "QoS_Setup",
+        "cost": 3.0
+      },
+      {
+        "name": "UE_Request",
+        "cost": 2.0
+      },
+      {
+        "name": "UPF_Tunnel",
+        "cost": 4.0
+      },
+      {
+        "name": "gNB_Config",
+        "cost": 3.0
+      },
+      {
+        "name": "AUSF_Auth",
+        "cost": 5.0
+      },
+      {
+        "name": "UDM_Subscribe",
+        "cost": 4.0
+      },
+      {
+        "name": "SMF_Session",
+        "cost": 5.0
+      },
+      {
+        "name": "AttachComplete",
+        "cost": 2.0
+      },
+      {
+        "name": "AMF_Context",
+        "cost": 4.0
+      },
+      {
+        "name": "NRF_Discover",
+        "cost": 3.0
+      },
+      {
+        "name": "NSSF_Slice",
+        "cost": 4.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "UDM_Subscribe",
+        "target": "AMF_Context",
+        "size": 1.0
+      },
+      {
+        "source": "NRF_Discover",
+        "target": "AMF_Context",
+        "size": 1.0
+      },
+      {
+        "source": "NSSF_Slice",
+        "target": "AMF_Context",
+        "size": 1.0
+      },
+      {
+        "source": "AMF_Context",
+        "target": "SMF_Session",
+        "size": 2.0
+      },
+      {
+        "source": "AUSF_Auth",
+        "target": "AMF_Context",
+        "size": 1.0
+      },
+      {
+        "source": "SMF_Session",
+        "target": "UPF_Tunnel",
+        "size": 2.0
+      },
+      {
+        "source": "AMF_Receive",
+        "target": "AUSF_Auth",
+        "size": 1.0
+      },
+      {
+        "source": "AMF_Receive",
+        "target": "NSSF_Slice",
+        "size": 1.0
+      },
+      {
+        "source": "UPF_Tunnel",
+        "target": "QoS_Setup",
+        "size": 1.0
+      },
+      {
+        "source": "UPF_Tunnel",
+        "target": "gNB_Config",
+        "size": 1.0
+      },
+      {
+        "source": "gNB_Config",
+        "target": "AttachComplete",
+        "size": 1.0
+      },
+      {
+        "source": "QoS_Setup",
+        "target": "AttachComplete",
+        "size": 1.0
+      },
+      {
+        "source": "AMF_Receive",
+        "target": "UDM_Subscribe",
+        "size": 1.0
+      },
+      {
+        "source": "UE_Request",
+        "target": "AMF_Receive",
+        "size": 1.0
+      },
+      {
+        "source": "AMF_Receive",
+        "target": "NRF_Discover",
+        "size": 1.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N0",
+        "speed": 2.0
+      },
+      {
+        "name": "N1",
+        "speed": 2.0
+      },
+      {
+        "name": "N2",
+        "speed": 2.0
+      },
+      {
+        "name": "N3",
+        "speed": 2.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 500.0
+      },
+      {
+        "source": "N0",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N3",
+        "speed": 500.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N3",
+        "target": "N3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N3",
+        "speed": 500.0
+      }
+    ]
+  }
+}

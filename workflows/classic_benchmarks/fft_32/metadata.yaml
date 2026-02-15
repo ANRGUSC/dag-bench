@@ -1,0 +1,32 @@
+id: classic.fft_32
+name: FFT Butterfly (32-point)
+description: 32-point Fast Fourier Transform butterfly DAG. 5 stages with high parallelism.
+domains:
+- classic-benchmark
+provenance:
+  source: Classic FFT benchmark
+  extraction_method: programmatic
+  extractor: dagbench-import-script
+  extraction_date: '2026-02-12'
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 144
+  num_edges: 192
+  depth: 7
+  width: 32
+  ccr: 0.8571
+  parallelism: 20.5714
+campaign: campaign_003_expansion
+tags:
+- fft
+- signal-processing
+- large

@@ -1,0 +1,214 @@
+{
+  "name": "synthetic.stencil_3x4",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "Cell_0_1",
+        "cost": 5.0
+      },
+      {
+        "name": "Cell_1_1",
+        "cost": 5.0
+      },
+      {
+        "name": "Cell_1_0",
+        "cost": 5.0
+      },
+      {
+        "name": "Cell_0_2",
+        "cost": 5.0
+      },
+      {
+        "name": "Cell_1_3",
+        "cost": 5.0
+      },
+      {
+        "name": "Cell_2_1",
+        "cost": 5.0
+      },
+      {
+        "name": "Cell_2_2",
+        "cost": 5.0
+      },
+      {
+        "name": "Cell_2_3",
+        "cost": 5.0
+      },
+      {
+        "name": "Cell_0_0",
+        "cost": 5.0
+      },
+      {
+        "name": "Cell_2_0",
+        "cost": 5.0
+      },
+      {
+        "name": "Cell_0_3",
+        "cost": 5.0
+      },
+      {
+        "name": "Cell_1_2",
+        "cost": 5.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "Cell_0_0",
+        "target": "Cell_1_0",
+        "size": 2.0
+      },
+      {
+        "source": "Cell_0_3",
+        "target": "Cell_1_3",
+        "size": 2.0
+      },
+      {
+        "source": "Cell_0_1",
+        "target": "Cell_0_2",
+        "size": 2.0
+      },
+      {
+        "source": "Cell_1_2",
+        "target": "Cell_1_3",
+        "size": 2.0
+      },
+      {
+        "source": "Cell_0_0",
+        "target": "Cell_0_1",
+        "size": 2.0
+      },
+      {
+        "source": "Cell_2_2",
+        "target": "Cell_2_3",
+        "size": 2.0
+      },
+      {
+        "source": "Cell_2_1",
+        "target": "Cell_2_2",
+        "size": 2.0
+      },
+      {
+        "source": "Cell_1_2",
+        "target": "Cell_2_2",
+        "size": 2.0
+      },
+      {
+        "source": "Cell_0_1",
+        "target": "Cell_1_1",
+        "size": 2.0
+      },
+      {
+        "source": "Cell_1_3",
+        "target": "Cell_2_3",
+        "size": 2.0
+      },
+      {
+        "source": "Cell_1_1",
+        "target": "Cell_1_2",
+        "size": 2.0
+      },
+      {
+        "source": "Cell_2_0",
+        "target": "Cell_2_1",
+        "size": 2.0
+      },
+      {
+        "source": "Cell_0_2",
+        "target": "Cell_1_2",
+        "size": 2.0
+      },
+      {
+        "source": "Cell_1_0",
+        "target": "Cell_1_1",
+        "size": 2.0
+      },
+      {
+        "source": "Cell_0_2",
+        "target": "Cell_0_3",
+        "size": 2.0
+      },
+      {
+        "source": "Cell_1_0",
+        "target": "Cell_2_0",
+        "size": 2.0
+      },
+      {
+        "source": "Cell_1_1",
+        "target": "Cell_2_1",
+        "size": 2.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N1",
+        "speed": 1.0
+      },
+      {
+        "name": "N2",
+        "speed": 1.0
+      },
+      {
+        "name": "N3",
+        "speed": 1.0
+      },
+      {
+        "name": "N0",
+        "speed": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 100.0
+      },
+      {
+        "source": "N0",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 100.0
+      },
+      {
+        "source": "N2",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 100.0
+      },
+      {
+        "source": "N3",
+        "target": "N3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      }
+    ]
+  }
+}

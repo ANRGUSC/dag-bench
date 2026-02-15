@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FFT Butterfly (32-point) - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>FFT Butterfly (32-point)</h1>
+    <div class="meta">
+        <strong>ID:</strong> classic.fft_32 &nbsp;|&nbsp;
+        <strong>Domains:</strong> classic-benchmark &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>32-point Fast Fourier Transform butterfly DAG. 5 stages with high parallelism.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    bf_s1_b12_i1["bf_s1_b12_i1<br/>cost: 2.0"]
+    bf_s3_b0_i0["bf_s3_b0_i0<br/>cost: 2.0"]
+    out_16["out_16<br/>cost: 1.0"]
+    in_24["in_24<br/>cost: 1.0"]
+    out_15["out_15<br/>cost: 1.0"]
+    bf_s1_b12_i0["bf_s1_b12_i0<br/>cost: 2.0"]
+    in_10["in_10<br/>cost: 1.0"]
+    bf_s4_b0_i0["bf_s4_b0_i0<br/>cost: 2.0"]
+    out_0["out_0<br/>cost: 1.0"]
+    out_2["out_2<br/>cost: 1.0"]
+    out_6["out_6<br/>cost: 1.0"]
+    bf_s3_b16_i3["bf_s3_b16_i3<br/>cost: 2.0"]
+    in_26["in_26<br/>cost: 1.0"]
+    bf_s0_b26_i0["bf_s0_b26_i0<br/>cost: 2.0"]
+    bf_s2_b24_i1["bf_s2_b24_i1<br/>cost: 2.0"]
+    bf_s3_b16_i4["bf_s3_b16_i4<br/>cost: 2.0"]
+    bf_s0_b14_i0["bf_s0_b14_i0<br/>cost: 2.0"]
+    out_27["out_27<br/>cost: 1.0"]
+    bf_s0_b6_i0["bf_s0_b6_i0<br/>cost: 2.0"]
+    in_17["in_17<br/>cost: 1.0"]
+    bf_s2_b16_i3["bf_s2_b16_i3<br/>cost: 2.0"]
+    bf_s2_b16_i1["bf_s2_b16_i1<br/>cost: 2.0"]
+    bf_s2_b0_i1["bf_s2_b0_i1<br/>cost: 2.0"]
+    out_25["out_25<br/>cost: 1.0"]
+    out_8["out_8<br/>cost: 1.0"]
+    in_25["in_25<br/>cost: 1.0"]
+    bf_s1_b0_i1["bf_s1_b0_i1<br/>cost: 2.0"]
+    bf_s0_b0_i0["bf_s0_b0_i0<br/>cost: 2.0"]
+    bf_s2_b8_i3["bf_s2_b8_i3<br/>cost: 2.0"]
+    bf_s4_b0_i10["bf_s4_b0_i10<br/>cost: 2.0"]
+    out_31["out_31<br/>cost: 1.0"]
+    bf_s1_b4_i1["bf_s1_b4_i1<br/>cost: 2.0"]
+    out_7["out_7<br/>cost: 1.0"]
+    out_26["out_26<br/>cost: 1.0"]
+    bf_s3_b0_i7["bf_s3_b0_i7<br/>cost: 2.0"]
+    bf_s2_b16_i0["bf_s2_b16_i0<br/>cost: 2.0"]
+    out_22["out_22<br/>cost: 1.0"]
+    out_17["out_17<br/>cost: 1.0"]
+    out_11["out_11<br/>cost: 1.0"]
+    out_24["out_24<br/>cost: 1.0"]
+    bf_s3_b16_i7["bf_s3_b16_i7<br/>cost: 2.0"]
+    bf_s4_b0_i9["bf_s4_b0_i9<br/>cost: 2.0"]
+    bf_s3_b0_i3["bf_s3_b0_i3<br/>cost: 2.0"]
+    bf_s4_b0_i1["bf_s4_b0_i1<br/>cost: 2.0"]
+    out_12["out_12<br/>cost: 1.0"]
+    in_1["in_1<br/>cost: 1.0"]
+    in_18["in_18<br/>cost: 1.0"]
+    in_0["in_0<br/>cost: 1.0"]
+    out_20["out_20<br/>cost: 1.0"]
+    bf_s1_b4_i0["bf_s1_b4_i0<br/>cost: 2.0"]
+    bf_s3_b0_i4["bf_s3_b0_i4<br/>cost: 2.0"]
+    bf_s2_b8_i1["bf_s2_b8_i1<br/>cost: 2.0"]
+    in_30["in_30<br/>cost: 1.0"]
+    bf_s4_b0_i2["bf_s4_b0_i2<br/>cost: 2.0"]
+    in_5["in_5<br/>cost: 1.0"]
+    bf_s3_b0_i2["bf_s3_b0_i2<br/>cost: 2.0"]
+    in_27["in_27<br/>cost: 1.0"]
+    in_6["in_6<br/>cost: 1.0"]
+    in_7["in_7<br/>cost: 1.0"]
+    out_18["out_18<br/>cost: 1.0"]
+    out_21["out_21<br/>cost: 1.0"]
+    out_19["out_19<br/>cost: 1.0"]
+    bf_s3_b0_i1["bf_s3_b0_i1<br/>cost: 2.0"]
+    bf_s4_b0_i8["bf_s4_b0_i8<br/>cost: 2.0"]
+    bf_s2_b0_i2["bf_s2_b0_i2<br/>cost: 2.0"]
+    bf_s1_b16_i0["bf_s1_b16_i0<br/>cost: 2.0"]
+    bf_s2_b24_i2["bf_s2_b24_i2<br/>cost: 2.0"]
+    in_29["in_29<br/>cost: 1.0"]
+    bf_s0_b16_i0["bf_s0_b16_i0<br/>cost: 2.0"]
+    bf_s4_b0_i14["bf_s4_b0_i14<br/>cost: 2.0"]
+    in_22["in_22<br/>cost: 1.0"]
+    bf_s0_b22_i0["bf_s0_b22_i0<br/>cost: 2.0"]
+    bf_s3_b0_i6["bf_s3_b0_i6<br/>cost: 2.0"]
+    bf_s3_b0_i5["bf_s3_b0_i5<br/>cost: 2.0"]
+    in_11["in_11<br/>cost: 1.0"]
+    out_1["out_1<br/>cost: 1.0"]
+    bf_s3_b16_i0["bf_s3_b16_i0<br/>cost: 2.0"]
+    bf_s1_b24_i0["bf_s1_b24_i0<br/>cost: 2.0"]
+    bf_s2_b0_i3["bf_s2_b0_i3<br/>cost: 2.0"]
+    bf_s1_b24_i1["bf_s1_b24_i1<br/>cost: 2.0"]
+    out_3["out_3<br/>cost: 1.0"]
+    bf_s0_b2_i0["bf_s0_b2_i0<br/>cost: 2.0"]
+    bf_s0_b10_i0["bf_s0_b10_i0<br/>cost: 2.0"]
+    bf_s0_b12_i0["bf_s0_b12_i0<br/>cost: 2.0"]
+    in_3["in_3<br/>cost: 1.0"]
+    bf_s1_b8_i0["bf_s1_b8_i0<br/>cost: 2.0"]
+    bf_s4_b0_i4["bf_s4_b0_i4<br/>cost: 2.0"]
+    bf_s0_b30_i0["bf_s0_b30_i0<br/>cost: 2.0"]
+    in_16["in_16<br/>cost: 1.0"]
+    bf_s2_b24_i0["bf_s2_b24_i0<br/>cost: 2.0"]
+    in_20["in_20<br/>cost: 1.0"]
+    bf_s0_b28_i0["bf_s0_b28_i0<br/>cost: 2.0"]
+    bf_s0_b4_i0["bf_s0_b4_i0<br/>cost: 2.0"]
+    bf_s4_b0_i12["bf_s4_b0_i12<br/>cost: 2.0"]
+    bf_s2_b8_i0["bf_s2_b8_i0<br/>cost: 2.0"]
+    out_4["out_4<br/>cost: 1.0"]
+    in_2["in_2<br/>cost: 1.0"]
+    in_12["in_12<br/>cost: 1.0"]
+    bf_s2_b8_i2["bf_s2_b8_i2<br/>cost: 2.0"]
+    bf_s4_b0_i3["bf_s4_b0_i3<br/>cost: 2.0"]
+    out_30["out_30<br/>cost: 1.0"]
+    in_28["in_28<br/>cost: 1.0"]
+    bf_s4_b0_i5["bf_s4_b0_i5<br/>cost: 2.0"]
+    in_8["in_8<br/>cost: 1.0"]
+    in_31["in_31<br/>cost: 1.0"]
+    bf_s4_b0_i11["bf_s4_b0_i11<br/>cost: 2.0"]
+    bf_s3_b16_i1["bf_s3_b16_i1<br/>cost: 2.0"]
+    in_13["in_13<br/>cost: 1.0"]
+    bf_s1_b0_i0["bf_s1_b0_i0<br/>cost: 2.0"]
+    bf_s0_b20_i0["bf_s0_b20_i0<br/>cost: 2.0"]
+    bf_s4_b0_i13["bf_s4_b0_i13<br/>cost: 2.0"]
+    in_21["in_21<br/>cost: 1.0"]
+    out_28["out_28<br/>cost: 1.0"]
+    bf_s4_b0_i7["bf_s4_b0_i7<br/>cost: 2.0"]
+    out_10["out_10<br/>cost: 1.0"]
+    bf_s1_b8_i1["bf_s1_b8_i1<br/>cost: 2.0"]
+    out_29["out_29<br/>cost: 1.0"]
+    in_14["in_14<br/>cost: 1.0"]
+    bf_s2_b16_i2["bf_s2_b16_i2<br/>cost: 2.0"]
+    bf_s0_b18_i0["bf_s0_b18_i0<br/>cost: 2.0"]
+    bf_s4_b0_i6["bf_s4_b0_i6<br/>cost: 2.0"]
+    bf_s0_b24_i0["bf_s0_b24_i0<br/>cost: 2.0"]
+    out_5["out_5<br/>cost: 1.0"]
+    out_14["out_14<br/>cost: 1.0"]
+    bf_s1_b28_i0["bf_s1_b28_i0<br/>cost: 2.0"]
+    in_4["in_4<br/>cost: 1.0"]
+    in_19["in_19<br/>cost: 1.0"]
+    out_13["out_13<br/>cost: 1.0"]
+    in_15["in_15<br/>cost: 1.0"]
+    in_9["in_9<br/>cost: 1.0"]
+    bf_s3_b16_i2["bf_s3_b16_i2<br/>cost: 2.0"]
+    bf_s0_b8_i0["bf_s0_b8_i0<br/>cost: 2.0"]
+    bf_s4_b0_i15["bf_s4_b0_i15<br/>cost: 2.0"]
+    bf_s1_b20_i0["bf_s1_b20_i0<br/>cost: 2.0"]
+    bf_s3_b16_i5["bf_s3_b16_i5<br/>cost: 2.0"]
+    out_9["out_9<br/>cost: 1.0"]
+    in_23["in_23<br/>cost: 1.0"]
+    out_23["out_23<br/>cost: 1.0"]
+    bf_s1_b20_i1["bf_s1_b20_i1<br/>cost: 2.0"]
+    bf_s2_b0_i0["bf_s2_b0_i0<br/>cost: 2.0"]
+    bf_s3_b16_i6["bf_s3_b16_i6<br/>cost: 2.0"]
+    bf_s1_b16_i1["bf_s1_b16_i1<br/>cost: 2.0"]
+    bf_s2_b24_i3["bf_s2_b24_i3<br/>cost: 2.0"]
+    bf_s1_b28_i1["bf_s1_b28_i1<br/>cost: 2.0"]
+    bf_s2_b16_i3 -->|"1"| bf_s3_b16_i3
+    bf_s4_b0_i8 -->|"1"| out_24
+    bf_s2_b8_i2 -->|"1"| bf_s3_b0_i6
+    bf_s2_b8_i0 -->|"1"| bf_s3_b0_i0
+    bf_s3_b0_i4 -->|"1"| bf_s4_b0_i4
+    bf_s0_b30_i0 -->|"1"| bf_s1_b28_i0
+    bf_s2_b0_i3 -->|"1"| bf_s3_b0_i7
+    bf_s1_b16_i1 -->|"1"| bf_s2_b16_i1
+    bf_s0_b14_i0 -->|"1"| bf_s1_b12_i1
+    bf_s4_b0_i13 -->|"1"| out_29
+    bf_s1_b28_i1 -->|"1"| bf_s2_b24_i1
+    bf_s4_b0_i6 -->|"1"| out_22
+    bf_s3_b16_i2 -->|"1"| bf_s4_b0_i2
+    bf_s2_b16_i2 -->|"1"| bf_s3_b16_i6
+    bf_s4_b0_i3 -->|"1"| out_19
+    bf_s0_b28_i0 -->|"1"| bf_s1_b28_i0
+    in_1 -->|"1"| bf_s0_b0_i0
+    bf_s0_b20_i0 -->|"1"| bf_s1_b20_i0
+    bf_s0_b22_i0 -->|"1"| bf_s1_b20_i0
+    bf_s3_b0_i2 -->|"1"| bf_s4_b0_i2
+    bf_s4_b0_i12 -->|"1"| out_28
+    bf_s2_b8_i1 -->|"1"| bf_s3_b0_i5
+    bf_s1_b24_i1 -->|"1"| bf_s2_b24_i1
+    bf_s0_b18_i0 -->|"1"| bf_s1_b16_i0
+    in_8 -->|"1"| bf_s0_b8_i0
+    bf_s1_b16_i0 -->|"1"| bf_s2_b16_i0
+    bf_s3_b16_i4 -->|"1"| bf_s4_b0_i12
+    bf_s1_b0_i1 -->|"1"| bf_s2_b0_i3
+    in_6 -->|"1"| bf_s0_b6_i0
+    bf_s1_b4_i0 -->|"1"| bf_s2_b0_i0
+    bf_s0_b24_i0 -->|"1"| bf_s1_b24_i0
+    in_14 -->|"1"| bf_s0_b14_i0
+    bf_s4_b0_i0 -->|"1"| out_16
+    bf_s1_b24_i0 -->|"1"| bf_s2_b24_i0
+    bf_s1_b4_i1 -->|"1"| bf_s2_b0_i3
+    bf_s4_b0_i15 -->|"1"| out_31
+    in_10 -->|"1"| bf_s0_b10_i0
+    bf_s4_b0_i15 -->|"1"| out_15
+    in_23 -->|"1"| bf_s0_b22_i0
+    bf_s3_b16_i5 -->|"1"| bf_s4_b0_i13
+    bf_s1_b8_i1 -->|"1"| bf_s2_b8_i1
+    bf_s2_b0_i1 -->|"1"| bf_s3_b0_i1
+    bf_s3_b0_i3 -->|"1"| bf_s4_b0_i3
+    bf_s2_b24_i2 -->|"1"| bf_s3_b16_i6
+    bf_s3_b16_i3 -->|"1"| bf_s4_b0_i3
+    bf_s4_b0_i1 -->|"1"| out_1
+    bf_s0_b10_i0 -->|"1"| bf_s1_b8_i0
+    bf_s3_b16_i0 -->|"1"| bf_s4_b0_i8
+    bf_s1_b8_i0 -->|"1"| bf_s2_b8_i0
+    bf_s1_b20_i0 -->|"1"| bf_s2_b16_i0
+    bf_s4_b0_i2 -->|"1"| out_18
+    bf_s3_b16_i5 -->|"1"| bf_s4_b0_i5
+    bf_s1_b12_i1 -->|"1"| bf_s2_b8_i1
+    bf_s0_b16_i0 -->|"1"| bf_s1_b16_i0
+    bf_s1_b12_i0 -->|"1"| bf_s2_b8_i0
+    bf_s2_b24_i0 -->|"1"| bf_s3_b16_i4
+    bf_s3_b16_i6 -->|"1"| bf_s4_b0_i14
+    in_21 -->|"1"| bf_s0_b20_i0
+    bf_s1_b4_i0 -->|"1"| bf_s2_b0_i2
+    bf_s2_b24_i0 -->|"1"| bf_s3_b16_i0
+    bf_s2_b24_i2 -->|"1"| bf_s3_b16_i2
+    bf_s0_b26_i0 -->|"1"| bf_s1_b24_i0
+    bf_s1_b20_i1 -->|"1"| bf_s2_b16_i3
+    bf_s3_b16_i7 -->|"1"| bf_s4_b0_i15
+    bf_s4_b0_i4 -->|"1"| out_4
+    bf_s1_b28_i1 -->|"1"| bf_s2_b24_i3
+    in_28 -->|"1"| bf_s0_b28_i0
+    bf_s4_b0_i5 -->|"1"| out_5
+    bf_s4_b0_i5 -->|"1"| out_21
+    in_18 -->|"1"| bf_s0_b18_i0
+    bf_s0_b16_i0 -->|"1"| bf_s1_b16_i1
+    bf_s0_b2_i0 -->|"1"| bf_s1_b0_i0
+    in_5 -->|"1"| bf_s0_b4_i0
+    bf_s2_b0_i2 -->|"1"| bf_s3_b0_i6
+    bf_s3_b0_i0 -->|"1"| bf_s4_b0_i8
+    bf_s3_b16_i4 -->|"1"| bf_s4_b0_i4
+    bf_s1_b24_i1 -->|"1"| bf_s2_b24_i3
+    bf_s3_b0_i6 -->|"1"| bf_s4_b0_i14
+    bf_s4_b0_i13 -->|"1"| out_13
+    in_30 -->|"1"| bf_s0_b30_i0
+    bf_s0_b14_i0 -->|"1"| bf_s1_b12_i0
+    bf_s4_b0_i12 -->|"1"| out_12
+    bf_s0_b8_i0 -->|"1"| bf_s1_b8_i0
+    bf_s2_b24_i1 -->|"1"| bf_s3_b16_i1
+    bf_s0_b0_i0 -->|"1"| bf_s1_b0_i0
+    bf_s0_b6_i0 -->|"1"| bf_s1_b4_i1
+    bf_s0_b18_i0 -->|"1"| bf_s1_b16_i1
+    bf_s1_b28_i0 -->|"1"| bf_s2_b24_i0
+    bf_s3_b0_i3 -->|"1"| bf_s4_b0_i11
+    bf_s4_b0_i10 -->|"1"| out_10
+    bf_s3_b16_i3 -->|"1"| bf_s4_b0_i11
+    in_17 -->|"1"| bf_s0_b16_i0
+    bf_s4_b0_i0 -->|"1"| out_0
+    bf_s3_b0_i7 -->|"1"| bf_s4_b0_i15
+    in_31 -->|"1"| bf_s0_b30_i0
+    bf_s2_b0_i1 -->|"1"| bf_s3_b0_i5
+    bf_s4_b0_i7 -->|"1"| out_7
+    in_20 -->|"1"| bf_s0_b20_i0
+    bf_s3_b16_i1 -->|"1"| bf_s4_b0_i1
+    in_16 -->|"1"| bf_s0_b16_i0
+    in_2 -->|"1"| bf_s0_b2_i0
+    bf_s1_b0_i0 -->|"1"| bf_s2_b0_i0
+    bf_s0_b6_i0 -->|"1"| bf_s1_b4_i0
+    bf_s3_b0_i5 -->|"1"| bf_s4_b0_i5
+    bf_s0_b20_i0 -->|"1"| bf_s1_b20_i1
+    bf_s0_b22_i0 -->|"1"| bf_s1_b20_i1
+    bf_s2_b24_i1 -->|"1"| bf_s3_b16_i5
+    bf_s3_b0_i1 -->|"1"| bf_s4_b0_i1
+    bf_s3_b16_i7 -->|"1"| bf_s4_b0_i7
+    bf_s1_b16_i0 -->|"1"| bf_s2_b16_i2
+    in_12 -->|"1"| bf_s0_b12_i0
+    bf_s3_b0_i0 -->|"1"| bf_s4_b0_i0
+    bf_s3_b16_i2 -->|"1"| bf_s4_b0_i10
+    bf_s2_b16_i1 -->|"1"| bf_s3_b16_i1
+    bf_s4_b0_i9 -->|"1"| out_25
+    bf_s2_b16_i0 -->|"1"| bf_s3_b16_i4
+    bf_s2_b8_i3 -->|"1"| bf_s3_b0_i7
+    in_22 -->|"1"| bf_s0_b22_i0
+    in_27 -->|"1"| bf_s0_b26_i0
+    bf_s2_b0_i3 -->|"1"| bf_s3_b0_i3
+    bf_s3_b0_i2 -->|"1"| bf_s4_b0_i10
+    bf_s4_b0_i7 -->|"1"| out_23
+    in_11 -->|"1"| bf_s0_b10_i0
+    in_24 -->|"1"| bf_s0_b24_i0
+    bf_s4_b0_i8 -->|"1"| out_8
+    bf_s4_b0_i11 -->|"1"| out_27
+    in_7 -->|"1"| bf_s0_b6_i0
+    bf_s0_b2_i0 -->|"1"| bf_s1_b0_i1
+    bf_s0_b8_i0 -->|"1"| bf_s1_b8_i1
+    bf_s2_b8_i2 -->|"1"| bf_s3_b0_i2
+    bf_s1_b0_i0 -->|"1"| bf_s2_b0_i2
+    in_3 -->|"1"| bf_s0_b2_i0
+    bf_s1_b20_i1 -->|"1"| bf_s2_b16_i1
+    bf_s0_b12_i0 -->|"1"| bf_s1_b12_i1
+    bf_s2_b24_i3 -->|"1"| bf_s3_b16_i7
+    bf_s4_b0_i2 -->|"1"| out_2
+    bf_s1_b28_i0 -->|"1"| bf_s2_b24_i2
+    in_9 -->|"1"| bf_s0_b8_i0
+    bf_s1_b0_i1 -->|"1"| bf_s2_b0_i1
+    bf_s3_b16_i6 -->|"1"| bf_s4_b0_i6
+    bf_s3_b16_i1 -->|"1"| bf_s4_b0_i9
+    bf_s3_b0_i7 -->|"1"| bf_s4_b0_i7
+    in_0 -->|"1"| bf_s0_b0_i0
+    bf_s2_b24_i3 -->|"1"| bf_s3_b16_i3
+    bf_s2_b16_i1 -->|"1"| bf_s3_b16_i5
+    in_4 -->|"1"| bf_s0_b4_i0
+    bf_s0_b0_i0 -->|"1"| bf_s1_b0_i1
+    bf_s0_b28_i0 -->|"1"| bf_s1_b28_i1
+    bf_s4_b0_i10 -->|"1"| out_26
+    bf_s1_b20_i0 -->|"1"| bf_s2_b16_i2
+    bf_s1_b8_i0 -->|"1"| bf_s2_b8_i2
+    bf_s1_b24_i0 -->|"1"| bf_s2_b24_i2
+    bf_s1_b12_i0 -->|"1"| bf_s2_b8_i2
+    bf_s2_b0_i2 -->|"1"| bf_s3_b0_i2
+    bf_s3_b16_i0 -->|"1"| bf_s4_b0_i0
+    bf_s1_b4_i1 -->|"1"| bf_s2_b0_i1
+    bf_s4_b0_i14 -->|"1"| out_14
+    in_25 -->|"1"| bf_s0_b24_i0
+    bf_s0_b10_i0 -->|"1"| bf_s1_b8_i1
+    bf_s3_b0_i5 -->|"1"| bf_s4_b0_i13
+    bf_s2_b0_i0 -->|"1"| bf_s3_b0_i4
+    bf_s4_b0_i11 -->|"1"| out_11
+    bf_s3_b0_i4 -->|"1"| bf_s4_b0_i12
+    bf_s3_b0_i1 -->|"1"| bf_s4_b0_i9
+    bf_s0_b12_i0 -->|"1"| bf_s1_b12_i0
+    bf_s3_b0_i6 -->|"1"| bf_s4_b0_i6
+    bf_s4_b0_i6 -->|"1"| out_6
+    bf_s4_b0_i14 -->|"1"| out_30
+    bf_s0_b4_i0 -->|"1"| bf_s1_b4_i1
+    bf_s4_b0_i1 -->|"1"| out_17
+    bf_s0_b24_i0 -->|"1"| bf_s1_b24_i1
+    bf_s2_b8_i0 -->|"1"| bf_s3_b0_i4
+    bf_s2_b16_i2 -->|"1"| bf_s3_b16_i2
+    bf_s4_b0_i4 -->|"1"| out_20
+    in_13 -->|"1"| bf_s0_b12_i0
+    bf_s2_b16_i0 -->|"1"| bf_s3_b16_i0
+    in_15 -->|"1"| bf_s0_b14_i0
+    bf_s1_b8_i1 -->|"1"| bf_s2_b8_i3
+    bf_s0_b4_i0 -->|"1"| bf_s1_b4_i0
+    bf_s2_b8_i1 -->|"1"| bf_s3_b0_i1
+    bf_s2_b8_i3 -->|"1"| bf_s3_b0_i3
+    in_29 -->|"1"| bf_s0_b28_i0
+    bf_s2_b0_i0 -->|"1"| bf_s3_b0_i0
+    bf_s0_b30_i0 -->|"1"| bf_s1_b28_i1
+    in_19 -->|"1"| bf_s0_b18_i0
+    bf_s1_b12_i1 -->|"1"| bf_s2_b8_i3
+    bf_s4_b0_i3 -->|"1"| out_3
+    in_26 -->|"1"| bf_s0_b26_i0
+    bf_s1_b16_i1 -->|"1"| bf_s2_b16_i3
+    bf_s2_b16_i3 -->|"1"| bf_s3_b16_i7
+    bf_s4_b0_i9 -->|"1"| out_9
+    bf_s0_b26_i0 -->|"1"| bf_s1_b24_i1
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (144)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>bf_s1_b12_i1</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s3_b0_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_16</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_24</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_15</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s1_b12_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_10</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s4_b0_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_0</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_2</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_6</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s3_b16_i3</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_26</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s0_b26_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s2_b24_i1</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s3_b16_i4</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s0_b14_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_27</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s0_b6_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_17</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s2_b16_i3</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s2_b16_i1</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s2_b0_i1</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_25</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_8</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_25</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s1_b0_i1</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s0_b0_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s2_b8_i3</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s4_b0_i10</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_31</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s1_b4_i1</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_7</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_26</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s3_b0_i7</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s2_b16_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_22</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_17</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_11</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_24</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s3_b16_i7</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s4_b0_i9</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s3_b0_i3</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s4_b0_i1</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_12</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_1</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_18</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_0</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_20</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s1_b4_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s3_b0_i4</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s2_b8_i1</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_30</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s4_b0_i2</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_5</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s3_b0_i2</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_27</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_6</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_7</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_18</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_21</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_19</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s3_b0_i1</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s4_b0_i8</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s2_b0_i2</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s1_b16_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s2_b24_i2</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_29</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s0_b16_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s4_b0_i14</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_22</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s0_b22_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s3_b0_i6</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s3_b0_i5</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_11</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_1</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s3_b16_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s1_b24_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s2_b0_i3</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s1_b24_i1</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_3</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s0_b2_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s0_b10_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s0_b12_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_3</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s1_b8_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s4_b0_i4</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s0_b30_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_16</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s2_b24_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_20</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s0_b28_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s0_b4_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s4_b0_i12</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s2_b8_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_4</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_2</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_12</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s2_b8_i2</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s4_b0_i3</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_30</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_28</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s4_b0_i5</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_8</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_31</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s4_b0_i11</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s3_b16_i1</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_13</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s1_b0_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s0_b20_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s4_b0_i13</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_21</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_28</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s4_b0_i7</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_10</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s1_b8_i1</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_29</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_14</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s2_b16_i2</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s0_b18_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s4_b0_i6</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s0_b24_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_5</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_14</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s1_b28_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_4</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_19</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_13</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_15</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_9</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s3_b16_i2</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s0_b8_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s4_b0_i15</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s1_b20_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s3_b16_i5</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_9</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>in_23</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>out_23</td><td>1.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s1_b20_i1</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s2_b0_i0</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s3_b16_i6</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s1_b16_i1</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s2_b24_i3</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>bf_s1_b28_i1</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>144</td></tr><tr><td>Edges</td><td>192</td></tr><tr><td>Depth</td><td>7</td></tr><tr><td>Width</td><td>32</td></tr><tr><td>CCR</td><td>0.8571</td></tr><tr><td>Parallelism</td><td>20.5714</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">Programmatic (from source code/repo)</span>
+        <br><br>
+        <strong>Source:</strong> Classic FFT benchmark<br>
+<strong>Extraction Method:</strong> Programmatic (from source code/repo)<br>
+<strong>Extractor:</strong> dagbench-import-script<br>
+<strong>Date:</strong> 2026-02-12
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fully-connected<br>
+<strong>Nodes:</strong> 4
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">fft</span><span class="badge">signal-processing</span><span class="badge">large</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; classic.fft_32
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+id: classic.cholesky_5
+name: Cholesky Factorization (5x5 tiles)
+description: Tiled Cholesky factorization for a 5x5 tile grid. Larger benchmark with
+  more parallelism.
+domains:
+- classic-benchmark
+provenance:
+  source: Classic scheduling benchmark
+  paper_title: Design of Multicore Sparse Cholesky Factorization
+  authors:
+  - Florent Lopez
+  - Laurent Parry
+  - Gregoire Pichon
+  year: 2015
+  extraction_method: programmatic
+  extractor: dagbench-import-script
+  extraction_date: '2026-02-12'
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+  notes: Classic benchmark structure; costs are representative
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 35
+  num_edges: 50
+  depth: 13
+  width: 10
+  ccr: 0.4348
+  parallelism: 2.6923
+campaign: campaign_002_classic_and_manual
+tags:
+- cholesky
+- linear-algebra
+- tiled
+- large

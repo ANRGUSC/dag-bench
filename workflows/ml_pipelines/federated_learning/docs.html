@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Federated Learning Round (5 clients) - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Federated Learning Round (5 clients)</h1>
+    <div class="meta">
+        <strong>ID:</strong> ml.federated_learning &nbsp;|&nbsp;
+        <strong>Domains:</strong> ml-pipeline &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>One round of federated learning with 5 clients. Structure: init -&gt; select -&gt; distribute[5] -&gt; local_train[5] -&gt; upload[5] -&gt; aggregate -&gt; update. Each client trains independently.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    Upload_1["Upload_1<br/>cost: 5.0"]
+    Aggregate["Aggregate<br/>cost: 10.0"]
+    Upload_2["Upload_2<br/>cost: 5.0"]
+    Upload_4["Upload_4<br/>cost: 5.0"]
+    Distribute_4["Distribute_4<br/>cost: 3.0"]
+    GlobalInit["GlobalInit<br/>cost: 3.0"]
+    ClientSelect["ClientSelect<br/>cost: 2.0"]
+    Distribute_3["Distribute_3<br/>cost: 3.0"]
+    LocalTrain_2["LocalTrain_2<br/>cost: 25.0"]
+    Distribute_1["Distribute_1<br/>cost: 3.0"]
+    LocalTrain_0["LocalTrain_0<br/>cost: 25.0"]
+    Distribute_2["Distribute_2<br/>cost: 3.0"]
+    LocalTrain_3["LocalTrain_3<br/>cost: 25.0"]
+    Distribute_0["Distribute_0<br/>cost: 3.0"]
+    Upload_3["Upload_3<br/>cost: 5.0"]
+    LocalTrain_1["LocalTrain_1<br/>cost: 25.0"]
+    Upload_0["Upload_0<br/>cost: 5.0"]
+    LocalTrain_4["LocalTrain_4<br/>cost: 25.0"]
+    GlobalUpdate["GlobalUpdate<br/>cost: 5.0"]
+    Distribute_2 -->|"10"| LocalTrain_2
+    Upload_3 -->|"10"| Aggregate
+    GlobalInit -->|"1"| ClientSelect
+    Distribute_3 -->|"10"| LocalTrain_3
+    ClientSelect -->|"10"| Distribute_3
+    ClientSelect -->|"10"| Distribute_4
+    Distribute_4 -->|"10"| LocalTrain_4
+    LocalTrain_3 -->|"10"| Upload_3
+    Aggregate -->|"2"| GlobalUpdate
+    LocalTrain_1 -->|"10"| Upload_1
+    LocalTrain_4 -->|"10"| Upload_4
+    ClientSelect -->|"10"| Distribute_0
+    Distribute_1 -->|"10"| LocalTrain_1
+    Upload_4 -->|"10"| Aggregate
+    ClientSelect -->|"10"| Distribute_2
+    LocalTrain_0 -->|"10"| Upload_0
+    ClientSelect -->|"10"| Distribute_1
+    Upload_1 -->|"10"| Aggregate
+    Upload_2 -->|"10"| Aggregate
+    Distribute_0 -->|"10"| LocalTrain_0
+    LocalTrain_2 -->|"10"| Upload_2
+    Upload_0 -->|"10"| Aggregate
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (19)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>Upload_1</td><td>5.00</td><td>Data loading / fetching</td></tr><tr><td>Aggregate</td><td>10.00</td><td>Aggregate / reduce data</td></tr><tr><td>Upload_2</td><td>5.00</td><td>Data loading / fetching</td></tr><tr><td>Upload_4</td><td>5.00</td><td>Data loading / fetching</td></tr><tr><td>Distribute_4</td><td>3.00</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>GlobalInit</td><td>3.00</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>ClientSelect</td><td>2.00</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>Distribute_3</td><td>3.00</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>LocalTrain_2</td><td>25.00</td><td>Model training</td></tr><tr><td>Distribute_1</td><td>3.00</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>LocalTrain_0</td><td>25.00</td><td>Model training</td></tr><tr><td>Distribute_2</td><td>3.00</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>LocalTrain_3</td><td>25.00</td><td>Model training</td></tr><tr><td>Distribute_0</td><td>3.00</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>Upload_3</td><td>5.00</td><td>Data loading / fetching</td></tr><tr><td>LocalTrain_1</td><td>25.00</td><td>Model training</td></tr><tr><td>Upload_0</td><td>5.00</td><td>Data loading / fetching</td></tr><tr><td>LocalTrain_4</td><td>25.00</td><td>Model training</td></tr><tr><td>GlobalUpdate</td><td>5.00</td><td>Processing step in ml-pipeline pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>19</td></tr><tr><td>Edges</td><td>22</td></tr><tr><td>Depth</td><td>7</td></tr><tr><td>Width</td><td>5</td></tr><tr><td>CCR</td><td>1.0973</td></tr><tr><td>Parallelism</td><td>2.7143</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">AI-generated structure</span>
+        <br><br>
+        <strong>Source:</strong> AI-generated, based on architecture described in Nalinipriya et al. 2024<br>
+<strong>Paper:</strong> Optimal directed acyclic graph federated learning model for energy-efficient IoT communication networks<br>
+<strong>Authors:</strong> G. Nalinipriya, E. Laxmi Lydia, S. Rama Sree, Denis Nikolenko, Sirisha Potluri, Janjhyam Venkata Naga Ramesh, Sheela Jayachandran<br>
+<strong>Year:</strong> 2024<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1038/s41598-024-71995-y" target="_blank">10.1038/s41598-024-71995-y</a><br>
+<strong>Extraction Method:</strong> AI-generated structure<br>
+<strong>Extractor:</strong> claude-opus-4<br>
+<strong>Date:</strong> 2026-02-12<br>
+<strong>Notes:</strong> Paper in Scientific Reports presents a DAG-based federated learning model for IoT networks. It contains DAG figures (Fig. 4) showing the communication topology for managing device asynchrony, but these describe the DAG-FL communication structure, not a traditional task scheduling DAG with computation costs. This federated learning round pipeline is an AI-generated scatter-gather task graph modeling one FL round, not directly extracted from any figure in the paper.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fully-connected<br>
+<strong>Nodes:</strong> 4
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">federated-learning</span><span class="badge">distributed</span><span class="badge">privacy</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; ml.federated_learning
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

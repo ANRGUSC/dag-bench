@@ -1,0 +1,49 @@
+{
+  "name": "edge.mtec_lightgbm",
+  "task_graph": {
+    "tasks": [
+      {"name": "LoadData", "cost": 5.0},
+      {"name": "PCA", "cost": 30.0},
+      {"name": "TrainModel1", "cost": 50.0},
+      {"name": "TrainModel2", "cost": 50.0},
+      {"name": "TrainModel3", "cost": 50.0},
+      {"name": "CombineAndTest", "cost": 20.0}
+    ],
+    "dependencies": [
+      {"source": "LoadData", "target": "PCA", "size": 100.0},
+      {"source": "PCA", "target": "TrainModel1", "size": 30.0},
+      {"source": "PCA", "target": "TrainModel2", "size": 30.0},
+      {"source": "PCA", "target": "TrainModel3", "size": 30.0},
+      {"source": "PCA", "target": "CombineAndTest", "size": 20.0},
+      {"source": "TrainModel1", "target": "CombineAndTest", "size": 10.0},
+      {"source": "TrainModel2", "target": "CombineAndTest", "size": 10.0},
+      {"source": "TrainModel3", "target": "CombineAndTest", "size": 10.0}
+    ]
+  },
+  "network": {
+    "nodes": [
+      {"name": "Desktop", "speed": 10.0},
+      {"name": "AGXXavier", "speed": 5.0},
+      {"name": "XavierNX", "speed": 3.5},
+      {"name": "JetsonTX2", "speed": 2.0}
+    ],
+    "edges": [
+      {"source": "Desktop", "target": "AGXXavier", "speed": 5000.0},
+      {"source": "Desktop", "target": "XavierNX", "speed": 5000.0},
+      {"source": "Desktop", "target": "JetsonTX2", "speed": 5000.0},
+      {"source": "AGXXavier", "target": "Desktop", "speed": 5000.0},
+      {"source": "AGXXavier", "target": "XavierNX", "speed": 5000.0},
+      {"source": "AGXXavier", "target": "JetsonTX2", "speed": 5000.0},
+      {"source": "XavierNX", "target": "Desktop", "speed": 5000.0},
+      {"source": "XavierNX", "target": "AGXXavier", "speed": 5000.0},
+      {"source": "XavierNX", "target": "JetsonTX2", "speed": 5000.0},
+      {"source": "JetsonTX2", "target": "Desktop", "speed": 5000.0},
+      {"source": "JetsonTX2", "target": "AGXXavier", "speed": 5000.0},
+      {"source": "JetsonTX2", "target": "XavierNX", "speed": 5000.0},
+      {"source": "Desktop", "target": "Desktop", "speed": 1000000000.0},
+      {"source": "AGXXavier", "target": "AGXXavier", "speed": 1000000000.0},
+      {"source": "XavierNX", "target": "XavierNX", "speed": 1000000000.0},
+      {"source": "JetsonTX2", "target": "JetsonTX2", "speed": 1000000000.0}
+    ]
+  }
+}

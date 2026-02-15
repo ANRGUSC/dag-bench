@@ -1,0 +1,267 @@
+{
+  "name": "scientific.blast_like",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "FormatDB_2",
+        "cost": 3.0
+      },
+      {
+        "name": "MergeResults",
+        "cost": 8.0
+      },
+      {
+        "name": "FilterHits_3",
+        "cost": 5.0
+      },
+      {
+        "name": "Annotate",
+        "cost": 10.0
+      },
+      {
+        "name": "FilterHits_0",
+        "cost": 5.0
+      },
+      {
+        "name": "Report",
+        "cost": 3.0
+      },
+      {
+        "name": "BLAST_1",
+        "cost": 20.0
+      },
+      {
+        "name": "FormatDB_4",
+        "cost": 3.0
+      },
+      {
+        "name": "FilterHits_2",
+        "cost": 5.0
+      },
+      {
+        "name": "BLAST_4",
+        "cost": 20.0
+      },
+      {
+        "name": "FilterHits_1",
+        "cost": 5.0
+      },
+      {
+        "name": "FilterHits_4",
+        "cost": 5.0
+      },
+      {
+        "name": "BLAST_0",
+        "cost": 20.0
+      },
+      {
+        "name": "SplitDB",
+        "cost": 5.0
+      },
+      {
+        "name": "BLAST_3",
+        "cost": 20.0
+      },
+      {
+        "name": "FormatDB_0",
+        "cost": 3.0
+      },
+      {
+        "name": "FormatDB_3",
+        "cost": 3.0
+      },
+      {
+        "name": "BLAST_2",
+        "cost": 20.0
+      },
+      {
+        "name": "FormatDB_1",
+        "cost": 3.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "SplitDB",
+        "target": "FormatDB_3",
+        "size": 10.0
+      },
+      {
+        "source": "BLAST_0",
+        "target": "FilterHits_0",
+        "size": 8.0
+      },
+      {
+        "source": "FormatDB_2",
+        "target": "BLAST_2",
+        "size": 8.0
+      },
+      {
+        "source": "SplitDB",
+        "target": "FormatDB_1",
+        "size": 10.0
+      },
+      {
+        "source": "FormatDB_4",
+        "target": "BLAST_4",
+        "size": 8.0
+      },
+      {
+        "source": "FilterHits_2",
+        "target": "MergeResults",
+        "size": 5.0
+      },
+      {
+        "source": "BLAST_2",
+        "target": "FilterHits_2",
+        "size": 8.0
+      },
+      {
+        "source": "FilterHits_0",
+        "target": "MergeResults",
+        "size": 5.0
+      },
+      {
+        "source": "FilterHits_4",
+        "target": "MergeResults",
+        "size": 5.0
+      },
+      {
+        "source": "BLAST_1",
+        "target": "FilterHits_1",
+        "size": 8.0
+      },
+      {
+        "source": "SplitDB",
+        "target": "FormatDB_4",
+        "size": 10.0
+      },
+      {
+        "source": "FilterHits_1",
+        "target": "MergeResults",
+        "size": 5.0
+      },
+      {
+        "source": "FilterHits_3",
+        "target": "MergeResults",
+        "size": 5.0
+      },
+      {
+        "source": "BLAST_3",
+        "target": "FilterHits_3",
+        "size": 8.0
+      },
+      {
+        "source": "SplitDB",
+        "target": "FormatDB_2",
+        "size": 10.0
+      },
+      {
+        "source": "Annotate",
+        "target": "Report",
+        "size": 3.0
+      },
+      {
+        "source": "FormatDB_3",
+        "target": "BLAST_3",
+        "size": 8.0
+      },
+      {
+        "source": "BLAST_4",
+        "target": "FilterHits_4",
+        "size": 8.0
+      },
+      {
+        "source": "MergeResults",
+        "target": "Annotate",
+        "size": 3.0
+      },
+      {
+        "source": "FormatDB_0",
+        "target": "BLAST_0",
+        "size": 8.0
+      },
+      {
+        "source": "SplitDB",
+        "target": "FormatDB_0",
+        "size": 10.0
+      },
+      {
+        "source": "FormatDB_1",
+        "target": "BLAST_1",
+        "size": 8.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N1",
+        "speed": 2.0
+      },
+      {
+        "name": "N2",
+        "speed": 2.0
+      },
+      {
+        "name": "N3",
+        "speed": 2.0
+      },
+      {
+        "name": "N0",
+        "speed": 2.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 1000.0
+      },
+      {
+        "source": "N0",
+        "target": "N3",
+        "speed": 1000.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N3",
+        "speed": 1000.0
+      },
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 1000.0
+      },
+      {
+        "source": "N2",
+        "target": "N3",
+        "speed": 1000.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 1000.0
+      },
+      {
+        "source": "N3",
+        "target": "N3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      }
+    ]
+  }
+}

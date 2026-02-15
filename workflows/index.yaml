@@ -1,0 +1,640 @@
+version: 0.1.0
+total_workflows: 82
+workflows:
+- id: agri.crop_disease
+  name: Crop Disease Detection
+  domains:
+  - agriculture-iot
+  - ml-pipeline
+  - image-processing
+  num_tasks: 11
+  num_edges: 12
+  completeness: full
+- id: agri.flockfocus_feeder
+  name: FlockFocus Feeder Monitoring Pipeline
+  domains:
+  - agriculture-iot
+  - ml-pipeline
+  num_tasks: 5
+  num_edges: 4
+  completeness: structure-and-costs
+- id: agri.greenhouse_control
+  name: Greenhouse Climate Control
+  domains:
+  - agriculture-iot
+  - iot
+  - cyber-physical
+  num_tasks: 12
+  num_edges: 14
+  completeness: full
+- id: agri.livestock_monitoring
+  name: Livestock Monitoring
+  domains:
+  - agriculture-iot
+  - iot
+  num_tasks: 14
+  num_edges: 13
+  completeness: full
+- id: agri.precision_irrigation
+  name: Precision Irrigation
+  domains:
+  - agriculture-iot
+  - iot
+  num_tasks: 14
+  num_edges: 13
+  completeness: full
+- id: classic.cholesky_4
+  name: Cholesky Factorization (4x4 tiles)
+  domains:
+  - classic-benchmark
+  num_tasks: 20
+  num_edges: 26
+  completeness: full
+- id: classic.cholesky_5
+  name: Cholesky Factorization (5x5 tiles)
+  domains:
+  - classic-benchmark
+  num_tasks: 35
+  num_edges: 50
+  completeness: full
+- id: classic.cholesky_6
+  name: Cholesky Factorization (6x6 tiles)
+  domains:
+  - classic-benchmark
+  num_tasks: 56
+  num_edges: 85
+  completeness: full
+- id: classic.fft_16
+  name: FFT Butterfly (16-point)
+  domains:
+  - classic-benchmark
+  num_tasks: 64
+  num_edges: 80
+  completeness: full
+- id: classic.fft_32
+  name: FFT Butterfly (32-point)
+  domains:
+  - classic-benchmark
+  num_tasks: 144
+  num_edges: 192
+  completeness: full
+- id: classic.fft_8
+  name: FFT Butterfly (8-point)
+  domains:
+  - classic-benchmark
+  num_tasks: 28
+  num_edges: 32
+  completeness: full
+- id: classic.gauss_elim_10
+  name: Gaussian Elimination (n=10)
+  domains:
+  - classic-benchmark
+  num_tasks: 55
+  num_edges: 135
+  completeness: full
+- id: classic.gauss_elim_5
+  name: Gaussian Elimination (n=5)
+  domains:
+  - classic-benchmark
+  num_tasks: 15
+  num_edges: 30
+  completeness: full
+- id: classic.gauss_elim_7
+  name: Gaussian Elimination (n=7)
+  domains:
+  - classic-benchmark
+  num_tasks: 28
+  num_edges: 63
+  completeness: full
+- id: classic.lu_decomp_4
+  name: LU Decomposition (4x4 tiles)
+  domains:
+  - classic-benchmark
+  num_tasks: 30
+  num_edges: 49
+  completeness: full
+- id: classic.mapreduce_16m_8r
+  name: MapReduce (16 mappers, 8 reducers)
+  domains:
+  - classic-benchmark
+  - data-analytics
+  num_tasks: 27
+  num_edges: 48
+  completeness: full
+- id: classic.mapreduce_4m_2r
+  name: MapReduce (4 mappers, 2 reducers)
+  domains:
+  - classic-benchmark
+  - data-analytics
+  num_tasks: 9
+  num_edges: 12
+  completeness: full
+- id: classic.mapreduce_8m_4r
+  name: MapReduce (8 mappers, 4 reducers)
+  domains:
+  - classic-benchmark
+  - data-analytics
+  num_tasks: 15
+  num_edges: 24
+  completeness: full
+- id: edge.autonomous_driving
+  name: Autonomous Driving Pipeline
+  domains:
+  - edge-computing
+  - cyber-physical
+  num_tasks: 11
+  num_edges: 10
+  completeness: full
+- id: edge.face_analysis_pipeline
+  name: Pipeline-Parallel Face Analysis System
+  domains:
+  - edge-computing
+  - ml-pipeline
+  - image-processing
+  num_tasks: 6
+  num_edges: 7
+  completeness: structure-and-costs
+- id: edge.loki_traffic_pipeline
+  name: Loki Traffic Analysis Pipeline
+  domains:
+  - edge-computing
+  - ml-pipeline
+  num_tasks: 3
+  num_edges: 2
+  completeness: structure-and-costs
+- id: edge.ml_surveillance_pipeline
+  name: Multi-Model ML Surveillance Pipeline
+  domains:
+  - edge-computing
+  - ml-pipeline
+  - mec
+  num_tasks: 7
+  num_edges: 6
+  completeness: structure-and-costs
+- id: edge.mtec_lightgbm
+  name: M-TEC LightGBM Training Pipeline
+  domains:
+  - edge-computing
+  - ml-pipeline
+  - data-analytics
+  num_tasks: 6
+  num_edges: 8
+  completeness: structure-and-costs
+- id: edge.mtec_matrix_ops
+  name: M-TEC Matrix Operations Pipeline
+  domains:
+  - edge-computing
+  - scientific
+  - data-analytics
+  num_tasks: 6
+  num_edges: 7
+  completeness: structure-and-costs
+- id: edge.mtec_video_analytics
+  name: M-TEC Video Analytics Pipeline
+  domains:
+  - edge-computing
+  - ml-pipeline
+  - data-analytics
+  num_tasks: 7
+  num_edges: 8
+  completeness: structure-and-costs
+- id: edge.smart_home
+  name: Smart Home IoT Pipeline
+  domains:
+  - iot
+  - edge-computing
+  - fog-computing
+  num_tasks: 12
+  num_edges: 13
+  completeness: full
+- id: edge.splitstream_pipeline
+  name: SplitStream Video Query Pipeline
+  domains:
+  - edge-computing
+  - ml-pipeline
+  num_tasks: 6
+  num_edges: 6
+  completeness: structure-and-costs
+- id: edge.video_transcoding
+  name: Video Transcoding Pipeline
+  domains:
+  - edge-computing
+  - data-analytics
+  num_tasks: 14
+  num_edges: 16
+  completeness: full
+- id: fog.federated_fog
+  name: Federated Fog Learning
+  domains:
+  - fog-computing
+  - ml-pipeline
+  num_tasks: 23
+  num_edges: 26
+  completeness: full
+- id: fog.healthcare_fog
+  name: Fog Healthcare Monitoring
+  domains:
+  - fog-computing
+  - iot
+  num_tasks: 17
+  num_edges: 16
+  completeness: full
+- id: fog.smart_building
+  name: Fog Smart Building Management
+  domains:
+  - fog-computing
+  - smart-city
+  - iot
+  num_tasks: 21
+  num_edges: 22
+  completeness: full
+- id: iiot.cnc_monitoring
+  name: IIoT CNC Machine Monitoring
+  domains:
+  - industrial-iot
+  - cyber-physical
+  num_tasks: 11
+  num_edges: 12
+  completeness: full
+- id: iiot.digital_twin
+  name: IIoT Digital Twin Synchronization
+  domains:
+  - industrial-iot
+  - edge-computing
+  num_tasks: 13
+  num_edges: 14
+  completeness: full
+- id: iiot.energy_monitoring
+  name: IIoT Factory Energy Monitoring
+  domains:
+  - industrial-iot
+  - iot
+  num_tasks: 13
+  num_edges: 14
+  completeness: full
+- id: iiot.robotic_assembly
+  name: IIoT Robotic Assembly Coordination
+  domains:
+  - industrial-iot
+  - cyber-physical
+  num_tasks: 16
+  num_edges: 17
+  completeness: full
+- id: iot.predictive_maintenance
+  name: Industrial Predictive Maintenance
+  domains:
+  - iot
+  - edge-computing
+  - ml-pipeline
+  num_tasks: 13
+  num_edges: 15
+  completeness: full
+- id: iot.riotbench_etl
+  name: RIoTBench ETL Pipeline
+  domains:
+  - iot
+  - data-analytics
+  num_tasks: 11
+  num_edges: 11
+  completeness: full
+- id: iot.riotbench_predict
+  name: RIoTBench ML Prediction Pipeline
+  domains:
+  - iot
+  - data-analytics
+  num_tasks: 11
+  num_edges: 14
+  completeness: full
+- id: iot.riotbench_stats
+  name: RIoTBench Statistical Analytics
+  domains:
+  - iot
+  - data-analytics
+  num_tasks: 9
+  num_edges: 10
+  completeness: full
+- id: iot.riotbench_train
+  name: RIoTBench ML Training Pipeline
+  domains:
+  - iot
+  - data-analytics
+  num_tasks: 10
+  num_edges: 11
+  completeness: full
+- id: mec.sleipnir_antivirus
+  name: SLEIPNIR Antivirus App
+  domains:
+  - mec
+  - edge-computing
+  num_tasks: 5
+  num_edges: 5
+  completeness: structure-and-costs
+- id: mec.sleipnir_chess
+  name: SLEIPNIR Chess App (5 Moves)
+  domains:
+  - mec
+  - edge-computing
+  num_tasks: 20
+  num_edges: 19
+  completeness: structure-and-costs
+- id: mec.sleipnir_facebook
+  name: SLEIPNIR Facebook App
+  domains:
+  - mec
+  - edge-computing
+  num_tasks: 7
+  num_edges: 7
+  completeness: structure-and-costs
+- id: mec.sleipnir_facerecognizer
+  name: SLEIPNIR Face Recognizer App
+  domains:
+  - mec
+  - edge-computing
+  - image-processing
+  num_tasks: 5
+  num_edges: 5
+  completeness: structure-and-costs
+- id: mec.sleipnir_navigator
+  name: SLEIPNIR Navigator App
+  domains:
+  - mec
+  - edge-computing
+  num_tasks: 9
+  num_edges: 13
+  completeness: structure-and-costs
+- id: mec.video_analytics
+  name: MEC Video Analytics Pipeline
+  domains:
+  - mec
+  - edge-computing
+  - image-processing
+  num_tasks: 13
+  num_edges: 14
+  completeness: full
+- id: ml.federated_learning
+  name: Federated Learning Round (5 clients)
+  domains:
+  - ml-pipeline
+  num_tasks: 19
+  num_edges: 22
+  completeness: full
+- id: nfv.ue_attach
+  name: 5G UE Attach Procedure
+  domains:
+  - nfv
+  - telecom
+  - 5g
+  num_tasks: 12
+  num_edges: 15
+  completeness: full
+- id: scientific.blast_like
+  name: BLAST-like Sequence Search Workflow
+  domains:
+  - scientific
+  - genomics
+  num_tasks: 19
+  num_edges: 22
+  completeness: full
+- id: scientific.epigenomics_like
+  name: Epigenomics-like Genome Workflow
+  domains:
+  - scientific
+  - genomics
+  num_tasks: 19
+  num_edges: 21
+  completeness: full
+- id: scientific.montage_like
+  name: Montage-like Astronomy Workflow
+  domains:
+  - scientific
+  - astronomy
+  - image-processing
+  num_tasks: 19
+  num_edges: 29
+  completeness: full
+- id: scientific.seismology_like
+  name: Seismology-like Hazard Workflow
+  domains:
+  - scientific
+  - seismology
+  num_tasks: 24
+  num_edges: 31
+  completeness: full
+- id: smart_city.air_quality
+  name: Air Quality Monitoring
+  domains:
+  - smart-city
+  - iot
+  num_tasks: 15
+  num_edges: 15
+  completeness: full
+- id: smart_city.traffic_mgmt
+  name: Smart City Traffic Management
+  domains:
+  - smart-city
+  - edge-computing
+  num_tasks: 17
+  num_edges: 16
+  completeness: full
+- id: smart_city.waste_mgmt
+  name: IoT Waste Management
+  domains:
+  - smart-city
+  - iot
+  num_tasks: 14
+  num_edges: 13
+  completeness: full
+- id: smart_city.water_distribution
+  name: Water Distribution Network
+  domains:
+  - smart-city
+  - iot
+  - cyber-physical
+  num_tasks: 16
+  num_edges: 15
+  completeness: full
+- id: synthetic.branching_3x2
+  name: Branching DAG (3 levels, factor 2)
+  domains:
+  - synthetic
+  num_tasks: 8
+  num_edges: 10
+  completeness: full
+- id: synthetic.branching_4x3
+  name: Branching DAG (4 levels, factor 3)
+  domains:
+  - synthetic
+  num_tasks: 41
+  num_edges: 66
+  completeness: full
+- id: synthetic.chain_2
+  name: Chain DAG (2 nodes)
+  domains:
+  - synthetic
+  num_tasks: 2
+  num_edges: 1
+  completeness: full
+- id: synthetic.chain_4
+  name: Chain DAG (4 nodes)
+  domains:
+  - synthetic
+  num_tasks: 4
+  num_edges: 3
+  completeness: full
+- id: synthetic.chain_8
+  name: Chain DAG (8 nodes)
+  domains:
+  - synthetic
+  num_tasks: 8
+  num_edges: 7
+  completeness: full
+- id: synthetic.diamond
+  name: Diamond DAG
+  domains:
+  - synthetic
+  num_tasks: 4
+  num_edges: 4
+  completeness: full
+- id: synthetic.fork
+  name: Fork-Join DAG
+  domains:
+  - synthetic
+  num_tasks: 6
+  num_edges: 6
+  completeness: full
+- id: synthetic.multi_fork_join
+  name: Multi-Level Fork-Join DAG
+  domains:
+  - synthetic
+  num_tasks: 14
+  num_edges: 19
+  completeness: full
+- id: synthetic.one_task
+  name: Single Task DAG
+  domains:
+  - synthetic
+  num_tasks: 1
+  num_edges: 0
+  completeness: full
+- id: synthetic.pipeline_stages
+  name: Multi-Stage Pipeline DAG
+  domains:
+  - synthetic
+  num_tasks: 10
+  num_edges: 17
+  completeness: full
+- id: synthetic.random_large_balanced
+  name: Random Large Balanced DAG
+  domains:
+  - synthetic
+  num_tasks: 87
+  num_edges: 546
+  completeness: full
+- id: synthetic.random_large_dense
+  name: Random Large Dense DAG
+  domains:
+  - synthetic
+  num_tasks: 57
+  num_edges: 514
+  completeness: full
+- id: synthetic.random_medium_balanced
+  name: Random Medium Balanced DAG
+  domains:
+  - synthetic
+  num_tasks: 30
+  num_edges: 153
+  completeness: full
+- id: synthetic.random_medium_comm
+  name: Random Medium Comm-Heavy DAG
+  domains:
+  - synthetic
+  num_tasks: 32
+  num_edges: 165
+  completeness: full
+- id: synthetic.random_medium_compute
+  name: Random Medium Compute-Heavy DAG
+  domains:
+  - synthetic
+  num_tasks: 25
+  num_edges: 118
+  completeness: full
+- id: synthetic.random_medium_deep
+  name: Random Medium Deep DAG
+  domains:
+  - synthetic
+  num_tasks: 33
+  num_edges: 147
+  completeness: full
+- id: synthetic.random_small_narrow
+  name: Random Small Narrow DAG
+  domains:
+  - synthetic
+  num_tasks: 10
+  num_edges: 21
+  completeness: full
+- id: synthetic.random_small_wide
+  name: Random Small Wide DAG
+  domains:
+  - synthetic
+  num_tasks: 12
+  num_edges: 39
+  completeness: full
+- id: synthetic.random_xlarge
+  name: Random Extra-Large DAG
+  domains:
+  - synthetic
+  num_tasks: 157
+  num_edges: 1070
+  completeness: full
+- id: synthetic.random_xxlarge
+  name: Random XXL DAG
+  domains:
+  - synthetic
+  num_tasks: 1118
+  num_edges: 8450
+  completeness: full
+- id: synthetic.reduction_tree
+  name: Binary Reduction Tree (8 leaves)
+  domains:
+  - synthetic
+  num_tasks: 15
+  num_edges: 14
+  completeness: full
+- id: synthetic.stencil_3x4
+  name: Stencil Computation (3x4 grid)
+  domains:
+  - synthetic
+  num_tasks: 12
+  num_edges: 17
+  completeness: full
+- id: synthetic.wide_parallel_20
+  name: Wide Parallel DAG (20 workers)
+  domains:
+  - synthetic
+  num_tasks: 22
+  num_edges: 40
+  completeness: full
+- id: uav.search_rescue
+  name: UAV Search and Rescue Coordination
+  domains:
+  - uav
+  - edge-computing
+  num_tasks: 20
+  num_edges: 21
+  completeness: full
+- id: v2x.cooperative_perception
+  name: V2X Cooperative Perception
+  domains:
+  - v2x
+  - edge-computing
+  num_tasks: 15
+  num_edges: 14
+  completeness: full
+- id: v2x.intersection_mgmt
+  name: V2X Intersection Management
+  domains:
+  - v2x
+  - smart-city
+  num_tasks: 15
+  num_edges: 18
+  completeness: full

@@ -1,0 +1,362 @@
+{
+  "name": "smart_city.air_quality",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "SourceAttrib",
+        "cost": 7.0
+      },
+      {
+        "name": "Station1_Calibrate",
+        "cost": 3.0
+      },
+      {
+        "name": "Station3_Sense",
+        "cost": 2.0
+      },
+      {
+        "name": "Station4_Calibrate",
+        "cost": 3.0
+      },
+      {
+        "name": "Aggregate",
+        "cost": 4.0
+      },
+      {
+        "name": "HealthImpact",
+        "cost": 6.0
+      },
+      {
+        "name": "Station3_Calibrate",
+        "cost": 3.0
+      },
+      {
+        "name": "Station2_Sense",
+        "cost": 2.0
+      },
+      {
+        "name": "Station1_Sense",
+        "cost": 2.0
+      },
+      {
+        "name": "Station2_Calibrate",
+        "cost": 3.0
+      },
+      {
+        "name": "Station0_Sense",
+        "cost": 2.0
+      },
+      {
+        "name": "AQI_Calc",
+        "cost": 5.0
+      },
+      {
+        "name": "Alert",
+        "cost": 2.0
+      },
+      {
+        "name": "Station0_Calibrate",
+        "cost": 3.0
+      },
+      {
+        "name": "Station4_Sense",
+        "cost": 2.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "Station1_Sense",
+        "target": "Station1_Calibrate",
+        "size": 1.0
+      },
+      {
+        "source": "Aggregate",
+        "target": "AQI_Calc",
+        "size": 2.0
+      },
+      {
+        "source": "Station2_Sense",
+        "target": "Station2_Calibrate",
+        "size": 1.0
+      },
+      {
+        "source": "Station3_Calibrate",
+        "target": "Aggregate",
+        "size": 1.0
+      },
+      {
+        "source": "Station4_Sense",
+        "target": "Station4_Calibrate",
+        "size": 1.0
+      },
+      {
+        "source": "Station2_Calibrate",
+        "target": "Aggregate",
+        "size": 1.0
+      },
+      {
+        "source": "Station4_Calibrate",
+        "target": "Aggregate",
+        "size": 1.0
+      },
+      {
+        "source": "Station0_Sense",
+        "target": "Station0_Calibrate",
+        "size": 1.0
+      },
+      {
+        "source": "AQI_Calc",
+        "target": "Alert",
+        "size": 1.0
+      },
+      {
+        "source": "HealthImpact",
+        "target": "Alert",
+        "size": 1.0
+      },
+      {
+        "source": "Station0_Calibrate",
+        "target": "Aggregate",
+        "size": 1.0
+      },
+      {
+        "source": "Aggregate",
+        "target": "HealthImpact",
+        "size": 2.0
+      },
+      {
+        "source": "Station1_Calibrate",
+        "target": "Aggregate",
+        "size": 1.0
+      },
+      {
+        "source": "Aggregate",
+        "target": "SourceAttrib",
+        "size": 2.0
+      },
+      {
+        "source": "Station3_Sense",
+        "target": "Station3_Calibrate",
+        "size": 1.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "E2",
+        "speed": 1.0
+      },
+      {
+        "name": "F0",
+        "speed": 8.0
+      },
+      {
+        "name": "C0",
+        "speed": 50.0
+      },
+      {
+        "name": "E3",
+        "speed": 1.0
+      },
+      {
+        "name": "E1",
+        "speed": 1.0
+      },
+      {
+        "name": "E0",
+        "speed": 1.0
+      },
+      {
+        "name": "E4",
+        "speed": 1.0
+      },
+      {
+        "name": "F1",
+        "speed": 8.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "C0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E0",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "C0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F0",
+        "speed": 12500.0
+      },
+      {
+        "source": "E1",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E3",
+        "target": "E3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "F1",
+        "target": "F1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E1",
+        "target": "E1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "F0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "E0",
+        "target": "E0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E4",
+        "target": "E4",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "F0",
+        "target": "F0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F1",
+        "speed": 12500.0
+      }
+    ]
+  }
+}

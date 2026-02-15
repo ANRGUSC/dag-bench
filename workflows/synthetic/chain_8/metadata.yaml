@@ -1,0 +1,40 @@
+id: synthetic.chain_8
+name: Chain DAG (8 nodes)
+description: Linear chain of 8 tasks. No parallelism, purely sequential.
+domains:
+- synthetic
+provenance:
+  source: SAGA framework (anrg-saga)
+  paper_arxiv: '2403.07120'
+  paper_title: 'PISA: An Adversarial Approach To Comparing Task Graph Scheduling Algorithms'
+  authors:
+  - Jared Coleman
+  - Bhaskar Krishnamachari
+  year: 2024
+  repo_url: https://github.com/anrgusc/saga
+  extraction_method: programmatic
+  extractor: dagbench-import-script
+  extraction_date: '2026-02-12'
+license:
+  source_license: Non-commercial (USC/ANRG)
+  dagbench_license: Apache-2.0
+  notes: Task graph structure extracted from SAGA; SAGA itself is non-commercial licensed
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 4
+  num_nodes_max: 4
+graph_stats:
+  num_tasks: 8
+  num_edges: 7
+  depth: 8
+  width: 1
+  ccr: 1.3718
+  parallelism: 1.0
+campaign: campaign_001_initial_import
+tags:
+- chain
+- sequential
+- medium

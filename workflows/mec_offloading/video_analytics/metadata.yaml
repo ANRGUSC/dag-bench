@@ -1,0 +1,52 @@
+id: mec.video_analytics
+name: MEC Video Analytics Pipeline
+description: "Video analytics on MEC. Ingest -> decode -> sample -> 3\
+  \ parallel detectors -> 3 trackers -> fuse -> behavior -> (alert,\
+  \ dashboard)."
+domains:
+- mec
+- edge-computing
+- image-processing
+provenance:
+  source: "AI-generated, based on architecture described in Ananthanarayanan et al. 2017"
+  paper_doi: 10.1109/MC.2017.3641638
+  paper_title: "Real-Time Video Analytics: The Killer App for Edge Computing"
+  authors:
+  - Ganesh Ananthanarayanan
+  - Paramvir Bahl
+  - "Peter Bod\xEDk"
+  - Krishna Chintalapudi
+  - Matthai Philipose
+  - Lenin Ravindranath
+  - Sudipta Sinha
+  year: 2017
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: Paper describes video analytics as operations organized as a DAG (decoder,
+    object detector, tracker, classifier). Figure 2 shows the video analytics stack
+    architecture. However, it does not provide a specific extractable task graph with
+    costs and edge weights. This video analytics pipeline is an AI interpretation of
+    the DAG concept described in the paper.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: mec
+  num_nodes_min: 7
+  num_nodes_max: 7
+graph_stats:
+  num_tasks: 13
+  num_edges: 14
+  depth: 8
+  width: 3
+  ccr: 0.5116
+  parallelism: 1.625
+campaign: campaign_004_networking
+tags:
+- video-analytics
+- tracking
+- detection

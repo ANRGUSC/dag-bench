@@ -1,0 +1,305 @@
+{
+  "name": "mec.video_analytics",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "FrameDecode",
+        "cost": 4.0
+      },
+      {
+        "name": "PersonTrack",
+        "cost": 8.0
+      },
+      {
+        "name": "ObjectDetect",
+        "cost": 10.0
+      },
+      {
+        "name": "PersonDetect",
+        "cost": 10.0
+      },
+      {
+        "name": "Dashboard",
+        "cost": 2.0
+      },
+      {
+        "name": "VehicleDetect",
+        "cost": 10.0
+      },
+      {
+        "name": "VehicleTrack",
+        "cost": 8.0
+      },
+      {
+        "name": "ObjectTrack",
+        "cost": 8.0
+      },
+      {
+        "name": "TrackFuse",
+        "cost": 6.0
+      },
+      {
+        "name": "VideoIngest",
+        "cost": 3.0
+      },
+      {
+        "name": "FrameSample",
+        "cost": 2.0
+      },
+      {
+        "name": "AlertGen",
+        "cost": 3.0
+      },
+      {
+        "name": "BehaviorAnalysis",
+        "cost": 12.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "BehaviorAnalysis",
+        "target": "Dashboard",
+        "size": 1.0
+      },
+      {
+        "source": "VehicleDetect",
+        "target": "VehicleTrack",
+        "size": 3.0
+      },
+      {
+        "source": "FrameDecode",
+        "target": "FrameSample",
+        "size": 6.0
+      },
+      {
+        "source": "ObjectTrack",
+        "target": "TrackFuse",
+        "size": 2.0
+      },
+      {
+        "source": "TrackFuse",
+        "target": "BehaviorAnalysis",
+        "size": 3.0
+      },
+      {
+        "source": "VehicleTrack",
+        "target": "TrackFuse",
+        "size": 2.0
+      },
+      {
+        "source": "PersonTrack",
+        "target": "TrackFuse",
+        "size": 2.0
+      },
+      {
+        "source": "PersonDetect",
+        "target": "PersonTrack",
+        "size": 3.0
+      },
+      {
+        "source": "FrameSample",
+        "target": "VehicleDetect",
+        "size": 4.0
+      },
+      {
+        "source": "ObjectDetect",
+        "target": "ObjectTrack",
+        "size": 3.0
+      },
+      {
+        "source": "BehaviorAnalysis",
+        "target": "AlertGen",
+        "size": 1.0
+      },
+      {
+        "source": "VideoIngest",
+        "target": "FrameDecode",
+        "size": 6.0
+      },
+      {
+        "source": "FrameSample",
+        "target": "ObjectDetect",
+        "size": 4.0
+      },
+      {
+        "source": "FrameSample",
+        "target": "PersonDetect",
+        "size": 4.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "MEC1",
+        "speed": 10.0
+      },
+      {
+        "name": "UE3",
+        "speed": 1.0
+      },
+      {
+        "name": "UE2",
+        "speed": 1.0
+      },
+      {
+        "name": "UE0",
+        "speed": 1.0
+      },
+      {
+        "name": "UE1",
+        "speed": 1.0
+      },
+      {
+        "name": "MEC0",
+        "speed": 10.0
+      },
+      {
+        "name": "Cloud",
+        "speed": 50.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "MEC0",
+        "target": "MEC1",
+        "speed": 10000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE0",
+        "speed": 5000.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE3",
+        "speed": 500.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE2",
+        "speed": 500.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE0",
+        "speed": 500.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE1",
+        "speed": 5000.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE1",
+        "speed": 200.0
+      },
+      {
+        "source": "MEC0",
+        "target": "MEC0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "MEC1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "UE1",
+        "target": "UE1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "Cloud",
+        "target": "MEC1",
+        "speed": 15000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE1",
+        "speed": 5000.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE3",
+        "speed": 5000.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE2",
+        "speed": 5000.0
+      },
+      {
+        "source": "MEC0",
+        "target": "UE0",
+        "speed": 5000.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE3",
+        "speed": 200.0
+      },
+      {
+        "source": "Cloud",
+        "target": "UE1",
+        "speed": 500.0
+      },
+      {
+        "source": "Cloud",
+        "target": "Cloud",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE2",
+        "speed": 200.0
+      },
+      {
+        "source": "UE0",
+        "target": "UE0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "UE1",
+        "target": "UE3",
+        "speed": 200.0
+      },
+      {
+        "source": "UE1",
+        "target": "UE2",
+        "speed": 200.0
+      },
+      {
+        "source": "Cloud",
+        "target": "MEC0",
+        "speed": 15000.0
+      },
+      {
+        "source": "UE2",
+        "target": "UE3",
+        "speed": 200.0
+      },
+      {
+        "source": "UE2",
+        "target": "UE2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE3",
+        "speed": 5000.0
+      },
+      {
+        "source": "UE3",
+        "target": "UE3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "MEC1",
+        "target": "UE2",
+        "speed": 5000.0
+      }
+    ]
+  }
+}

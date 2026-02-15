@@ -1,0 +1,376 @@
+{
+  "name": "iiot.robotic_assembly",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "R0_Check",
+        "cost": 2.0
+      },
+      {
+        "name": "Package",
+        "cost": 3.0
+      },
+      {
+        "name": "R2_Position",
+        "cost": 3.0
+      },
+      {
+        "name": "OrderInit",
+        "cost": 2.0
+      },
+      {
+        "name": "R1_Fetch",
+        "cost": 4.0
+      },
+      {
+        "name": "Log",
+        "cost": 2.0
+      },
+      {
+        "name": "R0_Fetch",
+        "cost": 4.0
+      },
+      {
+        "name": "R2_Check",
+        "cost": 2.0
+      },
+      {
+        "name": "R1_Check",
+        "cost": 2.0
+      },
+      {
+        "name": "Assemble_Step1",
+        "cost": 6.0
+      },
+      {
+        "name": "Assemble_Step2",
+        "cost": 8.0
+      },
+      {
+        "name": "Assemble_Step3",
+        "cost": 7.0
+      },
+      {
+        "name": "R0_Position",
+        "cost": 3.0
+      },
+      {
+        "name": "R1_Position",
+        "cost": 3.0
+      },
+      {
+        "name": "R2_Fetch",
+        "cost": 4.0
+      },
+      {
+        "name": "QualityInspect",
+        "cost": 5.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "OrderInit",
+        "target": "R0_Fetch",
+        "size": 1.0
+      },
+      {
+        "source": "R2_Fetch",
+        "target": "R2_Position",
+        "size": 1.0
+      },
+      {
+        "source": "QualityInspect",
+        "target": "Package",
+        "size": 1.0
+      },
+      {
+        "source": "R0_Position",
+        "target": "R0_Check",
+        "size": 1.0
+      },
+      {
+        "source": "Assemble_Step1",
+        "target": "Assemble_Step2",
+        "size": 2.0
+      },
+      {
+        "source": "Package",
+        "target": "Log",
+        "size": 1.0
+      },
+      {
+        "source": "R0_Check",
+        "target": "Assemble_Step1",
+        "size": 1.0
+      },
+      {
+        "source": "R1_Position",
+        "target": "R1_Check",
+        "size": 1.0
+      },
+      {
+        "source": "Assemble_Step3",
+        "target": "QualityInspect",
+        "size": 1.0
+      },
+      {
+        "source": "OrderInit",
+        "target": "R2_Fetch",
+        "size": 1.0
+      },
+      {
+        "source": "R2_Check",
+        "target": "Assemble_Step1",
+        "size": 1.0
+      },
+      {
+        "source": "R2_Position",
+        "target": "R2_Check",
+        "size": 1.0
+      },
+      {
+        "source": "R0_Fetch",
+        "target": "R0_Position",
+        "size": 1.0
+      },
+      {
+        "source": "Assemble_Step2",
+        "target": "Assemble_Step3",
+        "size": 2.0
+      },
+      {
+        "source": "R1_Fetch",
+        "target": "R1_Position",
+        "size": 1.0
+      },
+      {
+        "source": "OrderInit",
+        "target": "R1_Fetch",
+        "size": 1.0
+      },
+      {
+        "source": "R1_Check",
+        "target": "Assemble_Step1",
+        "size": 1.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "E2",
+        "speed": 1.0
+      },
+      {
+        "name": "F0",
+        "speed": 8.0
+      },
+      {
+        "name": "C0",
+        "speed": 50.0
+      },
+      {
+        "name": "E3",
+        "speed": 1.0
+      },
+      {
+        "name": "E1",
+        "speed": 1.0
+      },
+      {
+        "name": "E0",
+        "speed": 1.0
+      },
+      {
+        "name": "E4",
+        "speed": 1.0
+      },
+      {
+        "name": "F1",
+        "speed": 8.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "C0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E2",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E2",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E0",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "C0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F0",
+        "speed": 12500.0
+      },
+      {
+        "source": "E1",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E4",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E3",
+        "target": "E3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E2",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "E3",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "C0",
+        "target": "E2",
+        "speed": 500.0
+      },
+      {
+        "source": "C0",
+        "target": "E4",
+        "speed": 500.0
+      },
+      {
+        "source": "E1",
+        "target": "F1",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "E1",
+        "speed": 500.0
+      },
+      {
+        "source": "F1",
+        "target": "F1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E1",
+        "target": "E1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "E3",
+        "speed": 500.0
+      },
+      {
+        "source": "F0",
+        "target": "F1",
+        "speed": 12500.0
+      },
+      {
+        "source": "E0",
+        "target": "E0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E4",
+        "target": "E4",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "E3",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E2",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E0",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "E1",
+        "target": "F0",
+        "speed": 7500.0
+      },
+      {
+        "source": "F0",
+        "target": "F0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "C0",
+        "target": "F1",
+        "speed": 12500.0
+      }
+    ]
+  }
+}

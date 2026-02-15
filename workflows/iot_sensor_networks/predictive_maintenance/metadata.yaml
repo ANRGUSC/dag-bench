@@ -1,0 +1,38 @@
+id: iot.predictive_maintenance
+name: Industrial Predictive Maintenance
+description: IIoT predictive maintenance. 5 sensors -> fusion -> (FFT, stat, time features)
+  -> concat -> (ML predict, RUL estimate) -> maintenance schedule.
+domains:
+- iot
+- edge-computing
+- ml-pipeline
+provenance:
+  source: AI-generated
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: AI-generated task graph representing a typical IIoT predictive maintenance
+    pipeline with sensor fusion and feature extraction. Not based on any specific
+    paper.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 13
+  num_edges: 15
+  depth: 6
+  width: 5
+  ccr: 0.5323
+  parallelism: 2.1667
+campaign: campaign_003_expansion
+tags:
+- iiot
+- predictive-maintenance
+- fault-detection

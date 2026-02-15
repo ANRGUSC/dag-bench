@@ -1,0 +1,40 @@
+id: classic.cholesky_4
+name: Cholesky Factorization (4x4 tiles)
+description: 'Tiled Cholesky factorization for a 4x4 tile grid. Tasks: POTRF, TRSM,
+  SYRK, GEMM. Classic dense linear algebra benchmark.'
+domains:
+- classic-benchmark
+provenance:
+  source: Classic scheduling benchmark
+  paper_title: Design of Multicore Sparse Cholesky Factorization
+  authors:
+  - Florent Lopez
+  - Laurent Parry
+  - Gregoire Pichon
+  year: 2015
+  extraction_method: programmatic
+  extractor: dagbench-import-script
+  extraction_date: '2026-02-12'
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+  notes: Classic benchmark structure; costs are representative
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fully-connected
+  num_nodes_min: 3
+  num_nodes_max: 3
+graph_stats:
+  num_tasks: 20
+  num_edges: 26
+  depth: 10
+  width: 6
+  ccr: 0.3939
+  parallelism: 2.0
+campaign: campaign_002_classic_and_manual
+tags:
+- cholesky
+- linear-algebra
+- tiled

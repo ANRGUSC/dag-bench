@@ -1,0 +1,329 @@
+{
+  "name": "classic.fft_8",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "out_3",
+        "cost": 1.0
+      },
+      {
+        "name": "bf_s1_b0_i0",
+        "cost": 2.0
+      },
+      {
+        "name": "bf_s0_b2_i0",
+        "cost": 2.0
+      },
+      {
+        "name": "out_1",
+        "cost": 1.0
+      },
+      {
+        "name": "out_5",
+        "cost": 1.0
+      },
+      {
+        "name": "out_7",
+        "cost": 1.0
+      },
+      {
+        "name": "bf_s1_b0_i1",
+        "cost": 2.0
+      },
+      {
+        "name": "bf_s0_b4_i0",
+        "cost": 2.0
+      },
+      {
+        "name": "bf_s1_b4_i1",
+        "cost": 2.0
+      },
+      {
+        "name": "in_2",
+        "cost": 1.0
+      },
+      {
+        "name": "out_0",
+        "cost": 1.0
+      },
+      {
+        "name": "bf_s2_b0_i2",
+        "cost": 2.0
+      },
+      {
+        "name": "out_6",
+        "cost": 1.0
+      },
+      {
+        "name": "in_4",
+        "cost": 1.0
+      },
+      {
+        "name": "in_5",
+        "cost": 1.0
+      },
+      {
+        "name": "in_7",
+        "cost": 1.0
+      },
+      {
+        "name": "in_1",
+        "cost": 1.0
+      },
+      {
+        "name": "bf_s1_b4_i0",
+        "cost": 2.0
+      },
+      {
+        "name": "in_0",
+        "cost": 1.0
+      },
+      {
+        "name": "bf_s2_b0_i1",
+        "cost": 2.0
+      },
+      {
+        "name": "out_2",
+        "cost": 1.0
+      },
+      {
+        "name": "out_4",
+        "cost": 1.0
+      },
+      {
+        "name": "bf_s0_b6_i0",
+        "cost": 2.0
+      },
+      {
+        "name": "bf_s0_b0_i0",
+        "cost": 2.0
+      },
+      {
+        "name": "bf_s2_b0_i3",
+        "cost": 2.0
+      },
+      {
+        "name": "in_6",
+        "cost": 1.0
+      },
+      {
+        "name": "bf_s2_b0_i0",
+        "cost": 2.0
+      },
+      {
+        "name": "in_3",
+        "cost": 1.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "bf_s2_b0_i3",
+        "target": "out_7",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s0_b4_i0",
+        "target": "bf_s1_b4_i1",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s2_b0_i2",
+        "target": "out_2",
+        "size": 1.0
+      },
+      {
+        "source": "in_6",
+        "target": "bf_s0_b6_i0",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s0_b0_i0",
+        "target": "bf_s1_b0_i0",
+        "size": 1.0
+      },
+      {
+        "source": "in_1",
+        "target": "bf_s0_b0_i0",
+        "size": 1.0
+      },
+      {
+        "source": "in_7",
+        "target": "bf_s0_b6_i0",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s1_b0_i0",
+        "target": "bf_s2_b0_i0",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s1_b0_i0",
+        "target": "bf_s2_b0_i2",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s2_b0_i3",
+        "target": "out_3",
+        "size": 1.0
+      },
+      {
+        "source": "in_2",
+        "target": "bf_s0_b2_i0",
+        "size": 1.0
+      },
+      {
+        "source": "in_3",
+        "target": "bf_s0_b2_i0",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s2_b0_i1",
+        "target": "out_5",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s0_b2_i0",
+        "target": "bf_s1_b0_i1",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s0_b6_i0",
+        "target": "bf_s1_b4_i0",
+        "size": 1.0
+      },
+      {
+        "source": "in_5",
+        "target": "bf_s0_b4_i0",
+        "size": 1.0
+      },
+      {
+        "source": "in_0",
+        "target": "bf_s0_b0_i0",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s0_b4_i0",
+        "target": "bf_s1_b4_i0",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s2_b0_i0",
+        "target": "out_4",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s0_b0_i0",
+        "target": "bf_s1_b0_i1",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s2_b0_i0",
+        "target": "out_0",
+        "size": 1.0
+      },
+      {
+        "source": "in_4",
+        "target": "bf_s0_b4_i0",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s1_b4_i0",
+        "target": "bf_s2_b0_i0",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s1_b0_i1",
+        "target": "bf_s2_b0_i1",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s1_b4_i1",
+        "target": "bf_s2_b0_i1",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s1_b4_i0",
+        "target": "bf_s2_b0_i2",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s2_b0_i1",
+        "target": "out_1",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s1_b0_i1",
+        "target": "bf_s2_b0_i3",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s2_b0_i2",
+        "target": "out_6",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s0_b6_i0",
+        "target": "bf_s1_b4_i1",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s1_b4_i1",
+        "target": "bf_s2_b0_i3",
+        "size": 1.0
+      },
+      {
+        "source": "bf_s0_b2_i0",
+        "target": "bf_s1_b0_i0",
+        "size": 1.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N1",
+        "speed": 1.0
+      },
+      {
+        "name": "N2",
+        "speed": 1.0
+      },
+      {
+        "name": "N0",
+        "speed": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 100.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 100.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 100.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      }
+    ]
+  }
+}

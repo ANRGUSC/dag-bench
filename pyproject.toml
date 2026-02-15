@@ -1,0 +1,47 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dagbench"
+version = "0.1.0"
+description = "The world's largest task graph benchmark repository for scheduling research"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.10"
+authors = [
+    { name = "DAGBench Contributors" },
+]
+keywords = ["task-scheduling", "dag", "benchmark", "workflow", "heft", "saga"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = [
+    "anrg-saga>=2.0.0",
+    "pydantic>=2.0",
+    "pyyaml>=6.0",
+    "click>=8.0",
+    "networkx>=3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov",
+]
+
+[project.scripts]
+dagbench = "dagbench.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/dagbench"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"workflows" = "dagbench/workflows"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

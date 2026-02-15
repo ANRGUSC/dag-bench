@@ -1,0 +1,369 @@
+{
+  "name": "synthetic.wide_parallel_20",
+  "task_graph": {
+    "tasks": [
+      {
+        "name": "Worker_8",
+        "cost": 10.0
+      },
+      {
+        "name": "Worker_12",
+        "cost": 10.0
+      },
+      {
+        "name": "Worker_19",
+        "cost": 10.0
+      },
+      {
+        "name": "Worker_4",
+        "cost": 10.0
+      },
+      {
+        "name": "Worker_18",
+        "cost": 10.0
+      },
+      {
+        "name": "Worker_0",
+        "cost": 10.0
+      },
+      {
+        "name": "Worker_9",
+        "cost": 10.0
+      },
+      {
+        "name": "Worker_17",
+        "cost": 10.0
+      },
+      {
+        "name": "Worker_6",
+        "cost": 10.0
+      },
+      {
+        "name": "Worker_2",
+        "cost": 10.0
+      },
+      {
+        "name": "Worker_13",
+        "cost": 10.0
+      },
+      {
+        "name": "Worker_16",
+        "cost": 10.0
+      },
+      {
+        "name": "Source",
+        "cost": 1.0
+      },
+      {
+        "name": "Worker_15",
+        "cost": 10.0
+      },
+      {
+        "name": "Worker_7",
+        "cost": 10.0
+      },
+      {
+        "name": "Worker_5",
+        "cost": 10.0
+      },
+      {
+        "name": "Worker_14",
+        "cost": 10.0
+      },
+      {
+        "name": "Worker_11",
+        "cost": 10.0
+      },
+      {
+        "name": "Worker_3",
+        "cost": 10.0
+      },
+      {
+        "name": "Sink",
+        "cost": 1.0
+      },
+      {
+        "name": "Worker_1",
+        "cost": 10.0
+      },
+      {
+        "name": "Worker_10",
+        "cost": 10.0
+      }
+    ],
+    "dependencies": [
+      {
+        "source": "Source",
+        "target": "Worker_11",
+        "size": 1.0
+      },
+      {
+        "source": "Source",
+        "target": "Worker_3",
+        "size": 1.0
+      },
+      {
+        "source": "Source",
+        "target": "Worker_18",
+        "size": 1.0
+      },
+      {
+        "source": "Worker_9",
+        "target": "Sink",
+        "size": 1.0
+      },
+      {
+        "source": "Source",
+        "target": "Worker_8",
+        "size": 1.0
+      },
+      {
+        "source": "Worker_8",
+        "target": "Sink",
+        "size": 1.0
+      },
+      {
+        "source": "Worker_6",
+        "target": "Sink",
+        "size": 1.0
+      },
+      {
+        "source": "Source",
+        "target": "Worker_15",
+        "size": 1.0
+      },
+      {
+        "source": "Worker_11",
+        "target": "Sink",
+        "size": 1.0
+      },
+      {
+        "source": "Source",
+        "target": "Worker_16",
+        "size": 1.0
+      },
+      {
+        "source": "Worker_2",
+        "target": "Sink",
+        "size": 1.0
+      },
+      {
+        "source": "Source",
+        "target": "Worker_5",
+        "size": 1.0
+      },
+      {
+        "source": "Source",
+        "target": "Worker_7",
+        "size": 1.0
+      },
+      {
+        "source": "Source",
+        "target": "Worker_9",
+        "size": 1.0
+      },
+      {
+        "source": "Source",
+        "target": "Worker_0",
+        "size": 1.0
+      },
+      {
+        "source": "Source",
+        "target": "Worker_12",
+        "size": 1.0
+      },
+      {
+        "source": "Worker_1",
+        "target": "Sink",
+        "size": 1.0
+      },
+      {
+        "source": "Worker_15",
+        "target": "Sink",
+        "size": 1.0
+      },
+      {
+        "source": "Worker_5",
+        "target": "Sink",
+        "size": 1.0
+      },
+      {
+        "source": "Source",
+        "target": "Worker_10",
+        "size": 1.0
+      },
+      {
+        "source": "Worker_13",
+        "target": "Sink",
+        "size": 1.0
+      },
+      {
+        "source": "Worker_18",
+        "target": "Sink",
+        "size": 1.0
+      },
+      {
+        "source": "Source",
+        "target": "Worker_2",
+        "size": 1.0
+      },
+      {
+        "source": "Source",
+        "target": "Worker_14",
+        "size": 1.0
+      },
+      {
+        "source": "Worker_16",
+        "target": "Sink",
+        "size": 1.0
+      },
+      {
+        "source": "Worker_14",
+        "target": "Sink",
+        "size": 1.0
+      },
+      {
+        "source": "Worker_3",
+        "target": "Sink",
+        "size": 1.0
+      },
+      {
+        "source": "Source",
+        "target": "Worker_1",
+        "size": 1.0
+      },
+      {
+        "source": "Worker_10",
+        "target": "Sink",
+        "size": 1.0
+      },
+      {
+        "source": "Source",
+        "target": "Worker_13",
+        "size": 1.0
+      },
+      {
+        "source": "Worker_17",
+        "target": "Sink",
+        "size": 1.0
+      },
+      {
+        "source": "Source",
+        "target": "Worker_4",
+        "size": 1.0
+      },
+      {
+        "source": "Worker_4",
+        "target": "Sink",
+        "size": 1.0
+      },
+      {
+        "source": "Worker_0",
+        "target": "Sink",
+        "size": 1.0
+      },
+      {
+        "source": "Worker_19",
+        "target": "Sink",
+        "size": 1.0
+      },
+      {
+        "source": "Worker_7",
+        "target": "Sink",
+        "size": 1.0
+      },
+      {
+        "source": "Source",
+        "target": "Worker_17",
+        "size": 1.0
+      },
+      {
+        "source": "Source",
+        "target": "Worker_6",
+        "size": 1.0
+      },
+      {
+        "source": "Source",
+        "target": "Worker_19",
+        "size": 1.0
+      },
+      {
+        "source": "Worker_12",
+        "target": "Sink",
+        "size": 1.0
+      }
+    ]
+  },
+  "network": {
+    "nodes": [
+      {
+        "name": "N1",
+        "speed": 1.0
+      },
+      {
+        "name": "N2",
+        "speed": 1.0
+      },
+      {
+        "name": "N3",
+        "speed": 1.0
+      },
+      {
+        "name": "N0",
+        "speed": 1.0
+      }
+    ],
+    "edges": [
+      {
+        "source": "N0",
+        "target": "N1",
+        "speed": 100.0
+      },
+      {
+        "source": "N0",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N1",
+        "target": "N1",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N1",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N0",
+        "target": "N0",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N0",
+        "target": "N2",
+        "speed": 100.0
+      },
+      {
+        "source": "N2",
+        "target": "N3",
+        "speed": 100.0
+      },
+      {
+        "source": "N1",
+        "target": "N2",
+        "speed": 100.0
+      },
+      {
+        "source": "N3",
+        "target": "N3",
+        "speed": 1000000000.0
+      },
+      {
+        "source": "N2",
+        "target": "N2",
+        "speed": 1000000000.0
+      }
+    ]
+  }
+}

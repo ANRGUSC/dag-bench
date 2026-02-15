@@ -1,0 +1,41 @@
+{
+  "name": "mec.sleipnir_facebook",
+  "task_graph": {
+    "tasks": [
+      {"name": "FACEBOOK_GUI", "cost": 200.0},
+      {"name": "GET_TOKEN", "cost": 300.0},
+      {"name": "POST_REQUEST", "cost": 200.0},
+      {"name": "PROCESS_RESPONSE", "cost": 200.0},
+      {"name": "FILE_UPLOAD", "cost": 500.0},
+      {"name": "APPLY_FILTER", "cost": 800.0},
+      {"name": "FACEBOOK_POST", "cost": 200.0}
+    ],
+    "dependencies": [
+      {"source": "FACEBOOK_GUI", "target": "GET_TOKEN", "size": 50.0},
+      {"source": "FACEBOOK_GUI", "target": "POST_REQUEST", "size": 50.0},
+      {"source": "GET_TOKEN", "target": "POST_REQUEST", "size": 50.0},
+      {"source": "POST_REQUEST", "target": "PROCESS_RESPONSE", "size": 200.0},
+      {"source": "PROCESS_RESPONSE", "target": "FILE_UPLOAD", "size": 50.0},
+      {"source": "FILE_UPLOAD", "target": "APPLY_FILTER", "size": 1000.0},
+      {"source": "APPLY_FILTER", "target": "FACEBOOK_POST", "size": 1000.0}
+    ]
+  },
+  "network": {
+    "nodes": [
+      {"name": "MobileDevice", "speed": 1.0},
+      {"name": "EdgeServer1", "speed": 5.0},
+      {"name": "EdgeServer2", "speed": 5.0}
+    ],
+    "edges": [
+      {"source": "MobileDevice", "target": "EdgeServer1", "speed": 1000.0},
+      {"source": "MobileDevice", "target": "EdgeServer2", "speed": 1000.0},
+      {"source": "EdgeServer1", "target": "MobileDevice", "speed": 1000.0},
+      {"source": "EdgeServer1", "target": "EdgeServer2", "speed": 1000.0},
+      {"source": "EdgeServer2", "target": "MobileDevice", "speed": 1000.0},
+      {"source": "EdgeServer2", "target": "EdgeServer1", "speed": 1000.0},
+      {"source": "MobileDevice", "target": "MobileDevice", "speed": 1000000000.0},
+      {"source": "EdgeServer1", "target": "EdgeServer1", "speed": 1000000000.0},
+      {"source": "EdgeServer2", "target": "EdgeServer2", "speed": 1000000000.0}
+    ]
+  }
+}

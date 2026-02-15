@@ -1,0 +1,69 @@
+id: edge.ml_surveillance_pipeline
+name: Multi-Model ML Surveillance Pipeline
+description: "Distributed ML inference pipeline for edge-based video monitoring,
+  faithfully extracted from Figure 1 of Wu et al. (MILCOM 2024). Multi-modal sensors
+  (camera, microphone, seismic) feed two parallel detection-classification branches:
+  vehicle detection (YOLOv4) followed by vehicle classification (EfficientNet/ResNet),
+  and human detection followed by person identification. Deployed across heterogeneous
+  edge servers (Nvidia A2, Orin Nano, GTX 1080)."
+domains:
+- edge-computing
+- ml-pipeline
+- mec
+provenance:
+  source: "Faithfully extracted from Figure 1 and Section IV of Wu et al. (MILCOM 2024)"
+  paper_doi: 10.1109/MILCOM61039.2024.10773652
+  paper_title: "Enhancing Resilience in Distributed ML Inference Pipelines for Edge Computing"
+  authors:
+  - Li Wu
+  - Walid A. Hanafy
+  - Abel Souza
+  - Tarek Abdelzaher
+  - Gunjan Verma
+  - Prashant Shenoy
+  year: 2024
+  figure_or_table: "Figure 1"
+  extraction_method: manual-figure
+  extractor: claude-opus-4
+  extraction_date: '2026-02-13'
+  notes: "DAG structure faithfully extracted from Figure 1 ('Distributed ML Inference
+    Pipelines at the edge'). The paper describes a video monitoring pipeline using
+    object detection models (YOLOv4) to identify vehicles and people, with downstream
+    classification (EfficientNetB0/B5, ResNet50). The pipeline was profiled on Nvidia
+    A2, Orin Nano, and GTX 1080 GPUs. Task costs are normalized estimates based on
+    the paper's description of model computational requirements (YOLOv4 detection is
+    heaviest, classification is moderate, encoding is lightweight). Data transfer sizes
+    are estimated from typical image/feature dimensions. The paper shows end-to-end
+    response times in Figures 4-5 but does not provide per-task cost tables. The
+    multi-modal sensing structure (camera + audio for human detection, camera + seismic
+    for vehicle detection) reflects Section III.A and V of the paper. Network node
+    speeds reflect the three GPU types profiled. Affiliations: UMass Amherst, UC Santa
+    Cruz, UIUC, Army Research Lab."
+license:
+  source_license: IEEE
+  dagbench_license: Apache-2.0
+  notes: "DAG structure extracted from published figure under fair use for research benchmarking"
+completeness: structure-and-costs
+cost_model: deterministic
+network:
+  included: true
+  topology: mec
+  num_nodes_min: 7
+  num_nodes_max: 7
+graph_stats:
+  num_tasks: 7
+  num_edges: 6
+  depth: 3
+  width: 3
+  ccr: 0.4216
+  parallelism: 2.3333
+campaign: campaign_003_paper_extraction
+tags:
+- ml-inference
+- multi-model
+- video-analytics
+- surveillance
+- yolov4
+- multi-modal
+- edge-gpu
+- milcom

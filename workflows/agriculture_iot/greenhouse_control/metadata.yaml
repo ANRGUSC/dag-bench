@@ -1,0 +1,54 @@
+id: agri.greenhouse_control
+name: Greenhouse Climate Control
+description: Greenhouse control. 5 sensors -> climate model -> optimize -> 4 parallel
+  actuators (HVAC, irrigation, light, CO2) -> log.
+domains:
+- agriculture-iot
+- iot
+- cyber-physical
+provenance:
+  source: "AI-generated, based on architecture described in Shamshiri et al. 2018"
+  paper_doi: 10.25165/j.ijabe.20181101.3210
+  paper_title: "Advances in greenhouse automation and controlled environment agriculture:
+    A transition to plant factories and urban agriculture"
+  authors:
+  - Redmond Ramin Shamshiri
+  - Fatemeh Kalantari
+  - K. C. Ting
+  - Kelly R. Thorp
+  - Ibrahim A. Hameed
+  - Cornelia Weltzien
+  - Desa Ahmad
+  - Zahra Mojgan Shad
+  year: 2018
+  extraction_method: ai-generated
+  extractor: claude-opus-4
+  extraction_date: '2026-02-12'
+  notes: Paper is a comprehensive review of greenhouse automation covering sensor
+    monitoring (temperature, humidity, light, CO2, soil moisture), climate control
+    models, and actuator systems (HVAC, irrigation, lighting, CO2 enrichment). It does
+    not contain any DAG or task dependency graph. This greenhouse control pipeline is
+    an AI-generated task graph inspired by the sensor-to-actuator architecture described
+    in the paper.
+license:
+  source_license: Apache-2.0
+  dagbench_license: Apache-2.0
+completeness: full
+cost_model: deterministic
+network:
+  included: true
+  topology: fog-three-tier
+  num_nodes_min: 8
+  num_nodes_max: 8
+graph_stats:
+  num_tasks: 12
+  num_edges: 14
+  depth: 5
+  width: 5
+  ccr: 0.4412
+  parallelism: 2.4
+campaign: campaign_004_networking
+tags:
+- greenhouse
+- climate-control
+- actuator

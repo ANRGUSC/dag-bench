@@ -1,0 +1,57 @@
+id: mec.sleipnir_facerecognizer
+name: SLEIPNIR Face Recognizer App
+description: "Mobile face recognition application DAG from the SLEIPNIR offloading
+  simulator (De Maio and Brandic, CCGrid 2018). The UI triggers face matching, which
+  initializes a match database and detects faces in an image, with a bypass edge from
+  matching to detection. Chain-with-bypass pattern with 5 tasks, where the heaviest
+  task (DETECT_FACE at 1600 MI) performs the core face detection computation."
+domains:
+- mec
+- edge-computing
+- image-processing
+provenance:
+  source: "Faithfully extracted from SLEIPNIR open-source simulator (De Maio and Brandic, CCGrid 2018)"
+  paper_doi: 10.1109/CCGRID.2018.00023
+  paper_title: "First Hop Mobile Offloading of DAG Computations"
+  authors:
+  - Vincenzo De Maio
+  - Ivona Brandic
+  year: 2018
+  figure_or_table: "Source code: FacerecognizerApp.java"
+  repo_url: "https://github.com/vindem/sleipnir"
+  extraction_method: manual-figure
+  extractor: claude-opus-4
+  extraction_date: '2026-02-14'
+  notes: "DAG structure and task computation costs (in MI) faithfully extracted from
+    FacerecognizerApp.java in the SLEIPNIR simulator. The UI and output tasks are
+    non-offloadable. Data transfer sizes are normalized from source code data volumes:
+    face image data (facerecImageSize=10MB) mapped to 3000 data units, control signals
+    mapped to 100 data units, producing a CCR of 2.04. The original uses fixed image
+    sizes (not stochastic). Network is a 3-node MEC topology. MIT licensed source
+    code. Affiliations: TU Wien."
+license:
+  source_license: MIT
+  dagbench_license: Apache-2.0
+  notes: "Extracted from MIT-licensed open-source simulator code"
+completeness: structure-and-costs
+cost_model: deterministic
+network:
+  included: true
+  topology: mec
+  num_nodes_min: 3
+  num_nodes_max: 3
+graph_stats:
+  num_tasks: 5
+  num_edges: 5
+  depth: 5
+  width: 1
+  ccr: 2.0444
+  parallelism: 1.0
+campaign: campaign_003_paper_extraction
+tags:
+- face-recognition
+- mobile-offloading
+- image-processing
+- chain-with-bypass
+- sleipnir
+- mec-offloading

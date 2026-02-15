@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MapReduce (16 mappers, 8 reducers) - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>MapReduce (16 mappers, 8 reducers)</h1>
+    <div class="meta">
+        <strong>ID:</strong> classic.mapreduce_16m_8r &nbsp;|&nbsp;
+        <strong>Domains:</strong> classic-benchmark, data-analytics &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Large MapReduce pattern. Structure: Split -&gt; Map[16] -&gt; Shuffle -&gt; Reduce[8] -&gt; Merge.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    Map_13["Map_13<br/>cost: 10.0"]
+    Map_1["Map_1<br/>cost: 10.0"]
+    Map_6["Map_6<br/>cost: 10.0"]
+    Map_9["Map_9<br/>cost: 10.0"]
+    Map_15["Map_15<br/>cost: 10.0"]
+    Map_5["Map_5<br/>cost: 10.0"]
+    Merge["Merge<br/>cost: 2.0"]
+    Reduce_0["Reduce_0<br/>cost: 20.0"]
+    Map_0["Map_0<br/>cost: 10.0"]
+    Map_7["Map_7<br/>cost: 10.0"]
+    Map_10["Map_10<br/>cost: 10.0"]
+    Map_4["Map_4<br/>cost: 10.0"]
+    Shuffle["Shuffle<br/>cost: 5.0"]
+    Reduce_2["Reduce_2<br/>cost: 20.0"]
+    Reduce_3["Reduce_3<br/>cost: 20.0"]
+    Map_3["Map_3<br/>cost: 10.0"]
+    Map_8["Map_8<br/>cost: 10.0"]
+    Reduce_4["Reduce_4<br/>cost: 20.0"]
+    Map_14["Map_14<br/>cost: 10.0"]
+    Reduce_1["Reduce_1<br/>cost: 20.0"]
+    Map_2["Map_2<br/>cost: 10.0"]
+    Reduce_5["Reduce_5<br/>cost: 20.0"]
+    Map_11["Map_11<br/>cost: 10.0"]
+    Reduce_7["Reduce_7<br/>cost: 20.0"]
+    Reduce_6["Reduce_6<br/>cost: 20.0"]
+    Split["Split<br/>cost: 2.0"]
+    Map_12["Map_12<br/>cost: 10.0"]
+    Split -->|"1"| Map_3
+    Shuffle -->|"2"| Reduce_4
+    Map_14 -->|"2"| Shuffle
+    Map_3 -->|"2"| Shuffle
+    Shuffle -->|"2"| Reduce_3
+    Shuffle -->|"2"| Reduce_5
+    Map_2 -->|"2"| Shuffle
+    Split -->|"1"| Map_2
+    Shuffle -->|"2"| Reduce_0
+    Reduce_7 -->|"1"| Merge
+    Reduce_3 -->|"1"| Merge
+    Map_8 -->|"2"| Shuffle
+    Map_13 -->|"2"| Shuffle
+    Shuffle -->|"2"| Reduce_6
+    Map_1 -->|"2"| Shuffle
+    Shuffle -->|"2"| Reduce_7
+    Split -->|"1"| Map_6
+    Split -->|"1"| Map_4
+    Reduce_2 -->|"1"| Merge
+    Split -->|"1"| Map_11
+    Map_15 -->|"2"| Shuffle
+    Shuffle -->|"2"| Reduce_1
+    Map_11 -->|"2"| Shuffle
+    Split -->|"1"| Map_10
+    Map_4 -->|"2"| Shuffle
+    Reduce_1 -->|"1"| Merge
+    Split -->|"1"| Map_14
+    Map_0 -->|"2"| Shuffle
+    Split -->|"1"| Map_13
+    Map_9 -->|"2"| Shuffle
+    Reduce_0 -->|"1"| Merge
+    Reduce_6 -->|"1"| Merge
+    Split -->|"1"| Map_7
+    Map_10 -->|"2"| Shuffle
+    Map_12 -->|"2"| Shuffle
+    Split -->|"1"| Map_0
+    Shuffle -->|"2"| Reduce_2
+    Split -->|"1"| Map_5
+    Split -->|"1"| Map_1
+    Reduce_4 -->|"1"| Merge
+    Map_7 -->|"2"| Shuffle
+    Map_6 -->|"2"| Shuffle
+    Split -->|"1"| Map_12
+    Split -->|"1"| Map_8
+    Split -->|"1"| Map_15
+    Map_5 -->|"2"| Shuffle
+    Reduce_5 -->|"1"| Merge
+    Split -->|"1"| Map_9
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (27)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>Map_13</td><td>10.00</td><td>Map operation</td></tr><tr><td>Map_1</td><td>10.00</td><td>Map operation</td></tr><tr><td>Map_6</td><td>10.00</td><td>Map operation</td></tr><tr><td>Map_9</td><td>10.00</td><td>Map operation</td></tr><tr><td>Map_15</td><td>10.00</td><td>Map operation</td></tr><tr><td>Map_5</td><td>10.00</td><td>Map operation</td></tr><tr><td>Merge</td><td>2.00</td><td>Merge / fuse data streams</td></tr><tr><td>Reduce_0</td><td>20.00</td><td>Aggregate / reduce data</td></tr><tr><td>Map_0</td><td>10.00</td><td>Map operation</td></tr><tr><td>Map_7</td><td>10.00</td><td>Map operation</td></tr><tr><td>Map_10</td><td>10.00</td><td>Map operation</td></tr><tr><td>Map_4</td><td>10.00</td><td>Map operation</td></tr><tr><td>Shuffle</td><td>5.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>Reduce_2</td><td>20.00</td><td>Aggregate / reduce data</td></tr><tr><td>Reduce_3</td><td>20.00</td><td>Aggregate / reduce data</td></tr><tr><td>Map_3</td><td>10.00</td><td>Map operation</td></tr><tr><td>Map_8</td><td>10.00</td><td>Map operation</td></tr><tr><td>Reduce_4</td><td>20.00</td><td>Aggregate / reduce data</td></tr><tr><td>Map_14</td><td>10.00</td><td>Map operation</td></tr><tr><td>Reduce_1</td><td>20.00</td><td>Aggregate / reduce data</td></tr><tr><td>Map_2</td><td>10.00</td><td>Map operation</td></tr><tr><td>Reduce_5</td><td>20.00</td><td>Aggregate / reduce data</td></tr><tr><td>Map_11</td><td>10.00</td><td>Map operation</td></tr><tr><td>Reduce_7</td><td>20.00</td><td>Aggregate / reduce data</td></tr><tr><td>Reduce_6</td><td>20.00</td><td>Aggregate / reduce data</td></tr><tr><td>Split</td><td>2.00</td><td>Processing step in classic-benchmark pipeline</td></tr><tr><td>Map_12</td><td>10.00</td><td>Map operation</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>27</td></tr><tr><td>Edges</td><td>48</td></tr><tr><td>Depth</td><td>5</td></tr><tr><td>Width</td><td>16</td></tr><tr><td>CCR</td><td>0.2188</td></tr><tr><td>Parallelism</td><td>5.4000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">Programmatic (from source code/repo)</span>
+        <br><br>
+        <strong>Source:</strong> Classic scheduling benchmark<br>
+<strong>Paper:</strong> MapReduce: Simplified Data Processing on Large Clusters<br>
+<strong>Authors:</strong> Jeffrey Dean, Sanjay Ghemawat<br>
+<strong>Year:</strong> 2004<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1145/1327452.1327492" target="_blank">10.1145/1327452.1327492</a><br>
+<strong>Extraction Method:</strong> Programmatic (from source code/repo)<br>
+<strong>Extractor:</strong> dagbench-import-script<br>
+<strong>Date:</strong> 2026-02-12
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fully-connected<br>
+<strong>Nodes:</strong> 4
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">mapreduce</span><span class="badge">data-parallel</span><span class="badge">scatter-gather</span><span class="badge">large</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; classic.mapreduce_16m_8r
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

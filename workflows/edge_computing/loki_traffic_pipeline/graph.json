@@ -1,0 +1,32 @@
+{
+  "name": "edge.loki_traffic_pipeline",
+  "task_graph": {
+    "tasks": [
+      {"name": "ObjectDetection", "cost": 100.0},
+      {"name": "CarClassification", "cost": 30.0},
+      {"name": "FacialRecognition", "cost": 50.0}
+    ],
+    "dependencies": [
+      {"source": "ObjectDetection", "target": "CarClassification", "size": 20.0},
+      {"source": "ObjectDetection", "target": "FacialRecognition", "size": 20.0}
+    ]
+  },
+  "network": {
+    "nodes": [
+      {"name": "GPU1", "speed": 5.0},
+      {"name": "GPU2", "speed": 5.0},
+      {"name": "GPU3", "speed": 5.0}
+    ],
+    "edges": [
+      {"source": "GPU1", "target": "GPU2", "speed": 5000.0},
+      {"source": "GPU1", "target": "GPU3", "speed": 5000.0},
+      {"source": "GPU2", "target": "GPU1", "speed": 5000.0},
+      {"source": "GPU2", "target": "GPU3", "speed": 5000.0},
+      {"source": "GPU3", "target": "GPU1", "speed": 5000.0},
+      {"source": "GPU3", "target": "GPU2", "speed": 5000.0},
+      {"source": "GPU1", "target": "GPU1", "speed": 1000000000.0},
+      {"source": "GPU2", "target": "GPU2", "speed": 1000000000.0},
+      {"source": "GPU3", "target": "GPU3", "speed": 1000000000.0}
+    ]
+  }
+}
