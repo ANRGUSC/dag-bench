@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPT-2 Tensor DAG Sh12 Decode - DAGBench</title>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #dee2e6; padding-bottom: 5px; }
+    .meta { color: #6c757d; margin-bottom: 20px; }
+    .section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mermaid { text-align: center; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+    th { background: #e9ecef; font-weight: 600; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .badge { display: inline-block; background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; margin-right: 4px; }
+    .badge-method { background: #d4edda; color: #155724; }
+    a { color: #3498db; }
+    .footer { text-align: center; color: #adb5bd; margin-top: 40px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>GPT-2 Tensor DAG Sh12 Decode</h1>
+    <div class="meta">
+        <strong>ID:</strong> ml.gpt2_tensor_sh12_decode &nbsp;|&nbsp;
+        <strong>Domains:</strong> ml-pipeline, edge-computing &nbsp;|&nbsp;
+        <strong>Completeness:</strong> full &nbsp;|&nbsp;
+        <strong>Cost Model:</strong> deterministic
+    </div>
+    <p>Decode phase for GPT-2 request handling: generate one token using existing KV cache. This workflow is intended to be repeated for each generated token. GPT-2 tensor DAG with Sh=12 shards per transformer layer. Task costs are measured compute_time_ms from dagprofiler; dependency sizes are measured bytes.</p>
+
+    <div class="section">
+        <h2>DAG Visualization</h2>
+        <pre class="mermaid">
+graph TD
+    embed["embed<br/>cost: 0.5"]
+    qkv_00["qkv_00<br/>cost: 0.7"]
+    attn_merge_00["attn_merge_00<br/>cost: 0.3"]
+    attn_shard_00_0["attn_shard_00_0<br/>cost: 0.2"]
+    attn_shard_00_1["attn_shard_00_1<br/>cost: 0.2"]
+    attn_shard_00_2["attn_shard_00_2<br/>cost: 0.1"]
+    attn_shard_00_3["attn_shard_00_3<br/>cost: 0.2"]
+    attn_shard_00_4["attn_shard_00_4<br/>cost: 0.2"]
+    attn_shard_00_5["attn_shard_00_5<br/>cost: 0.2"]
+    attn_shard_00_6["attn_shard_00_6<br/>cost: 0.2"]
+    attn_shard_00_7["attn_shard_00_7<br/>cost: 0.2"]
+    attn_shard_00_8["attn_shard_00_8<br/>cost: 0.1"]
+    attn_shard_00_9["attn_shard_00_9<br/>cost: 0.2"]
+    attn_shard_00_10["attn_shard_00_10<br/>cost: 0.2"]
+    attn_shard_00_11["attn_shard_00_11<br/>cost: 0.2"]
+    mlp_merge_00["mlp_merge_00<br/>cost: 0.6"]
+    mlp_shard_00_0["mlp_shard_00_0<br/>cost: 0.2"]
+    mlp_shard_00_1["mlp_shard_00_1<br/>cost: 0.1"]
+    mlp_shard_00_2["mlp_shard_00_2<br/>cost: 0.1"]
+    mlp_shard_00_3["mlp_shard_00_3<br/>cost: 0.1"]
+    mlp_shard_00_4["mlp_shard_00_4<br/>cost: 0.1"]
+    mlp_shard_00_5["mlp_shard_00_5<br/>cost: 0.1"]
+    mlp_shard_00_6["mlp_shard_00_6<br/>cost: 0.1"]
+    mlp_shard_00_7["mlp_shard_00_7<br/>cost: 0.1"]
+    mlp_shard_00_8["mlp_shard_00_8<br/>cost: 0.1"]
+    mlp_shard_00_9["mlp_shard_00_9<br/>cost: 0.1"]
+    mlp_shard_00_10["mlp_shard_00_10<br/>cost: 0.2"]
+    mlp_shard_00_11["mlp_shard_00_11<br/>cost: 0.1"]
+    qkv_01["qkv_01<br/>cost: 0.7"]
+    attn_merge_01["attn_merge_01<br/>cost: 0.3"]
+    attn_shard_01_0["attn_shard_01_0<br/>cost: 0.3"]
+    attn_shard_01_1["attn_shard_01_1<br/>cost: 0.2"]
+    attn_shard_01_2["attn_shard_01_2<br/>cost: 0.2"]
+    attn_shard_01_3["attn_shard_01_3<br/>cost: 0.2"]
+    attn_shard_01_4["attn_shard_01_4<br/>cost: 0.2"]
+    attn_shard_01_5["attn_shard_01_5<br/>cost: 0.2"]
+    attn_shard_01_6["attn_shard_01_6<br/>cost: 0.2"]
+    attn_shard_01_7["attn_shard_01_7<br/>cost: 0.1"]
+    attn_shard_01_8["attn_shard_01_8<br/>cost: 0.1"]
+    attn_shard_01_9["attn_shard_01_9<br/>cost: 0.2"]
+    attn_shard_01_10["attn_shard_01_10<br/>cost: 0.2"]
+    attn_shard_01_11["attn_shard_01_11<br/>cost: 0.2"]
+    mlp_merge_01["mlp_merge_01<br/>cost: 0.6"]
+    mlp_shard_01_0["mlp_shard_01_0<br/>cost: 0.2"]
+    mlp_shard_01_1["mlp_shard_01_1<br/>cost: 0.2"]
+    mlp_shard_01_2["mlp_shard_01_2<br/>cost: 0.1"]
+    mlp_shard_01_3["mlp_shard_01_3<br/>cost: 0.1"]
+    mlp_shard_01_4["mlp_shard_01_4<br/>cost: 0.1"]
+    mlp_shard_01_5["mlp_shard_01_5<br/>cost: 0.1"]
+    mlp_shard_01_6["mlp_shard_01_6<br/>cost: 0.1"]
+    mlp_shard_01_7["mlp_shard_01_7<br/>cost: 0.1"]
+    mlp_shard_01_8["mlp_shard_01_8<br/>cost: 0.1"]
+    mlp_shard_01_9["mlp_shard_01_9<br/>cost: 0.1"]
+    mlp_shard_01_10["mlp_shard_01_10<br/>cost: 0.2"]
+    mlp_shard_01_11["mlp_shard_01_11<br/>cost: 0.1"]
+    qkv_02["qkv_02<br/>cost: 0.7"]
+    attn_merge_02["attn_merge_02<br/>cost: 0.3"]
+    attn_shard_02_0["attn_shard_02_0<br/>cost: 0.3"]
+    attn_shard_02_1["attn_shard_02_1<br/>cost: 0.2"]
+    attn_shard_02_2["attn_shard_02_2<br/>cost: 0.2"]
+    attn_shard_02_3["attn_shard_02_3<br/>cost: 0.1"]
+    attn_shard_02_4["attn_shard_02_4<br/>cost: 0.2"]
+    attn_shard_02_5["attn_shard_02_5<br/>cost: 0.2"]
+    attn_shard_02_6["attn_shard_02_6<br/>cost: 0.2"]
+    attn_shard_02_7["attn_shard_02_7<br/>cost: 0.2"]
+    attn_shard_02_8["attn_shard_02_8<br/>cost: 0.2"]
+    attn_shard_02_9["attn_shard_02_9<br/>cost: 0.2"]
+    attn_shard_02_10["attn_shard_02_10<br/>cost: 0.2"]
+    attn_shard_02_11["attn_shard_02_11<br/>cost: 0.2"]
+    mlp_merge_02["mlp_merge_02<br/>cost: 0.6"]
+    mlp_shard_02_0["mlp_shard_02_0<br/>cost: 0.2"]
+    mlp_shard_02_1["mlp_shard_02_1<br/>cost: 0.2"]
+    mlp_shard_02_2["mlp_shard_02_2<br/>cost: 0.1"]
+    mlp_shard_02_3["mlp_shard_02_3<br/>cost: 0.1"]
+    mlp_shard_02_4["mlp_shard_02_4<br/>cost: 0.1"]
+    mlp_shard_02_5["mlp_shard_02_5<br/>cost: 0.1"]
+    mlp_shard_02_6["mlp_shard_02_6<br/>cost: 0.1"]
+    mlp_shard_02_7["mlp_shard_02_7<br/>cost: 0.1"]
+    mlp_shard_02_8["mlp_shard_02_8<br/>cost: 0.1"]
+    mlp_shard_02_9["mlp_shard_02_9<br/>cost: 0.1"]
+    mlp_shard_02_10["mlp_shard_02_10<br/>cost: 0.2"]
+    mlp_shard_02_11["mlp_shard_02_11<br/>cost: 0.1"]
+    qkv_03["qkv_03<br/>cost: 0.6"]
+    attn_merge_03["attn_merge_03<br/>cost: 0.3"]
+    attn_shard_03_0["attn_shard_03_0<br/>cost: 0.3"]
+    attn_shard_03_1["attn_shard_03_1<br/>cost: 0.2"]
+    attn_shard_03_2["attn_shard_03_2<br/>cost: 0.1"]
+    attn_shard_03_3["attn_shard_03_3<br/>cost: 0.1"]
+    attn_shard_03_4["attn_shard_03_4<br/>cost: 0.2"]
+    attn_shard_03_5["attn_shard_03_5<br/>cost: 0.1"]
+    attn_shard_03_6["attn_shard_03_6<br/>cost: 0.1"]
+    attn_shard_03_7["attn_shard_03_7<br/>cost: 0.2"]
+    attn_shard_03_8["attn_shard_03_8<br/>cost: 0.1"]
+    attn_shard_03_9["attn_shard_03_9<br/>cost: 0.2"]
+    attn_shard_03_10["attn_shard_03_10<br/>cost: 0.2"]
+    attn_shard_03_11["attn_shard_03_11<br/>cost: 0.2"]
+    mlp_merge_03["mlp_merge_03<br/>cost: 0.5"]
+    mlp_shard_03_0["mlp_shard_03_0<br/>cost: 0.2"]
+    mlp_shard_03_1["mlp_shard_03_1<br/>cost: 0.2"]
+    mlp_shard_03_2["mlp_shard_03_2<br/>cost: 0.1"]
+    mlp_shard_03_3["mlp_shard_03_3<br/>cost: 0.1"]
+    mlp_shard_03_4["mlp_shard_03_4<br/>cost: 0.2"]
+    mlp_shard_03_5["mlp_shard_03_5<br/>cost: 0.1"]
+    mlp_shard_03_6["mlp_shard_03_6<br/>cost: 0.1"]
+    mlp_shard_03_7["mlp_shard_03_7<br/>cost: 0.1"]
+    mlp_shard_03_8["mlp_shard_03_8<br/>cost: 0.2"]
+    mlp_shard_03_9["mlp_shard_03_9<br/>cost: 0.2"]
+    mlp_shard_03_10["mlp_shard_03_10<br/>cost: 0.2"]
+    mlp_shard_03_11["mlp_shard_03_11<br/>cost: 0.1"]
+    qkv_04["qkv_04<br/>cost: 0.8"]
+    attn_merge_04["attn_merge_04<br/>cost: 0.3"]
+    attn_shard_04_0["attn_shard_04_0<br/>cost: 0.3"]
+    attn_shard_04_1["attn_shard_04_1<br/>cost: 0.2"]
+    attn_shard_04_2["attn_shard_04_2<br/>cost: 0.1"]
+    attn_shard_04_3["attn_shard_04_3<br/>cost: 0.2"]
+    attn_shard_04_4["attn_shard_04_4<br/>cost: 0.2"]
+    attn_shard_04_5["attn_shard_04_5<br/>cost: 0.1"]
+    attn_shard_04_6["attn_shard_04_6<br/>cost: 0.2"]
+    attn_shard_04_7["attn_shard_04_7<br/>cost: 0.2"]
+    attn_shard_04_8["attn_shard_04_8<br/>cost: 0.2"]
+    attn_shard_04_9["attn_shard_04_9<br/>cost: 0.2"]
+    attn_shard_04_10["attn_shard_04_10<br/>cost: 0.2"]
+    attn_shard_04_11["attn_shard_04_11<br/>cost: 0.2"]
+    mlp_merge_04["mlp_merge_04<br/>cost: 0.6"]
+    mlp_shard_04_0["mlp_shard_04_0<br/>cost: 0.2"]
+    mlp_shard_04_1["mlp_shard_04_1<br/>cost: 0.2"]
+    mlp_shard_04_2["mlp_shard_04_2<br/>cost: 0.1"]
+    mlp_shard_04_3["mlp_shard_04_3<br/>cost: 0.1"]
+    mlp_shard_04_4["mlp_shard_04_4<br/>cost: 0.1"]
+    mlp_shard_04_5["mlp_shard_04_5<br/>cost: 0.1"]
+    mlp_shard_04_6["mlp_shard_04_6<br/>cost: 0.1"]
+    mlp_shard_04_7["mlp_shard_04_7<br/>cost: 0.1"]
+    mlp_shard_04_8["mlp_shard_04_8<br/>cost: 0.2"]
+    mlp_shard_04_9["mlp_shard_04_9<br/>cost: 0.1"]
+    mlp_shard_04_10["mlp_shard_04_10<br/>cost: 0.2"]
+    mlp_shard_04_11["mlp_shard_04_11<br/>cost: 0.1"]
+    qkv_05["qkv_05<br/>cost: 0.6"]
+    attn_merge_05["attn_merge_05<br/>cost: 0.3"]
+    attn_shard_05_0["attn_shard_05_0<br/>cost: 0.3"]
+    attn_shard_05_1["attn_shard_05_1<br/>cost: 0.2"]
+    attn_shard_05_2["attn_shard_05_2<br/>cost: 0.2"]
+    attn_shard_05_3["attn_shard_05_3<br/>cost: 0.2"]
+    attn_shard_05_4["attn_shard_05_4<br/>cost: 0.2"]
+    attn_shard_05_5["attn_shard_05_5<br/>cost: 0.2"]
+    attn_shard_05_6["attn_shard_05_6<br/>cost: 0.2"]
+    attn_shard_05_7["attn_shard_05_7<br/>cost: 0.2"]
+    attn_shard_05_8["attn_shard_05_8<br/>cost: 0.2"]
+    attn_shard_05_9["attn_shard_05_9<br/>cost: 0.2"]
+    attn_shard_05_10["attn_shard_05_10<br/>cost: 0.2"]
+    attn_shard_05_11["attn_shard_05_11<br/>cost: 0.2"]
+    mlp_merge_05["mlp_merge_05<br/>cost: 0.6"]
+    mlp_shard_05_0["mlp_shard_05_0<br/>cost: 0.3"]
+    mlp_shard_05_1["mlp_shard_05_1<br/>cost: 0.2"]
+    mlp_shard_05_2["mlp_shard_05_2<br/>cost: 0.1"]
+    mlp_shard_05_3["mlp_shard_05_3<br/>cost: 0.1"]
+    mlp_shard_05_4["mlp_shard_05_4<br/>cost: 0.2"]
+    mlp_shard_05_5["mlp_shard_05_5<br/>cost: 0.1"]
+    mlp_shard_05_6["mlp_shard_05_6<br/>cost: 0.1"]
+    mlp_shard_05_7["mlp_shard_05_7<br/>cost: 0.1"]
+    mlp_shard_05_8["mlp_shard_05_8<br/>cost: 0.1"]
+    mlp_shard_05_9["mlp_shard_05_9<br/>cost: 0.1"]
+    mlp_shard_05_10["mlp_shard_05_10<br/>cost: 0.2"]
+    mlp_shard_05_11["mlp_shard_05_11<br/>cost: 0.2"]
+    qkv_06["qkv_06<br/>cost: 0.7"]
+    attn_merge_06["attn_merge_06<br/>cost: 0.4"]
+    attn_shard_06_0["attn_shard_06_0<br/>cost: 0.3"]
+    attn_shard_06_1["attn_shard_06_1<br/>cost: 0.2"]
+    attn_shard_06_2["attn_shard_06_2<br/>cost: 0.2"]
+    attn_shard_06_3["attn_shard_06_3<br/>cost: 0.2"]
+    attn_shard_06_4["attn_shard_06_4<br/>cost: 0.2"]
+    attn_shard_06_5["attn_shard_06_5<br/>cost: 0.2"]
+    attn_shard_06_6["attn_shard_06_6<br/>cost: 0.1"]
+    attn_shard_06_7["attn_shard_06_7<br/>cost: 0.1"]
+    attn_shard_06_8["attn_shard_06_8<br/>cost: 0.1"]
+    attn_shard_06_9["attn_shard_06_9<br/>cost: 0.2"]
+    attn_shard_06_10["attn_shard_06_10<br/>cost: 0.2"]
+    attn_shard_06_11["attn_shard_06_11<br/>cost: 0.2"]
+    mlp_merge_06["mlp_merge_06<br/>cost: 0.6"]
+    mlp_shard_06_0["mlp_shard_06_0<br/>cost: 0.2"]
+    mlp_shard_06_1["mlp_shard_06_1<br/>cost: 0.2"]
+    mlp_shard_06_2["mlp_shard_06_2<br/>cost: 0.1"]
+    mlp_shard_06_3["mlp_shard_06_3<br/>cost: 0.1"]
+    mlp_shard_06_4["mlp_shard_06_4<br/>cost: 0.1"]
+    mlp_shard_06_5["mlp_shard_06_5<br/>cost: 0.1"]
+    mlp_shard_06_6["mlp_shard_06_6<br/>cost: 0.1"]
+    mlp_shard_06_7["mlp_shard_06_7<br/>cost: 0.1"]
+    mlp_shard_06_8["mlp_shard_06_8<br/>cost: 0.1"]
+    mlp_shard_06_9["mlp_shard_06_9<br/>cost: 0.1"]
+    mlp_shard_06_10["mlp_shard_06_10<br/>cost: 0.2"]
+    mlp_shard_06_11["mlp_shard_06_11<br/>cost: 0.1"]
+    qkv_07["qkv_07<br/>cost: 0.6"]
+    attn_merge_07["attn_merge_07<br/>cost: 0.3"]
+    attn_shard_07_0["attn_shard_07_0<br/>cost: 0.3"]
+    attn_shard_07_1["attn_shard_07_1<br/>cost: 0.2"]
+    attn_shard_07_2["attn_shard_07_2<br/>cost: 0.2"]
+    attn_shard_07_3["attn_shard_07_3<br/>cost: 0.2"]
+    attn_shard_07_4["attn_shard_07_4<br/>cost: 0.1"]
+    attn_shard_07_5["attn_shard_07_5<br/>cost: 0.2"]
+    attn_shard_07_6["attn_shard_07_6<br/>cost: 0.2"]
+    attn_shard_07_7["attn_shard_07_7<br/>cost: 0.1"]
+    attn_shard_07_8["attn_shard_07_8<br/>cost: 0.2"]
+    attn_shard_07_9["attn_shard_07_9<br/>cost: 0.2"]
+    attn_shard_07_10["attn_shard_07_10<br/>cost: 0.2"]
+    attn_shard_07_11["attn_shard_07_11<br/>cost: 0.2"]
+    mlp_merge_07["mlp_merge_07<br/>cost: 0.6"]
+    mlp_shard_07_0["mlp_shard_07_0<br/>cost: 0.2"]
+    mlp_shard_07_1["mlp_shard_07_1<br/>cost: 0.2"]
+    mlp_shard_07_2["mlp_shard_07_2<br/>cost: 0.1"]
+    mlp_shard_07_3["mlp_shard_07_3<br/>cost: 0.1"]
+    mlp_shard_07_4["mlp_shard_07_4<br/>cost: 0.2"]
+    mlp_shard_07_5["mlp_shard_07_5<br/>cost: 0.1"]
+    mlp_shard_07_6["mlp_shard_07_6<br/>cost: 0.1"]
+    mlp_shard_07_7["mlp_shard_07_7<br/>cost: 0.1"]
+    mlp_shard_07_8["mlp_shard_07_8<br/>cost: 0.2"]
+    mlp_shard_07_9["mlp_shard_07_9<br/>cost: 0.1"]
+    mlp_shard_07_10["mlp_shard_07_10<br/>cost: 0.2"]
+    mlp_shard_07_11["mlp_shard_07_11<br/>cost: 0.1"]
+    qkv_08["qkv_08<br/>cost: 0.6"]
+    attn_merge_08["attn_merge_08<br/>cost: 0.3"]
+    attn_shard_08_0["attn_shard_08_0<br/>cost: 0.3"]
+    attn_shard_08_1["attn_shard_08_1<br/>cost: 0.2"]
+    attn_shard_08_2["attn_shard_08_2<br/>cost: 0.2"]
+    attn_shard_08_3["attn_shard_08_3<br/>cost: 0.2"]
+    attn_shard_08_4["attn_shard_08_4<br/>cost: 0.2"]
+    attn_shard_08_5["attn_shard_08_5<br/>cost: 0.2"]
+    attn_shard_08_6["attn_shard_08_6<br/>cost: 0.2"]
+    attn_shard_08_7["attn_shard_08_7<br/>cost: 0.2"]
+    attn_shard_08_8["attn_shard_08_8<br/>cost: 0.2"]
+    attn_shard_08_9["attn_shard_08_9<br/>cost: 0.3"]
+    attn_shard_08_10["attn_shard_08_10<br/>cost: 0.2"]
+    attn_shard_08_11["attn_shard_08_11<br/>cost: 0.2"]
+    mlp_merge_08["mlp_merge_08<br/>cost: 0.6"]
+    mlp_shard_08_0["mlp_shard_08_0<br/>cost: 0.2"]
+    mlp_shard_08_1["mlp_shard_08_1<br/>cost: 0.2"]
+    mlp_shard_08_2["mlp_shard_08_2<br/>cost: 0.2"]
+    mlp_shard_08_3["mlp_shard_08_3<br/>cost: 0.2"]
+    mlp_shard_08_4["mlp_shard_08_4<br/>cost: 0.2"]
+    mlp_shard_08_5["mlp_shard_08_5<br/>cost: 0.1"]
+    mlp_shard_08_6["mlp_shard_08_6<br/>cost: 0.1"]
+    mlp_shard_08_7["mlp_shard_08_7<br/>cost: 0.1"]
+    mlp_shard_08_8["mlp_shard_08_8<br/>cost: 0.2"]
+    mlp_shard_08_9["mlp_shard_08_9<br/>cost: 0.1"]
+    mlp_shard_08_10["mlp_shard_08_10<br/>cost: 0.2"]
+    mlp_shard_08_11["mlp_shard_08_11<br/>cost: 0.1"]
+    qkv_09["qkv_09<br/>cost: 0.7"]
+    attn_merge_09["attn_merge_09<br/>cost: 0.3"]
+    attn_shard_09_0["attn_shard_09_0<br/>cost: 0.3"]
+    attn_shard_09_1["attn_shard_09_1<br/>cost: 0.3"]
+    attn_shard_09_2["attn_shard_09_2<br/>cost: 0.2"]
+    attn_shard_09_3["attn_shard_09_3<br/>cost: 0.2"]
+    attn_shard_09_4["attn_shard_09_4<br/>cost: 0.2"]
+    attn_shard_09_5["attn_shard_09_5<br/>cost: 0.2"]
+    attn_shard_09_6["attn_shard_09_6<br/>cost: 0.2"]
+    attn_shard_09_7["attn_shard_09_7<br/>cost: 0.2"]
+    attn_shard_09_8["attn_shard_09_8<br/>cost: 0.1"]
+    attn_shard_09_9["attn_shard_09_9<br/>cost: 0.2"]
+    attn_shard_09_10["attn_shard_09_10<br/>cost: 0.2"]
+    attn_shard_09_11["attn_shard_09_11<br/>cost: 0.2"]
+    mlp_merge_09["mlp_merge_09<br/>cost: 0.6"]
+    mlp_shard_09_0["mlp_shard_09_0<br/>cost: 0.2"]
+    mlp_shard_09_1["mlp_shard_09_1<br/>cost: 0.2"]
+    mlp_shard_09_2["mlp_shard_09_2<br/>cost: 0.1"]
+    mlp_shard_09_3["mlp_shard_09_3<br/>cost: 0.1"]
+    mlp_shard_09_4["mlp_shard_09_4<br/>cost: 0.1"]
+    mlp_shard_09_5["mlp_shard_09_5<br/>cost: 0.1"]
+    mlp_shard_09_6["mlp_shard_09_6<br/>cost: 0.1"]
+    mlp_shard_09_7["mlp_shard_09_7<br/>cost: 0.1"]
+    mlp_shard_09_8["mlp_shard_09_8<br/>cost: 0.2"]
+    mlp_shard_09_9["mlp_shard_09_9<br/>cost: 0.1"]
+    mlp_shard_09_10["mlp_shard_09_10<br/>cost: 0.2"]
+    mlp_shard_09_11["mlp_shard_09_11<br/>cost: 0.1"]
+    qkv_10["qkv_10<br/>cost: 0.7"]
+    attn_merge_10["attn_merge_10<br/>cost: 0.3"]
+    attn_shard_10_0["attn_shard_10_0<br/>cost: 0.3"]
+    attn_shard_10_1["attn_shard_10_1<br/>cost: 0.3"]
+    attn_shard_10_2["attn_shard_10_2<br/>cost: 0.2"]
+    attn_shard_10_3["attn_shard_10_3<br/>cost: 0.2"]
+    attn_shard_10_4["attn_shard_10_4<br/>cost: 0.2"]
+    attn_shard_10_5["attn_shard_10_5<br/>cost: 0.2"]
+    attn_shard_10_6["attn_shard_10_6<br/>cost: 0.2"]
+    attn_shard_10_7["attn_shard_10_7<br/>cost: 0.1"]
+    attn_shard_10_8["attn_shard_10_8<br/>cost: 0.2"]
+    attn_shard_10_9["attn_shard_10_9<br/>cost: 0.1"]
+    attn_shard_10_10["attn_shard_10_10<br/>cost: 0.3"]
+    attn_shard_10_11["attn_shard_10_11<br/>cost: 0.2"]
+    mlp_merge_10["mlp_merge_10<br/>cost: 0.6"]
+    mlp_shard_10_0["mlp_shard_10_0<br/>cost: 0.2"]
+    mlp_shard_10_1["mlp_shard_10_1<br/>cost: 0.2"]
+    mlp_shard_10_2["mlp_shard_10_2<br/>cost: 0.2"]
+    mlp_shard_10_3["mlp_shard_10_3<br/>cost: 0.1"]
+    mlp_shard_10_4["mlp_shard_10_4<br/>cost: 0.2"]
+    mlp_shard_10_5["mlp_shard_10_5<br/>cost: 0.1"]
+    mlp_shard_10_6["mlp_shard_10_6<br/>cost: 0.1"]
+    mlp_shard_10_7["mlp_shard_10_7<br/>cost: 0.1"]
+    mlp_shard_10_8["mlp_shard_10_8<br/>cost: 0.1"]
+    mlp_shard_10_9["mlp_shard_10_9<br/>cost: 0.1"]
+    mlp_shard_10_10["mlp_shard_10_10<br/>cost: 0.2"]
+    mlp_shard_10_11["mlp_shard_10_11<br/>cost: 0.1"]
+    qkv_11["qkv_11<br/>cost: 0.7"]
+    attn_merge_11["attn_merge_11<br/>cost: 0.3"]
+    attn_shard_11_0["attn_shard_11_0<br/>cost: 0.3"]
+    attn_shard_11_1["attn_shard_11_1<br/>cost: 0.2"]
+    attn_shard_11_2["attn_shard_11_2<br/>cost: 0.2"]
+    attn_shard_11_3["attn_shard_11_3<br/>cost: 0.2"]
+    attn_shard_11_4["attn_shard_11_4<br/>cost: 0.2"]
+    attn_shard_11_5["attn_shard_11_5<br/>cost: 0.2"]
+    attn_shard_11_6["attn_shard_11_6<br/>cost: 0.2"]
+    attn_shard_11_7["attn_shard_11_7<br/>cost: 0.2"]
+    attn_shard_11_8["attn_shard_11_8<br/>cost: 0.1"]
+    attn_shard_11_9["attn_shard_11_9<br/>cost: 0.1"]
+    attn_shard_11_10["attn_shard_11_10<br/>cost: 0.2"]
+    attn_shard_11_11["attn_shard_11_11<br/>cost: 0.2"]
+    mlp_merge_11["mlp_merge_11<br/>cost: 0.6"]
+    mlp_shard_11_0["mlp_shard_11_0<br/>cost: 0.2"]
+    mlp_shard_11_1["mlp_shard_11_1<br/>cost: 0.2"]
+    mlp_shard_11_2["mlp_shard_11_2<br/>cost: 0.1"]
+    mlp_shard_11_3["mlp_shard_11_3<br/>cost: 0.1"]
+    mlp_shard_11_4["mlp_shard_11_4<br/>cost: 0.2"]
+    mlp_shard_11_5["mlp_shard_11_5<br/>cost: 0.1"]
+    mlp_shard_11_6["mlp_shard_11_6<br/>cost: 0.1"]
+    mlp_shard_11_7["mlp_shard_11_7<br/>cost: 0.1"]
+    mlp_shard_11_8["mlp_shard_11_8<br/>cost: 0.2"]
+    mlp_shard_11_9["mlp_shard_11_9<br/>cost: 0.1"]
+    mlp_shard_11_10["mlp_shard_11_10<br/>cost: 0.2"]
+    mlp_shard_11_11["mlp_shard_11_11<br/>cost: 0.1"]
+    ln_f["ln_f<br/>cost: 0.0"]
+    lm_head["lm_head<br/>cost: 7.7"]
+    embed -->|"3479"| qkv_00
+    qkv_00 -->|"3479"| attn_merge_00
+    qkv_00 -->|"803054"| attn_shard_00_0
+    qkv_00 -->|"803056"| attn_shard_00_1
+    qkv_00 -->|"803056"| attn_shard_00_2
+    qkv_00 -->|"803056"| attn_shard_00_3
+    qkv_00 -->|"803057"| attn_shard_00_4
+    qkv_00 -->|"803057"| attn_shard_00_5
+    qkv_00 -->|"803057"| attn_shard_00_6
+    qkv_00 -->|"803057"| attn_shard_00_7
+    qkv_00 -->|"803061"| attn_shard_00_8
+    qkv_00 -->|"803061"| attn_shard_00_9
+    qkv_00 -->|"803061"| attn_shard_00_10
+    qkv_00 -->|"803061"| attn_shard_00_11
+    attn_shard_00_0 -->|"665"| attn_merge_00
+    attn_shard_00_1 -->|"665"| attn_merge_00
+    attn_shard_00_2 -->|"665"| attn_merge_00
+    attn_shard_00_3 -->|"665"| attn_merge_00
+    attn_shard_00_4 -->|"665"| attn_merge_00
+    attn_shard_00_5 -->|"665"| attn_merge_00
+    attn_shard_00_6 -->|"665"| attn_merge_00
+    attn_shard_00_7 -->|"665"| attn_merge_00
+    attn_shard_00_8 -->|"665"| attn_merge_00
+    attn_shard_00_9 -->|"665"| attn_merge_00
+    attn_shard_00_10 -->|"665"| attn_merge_00
+    attn_shard_00_11 -->|"665"| attn_merge_00
+    attn_merge_00 -->|"3479"| mlp_merge_00
+    attn_merge_00 -->|"3479"| mlp_shard_00_0
+    attn_merge_00 -->|"3479"| mlp_shard_00_1
+    attn_merge_00 -->|"3479"| mlp_shard_00_2
+    attn_merge_00 -->|"3479"| mlp_shard_00_3
+    attn_merge_00 -->|"3479"| mlp_shard_00_4
+    attn_merge_00 -->|"3479"| mlp_shard_00_5
+    attn_merge_00 -->|"3479"| mlp_shard_00_6
+    attn_merge_00 -->|"3479"| mlp_shard_00_7
+    attn_merge_00 -->|"3479"| mlp_shard_00_8
+    attn_merge_00 -->|"3479"| mlp_shard_00_9
+    attn_merge_00 -->|"3479"| mlp_shard_00_10
+    attn_merge_00 -->|"3479"| mlp_shard_00_11
+    mlp_shard_00_0 -->|"1431"| mlp_merge_00
+    mlp_shard_00_1 -->|"1431"| mlp_merge_00
+    mlp_shard_00_2 -->|"1431"| mlp_merge_00
+    mlp_shard_00_3 -->|"1431"| mlp_merge_00
+    mlp_shard_00_4 -->|"1431"| mlp_merge_00
+    mlp_shard_00_5 -->|"1431"| mlp_merge_00
+    mlp_shard_00_6 -->|"1431"| mlp_merge_00
+    mlp_shard_00_7 -->|"1431"| mlp_merge_00
+    mlp_shard_00_8 -->|"1431"| mlp_merge_00
+    mlp_shard_00_9 -->|"1431"| mlp_merge_00
+    mlp_shard_00_10 -->|"1431"| mlp_merge_00
+    mlp_shard_00_11 -->|"1431"| mlp_merge_00
+    mlp_merge_00 -->|"3479"| qkv_01
+    qkv_01 -->|"3479"| attn_merge_01
+    qkv_01 -->|"803054"| attn_shard_01_0
+    qkv_01 -->|"803056"| attn_shard_01_1
+    qkv_01 -->|"803056"| attn_shard_01_2
+    qkv_01 -->|"803056"| attn_shard_01_3
+    qkv_01 -->|"803057"| attn_shard_01_4
+    qkv_01 -->|"803057"| attn_shard_01_5
+    qkv_01 -->|"803057"| attn_shard_01_6
+    qkv_01 -->|"803057"| attn_shard_01_7
+    qkv_01 -->|"803061"| attn_shard_01_8
+    qkv_01 -->|"803061"| attn_shard_01_9
+    qkv_01 -->|"803061"| attn_shard_01_10
+    qkv_01 -->|"803061"| attn_shard_01_11
+    attn_shard_01_0 -->|"665"| attn_merge_01
+    attn_shard_01_1 -->|"665"| attn_merge_01
+    attn_shard_01_2 -->|"665"| attn_merge_01
+    attn_shard_01_3 -->|"665"| attn_merge_01
+    attn_shard_01_4 -->|"665"| attn_merge_01
+    attn_shard_01_5 -->|"665"| attn_merge_01
+    attn_shard_01_6 -->|"665"| attn_merge_01
+    attn_shard_01_7 -->|"665"| attn_merge_01
+    attn_shard_01_8 -->|"665"| attn_merge_01
+    attn_shard_01_9 -->|"665"| attn_merge_01
+    attn_shard_01_10 -->|"665"| attn_merge_01
+    attn_shard_01_11 -->|"665"| attn_merge_01
+    attn_merge_01 -->|"3479"| mlp_merge_01
+    attn_merge_01 -->|"3479"| mlp_shard_01_0
+    attn_merge_01 -->|"3479"| mlp_shard_01_1
+    attn_merge_01 -->|"3479"| mlp_shard_01_2
+    attn_merge_01 -->|"3479"| mlp_shard_01_3
+    attn_merge_01 -->|"3479"| mlp_shard_01_4
+    attn_merge_01 -->|"3479"| mlp_shard_01_5
+    attn_merge_01 -->|"3479"| mlp_shard_01_6
+    attn_merge_01 -->|"3479"| mlp_shard_01_7
+    attn_merge_01 -->|"3479"| mlp_shard_01_8
+    attn_merge_01 -->|"3479"| mlp_shard_01_9
+    attn_merge_01 -->|"3479"| mlp_shard_01_10
+    attn_merge_01 -->|"3479"| mlp_shard_01_11
+    mlp_shard_01_0 -->|"1431"| mlp_merge_01
+    mlp_shard_01_1 -->|"1431"| mlp_merge_01
+    mlp_shard_01_2 -->|"1431"| mlp_merge_01
+    mlp_shard_01_3 -->|"1431"| mlp_merge_01
+    mlp_shard_01_4 -->|"1431"| mlp_merge_01
+    mlp_shard_01_5 -->|"1431"| mlp_merge_01
+    mlp_shard_01_6 -->|"1431"| mlp_merge_01
+    mlp_shard_01_7 -->|"1431"| mlp_merge_01
+    mlp_shard_01_8 -->|"1431"| mlp_merge_01
+    mlp_shard_01_9 -->|"1431"| mlp_merge_01
+    mlp_shard_01_10 -->|"1431"| mlp_merge_01
+    mlp_shard_01_11 -->|"1431"| mlp_merge_01
+    mlp_merge_01 -->|"3479"| qkv_02
+    qkv_02 -->|"3479"| attn_merge_02
+    qkv_02 -->|"803054"| attn_shard_02_0
+    qkv_02 -->|"803056"| attn_shard_02_1
+    qkv_02 -->|"803056"| attn_shard_02_2
+    qkv_02 -->|"803056"| attn_shard_02_3
+    qkv_02 -->|"803057"| attn_shard_02_4
+    qkv_02 -->|"803057"| attn_shard_02_5
+    qkv_02 -->|"803057"| attn_shard_02_6
+    qkv_02 -->|"803057"| attn_shard_02_7
+    qkv_02 -->|"803061"| attn_shard_02_8
+    qkv_02 -->|"803061"| attn_shard_02_9
+    qkv_02 -->|"803061"| attn_shard_02_10
+    qkv_02 -->|"803061"| attn_shard_02_11
+    attn_shard_02_0 -->|"665"| attn_merge_02
+    attn_shard_02_1 -->|"665"| attn_merge_02
+    attn_shard_02_2 -->|"665"| attn_merge_02
+    attn_shard_02_3 -->|"665"| attn_merge_02
+    attn_shard_02_4 -->|"665"| attn_merge_02
+    attn_shard_02_5 -->|"665"| attn_merge_02
+    attn_shard_02_6 -->|"665"| attn_merge_02
+    attn_shard_02_7 -->|"665"| attn_merge_02
+    attn_shard_02_8 -->|"665"| attn_merge_02
+    attn_shard_02_9 -->|"665"| attn_merge_02
+    attn_shard_02_10 -->|"665"| attn_merge_02
+    attn_shard_02_11 -->|"665"| attn_merge_02
+    attn_merge_02 -->|"3479"| mlp_merge_02
+    attn_merge_02 -->|"3479"| mlp_shard_02_0
+    attn_merge_02 -->|"3479"| mlp_shard_02_1
+    attn_merge_02 -->|"3479"| mlp_shard_02_2
+    attn_merge_02 -->|"3479"| mlp_shard_02_3
+    attn_merge_02 -->|"3479"| mlp_shard_02_4
+    attn_merge_02 -->|"3479"| mlp_shard_02_5
+    attn_merge_02 -->|"3479"| mlp_shard_02_6
+    attn_merge_02 -->|"3479"| mlp_shard_02_7
+    attn_merge_02 -->|"3479"| mlp_shard_02_8
+    attn_merge_02 -->|"3479"| mlp_shard_02_9
+    attn_merge_02 -->|"3479"| mlp_shard_02_10
+    attn_merge_02 -->|"3479"| mlp_shard_02_11
+    mlp_shard_02_0 -->|"1431"| mlp_merge_02
+    mlp_shard_02_1 -->|"1431"| mlp_merge_02
+    mlp_shard_02_2 -->|"1431"| mlp_merge_02
+    mlp_shard_02_3 -->|"1431"| mlp_merge_02
+    mlp_shard_02_4 -->|"1431"| mlp_merge_02
+    mlp_shard_02_5 -->|"1431"| mlp_merge_02
+    mlp_shard_02_6 -->|"1431"| mlp_merge_02
+    mlp_shard_02_7 -->|"1431"| mlp_merge_02
+    mlp_shard_02_8 -->|"1431"| mlp_merge_02
+    mlp_shard_02_9 -->|"1431"| mlp_merge_02
+    mlp_shard_02_10 -->|"1431"| mlp_merge_02
+    mlp_shard_02_11 -->|"1431"| mlp_merge_02
+    mlp_merge_02 -->|"3479"| qkv_03
+    qkv_03 -->|"3479"| attn_merge_03
+    qkv_03 -->|"803054"| attn_shard_03_0
+    qkv_03 -->|"803056"| attn_shard_03_1
+    qkv_03 -->|"803056"| attn_shard_03_2
+    qkv_03 -->|"803056"| attn_shard_03_3
+    qkv_03 -->|"803057"| attn_shard_03_4
+    qkv_03 -->|"803057"| attn_shard_03_5
+    qkv_03 -->|"803057"| attn_shard_03_6
+    qkv_03 -->|"803057"| attn_shard_03_7
+    qkv_03 -->|"803061"| attn_shard_03_8
+    qkv_03 -->|"803061"| attn_shard_03_9
+    qkv_03 -->|"803061"| attn_shard_03_10
+    qkv_03 -->|"803061"| attn_shard_03_11
+    attn_shard_03_0 -->|"665"| attn_merge_03
+    attn_shard_03_1 -->|"665"| attn_merge_03
+    attn_shard_03_2 -->|"665"| attn_merge_03
+    attn_shard_03_3 -->|"665"| attn_merge_03
+    attn_shard_03_4 -->|"665"| attn_merge_03
+    attn_shard_03_5 -->|"665"| attn_merge_03
+    attn_shard_03_6 -->|"665"| attn_merge_03
+    attn_shard_03_7 -->|"665"| attn_merge_03
+    attn_shard_03_8 -->|"665"| attn_merge_03
+    attn_shard_03_9 -->|"665"| attn_merge_03
+    attn_shard_03_10 -->|"665"| attn_merge_03
+    attn_shard_03_11 -->|"665"| attn_merge_03
+    attn_merge_03 -->|"3479"| mlp_merge_03
+    attn_merge_03 -->|"3479"| mlp_shard_03_0
+    attn_merge_03 -->|"3479"| mlp_shard_03_1
+    attn_merge_03 -->|"3479"| mlp_shard_03_2
+    attn_merge_03 -->|"3479"| mlp_shard_03_3
+    attn_merge_03 -->|"3479"| mlp_shard_03_4
+    attn_merge_03 -->|"3479"| mlp_shard_03_5
+    attn_merge_03 -->|"3479"| mlp_shard_03_6
+    attn_merge_03 -->|"3479"| mlp_shard_03_7
+    attn_merge_03 -->|"3479"| mlp_shard_03_8
+    attn_merge_03 -->|"3479"| mlp_shard_03_9
+    attn_merge_03 -->|"3479"| mlp_shard_03_10
+    attn_merge_03 -->|"3479"| mlp_shard_03_11
+    mlp_shard_03_0 -->|"1431"| mlp_merge_03
+    mlp_shard_03_1 -->|"1431"| mlp_merge_03
+    mlp_shard_03_2 -->|"1431"| mlp_merge_03
+    mlp_shard_03_3 -->|"1431"| mlp_merge_03
+    mlp_shard_03_4 -->|"1431"| mlp_merge_03
+    mlp_shard_03_5 -->|"1431"| mlp_merge_03
+    mlp_shard_03_6 -->|"1431"| mlp_merge_03
+    mlp_shard_03_7 -->|"1431"| mlp_merge_03
+    mlp_shard_03_8 -->|"1431"| mlp_merge_03
+    mlp_shard_03_9 -->|"1431"| mlp_merge_03
+    mlp_shard_03_10 -->|"1431"| mlp_merge_03
+    mlp_shard_03_11 -->|"1431"| mlp_merge_03
+    mlp_merge_03 -->|"3479"| qkv_04
+    qkv_04 -->|"3479"| attn_merge_04
+    qkv_04 -->|"803054"| attn_shard_04_0
+    qkv_04 -->|"803056"| attn_shard_04_1
+    qkv_04 -->|"803056"| attn_shard_04_2
+    qkv_04 -->|"803056"| attn_shard_04_3
+    qkv_04 -->|"803057"| attn_shard_04_4
+    qkv_04 -->|"803057"| attn_shard_04_5
+    qkv_04 -->|"803057"| attn_shard_04_6
+    qkv_04 -->|"803057"| attn_shard_04_7
+    qkv_04 -->|"803061"| attn_shard_04_8
+    qkv_04 -->|"803061"| attn_shard_04_9
+    qkv_04 -->|"803061"| attn_shard_04_10
+    qkv_04 -->|"803061"| attn_shard_04_11
+    attn_shard_04_0 -->|"665"| attn_merge_04
+    attn_shard_04_1 -->|"665"| attn_merge_04
+    attn_shard_04_2 -->|"665"| attn_merge_04
+    attn_shard_04_3 -->|"665"| attn_merge_04
+    attn_shard_04_4 -->|"665"| attn_merge_04
+    attn_shard_04_5 -->|"665"| attn_merge_04
+    attn_shard_04_6 -->|"665"| attn_merge_04
+    attn_shard_04_7 -->|"665"| attn_merge_04
+    attn_shard_04_8 -->|"665"| attn_merge_04
+    attn_shard_04_9 -->|"665"| attn_merge_04
+    attn_shard_04_10 -->|"665"| attn_merge_04
+    attn_shard_04_11 -->|"665"| attn_merge_04
+    attn_merge_04 -->|"3479"| mlp_merge_04
+    attn_merge_04 -->|"3479"| mlp_shard_04_0
+    attn_merge_04 -->|"3479"| mlp_shard_04_1
+    attn_merge_04 -->|"3479"| mlp_shard_04_2
+    attn_merge_04 -->|"3479"| mlp_shard_04_3
+    attn_merge_04 -->|"3479"| mlp_shard_04_4
+    attn_merge_04 -->|"3479"| mlp_shard_04_5
+    attn_merge_04 -->|"3479"| mlp_shard_04_6
+    attn_merge_04 -->|"3479"| mlp_shard_04_7
+    attn_merge_04 -->|"3479"| mlp_shard_04_8
+    attn_merge_04 -->|"3479"| mlp_shard_04_9
+    attn_merge_04 -->|"3479"| mlp_shard_04_10
+    attn_merge_04 -->|"3479"| mlp_shard_04_11
+    mlp_shard_04_0 -->|"1431"| mlp_merge_04
+    mlp_shard_04_1 -->|"1431"| mlp_merge_04
+    mlp_shard_04_2 -->|"1431"| mlp_merge_04
+    mlp_shard_04_3 -->|"1431"| mlp_merge_04
+    mlp_shard_04_4 -->|"1431"| mlp_merge_04
+    mlp_shard_04_5 -->|"1431"| mlp_merge_04
+    mlp_shard_04_6 -->|"1431"| mlp_merge_04
+    mlp_shard_04_7 -->|"1431"| mlp_merge_04
+    mlp_shard_04_8 -->|"1431"| mlp_merge_04
+    mlp_shard_04_9 -->|"1431"| mlp_merge_04
+    mlp_shard_04_10 -->|"1431"| mlp_merge_04
+    mlp_shard_04_11 -->|"1431"| mlp_merge_04
+    mlp_merge_04 -->|"3479"| qkv_05
+    qkv_05 -->|"3479"| attn_merge_05
+    qkv_05 -->|"803054"| attn_shard_05_0
+    qkv_05 -->|"803056"| attn_shard_05_1
+    qkv_05 -->|"803056"| attn_shard_05_2
+    qkv_05 -->|"803056"| attn_shard_05_3
+    qkv_05 -->|"803057"| attn_shard_05_4
+    qkv_05 -->|"803057"| attn_shard_05_5
+    qkv_05 -->|"803057"| attn_shard_05_6
+    qkv_05 -->|"803057"| attn_shard_05_7
+    qkv_05 -->|"803061"| attn_shard_05_8
+    qkv_05 -->|"803061"| attn_shard_05_9
+    qkv_05 -->|"803061"| attn_shard_05_10
+    qkv_05 -->|"803061"| attn_shard_05_11
+    attn_shard_05_0 -->|"665"| attn_merge_05
+    attn_shard_05_1 -->|"665"| attn_merge_05
+    attn_shard_05_2 -->|"665"| attn_merge_05
+    attn_shard_05_3 -->|"665"| attn_merge_05
+    attn_shard_05_4 -->|"665"| attn_merge_05
+    attn_shard_05_5 -->|"665"| attn_merge_05
+    attn_shard_05_6 -->|"665"| attn_merge_05
+    attn_shard_05_7 -->|"665"| attn_merge_05
+    attn_shard_05_8 -->|"665"| attn_merge_05
+    attn_shard_05_9 -->|"665"| attn_merge_05
+    attn_shard_05_10 -->|"665"| attn_merge_05
+    attn_shard_05_11 -->|"665"| attn_merge_05
+    attn_merge_05 -->|"3479"| mlp_merge_05
+    attn_merge_05 -->|"3479"| mlp_shard_05_0
+    attn_merge_05 -->|"3479"| mlp_shard_05_1
+    attn_merge_05 -->|"3479"| mlp_shard_05_2
+    attn_merge_05 -->|"3479"| mlp_shard_05_3
+    attn_merge_05 -->|"3479"| mlp_shard_05_4
+    attn_merge_05 -->|"3479"| mlp_shard_05_5
+    attn_merge_05 -->|"3479"| mlp_shard_05_6
+    attn_merge_05 -->|"3479"| mlp_shard_05_7
+    attn_merge_05 -->|"3479"| mlp_shard_05_8
+    attn_merge_05 -->|"3479"| mlp_shard_05_9
+    attn_merge_05 -->|"3479"| mlp_shard_05_10
+    attn_merge_05 -->|"3479"| mlp_shard_05_11
+    mlp_shard_05_0 -->|"1431"| mlp_merge_05
+    mlp_shard_05_1 -->|"1431"| mlp_merge_05
+    mlp_shard_05_2 -->|"1431"| mlp_merge_05
+    mlp_shard_05_3 -->|"1431"| mlp_merge_05
+    mlp_shard_05_4 -->|"1431"| mlp_merge_05
+    mlp_shard_05_5 -->|"1431"| mlp_merge_05
+    mlp_shard_05_6 -->|"1431"| mlp_merge_05
+    mlp_shard_05_7 -->|"1431"| mlp_merge_05
+    mlp_shard_05_8 -->|"1431"| mlp_merge_05
+    mlp_shard_05_9 -->|"1431"| mlp_merge_05
+    mlp_shard_05_10 -->|"1431"| mlp_merge_05
+    mlp_shard_05_11 -->|"1431"| mlp_merge_05
+    mlp_merge_05 -->|"3479"| qkv_06
+    qkv_06 -->|"3479"| attn_merge_06
+    qkv_06 -->|"803054"| attn_shard_06_0
+    qkv_06 -->|"803056"| attn_shard_06_1
+    qkv_06 -->|"803056"| attn_shard_06_2
+    qkv_06 -->|"803056"| attn_shard_06_3
+    qkv_06 -->|"803057"| attn_shard_06_4
+    qkv_06 -->|"803057"| attn_shard_06_5
+    qkv_06 -->|"803057"| attn_shard_06_6
+    qkv_06 -->|"803057"| attn_shard_06_7
+    qkv_06 -->|"803061"| attn_shard_06_8
+    qkv_06 -->|"803061"| attn_shard_06_9
+    qkv_06 -->|"803061"| attn_shard_06_10
+    qkv_06 -->|"803061"| attn_shard_06_11
+    attn_shard_06_0 -->|"665"| attn_merge_06
+    attn_shard_06_1 -->|"665"| attn_merge_06
+    attn_shard_06_2 -->|"665"| attn_merge_06
+    attn_shard_06_3 -->|"665"| attn_merge_06
+    attn_shard_06_4 -->|"665"| attn_merge_06
+    attn_shard_06_5 -->|"665"| attn_merge_06
+    attn_shard_06_6 -->|"665"| attn_merge_06
+    attn_shard_06_7 -->|"665"| attn_merge_06
+    attn_shard_06_8 -->|"665"| attn_merge_06
+    attn_shard_06_9 -->|"665"| attn_merge_06
+    attn_shard_06_10 -->|"665"| attn_merge_06
+    attn_shard_06_11 -->|"665"| attn_merge_06
+    attn_merge_06 -->|"3479"| mlp_merge_06
+    attn_merge_06 -->|"3479"| mlp_shard_06_0
+    attn_merge_06 -->|"3479"| mlp_shard_06_1
+    attn_merge_06 -->|"3479"| mlp_shard_06_2
+    attn_merge_06 -->|"3479"| mlp_shard_06_3
+    attn_merge_06 -->|"3479"| mlp_shard_06_4
+    attn_merge_06 -->|"3479"| mlp_shard_06_5
+    attn_merge_06 -->|"3479"| mlp_shard_06_6
+    attn_merge_06 -->|"3479"| mlp_shard_06_7
+    attn_merge_06 -->|"3479"| mlp_shard_06_8
+    attn_merge_06 -->|"3479"| mlp_shard_06_9
+    attn_merge_06 -->|"3479"| mlp_shard_06_10
+    attn_merge_06 -->|"3479"| mlp_shard_06_11
+    mlp_shard_06_0 -->|"1431"| mlp_merge_06
+    mlp_shard_06_1 -->|"1431"| mlp_merge_06
+    mlp_shard_06_2 -->|"1431"| mlp_merge_06
+    mlp_shard_06_3 -->|"1431"| mlp_merge_06
+    mlp_shard_06_4 -->|"1431"| mlp_merge_06
+    mlp_shard_06_5 -->|"1431"| mlp_merge_06
+    mlp_shard_06_6 -->|"1431"| mlp_merge_06
+    mlp_shard_06_7 -->|"1431"| mlp_merge_06
+    mlp_shard_06_8 -->|"1431"| mlp_merge_06
+    mlp_shard_06_9 -->|"1431"| mlp_merge_06
+    mlp_shard_06_10 -->|"1431"| mlp_merge_06
+    mlp_shard_06_11 -->|"1431"| mlp_merge_06
+    mlp_merge_06 -->|"3479"| qkv_07
+    qkv_07 -->|"3479"| attn_merge_07
+    qkv_07 -->|"803054"| attn_shard_07_0
+    qkv_07 -->|"803056"| attn_shard_07_1
+    qkv_07 -->|"803056"| attn_shard_07_2
+    qkv_07 -->|"803056"| attn_shard_07_3
+    qkv_07 -->|"803057"| attn_shard_07_4
+    qkv_07 -->|"803057"| attn_shard_07_5
+    qkv_07 -->|"803057"| attn_shard_07_6
+    qkv_07 -->|"803057"| attn_shard_07_7
+    qkv_07 -->|"803061"| attn_shard_07_8
+    qkv_07 -->|"803061"| attn_shard_07_9
+    qkv_07 -->|"803061"| attn_shard_07_10
+    qkv_07 -->|"803061"| attn_shard_07_11
+    attn_shard_07_0 -->|"665"| attn_merge_07
+    attn_shard_07_1 -->|"665"| attn_merge_07
+    attn_shard_07_2 -->|"665"| attn_merge_07
+    attn_shard_07_3 -->|"665"| attn_merge_07
+    attn_shard_07_4 -->|"665"| attn_merge_07
+    attn_shard_07_5 -->|"665"| attn_merge_07
+    attn_shard_07_6 -->|"665"| attn_merge_07
+    attn_shard_07_7 -->|"665"| attn_merge_07
+    attn_shard_07_8 -->|"665"| attn_merge_07
+    attn_shard_07_9 -->|"665"| attn_merge_07
+    attn_shard_07_10 -->|"665"| attn_merge_07
+    attn_shard_07_11 -->|"665"| attn_merge_07
+    attn_merge_07 -->|"3479"| mlp_merge_07
+    attn_merge_07 -->|"3479"| mlp_shard_07_0
+    attn_merge_07 -->|"3479"| mlp_shard_07_1
+    attn_merge_07 -->|"3479"| mlp_shard_07_2
+    attn_merge_07 -->|"3479"| mlp_shard_07_3
+    attn_merge_07 -->|"3479"| mlp_shard_07_4
+    attn_merge_07 -->|"3479"| mlp_shard_07_5
+    attn_merge_07 -->|"3479"| mlp_shard_07_6
+    attn_merge_07 -->|"3479"| mlp_shard_07_7
+    attn_merge_07 -->|"3479"| mlp_shard_07_8
+    attn_merge_07 -->|"3479"| mlp_shard_07_9
+    attn_merge_07 -->|"3479"| mlp_shard_07_10
+    attn_merge_07 -->|"3479"| mlp_shard_07_11
+    mlp_shard_07_0 -->|"1431"| mlp_merge_07
+    mlp_shard_07_1 -->|"1431"| mlp_merge_07
+    mlp_shard_07_2 -->|"1431"| mlp_merge_07
+    mlp_shard_07_3 -->|"1431"| mlp_merge_07
+    mlp_shard_07_4 -->|"1431"| mlp_merge_07
+    mlp_shard_07_5 -->|"1431"| mlp_merge_07
+    mlp_shard_07_6 -->|"1431"| mlp_merge_07
+    mlp_shard_07_7 -->|"1431"| mlp_merge_07
+    mlp_shard_07_8 -->|"1431"| mlp_merge_07
+    mlp_shard_07_9 -->|"1431"| mlp_merge_07
+    mlp_shard_07_10 -->|"1431"| mlp_merge_07
+    mlp_shard_07_11 -->|"1431"| mlp_merge_07
+    mlp_merge_07 -->|"3479"| qkv_08
+    qkv_08 -->|"3479"| attn_merge_08
+    qkv_08 -->|"803054"| attn_shard_08_0
+    qkv_08 -->|"803056"| attn_shard_08_1
+    qkv_08 -->|"803056"| attn_shard_08_2
+    qkv_08 -->|"803056"| attn_shard_08_3
+    qkv_08 -->|"803057"| attn_shard_08_4
+    qkv_08 -->|"803057"| attn_shard_08_5
+    qkv_08 -->|"803057"| attn_shard_08_6
+    qkv_08 -->|"803057"| attn_shard_08_7
+    qkv_08 -->|"803061"| attn_shard_08_8
+    qkv_08 -->|"803061"| attn_shard_08_9
+    qkv_08 -->|"803061"| attn_shard_08_10
+    qkv_08 -->|"803061"| attn_shard_08_11
+    attn_shard_08_0 -->|"665"| attn_merge_08
+    attn_shard_08_1 -->|"665"| attn_merge_08
+    attn_shard_08_2 -->|"665"| attn_merge_08
+    attn_shard_08_3 -->|"665"| attn_merge_08
+    attn_shard_08_4 -->|"665"| attn_merge_08
+    attn_shard_08_5 -->|"665"| attn_merge_08
+    attn_shard_08_6 -->|"665"| attn_merge_08
+    attn_shard_08_7 -->|"665"| attn_merge_08
+    attn_shard_08_8 -->|"665"| attn_merge_08
+    attn_shard_08_9 -->|"665"| attn_merge_08
+    attn_shard_08_10 -->|"665"| attn_merge_08
+    attn_shard_08_11 -->|"665"| attn_merge_08
+    attn_merge_08 -->|"3479"| mlp_merge_08
+    attn_merge_08 -->|"3479"| mlp_shard_08_0
+    attn_merge_08 -->|"3479"| mlp_shard_08_1
+    attn_merge_08 -->|"3479"| mlp_shard_08_2
+    attn_merge_08 -->|"3479"| mlp_shard_08_3
+    attn_merge_08 -->|"3479"| mlp_shard_08_4
+    attn_merge_08 -->|"3479"| mlp_shard_08_5
+    attn_merge_08 -->|"3479"| mlp_shard_08_6
+    attn_merge_08 -->|"3479"| mlp_shard_08_7
+    attn_merge_08 -->|"3479"| mlp_shard_08_8
+    attn_merge_08 -->|"3479"| mlp_shard_08_9
+    attn_merge_08 -->|"3479"| mlp_shard_08_10
+    attn_merge_08 -->|"3479"| mlp_shard_08_11
+    mlp_shard_08_0 -->|"1431"| mlp_merge_08
+    mlp_shard_08_1 -->|"1431"| mlp_merge_08
+    mlp_shard_08_2 -->|"1431"| mlp_merge_08
+    mlp_shard_08_3 -->|"1431"| mlp_merge_08
+    mlp_shard_08_4 -->|"1431"| mlp_merge_08
+    mlp_shard_08_5 -->|"1431"| mlp_merge_08
+    mlp_shard_08_6 -->|"1431"| mlp_merge_08
+    mlp_shard_08_7 -->|"1431"| mlp_merge_08
+    mlp_shard_08_8 -->|"1431"| mlp_merge_08
+    mlp_shard_08_9 -->|"1431"| mlp_merge_08
+    mlp_shard_08_10 -->|"1431"| mlp_merge_08
+    mlp_shard_08_11 -->|"1431"| mlp_merge_08
+    mlp_merge_08 -->|"3479"| qkv_09
+    qkv_09 -->|"3479"| attn_merge_09
+    qkv_09 -->|"803054"| attn_shard_09_0
+    qkv_09 -->|"803056"| attn_shard_09_1
+    qkv_09 -->|"803056"| attn_shard_09_2
+    qkv_09 -->|"803056"| attn_shard_09_3
+    qkv_09 -->|"803057"| attn_shard_09_4
+    qkv_09 -->|"803057"| attn_shard_09_5
+    qkv_09 -->|"803057"| attn_shard_09_6
+    qkv_09 -->|"803057"| attn_shard_09_7
+    qkv_09 -->|"803061"| attn_shard_09_8
+    qkv_09 -->|"803061"| attn_shard_09_9
+    qkv_09 -->|"803061"| attn_shard_09_10
+    qkv_09 -->|"803061"| attn_shard_09_11
+    attn_shard_09_0 -->|"665"| attn_merge_09
+    attn_shard_09_1 -->|"665"| attn_merge_09
+    attn_shard_09_2 -->|"665"| attn_merge_09
+    attn_shard_09_3 -->|"665"| attn_merge_09
+    attn_shard_09_4 -->|"665"| attn_merge_09
+    attn_shard_09_5 -->|"665"| attn_merge_09
+    attn_shard_09_6 -->|"665"| attn_merge_09
+    attn_shard_09_7 -->|"665"| attn_merge_09
+    attn_shard_09_8 -->|"665"| attn_merge_09
+    attn_shard_09_9 -->|"665"| attn_merge_09
+    attn_shard_09_10 -->|"665"| attn_merge_09
+    attn_shard_09_11 -->|"665"| attn_merge_09
+    attn_merge_09 -->|"3479"| mlp_merge_09
+    attn_merge_09 -->|"3479"| mlp_shard_09_0
+    attn_merge_09 -->|"3479"| mlp_shard_09_1
+    attn_merge_09 -->|"3479"| mlp_shard_09_2
+    attn_merge_09 -->|"3479"| mlp_shard_09_3
+    attn_merge_09 -->|"3479"| mlp_shard_09_4
+    attn_merge_09 -->|"3479"| mlp_shard_09_5
+    attn_merge_09 -->|"3479"| mlp_shard_09_6
+    attn_merge_09 -->|"3479"| mlp_shard_09_7
+    attn_merge_09 -->|"3479"| mlp_shard_09_8
+    attn_merge_09 -->|"3479"| mlp_shard_09_9
+    attn_merge_09 -->|"3479"| mlp_shard_09_10
+    attn_merge_09 -->|"3479"| mlp_shard_09_11
+    mlp_shard_09_0 -->|"1431"| mlp_merge_09
+    mlp_shard_09_1 -->|"1431"| mlp_merge_09
+    mlp_shard_09_2 -->|"1431"| mlp_merge_09
+    mlp_shard_09_3 -->|"1431"| mlp_merge_09
+    mlp_shard_09_4 -->|"1431"| mlp_merge_09
+    mlp_shard_09_5 -->|"1431"| mlp_merge_09
+    mlp_shard_09_6 -->|"1431"| mlp_merge_09
+    mlp_shard_09_7 -->|"1431"| mlp_merge_09
+    mlp_shard_09_8 -->|"1431"| mlp_merge_09
+    mlp_shard_09_9 -->|"1431"| mlp_merge_09
+    mlp_shard_09_10 -->|"1431"| mlp_merge_09
+    mlp_shard_09_11 -->|"1431"| mlp_merge_09
+    mlp_merge_09 -->|"3479"| qkv_10
+    qkv_10 -->|"3479"| attn_merge_10
+    qkv_10 -->|"803054"| attn_shard_10_0
+    qkv_10 -->|"803056"| attn_shard_10_1
+    qkv_10 -->|"803056"| attn_shard_10_2
+    qkv_10 -->|"803056"| attn_shard_10_3
+    qkv_10 -->|"803057"| attn_shard_10_4
+    qkv_10 -->|"803057"| attn_shard_10_5
+    qkv_10 -->|"803057"| attn_shard_10_6
+    qkv_10 -->|"803057"| attn_shard_10_7
+    qkv_10 -->|"803061"| attn_shard_10_8
+    qkv_10 -->|"803061"| attn_shard_10_9
+    qkv_10 -->|"803061"| attn_shard_10_10
+    qkv_10 -->|"803061"| attn_shard_10_11
+    attn_shard_10_0 -->|"665"| attn_merge_10
+    attn_shard_10_1 -->|"665"| attn_merge_10
+    attn_shard_10_2 -->|"665"| attn_merge_10
+    attn_shard_10_3 -->|"665"| attn_merge_10
+    attn_shard_10_4 -->|"665"| attn_merge_10
+    attn_shard_10_5 -->|"665"| attn_merge_10
+    attn_shard_10_6 -->|"665"| attn_merge_10
+    attn_shard_10_7 -->|"665"| attn_merge_10
+    attn_shard_10_8 -->|"665"| attn_merge_10
+    attn_shard_10_9 -->|"665"| attn_merge_10
+    attn_shard_10_10 -->|"665"| attn_merge_10
+    attn_shard_10_11 -->|"665"| attn_merge_10
+    attn_merge_10 -->|"3479"| mlp_merge_10
+    attn_merge_10 -->|"3479"| mlp_shard_10_0
+    attn_merge_10 -->|"3479"| mlp_shard_10_1
+    attn_merge_10 -->|"3479"| mlp_shard_10_2
+    attn_merge_10 -->|"3479"| mlp_shard_10_3
+    attn_merge_10 -->|"3479"| mlp_shard_10_4
+    attn_merge_10 -->|"3479"| mlp_shard_10_5
+    attn_merge_10 -->|"3479"| mlp_shard_10_6
+    attn_merge_10 -->|"3479"| mlp_shard_10_7
+    attn_merge_10 -->|"3479"| mlp_shard_10_8
+    attn_merge_10 -->|"3479"| mlp_shard_10_9
+    attn_merge_10 -->|"3479"| mlp_shard_10_10
+    attn_merge_10 -->|"3479"| mlp_shard_10_11
+    mlp_shard_10_0 -->|"1431"| mlp_merge_10
+    mlp_shard_10_1 -->|"1431"| mlp_merge_10
+    mlp_shard_10_2 -->|"1431"| mlp_merge_10
+    mlp_shard_10_3 -->|"1431"| mlp_merge_10
+    mlp_shard_10_4 -->|"1431"| mlp_merge_10
+    mlp_shard_10_5 -->|"1431"| mlp_merge_10
+    mlp_shard_10_6 -->|"1431"| mlp_merge_10
+    mlp_shard_10_7 -->|"1431"| mlp_merge_10
+    mlp_shard_10_8 -->|"1431"| mlp_merge_10
+    mlp_shard_10_9 -->|"1431"| mlp_merge_10
+    mlp_shard_10_10 -->|"1431"| mlp_merge_10
+    mlp_shard_10_11 -->|"1431"| mlp_merge_10
+    mlp_merge_10 -->|"3479"| qkv_11
+    qkv_11 -->|"3479"| attn_merge_11
+    qkv_11 -->|"803054"| attn_shard_11_0
+    qkv_11 -->|"803056"| attn_shard_11_1
+    qkv_11 -->|"803056"| attn_shard_11_2
+    qkv_11 -->|"803056"| attn_shard_11_3
+    qkv_11 -->|"803057"| attn_shard_11_4
+    qkv_11 -->|"803057"| attn_shard_11_5
+    qkv_11 -->|"803057"| attn_shard_11_6
+    qkv_11 -->|"803057"| attn_shard_11_7
+    qkv_11 -->|"803061"| attn_shard_11_8
+    qkv_11 -->|"803061"| attn_shard_11_9
+    qkv_11 -->|"803061"| attn_shard_11_10
+    qkv_11 -->|"803061"| attn_shard_11_11
+    attn_shard_11_0 -->|"665"| attn_merge_11
+    attn_shard_11_1 -->|"665"| attn_merge_11
+    attn_shard_11_2 -->|"665"| attn_merge_11
+    attn_shard_11_3 -->|"665"| attn_merge_11
+    attn_shard_11_4 -->|"665"| attn_merge_11
+    attn_shard_11_5 -->|"665"| attn_merge_11
+    attn_shard_11_6 -->|"665"| attn_merge_11
+    attn_shard_11_7 -->|"665"| attn_merge_11
+    attn_shard_11_8 -->|"665"| attn_merge_11
+    attn_shard_11_9 -->|"665"| attn_merge_11
+    attn_shard_11_10 -->|"665"| attn_merge_11
+    attn_shard_11_11 -->|"665"| attn_merge_11
+    attn_merge_11 -->|"3479"| mlp_merge_11
+    attn_merge_11 -->|"3479"| mlp_shard_11_0
+    attn_merge_11 -->|"3479"| mlp_shard_11_1
+    attn_merge_11 -->|"3479"| mlp_shard_11_2
+    attn_merge_11 -->|"3479"| mlp_shard_11_3
+    attn_merge_11 -->|"3479"| mlp_shard_11_4
+    attn_merge_11 -->|"3479"| mlp_shard_11_5
+    attn_merge_11 -->|"3479"| mlp_shard_11_6
+    attn_merge_11 -->|"3479"| mlp_shard_11_7
+    attn_merge_11 -->|"3479"| mlp_shard_11_8
+    attn_merge_11 -->|"3479"| mlp_shard_11_9
+    attn_merge_11 -->|"3479"| mlp_shard_11_10
+    attn_merge_11 -->|"3479"| mlp_shard_11_11
+    mlp_shard_11_0 -->|"1431"| mlp_merge_11
+    mlp_shard_11_1 -->|"1431"| mlp_merge_11
+    mlp_shard_11_2 -->|"1431"| mlp_merge_11
+    mlp_shard_11_3 -->|"1431"| mlp_merge_11
+    mlp_shard_11_4 -->|"1431"| mlp_merge_11
+    mlp_shard_11_5 -->|"1431"| mlp_merge_11
+    mlp_shard_11_6 -->|"1431"| mlp_merge_11
+    mlp_shard_11_7 -->|"1431"| mlp_merge_11
+    mlp_shard_11_8 -->|"1431"| mlp_merge_11
+    mlp_shard_11_9 -->|"1431"| mlp_merge_11
+    mlp_shard_11_10 -->|"1431"| mlp_merge_11
+    mlp_shard_11_11 -->|"1431"| mlp_merge_11
+    mlp_merge_11 -->|"3479"| ln_f
+    ln_f -->|"3479"| lm_head
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>Tasks (327)</h2>
+        <table>
+            <thead><tr><th>Task Name</th><th>Cost</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>embed</td><td>0.48</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>qkv_00</td><td>0.69</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_merge_00</td><td>0.29</td><td>Merge / fuse data streams</td></tr><tr><td>attn_shard_00_0</td><td>0.25</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_00_1</td><td>0.22</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_00_2</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_00_3</td><td>0.18</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_00_4</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_00_5</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_00_6</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_00_7</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_00_8</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_00_9</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_00_10</td><td>0.20</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_00_11</td><td>0.18</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_merge_00</td><td>0.55</td><td>Merge / fuse data streams</td></tr><tr><td>mlp_shard_00_0</td><td>0.22</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_00_1</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_00_2</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_00_3</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_00_4</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_00_5</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_00_6</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_00_7</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_00_8</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_00_9</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_00_10</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_00_11</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>qkv_01</td><td>0.68</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_merge_01</td><td>0.28</td><td>Merge / fuse data streams</td></tr><tr><td>attn_shard_01_0</td><td>0.27</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_01_1</td><td>0.24</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_01_2</td><td>0.19</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_01_3</td><td>0.23</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_01_4</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_01_5</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_01_6</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_01_7</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_01_8</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_01_9</td><td>0.18</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_01_10</td><td>0.19</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_01_11</td><td>0.20</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_merge_01</td><td>0.56</td><td>Merge / fuse data streams</td></tr><tr><td>mlp_shard_01_0</td><td>0.23</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_01_1</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_01_2</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_01_3</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_01_4</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_01_5</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_01_6</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_01_7</td><td>0.11</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_01_8</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_01_9</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_01_10</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_01_11</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>qkv_02</td><td>0.69</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_merge_02</td><td>0.28</td><td>Merge / fuse data streams</td></tr><tr><td>attn_shard_02_0</td><td>0.27</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_02_1</td><td>0.23</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_02_2</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_02_3</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_02_4</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_02_5</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_02_6</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_02_7</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_02_8</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_02_9</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_02_10</td><td>0.21</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_02_11</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_merge_02</td><td>0.58</td><td>Merge / fuse data streams</td></tr><tr><td>mlp_shard_02_0</td><td>0.23</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_02_1</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_02_2</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_02_3</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_02_4</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_02_5</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_02_6</td><td>0.11</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_02_7</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_02_8</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_02_9</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_02_10</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_02_11</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>qkv_03</td><td>0.63</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_merge_03</td><td>0.30</td><td>Merge / fuse data streams</td></tr><tr><td>attn_shard_03_0</td><td>0.27</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_03_1</td><td>0.23</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_03_2</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_03_3</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_03_4</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_03_5</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_03_6</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_03_7</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_03_8</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_03_9</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_03_10</td><td>0.21</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_03_11</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_merge_03</td><td>0.55</td><td>Merge / fuse data streams</td></tr><tr><td>mlp_shard_03_0</td><td>0.23</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_03_1</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_03_2</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_03_3</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_03_4</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_03_5</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_03_6</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_03_7</td><td>0.11</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_03_8</td><td>0.18</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_03_9</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_03_10</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_03_11</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>qkv_04</td><td>0.85</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_merge_04</td><td>0.32</td><td>Merge / fuse data streams</td></tr><tr><td>attn_shard_04_0</td><td>0.26</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_04_1</td><td>0.21</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_04_2</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_04_3</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_04_4</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_04_5</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_04_6</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_04_7</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_04_8</td><td>0.24</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_04_9</td><td>0.22</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_04_10</td><td>0.19</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_04_11</td><td>0.18</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_merge_04</td><td>0.59</td><td>Merge / fuse data streams</td></tr><tr><td>mlp_shard_04_0</td><td>0.23</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_04_1</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_04_2</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_04_3</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_04_4</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_04_5</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_04_6</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_04_7</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_04_8</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_04_9</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_04_10</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_04_11</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>qkv_05</td><td>0.64</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_merge_05</td><td>0.32</td><td>Merge / fuse data streams</td></tr><tr><td>attn_shard_05_0</td><td>0.28</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_05_1</td><td>0.24</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_05_2</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_05_3</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_05_4</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_05_5</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_05_6</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_05_7</td><td>0.20</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_05_8</td><td>0.22</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_05_9</td><td>0.19</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_05_10</td><td>0.20</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_05_11</td><td>0.20</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_merge_05</td><td>0.59</td><td>Merge / fuse data streams</td></tr><tr><td>mlp_shard_05_0</td><td>0.25</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_05_1</td><td>0.19</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_05_2</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_05_3</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_05_4</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_05_5</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_05_6</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_05_7</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_05_8</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_05_9</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_05_10</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_05_11</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>qkv_06</td><td>0.74</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_merge_06</td><td>0.36</td><td>Merge / fuse data streams</td></tr><tr><td>attn_shard_06_0</td><td>0.27</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_06_1</td><td>0.23</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_06_2</td><td>0.19</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_06_3</td><td>0.19</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_06_4</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_06_5</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_06_6</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_06_7</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_06_8</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_06_9</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_06_10</td><td>0.18</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_06_11</td><td>0.22</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_merge_06</td><td>0.56</td><td>Merge / fuse data streams</td></tr><tr><td>mlp_shard_06_0</td><td>0.23</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_06_1</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_06_2</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_06_3</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_06_4</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_06_5</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_06_6</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_06_7</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_06_8</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_06_9</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_06_10</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_06_11</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>qkv_07</td><td>0.65</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_merge_07</td><td>0.32</td><td>Merge / fuse data streams</td></tr><tr><td>attn_shard_07_0</td><td>0.32</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_07_1</td><td>0.25</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_07_2</td><td>0.21</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_07_3</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_07_4</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_07_5</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_07_6</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_07_7</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_07_8</td><td>0.22</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_07_9</td><td>0.18</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_07_10</td><td>0.19</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_07_11</td><td>0.21</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_merge_07</td><td>0.61</td><td>Merge / fuse data streams</td></tr><tr><td>mlp_shard_07_0</td><td>0.23</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_07_1</td><td>0.18</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_07_2</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_07_3</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_07_4</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_07_5</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_07_6</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_07_7</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_07_8</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_07_9</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_07_10</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_07_11</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>qkv_08</td><td>0.64</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_merge_08</td><td>0.31</td><td>Merge / fuse data streams</td></tr><tr><td>attn_shard_08_0</td><td>0.29</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_08_1</td><td>0.25</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_08_2</td><td>0.24</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_08_3</td><td>0.20</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_08_4</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_08_5</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_08_6</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_08_7</td><td>0.20</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_08_8</td><td>0.21</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_08_9</td><td>0.25</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_08_10</td><td>0.20</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_08_11</td><td>0.18</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_merge_08</td><td>0.57</td><td>Merge / fuse data streams</td></tr><tr><td>mlp_shard_08_0</td><td>0.25</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_08_1</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_08_2</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_08_3</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_08_4</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_08_5</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_08_6</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_08_7</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_08_8</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_08_9</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_08_10</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_08_11</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>qkv_09</td><td>0.71</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_merge_09</td><td>0.34</td><td>Merge / fuse data streams</td></tr><tr><td>attn_shard_09_0</td><td>0.27</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_09_1</td><td>0.26</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_09_2</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_09_3</td><td>0.20</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_09_4</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_09_5</td><td>0.19</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_09_6</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_09_7</td><td>0.18</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_09_8</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_09_9</td><td>0.19</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_09_10</td><td>0.22</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_09_11</td><td>0.21</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_merge_09</td><td>0.58</td><td>Merge / fuse data streams</td></tr><tr><td>mlp_shard_09_0</td><td>0.23</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_09_1</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_09_2</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_09_3</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_09_4</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_09_5</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_09_6</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_09_7</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_09_8</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_09_9</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_09_10</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_09_11</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>qkv_10</td><td>0.69</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_merge_10</td><td>0.32</td><td>Merge / fuse data streams</td></tr><tr><td>attn_shard_10_0</td><td>0.30</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_10_1</td><td>0.26</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_10_2</td><td>0.20</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_10_3</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_10_4</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_10_5</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_10_6</td><td>0.18</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_10_7</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_10_8</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_10_9</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_10_10</td><td>0.29</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_10_11</td><td>0.19</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_merge_10</td><td>0.61</td><td>Merge / fuse data streams</td></tr><tr><td>mlp_shard_10_0</td><td>0.25</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_10_1</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_10_2</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_10_3</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_10_4</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_10_5</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_10_6</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_10_7</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_10_8</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_10_9</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_10_10</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_10_11</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>qkv_11</td><td>0.67</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_merge_11</td><td>0.29</td><td>Merge / fuse data streams</td></tr><tr><td>attn_shard_11_0</td><td>0.26</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_11_1</td><td>0.24</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_11_2</td><td>0.19</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_11_3</td><td>0.19</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_11_4</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_11_5</td><td>0.19</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_11_6</td><td>0.18</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_11_7</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_11_8</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_11_9</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_11_10</td><td>0.19</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>attn_shard_11_11</td><td>0.18</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_merge_11</td><td>0.64</td><td>Merge / fuse data streams</td></tr><tr><td>mlp_shard_11_0</td><td>0.22</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_11_1</td><td>0.20</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_11_2</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_11_3</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_11_4</td><td>0.17</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_11_5</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_11_6</td><td>0.13</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_11_7</td><td>0.14</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_11_8</td><td>0.16</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_11_9</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_11_10</td><td>0.15</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>mlp_shard_11_11</td><td>0.12</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>ln_f</td><td>0.04</td><td>Processing step in ml-pipeline pipeline</td></tr><tr><td>lm_head</td><td>7.66</td><td>Processing step in ml-pipeline pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Graph Statistics</h2>
+        <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Tasks</td><td>327</td></tr><tr><td>Edges</td><td>614</td></tr><tr><td>Depth</td><td>63</td></tr><tr><td>Width</td><td>12</td></tr><tr><td>CCR</td><td>1537598.4049</td></tr><tr><td>Parallelism</td><td>5.1905</td></tr>
+            </tbody>
+        </table>
+        <p style="margin-top:12px; font-size:0.95em; color:#555;"><strong>Note:</strong> The CCR (Communication-to-Computation Ratio) of ~1,537,598 is extremely high, indicating a heavily communication-dominated workflow. Tensor data sizes (bytes) vastly exceed sub-millisecond compute times. Scheduling algorithms that assume CCR near 1.0 may exhibit degenerate behavior on this workflow.</p>
+    </div>
+
+    <div class="section">
+        <h2>Provenance</h2>
+        <span class="badge badge-method">Converted from execution trace</span>
+        <br><br>
+        <strong>Source:</strong> GPT-2 Hugging Face implementation profiled via dagprofiler<br>
+<strong>Paper:</strong> Language Models are Unsupervised Multitask Learners (Radford et al., 2019)<br>
+<strong>Note:</strong> Based on the Hugging Face transformers implementation, not the original OpenAI code.<br>
+<strong>Repository:</strong> <a href="https://github.com/huggingface/transformers" target="_blank">https://github.com/huggingface/transformers</a><br>
+<strong>Extraction Method:</strong> Converted from execution trace<br>
+<strong>Extractor:</strong> codex-gpt5<br>
+<strong>Date:</strong> 2026-02-18<br>
+<strong>Notes:</strong> Derived from local analysis of Hugging Face GPT-2 code using dagprofiler. DAG implementation repository: https://github.com/ANRGUSC/gpt2-dag. Profiler repository: https://github.com/ANRGUSC/dagprofiler. phase=decode, prompt_len=128, decode_context_len=128, shard_count=12. Prefill and decode are complementary workflows for one request. Run prefill once for the prompt, then run decode for each generation step (up to L_g steps, early stop on EOS). Total latency model used with this pair is: prefill_once + L_g * decode_step. Decode costs here are profiled at avg_kv = L_p + L_g/2 with L_p=128, L_g=128.
+    </div>
+
+    <div class="section">
+        <h2>Network</h2>
+        <strong>Included:</strong> Yes<br>
+<strong>Topology:</strong> fully-connected<br>
+<strong>Nodes:</strong> 12
+    </div>
+    
+    <div class="section">
+        <h2>Tags</h2>
+        <span class="badge">gpt2</span><span class="badge">tensor-parallel</span><span class="badge">sh12</span><span class="badge">dagprofiler</span><span class="badge">trace-conversion</span><span class="badge">gpt2-dag</span><span class="badge">decode</span>
+        
+    </div>
+
+    <div class="footer">
+        Generated by DAGBench &mdash; ml.gpt2_tensor_sh12_decode
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad: true, theme: 'default', flowchart: {htmlLabels: true}});</script>
+</body>
+</html>

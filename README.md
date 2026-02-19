@@ -1,10 +1,10 @@
 # DAGBench
 
-**A curated task graph benchmark for scheduling research — 82 DAGs across 22 application domains with provenance.**
+**A curated task graph benchmark for scheduling research — 84 DAGs across 22 application domains with provenance.**
 
-DAGBench provides 82 diverse, well-characterized task graphs (DAGs) from 22 application domains, all in a uniform SAGA-compatible format with full provenance tracking. Every workflow has verified provenance — either genuinely sourced from code repositories, algorithmically generated, faithfully extracted from published paper figures, or clearly labeled as AI-generated with attribution. Load any workflow in one line and schedule it with any of SAGA's 17 algorithms.
+DAGBench provides 84 diverse, well-characterized task graphs (DAGs) from 22 application domains, all in a uniform SAGA-compatible format with full provenance tracking. Every workflow has verified provenance — either genuinely sourced from code repositories, algorithmically generated, faithfully extracted from published paper figures, converted from measured execution traces, or clearly labeled as AI-generated with attribution. Load any workflow in one line and schedule it with any of SAGA's 17 algorithms.
 
-> **Browse the catalog:** Download [`index.html`](index.html) and open it in your browser for an interactive overview of all 82 workflows, domain distribution, provenance policy, and full bibliography.
+> **Browse the catalog:** Download [`index.html`](index.html) and open it in your browser for an interactive overview of all 84 workflows, domain distribution, provenance policy, and full bibliography.
 
 ## Installation
 
@@ -65,7 +65,7 @@ dagbench docs classic.fft_8     # single workflow
 
 ## Provenance Policy
 
-Every workflow in DAGBench has verified provenance. We use four extraction methods:
+Every workflow in DAGBench has verified provenance. We use five extraction methods:
 
 | Method | Count | Description |
 |--------|-------|-------------|
@@ -73,6 +73,7 @@ Every workflow in DAGBench has verified provenance. We use four extraction metho
 | `programmatic` | 23 | Genuinely sourced from code repositories (RIoTBench from SAGA) or algorithmically generated (classic benchmarks) |
 | `generated` | 17 | Algorithmically generated synthetic patterns (fork-join, stencil, random layered, etc.) |
 | `ai-generated` | 29 | AI-generated task graphs inspired by domain literature. Each cites its inspiration source with notes explaining the relationship |
+| `trace-conversion` | 2 | Converted from measured execution traces of real model code (GPT-2 tensor DAG via dagprofiler). Task costs and edge sizes are profiled measurements |
 
 The 13 `manual-figure` workflows are faithfully extracted from specific figures in published papers or open-source simulator code, with task costs derived from the source's own measurements or proportional estimates. Each workflow's `metadata.yaml` documents exactly which figure/code was extracted and what assumptions were made.
 
@@ -82,7 +83,7 @@ Each workflow also includes an HTML documentation page (`docs.html`) with a Merm
 
 ### Relationship to SAGA
 
-**10 of 82 workflows** are direct snapshots from SAGA's built-in generators, exported verbatim via `scripts/import_from_saga.py`:
+**10 of 84 workflows** are direct snapshots from SAGA's built-in generators, exported verbatim via `scripts/import_from_saga.py`:
 
 | Workflow ID | SAGA Source |
 |-------------|-------------|
@@ -103,7 +104,7 @@ The 4 `scientific.*_like` workflows (e.g. `scientific.montage_like`, `scientific
 
 ## Workflow Catalog
 
-### By Domain (82 workflows)
+### By Domain (84 workflows)
 
 | Domain | Count | Examples |
 |--------|-------|---------|
@@ -118,7 +119,7 @@ The 4 `scientific.*_like` workflows (e.g. `scientific.montage_like`, `scientific
 | Industrial IoT | 4 | Robotic assembly, CNC monitoring, digital twin, energy monitoring |
 | Smart City | 4 | Traffic management, waste, air quality, water distribution |
 | V2X / Vehicular | 2 | Cooperative perception, intersection management |
-| ML Pipelines | 1 | Federated learning |
+| ML Pipelines | 3 | Federated learning, GPT-2 tensor DAG prefill (Sh=12), GPT-2 tensor DAG decode (Sh=12) |
 | UAV / Drone | 1 | Search & rescue |
 | MEC Offloading | 1 | Video analytics |
 | NFV | 1 | 5G UE attach |
@@ -133,6 +134,7 @@ The 4 `scientific.*_like` workflows (e.g. `scientific.montage_like`, `scientific
 | 21-50 tasks | 14 | MapReduce-16m (27), Cholesky-5 (35), branching-4x3 (41) |
 | 51-100 tasks | 5 | Gauss-10 (55), Cholesky-6 (56), random-large-dense (57), FFT-16 (64), random-large-balanced (87) |
 | 101-200 tasks | 2 | FFT-32 (144), random-xlarge (157) |
+| 201-400 tasks | 2 | GPT-2 tensor prefill (327), GPT-2 tensor decode (327) |
 | 1000+ tasks | 1 | Random-XXL (1118) |
 
 ### Complete Workflow List
@@ -186,6 +188,8 @@ The 4 `scientific.*_like` workflows (e.g. `scientific.montage_like`, `scientific
 | mec.sleipnir_navigator | 9 | 13 | 7 | 2 | SLEIPNIR Navigator App |
 | mec.video_analytics | 13 | 14 | 8 | 3 | MEC Video Analytics Pipeline |
 | ml.federated_learning | 19 | 22 | 7 | 5 | Federated Learning Round (5 clients) |
+| ml.gpt2_tensor_sh12_decode | 327 | 614 | 63 | 12 | GPT-2 Tensor DAG Sh12 Decode |
+| ml.gpt2_tensor_sh12_prefill | 327 | 614 | 63 | 12 | GPT-2 Tensor DAG Sh12 Prefill |
 | nfv.ue_attach | 12 | 15 | 8 | 4 | 5G UE Attach Procedure |
 | scientific.blast_like | 19 | 22 | 7 | 5 | BLAST-like Sequence Search Workflow |
 | scientific.epigenomics_like | 19 | 21 | 7 | 4 | Epigenomics-like Genome Workflow |

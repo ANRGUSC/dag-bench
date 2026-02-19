@@ -1,5 +1,5 @@
 version: 0.1.0
-total_workflows: 82
+total_workflows: 84
 workflows:
 - id: agri.crop_disease
   name: Crop Disease Detection
@@ -377,6 +377,22 @@ workflows:
   - ml-pipeline
   num_tasks: 19
   num_edges: 22
+  completeness: full
+- id: ml.gpt2_tensor_sh12_decode
+  name: GPT-2 Tensor DAG Sh12 Decode
+  domains:
+  - ml-pipeline
+  - edge-computing
+  num_tasks: 327
+  num_edges: 614
+  completeness: full
+- id: ml.gpt2_tensor_sh12_prefill
+  name: GPT-2 Tensor DAG Sh12 Prefill
+  domains:
+  - ml-pipeline
+  - edge-computing
+  num_tasks: 327
+  num_edges: 614
   completeness: full
 - id: nfv.ue_attach
   name: 5G UE Attach Procedure

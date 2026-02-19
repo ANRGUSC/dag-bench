@@ -9,6 +9,7 @@ Master list of all sources used to build the DAGBench workflow collection.
 | Source | Type | Workflows | License |
 |--------|------|-----------|---------|
 | [SAGA](https://github.com/anrgusc/saga) (anrg-saga) | Framework | RIoTBench (4), random generators (6) | Non-commercial (USC/ANRG) |
+| [dagprofiler](https://github.com/ANRGUSC/dagprofiler) + [gpt2-dag](https://github.com/ANRGUSC/gpt2-dag) | Profiling tool | GPT-2 tensor DAG prefill/decode (2) | Apache-2.0 |
 
 **SAGA-sourced workflows (10 total):** These workflows are direct snapshots from SAGA's built-in generators, exported verbatim via `scripts/import_from_saga.py`. Their task graphs, costs, and edge weights are identical to what SAGA produces at runtime.
 
@@ -67,6 +68,7 @@ These DAGs were faithfully extracted from open-source simulator source code:
 
 ### ML Pipelines
 
+- **Radford et al. 2019** (`ml.gpt2_tensor_sh12_prefill`, `ml.gpt2_tensor_sh12_decode`): Radford, A., Wu, J., Child, R., Luan, D., Amodei, D., Sutskever, I. (2019). "Language Models are Unsupervised Multitask Learners." OpenAI technical report. Based on the [Hugging Face transformers](https://github.com/huggingface/transformers) implementation of GPT-2 (Apache-2.0), profiled via [dagprofiler](https://github.com/ANRGUSC/dagprofiler). DAG implementation: [gpt2-dag](https://github.com/ANRGUSC/gpt2-dag). Extraction method: `trace-conversion` — task costs and edge sizes are measured values from actual execution traces.
 - **Nalinipriya et al. 2024** (no DAG match): Nalinipriya, G. et al. (2024). "Optimal directed acyclic graph federated learning model for energy-efficient IoT communication networks." *Scientific Reports*. DOI: [10.1038/s41598-024-71995-y](https://doi.org/10.1038/s41598-024-71995-y)
 
 ### Telecom / 5G
